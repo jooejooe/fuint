@@ -6,7 +6,7 @@
 #### 软件架构
 JAVA + MYSQL
 
-<p><img src="https://gitee.com/fuint/fuint/blob/master/screenshots/home.png" alt="首页"></p>
+<p><img src="/fuint/fuint/raw/master/screenshots/home.png" alt="首页"></p>
 
 #### 安装教程
 
