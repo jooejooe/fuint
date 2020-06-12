@@ -6,7 +6,7 @@
 #### 软件架构
 JAVA + MYSQL
 
-<p><img src="/fuint/fuint/screenshots/home.png" alt="首页"></p>
+<p><img src="https://gitee.com/fuint/fuint/blob/master/screenshots/home.png" alt="首页"></p>
 
 #### 安装教程
 
@@ -14,7 +14,7 @@ JAVA + MYSQL
 2.  修改配置文件
 3.  把war包放入tomcat中
 
-<p><img src="/fuint/fuint/screenshots/coupon-list.png" alt="列表界面"></p>
+<p><img src="https://gitee.com/fuint/fuint/blob/master/screenshots/coupon-list.png" alt="列表界面"></p>
 
 #### 前台使用说明
 
@@ -22,7 +22,7 @@ JAVA + MYSQL
 2.  领券
 3.  核销优惠券
 
-<p><img src="/fuint/fuint/screenshots/create.png" alt="创建界面"></p>
+<p><img src="https://gitee.com/fuint/fuint/blob/master/screenshots/create.png" alt="创建界面"></p>
 
 #### 后台使用
 1.  会员管理
@@ -32,7 +32,7 @@ JAVA + MYSQL
 5.  系统配置
 6.  店铺管理
 
-<p><img src="/fuint/fuint/screenshots/login.png" alt="登录界面"></p>
+<p><img src="https://gitee.com/fuint/fuint/blob/master/screenshots/login.png" alt="登录界面"></p>
 
 
 #### 后续功能迭代
