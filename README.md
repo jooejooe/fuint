@@ -1,37 +1,35 @@
 # fuint
 
 #### 介绍
-开源电子卡券系统
+欢迎使用FuInt会员卡券系统，您的优惠券、预存券、红包等卡券大管家！ 
 
 #### 软件架构
-软件架构说明
+JAVA + MYSQL
 
 
 #### 安装教程
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+1.  导入数据库
+2.  修改配置文件
+3.  把war包放入tomcat中
 
-#### 使用说明
+#### 前台使用说明
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+1.  登录
+2.  领券
+3.  核销优惠券
 
-#### 参与贡献
+#### 后台使用
 
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
+1.  优惠券管理
+2.  会员管理
+3.  短信管理
+4.  系统配置
 
 
-#### 码云特技
+#### 后续功能迭代
 
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  码云官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解码云上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是码云最有价值开源项目，是码云综合评定出的优秀开源项目
-5.  码云官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  码云封面人物是一档用来展示码云会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+1.  预存券
+2.  红包
+
+联系我，qq：540335306
