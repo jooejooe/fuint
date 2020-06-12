@@ -6,7 +6,7 @@
 #### 软件架构
 JAVA + MYSQL
 
-<p><img src="screenshots/coupon-list" alt="首页"></p>
+<p><img src="screenshots/coupon-list.png" alt="首页"></p>
 
 #### 安装教程
 
