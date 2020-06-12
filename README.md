@@ -6,7 +6,7 @@
 #### 软件架构
 JAVA + MYSQL
 
-<p><img src="screenshots/home.png" alt="首页"></p>
+<p><img src="screenshots/coupon-list" alt="首页"></p>
 
 #### 安装教程
 
@@ -14,7 +14,6 @@ JAVA + MYSQL
 2.  修改配置文件
 3.  把war包放入tomcat中
 
-<p><img src="screenshots/coupon-list.png" alt="列表界面"></p>
 
 #### 前台使用说明
 
@@ -31,8 +30,6 @@ JAVA + MYSQL
 4.  短信管理
 5.  系统配置
 6.  店铺管理
-
-<p><img src="screenshots/login.png" alt="登录界面"></p>
 
 
 #### 后续功能迭代
