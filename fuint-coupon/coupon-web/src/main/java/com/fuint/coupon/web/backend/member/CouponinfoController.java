@@ -33,8 +33,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -43,7 +41,7 @@ import static com.fuint.coupon.util.XlsUtil.objectConvertToString;
 
 /**
  * 会员优惠券控制器controller
- * Created by zach on 2019-09-12
+ * Created by zach on 2020-08-12
  */
 @Controller
 @RequestMapping(value = "/backend/member")

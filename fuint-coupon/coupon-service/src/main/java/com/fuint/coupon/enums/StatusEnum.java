@@ -3,7 +3,7 @@ package com.fuint.coupon.enums;
 /**
  * 活动状态枚举
  * <p/>
- * Created by zach on 2019-09-05.
+ * Created by zach on 2020-08-05.
  */
 public enum StatusEnum {
 

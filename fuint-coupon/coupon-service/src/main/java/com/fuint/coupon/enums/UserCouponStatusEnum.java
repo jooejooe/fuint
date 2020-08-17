@@ -3,7 +3,7 @@ package com.fuint.coupon.enums;
 /**
  * 用户优惠券状态 状态：A：未使用；B：已使用；C：已过期; D：已作废
  * <p/>
- * Created by zach on 2019-09-12.
+ * Created by zach on 2020-08-12.
  */
 public enum UserCouponStatusEnum {
 

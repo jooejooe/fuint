@@ -49,10 +49,6 @@ public class homeController {
     @RequestMapping(value = "/statistic")
     @ResponseBody
     public ResponseObject statistic(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException {
-
-        // prestore_in,prestore_spend,coupon_get,coupon_spend
-        String tag = request.getParameter("tag");
-
         Map<String, Object> resultMap = new HashMap<>();
 
         String label[] = {"4月6日", "4月7日", "4月8日", "4月9日", "4月10日", "昨天", "今天"};

@@ -193,7 +193,6 @@ public class MemberController {
     @RequiresPermissions("backend/member/create")
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String addstoreHandler(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException {
-
         MtUser tmemberInfo = (MtUser) RequestHandler.createBean(request, new MtUser());
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -208,20 +207,14 @@ public class MemberController {
         if (StringUtils.isEmpty(tmemberInfo.getMobile())) {
             throw new BusinessRuntimeException("手机号码不能为空");
         } else {
-            MtUser tempUser = null;
-
-            //不是edit
             if (tmemberInfo.getId() == null) {
-                tempUser = memberService.queryMemberByMobile(tmemberInfo.getMobile());
-
-            }else{
+                MtUser tempUser = memberService.queryMemberByMobile(tmemberInfo.getMobile());
+                if (null != tempUser) {
+                    throw new BusinessCheckException("该会员手机号码已经存在!");
+                }
+            } else {
                 tmemberInfo.setUpdateTime(currentDT);
             }
-
-            if (null != tempUser) {
-                throw new BusinessCheckException("该会员手机号码已经存在!");
-            }
-
         }
         memberService.addMember(tmemberInfo);
 
@@ -239,9 +232,7 @@ public class MemberController {
     @RequiresPermissions("backend/member/memberEditInit/{id}")
     @RequestMapping(value = "/memberEditInit/{id}")
     public String storeRuleEditInit(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable("id") Integer id) throws BusinessCheckException {
-        MtUser mtUserInfo;
-
-        mtUserInfo = memberService.queryMemberById(id);
+        MtUser mtUserInfo = memberService.queryMemberById(id);
         model.addAttribute("member", mtUserInfo);
 
         return "member/member_edit";
