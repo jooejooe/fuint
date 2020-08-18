@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/fuint-base/fuint-base.iml" filepath="$PROJECT_DIR$/fuint-base/fuint-base.iml" />
+      <module fileurl="file://$PROJECT_DIR$/fuint-cache/fuint-cache.iml" filepath="$PROJECT_DIR$/fuint-cache/fuint-cache.iml" />
+      <module fileurl="file://$PROJECT_DIR$/fuint-component/fuint-component.iml" filepath="$PROJECT_DIR$/fuint-component/fuint-component.iml" />
+      <module fileurl="file://$PROJECT_DIR$/fuint-core/fuint-core.iml" filepath="$PROJECT_DIR$/fuint-core/fuint-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/fuint-framework.iml" filepath="$PROJECT_DIR$/fuint-framework.iml" />
+      <module fileurl="file://$PROJECT_DIR$/fuint-parent/fuint-parent.iml" filepath="$PROJECT_DIR$/fuint-parent/fuint-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/fuint-security/fuint-security.iml" filepath="$PROJECT_DIR$/fuint-security/fuint-security.iml" />
+      <module fileurl="file://$PROJECT_DIR$/fuint-util/fuint-util.iml" filepath="$PROJECT_DIR$/fuint-util/fuint-util.iml" />
+    </modules>
+  </component>
+</project>

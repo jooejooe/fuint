@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="application-core" />
+        <module name="application-dao" />
+        <module name="application-service" />
+        <module name="application-web" />
+        <module name="coupon-core" />
+        <module name="coupon-dao" />
+        <module name="coupon-service" />
+        <module name="coupon-web" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="application-core" target="1.8" />
+      <module name="application-dao" target="1.8" />
+      <module name="application-service" target="1.8" />
+      <module name="application-web" target="1.8" />
+      <module name="coupon-core" target="1.5" />
+      <module name="coupon-dao" target="1.5" />
+      <module name="coupon-service" target="1.5" />
+      <module name="coupon-web" target="1.5" />
+      <module name="fuint-application" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

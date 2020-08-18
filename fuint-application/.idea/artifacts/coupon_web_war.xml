@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="coupon-web:war">
+    <output-path>$PROJECT_DIR$/application-web/target</output-path>
+    <root id="archive" name="coupon-web.war">
+      <element id="artifact" artifact-name="coupon-web:war exploded" />
+    </root>
+  </artifact>
+</component>
