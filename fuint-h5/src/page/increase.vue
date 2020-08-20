@@ -38,7 +38,7 @@
             <div class="text">已选择<span>{{ totalNum }}</span>张券</div>
             <div class="text">面额总计<span>￥{{ totalMoney.toFixed(2) }}</span></div>
           </div>
-          <div class="btn fBtn" @click="toIncrease()">进行转赠</div>
+          <div class="btn fBtn" @click="toIncrease()">确定转赠</div>
         </div>
       </transition>
       <increase-dialog ref='increaseDialog' @listenDialog='listenDialog'></increase-dialog>
@@ -92,7 +92,7 @@ export default {
     }
   },
   created () {
-    document.title = '转赠 - FuInt卡券管家'
+    document.title = '转赠 - FuInt会员卡券'
   },
   mounted () {
     let self = this

@@ -10,6 +10,7 @@ const resultComponent = r => require.ensure([], () => r(require('@/page/result')
 const increaseComponent = r => require.ensure([], () => r(require('@/page/increase')), 'increase_page')
 const increaseDetailComponent = r => require.ensure([], () => r(require('@/page/increaseDetail')), 'increaseDetail_page')
 const aboutComponent = r => require.ensure([], () => r(require('@/page/about')), 'about_page')
+const userHomeComponent = r => require.ensure([], () => r(require('@/page/userHome/userHome')), 'userHome_page')
 
 const routes = [{
   path: '/',
@@ -42,6 +43,10 @@ const routes = [{
   path: '/about',
   component: aboutComponent,
   name: 'about'
+}, {
+  path: '/userHome',
+  component: userHomeComponent,
+  name: 'userHome'
 }]
 let router = new Router({
 	routes

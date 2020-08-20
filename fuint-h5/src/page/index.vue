@@ -2,14 +2,15 @@
   <transition name="slide-fade">
     <div class="wrap">
       <div class="limheader">
-        <span>{{ mobile }}<i class="hna" v-show="isHna === '1'">HNA</i></span>
+        <span>{{ mobile }}<i class="hna" v-show="isVip === '1'">VIP</i></span>
         <i class="menu" @click.stop="toShowBtn"></i>
       </div>
       <div class="menuBtn" v-show="showBtn">
-        <span @click="logout">退出账号</span>
+        <span @click="toJump('/userHome')">个人中心</span>
         <span @click="toJump('/increase')">转赠卡券</span>
         <span @click="toJump('/increaseDetail')">转赠明细</span>
         <span @click="toJump('/about')">关于我们</span>
+        <span @click="logout">退出账号</span>
       </div>
       <div class="navbar">
         <div class="nav" v-for="(item, index) in navData" :key="index" @click='navEvent(index)' :class="{'on': item.pick}">{{ item.name }}</div>
@@ -89,7 +90,7 @@ export default {
     }
   },
   created () {
-    document.title = '我的卡券 - FuInt卡券管家'
+    document.title = '我的卡券 - FuInt会员卡券'
   },
   mounted () {
     let self = this
@@ -131,7 +132,7 @@ export default {
         ).catch(error => {
           this.$MessageBox({
             title: '温馨提示',
-            message: '系统繁忙，请稍后重试', // 提示的内容，作为参数，传进来
+            message: '系统繁忙，请稍后重试', // 提示的内容，作为参数，传进来9
             closeOnClickModal: true	// 表示不只是点击确定按钮才能关闭弹窗，点击页面的任何地方都可以关闭弹窗
           })
         })
@@ -500,7 +501,7 @@ export default {
                 .liBtn{
                   display: flex;
                   align-items: center;
-                  width: 1.45rem;
+                  width: 1.1rem;
                   height: .45rem;
                   font-size: .22rem;
                   border-radius: 4px !important;

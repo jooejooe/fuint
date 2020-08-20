@@ -1,0 +1,59 @@
+.wrap{
+  height: 100%;
+  width: 100%;
+  background: #f1f1f1;
+  .baise{
+    background: #00acac;
+    height:3.6rem;
+    margin:0.2rem;
+    border-radius: 0.1rem;
+    .member-info{
+      font-size: .2rem;
+      color:#fff;
+      height: .8rem;
+      .member-type{
+        border: #fff solid 1px;
+        width: 1.0rem;
+        margin:.3rem;
+        float: left;
+        border-radius: 2px;
+      }
+      .member-no{
+        float: left;
+        margin-top:.36rem;
+        font-weight: bold;
+      }
+    }
+    .member-amount{
+         color: #fff;
+         margin-top:.6rem;
+        .amount-tip{
+            font-size:.2rem;
+            clear:both;
+        }
+        .amount{
+            font-size:.8rem;
+        }
+    }
+  }
+  .main-tool{
+    background: #fff;
+    height: 1.5rem;
+    border-radius: .1rem;
+    border: #ccc solid 1px;
+    margin:.2rem;
+    font-size:.3rem;
+    padding-top: .4rem;
+    .tool{
+      width: 33.33%;
+      float: left;
+      .number{
+        font-weight: bold;
+        font-size: .4rem;
+      }
+      .text{
+        font-size: .2rem;
+      }
+    }
+  }
+}

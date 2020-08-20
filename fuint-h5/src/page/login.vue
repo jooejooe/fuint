@@ -49,7 +49,7 @@ export default {
     console.log(this.jumpQuery)
   },
   created () {
-    document.title = '登录 - FuInt卡券管家'
+    document.title = '登录 - FuInt会员卡券'
   },
   methods: {
     // 输入框重置
@@ -166,9 +166,9 @@ export default {
       display: block;
       margin: 0 auto;
       margin-top: .8rem;
-      height: 2.45rem;
-      width: 2.45rem;
-      border: #02c7c7 .1rem solid;
+      height: 1.5rem;
+      width: 1.5rem;
+      border: #02c7c7 .05rem solid;
       background: url('../assets/images/logo.png') no-repeat center center;
       border-radius: 2.5rem;
       background-size: contain;
@@ -211,25 +211,27 @@ export default {
           }
         }
         input{
-          width: 100%;
+          width: 2.6rem;
           outline: 0px;
           border: 0px;
           height: 40px;
+          overflow: hidden;
           line-height: 40px;
           font-size: .3rem;
+          backend:red;
         }
         .loginBtn{
           font-size: .34rem;
-          // font-weight: 600;
+          font-weight: 600;
           width: 100%;
           height: .76rem;
         }
         .validBtn{
           flex-shrink: 0;
           padding: 0 .1rem;
-          width: 2.28rem;
-          height: .76rem;
-          font-size: .3rem;
+          width: 1.6rem;
+          height: .50rem;
+          font-size: .23rem;
         }
         .disBtn{
           color: #ababab;

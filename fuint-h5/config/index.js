@@ -11,13 +11,12 @@ module.exports = {
         assetsSubDirectory: 'static',
         assetsPublicPath: '/',
         proxyTable: {
-            // http://localhost:8080/fuint-coupon/login
-            // 接口代理信息
-            '/fuint-coupon/': {
+            // 接口代理信息.
+            '/fuint-application/': {
                 target: 'http://localhost:8080/',
                 changeOrigin: true,
                 pathRewrite: {
-                    '^/fuint-coupon/': '/fuint-coupon/'
+                    '^/fuint-application/': '/fuint-application/'
                 }
             }
         },

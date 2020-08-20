@@ -53,7 +53,7 @@ export default {
     }
   },
   created () {
-    document.title = '结果 - FuInt卡券管家'
+    document.title = '结果 - FuInt会员卡券'
   },
   destroyed () {
     Indicator.close()

@@ -136,10 +136,9 @@ export default {
         font-size: .24rem;
       }
       img{
-        width: 1.84rem;
-        height: 1.84rem;
+        width: 2.2rem;
+        height: 2.2rem;
         margin: 0 auto;
-        margin-top: .4rem;
       }
     }
   }

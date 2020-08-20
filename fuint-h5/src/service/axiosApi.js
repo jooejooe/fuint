@@ -41,7 +41,7 @@ axios.interceptors.response.use(response => {
 
 // axios全局修改的变量
 // 请求的url的基础url，将和url拼接请求
-axios.defaults.baseURL = '/fuint-coupon'
+axios.defaults.baseURL = '/fuint-application'
 // axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 

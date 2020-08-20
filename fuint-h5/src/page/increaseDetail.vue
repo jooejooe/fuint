@@ -75,7 +75,7 @@ export default {
     }
   },
   created () {
-    document.title = '转赠明细 - FuInt卡券管家'
+    document.title = '转赠明细 - FuInt会员卡券'
   },
   mounted () {
     let self = this

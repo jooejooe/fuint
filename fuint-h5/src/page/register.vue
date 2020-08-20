@@ -52,7 +52,7 @@ export default {
     this.getStoreList()
   },
   created () {
-    document.title = '注册 - FuInt卡券管家'
+    document.title = '注册 - FuInt会员卡券'
   },
   methods: {
     // 输入框重置

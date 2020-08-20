@@ -1,7 +1,7 @@
 <template>
   <transition name="slide-fade">
     <div class="wrap">
-      <p class="title">关于FuInt会员卡券管家</p>
+      <p class="title">关于FuInt会员会员卡券</p>
       <p class="subTit">一、包含模块</p>
       <table>
         <tr>
