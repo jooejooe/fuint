@@ -1,12 +1,8 @@
 # fuint电子卡券系统
 
 #### 介绍
-欢迎使用FuInt会员卡券系统，您的优惠券、预存券、红包等卡券大管家！ 一下是h5的页面展示：
-<p>
-	<img style="float:left;width:375px;height:600px;" src="screenshots/f2.png" alt="用户优惠券">
-	<img style="float:left;width:375px;height:600px;" src="screenshots/f3.png" alt="卡券核销">
-	<img style="float:left;width:375px;height:600px;" src="screenshots/f4.png" alt="卡券转赠">
-</p>
+欢迎使用FuInt会员卡券系统，您的优惠券、预存券、红包等卡券大管家！ 以下是h5的页面展示：
+<p><img src="screenshots/f1.png" alt="卡券h5页面"></p>
 
 
 #### 软件架构
@@ -43,4 +39,4 @@ JAVA + MYSQL
 1.  集次卡
 2.  红包
 
-不足和待完善之处请谅解！如遇到问题，可联系我wx：fsq_better。
+不足和待完善之处请谅解！如需二次开发或更多功能，可联系我们wx：fsq_better。
