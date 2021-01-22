@@ -136,7 +136,7 @@ public class ConfirmController extends BaseController {
         ResponseObject responseObject;
         Map<String, Object> outparams = new HashMap<String, Object>();
         outparams.put("result", true);
-        outparams.put("money", couponInfo.getMoney());
+        outparams.put("money", couponInfo.getAmount());
         String tips = "";
         outparams.put("tips", tips);
         outparams.put("name", couponInfo.getName());

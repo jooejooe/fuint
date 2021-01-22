@@ -5,8 +5,8 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * 优惠券请求DTO
- * Created by zach on 2019/8/6.
+ * 卡券请求DTO
+ * Created by zach on 2020/8/6.
  */
 public class ReqCouponDto implements Serializable {
     /**
@@ -18,6 +18,11 @@ public class ReqCouponDto implements Serializable {
      * 分组ID
      * */
     private Integer group_id;
+
+    /**
+     * 类型
+     */
+    private String type;
 
     /**
      * 名称
@@ -37,12 +42,12 @@ public class ReqCouponDto implements Serializable {
     /**
      * 价值金额
      * */
-    private BigDecimal money;
+    private BigDecimal amount;
 
     /**
      * 发行数量
      * */
-     private Integer total;
+     private Integer send_num;
 
      /**
       * 例外时间
@@ -105,6 +110,14 @@ public class ReqCouponDto implements Serializable {
         this.group_id = group_id;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     public String getName() {
         return name;
     }
@@ -129,20 +142,20 @@ public class ReqCouponDto implements Serializable {
         this.end_time = end_time;
     }
 
-    public BigDecimal getMoney() {
-        return money;
+    public BigDecimal getAmount() {
+        return amount;
     }
 
-    public void setMoney(BigDecimal money) {
-        this.money = money;
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
     }
 
-    public Integer getTotal() {
-        return total;
+    public Integer getSendNum() {
+        return send_num;
     }
 
-    public void setTotal(Integer total) {
-        this.total = total;
+    public void setSendNum(Integer send_num) {
+        this.send_num = send_num;
     }
 
     public String getExceptTime() {

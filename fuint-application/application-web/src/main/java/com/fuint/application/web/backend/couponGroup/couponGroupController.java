@@ -244,13 +244,7 @@ public class couponGroupController {
      */
     @RequiresPermissions("backend/couponGroup/create")
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String createHandler(HttpServletRequest request, HttpServletResponse response,
-                                     Model model, ReqCouponGroupDto reqCouponGroupDto) throws BusinessCheckException {
-
-        if (StringUtil.isEmpty(reqCouponGroupDto.getType())) {
-            throw new BusinessCheckException("分组类型不能为空，请修改");
-        }
-
+    public String createHandler(HttpServletRequest request, HttpServletResponse response, Model model, ReqCouponGroupDto reqCouponGroupDto) throws BusinessCheckException {
         if (reqCouponGroupDto.getTotal() < 1) {
             throw new BusinessCheckException("发行量不能小于1，请修改");
         }
@@ -305,13 +299,7 @@ public class couponGroupController {
      */
     @RequiresPermissions("backend/couponGroup/update")
     @RequestMapping(value = "/update")
-    public String couponGroupUpdate(HttpServletRequest request, HttpServletResponse response,
-                                    Model model, ReqCouponGroupDto reqCouponGroupDto) throws BusinessCheckException {
-
-        if (StringUtil.isEmpty(reqCouponGroupDto.getType())) {
-            throw new BusinessCheckException("分组类型不能为空，请修改");
-        }
-
+    public String couponGroupUpdate(HttpServletRequest request, HttpServletResponse response, Model model, ReqCouponGroupDto reqCouponGroupDto) throws BusinessCheckException {
         String total = reqCouponGroupDto.getTotal().toString();
         Pattern pattern = Pattern.compile("[0-9]*");
         if (total == null || (!pattern.matcher(total).matches()) || reqCouponGroupDto.getTotal() < 1) {
@@ -448,8 +436,8 @@ public class couponGroupController {
 
             List<MtCoupon> couponList = couponService.queryCouponListByGroupId(Long.parseLong(groupId));
             for (MtCoupon coupon : couponList) {
-                totalNum = totalNum + (coupon.getTotal()*Integer.parseInt(num));
-                totalMoney = totalMoney.add((coupon.getMoney().multiply(new BigDecimal(num).multiply(new BigDecimal(coupon.getTotal())))));
+                totalNum = totalNum + (coupon.getSendNum()*Integer.parseInt(num));
+                totalMoney = totalMoney.add((coupon.getAmount().multiply(new BigDecimal(num).multiply(new BigDecimal(coupon.getSendNum())))));
             }
 
             Map<String, String> params = new HashMap<>();

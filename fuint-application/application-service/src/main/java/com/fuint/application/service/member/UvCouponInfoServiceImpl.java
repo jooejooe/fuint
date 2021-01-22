@@ -142,7 +142,7 @@ public class UvCouponInfoServiceImpl implements UvCouponInfoService {
                 "\t`mt_user`.`REAL_NAME` AS `REAL_NAME`,\n" +
                 "  CONCAT(',',`mt_coupon`.STORE_IDS,',') AS SUIT_STORE_IDS,\n" +
                 "\t`mt_coupon`.`NAME` AS `coupon_name`,\n" +
-                "\t`mt_coupon`.`MONEY` AS `MONEY`,\n" +
+                "\t`mt_coupon`.`AMOUNT` AS `MONEY`,\n" +
                 "\t`mt_coupon`.`GROUP_ID` AS `GROUP_ID`,\n" +
                 "\t`mt_coupon`.`STATUS` AS `coupon_status`,\n" +
                 "  `mt_coupon`.`BEGIN_TIME`,\n" +

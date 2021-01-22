@@ -16,6 +16,7 @@ import com.fuint.application.service.coupon.CouponService;
 import com.fuint.application.service.coupongroup.CouponGroupService;
 import com.fuint.application.service.store.StoreService;
 import com.fuint.application.service.sendlog.SendLogService;
+import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
@@ -145,7 +146,6 @@ public class couponController extends BaseController{
     public String queryList(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException {
         PaginationRequest paginationRequest = RequestHandler.buildPaginationRequest(request, model);
         PaginationResponse<MtCoupon> paginationResponse = couponService.queryCouponListByPagination(paginationRequest);
-
         List<MtCoupon> dataList = paginationResponse.getContent();
         List<ContentDto> storeMap = new ArrayList<>();
         List<MtCouponGroup> groupMap = new ArrayList<>();
@@ -157,13 +157,6 @@ public class couponController extends BaseController{
                 g.setId(groupInfo.getId());
                 g.setName(groupInfo.getName());
                 g.setTotal(groupInfo.getTotal());
-
-                // 取券类型
-                if (GroupTypeEnum.PRESTORE.getKey().equals(groupInfo.getType())) {
-                    g.setType(GroupTypeEnum.PRESTORE.getValue());
-                } else {
-                    g.setType(GroupTypeEnum.COUPON.getValue());
-                }
 
                 Boolean isInGroup = false;
                 for (MtCouponGroup gg : groupMap) {

@@ -125,8 +125,6 @@ public class CouponGroupServiceImpl implements CouponGroupService {
         //更新时间
         couponGroup.setUpdateTime(new Date());
 
-        couponGroup.setType(reqCouponGroupDto.getType());
-
         couponGroup.setNum(0);
 
         //操作人
@@ -240,12 +238,11 @@ public class CouponGroupServiceImpl implements CouponGroupService {
         BigDecimal money = BigDecimal.valueOf(0);
         if (couponList.size() > 0) {
             for (int i=0; i<couponList.size(); i++) {
-                BigDecimal number = couponList.get(i).getMoney().multiply(BigDecimal.valueOf(couponList.get(i).getTotal()));
-                number = number.multiply(BigDecimal.valueOf(groupInfo.getTotal()));
-                money = money.add(number);
+               BigDecimal number = couponList.get(i).getAmount().multiply(BigDecimal.valueOf(couponList.get(i).getSendNum()));
+               number = number.multiply(BigDecimal.valueOf(groupInfo.getTotal()));
+               money = money.add(number);
             }
         }
-
         return money;
     }
 
@@ -267,7 +264,7 @@ public class CouponGroupServiceImpl implements CouponGroupService {
         Long num = (Long)obj[1];
 
         MtCoupon couponInfo = couponRepository.findOne(couponId);
-        Integer totalNum = num.intValue() / couponInfo.getTotal();
+        Integer totalNum = num.intValue() / couponInfo.getSendNum();
 
         return totalNum > 0 ? totalNum : 0;
     }
@@ -459,8 +456,8 @@ public class CouponGroupServiceImpl implements CouponGroupService {
 
                     // 累加总张数、总价值
                     for (MtCoupon coupon : couponList) {
-                         totalNum = totalNum + (coupon.getTotal()*cellDto.getNum().get(gid));
-                         totalMoney = totalMoney.add((coupon.getMoney().multiply(new BigDecimal(cellDto.getNum().get(gid)).multiply(new BigDecimal(coupon.getTotal())))));
+                         totalNum = totalNum + (coupon.getSendNum()*cellDto.getNum().get(gid));
+                         totalMoney = totalMoney.add((coupon.getAmount().multiply(new BigDecimal(cellDto.getNum().get(gid)).multiply(new BigDecimal(coupon.getSendNum())))));
                     }
                 }
 
@@ -496,7 +493,6 @@ public class CouponGroupServiceImpl implements CouponGroupService {
         } catch (BusinessCheckException e) {
             throw new BusinessCheckException(e.getMessage());
         }
-
         return uuid;
     }
 

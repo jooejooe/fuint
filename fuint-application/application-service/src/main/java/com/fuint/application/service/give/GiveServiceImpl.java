@@ -297,7 +297,7 @@ public class GiveServiceImpl extends BaseService implements GiveService {
                 groupNames.add(group.getName());
             }
 
-            money = money.add(coupon.getMoney());
+            money = money.add(coupon.getAmount());
             if (null == userCoupon) {
                 throw new BusinessCheckException("转增优惠券不存在");
             } else {

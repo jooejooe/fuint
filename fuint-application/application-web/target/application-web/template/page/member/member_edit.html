@@ -8,42 +8,23 @@
     </div>
     <div class="panel-body">
         <form class="form-horizontal" id="memberForm" name="memberForm" action="" method="post">
+            <input type="hidden" id="id" name="id" placeholder="会员号" value="${member.id}">
             <div class="form-group">
-                <label class="col-md-3 control-label">*会员ID：</label>
-
+                <label class="col-md-3 control-label">手机号：</label>
                 <div class="col-md-9">
-                    <input type="hidden" id="id"  name="id" placeholder="会员号" value="${member.id}">
-                    <label class="control-label">${member.id}</label>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-md-3 control-label">*手机号：</label>
-
-                <div class="col-md-9">
-                    <input type="hidden" id="mobile"  name="mobile" placeholder="手机号" value="${member.mobile}">
-                     <label class="control-label">${member.mobile}</label>
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-md-3 control-label">创建时间：</label>
-
-                <div class="col-md-9">
-                    <input type="hidden" id="createTime"  name="createTime" placeholder="创建时间" value="${member.createTime}">
-                    <label class="control-label">${member.createTime}</label>
+                    <input type="text" id="mobile" class="form-control" name="mobile" placeholder="手机号"
+                           maxlength="20" value="${member.mobile}">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-md-3 control-label">真实姓名：</label>
-
                 <div class="col-md-9">
                     <input type="text" id="realName" class="form-control" name="realName" placeholder="真实姓名 最长20位"
                            maxlength="20" value="${member.realName}" >
                 </div>
             </div>
-
             <div class="form-group">
-                <label class="col-md-3 control-label">状态</label>
-
+                <label class="col-md-3 control-label">状态：</label>
                 <div class="col-md-9">
                     <select class="form-control" name="status" id="status">
                         <option value="A" <#if member.status == "A" > selected</#if>>已激活</option>
@@ -51,10 +32,15 @@
                     </select>
                 </div>
             </div>
-
+            <div class="form-group">
+                <label class="col-md-3 control-label">创建时间：</label>
+                <div class="col-md-9">
+                    <input type="hidden" id="createTime"  name="createTime" placeholder="创建时间" value="${member.createTime}">
+                    <label class="control-label">${member.createTime}</label>
+                </div>
+            </div>
             <div class="form-group">
                 <label class="col-md-3 control-label">备注信息：</label>
-
                 <div class="col-md-9">
                     <textarea rows="5" class="form-control" id="description" name="description"
                               maxlength="500" placeholder="备注信息">${member.description}</textarea>
@@ -62,7 +48,6 @@
             </div>
             <div class="form-group">
                 <label class="col-md-3 control-label"></label>
-
                 <div class="col-md-9">
                     <button type="button" id="submitButton" class="btn btn-sm btn-success">提交</button>
                     <button type="button" class="btn btn-sm btn-danger"

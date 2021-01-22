@@ -3,12 +3,12 @@ package com.fuint.application.enums;
 /**
  * 分组类型
  * <p/>
- * Created by zach on 2020/4/29.
+ * Created by zach on 2021/1/19.
  */
 public enum GroupTypeEnum {
-
     COUPON("C", "优惠券"),
-    PRESTORE("P", "预存卡");
+    PRESTORE("P", "预存卡"),
+    TIMER("T", "集次卡");
 
     private String key;
 

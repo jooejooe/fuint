@@ -3,12 +3,11 @@
         <h4 class="panel-title">优惠分组列表</h4>
     </div>
     <div class="panel-body">
-        <table class="table table-striped">
+        <table class="table table-striped table-bordered">
             <thead>
             <tr>
                 <th style="width: 10%">分组ID</th>
                 <th style="width: 10%">分组名称</th>
-                <th style="width: 10%">类型</th>
                 <th style="width: 10%">卡券数</th>
                 <th style="width: 10%">发行套数</th>
                 <th style="width: 10%">创建时间</th>
@@ -21,7 +20,6 @@
                 <tr>
                     <td> ${ct.id}</td>
                     <td> ${ct.name}</td>
-                    <td> <#if (ct.type == 'P')>预存卡<#else>优惠券</#if></td>
                     <td> <#if (ct.num > 0)>${ct.num} <#else> 0 </#if></td>
                     <td>
                         ${ct.total}
@@ -50,14 +48,10 @@
                     </td>
                     <td> ${ct.createTime}</td>
                     <td>
-                        <#if ct.status == "D">
-                        <span class="label label-success small-btn"><i class="fa fa-trash"></i>已删除</span>
-                        <#else>
                         <a class="label label-success small-btn" href="javascript:getData('${rc.contextPath}/backend/coupon/index?EQ_groupId=${ct.id}','displayArea');" title="卡券"><i class="fa fa-file-text"></i>卡券</a>
                         <a class="label label-success small-btn" href="javascript:getData('${rc.contextPath}/backend/couponGroup/couponGroupEditInit/${ct.id}','displayArea')" title="编辑"><i class="fa fa-edit"></i>编辑</a>
-                        <a class="label label-success small-btn" href="javascript:sendCoupon('${ct.id}');" title="发券"><i class="fa fa-plus"></i>发券</a>
+                        <a class="label label-success small-btn" href="javascript:sendCoupon('${ct.id}');" title="发放"><i class="fa fa-plus"></i>发放</a>
                         <a class="label label-danger small-btn" href="javascript:removeCouponGroup('${ct.id}')" title="删除"><i class="fa fa-remove"></i>删除</a>
-                        </#if>
                     </td>
                 </tr>
                 </#list>

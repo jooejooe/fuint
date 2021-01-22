@@ -23,11 +23,6 @@ public class ReqCouponGroupDto implements Serializable {
     private BigDecimal money;
 
     /**
-     * 类型
-     */
-    private String type;
-
-    /**
      * 发行数量
      * */
      private Integer total;
@@ -69,14 +64,6 @@ public class ReqCouponGroupDto implements Serializable {
 
     public void setMoney(BigDecimal money) {
         this.money = money;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public Integer getTotal() {

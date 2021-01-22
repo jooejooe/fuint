@@ -15,6 +15,7 @@
                 <input type="text" placeholder="分组ID" class="form-control" style="width: 100%" id="EQ_groupId" name="EQ_groupId">
             </div>
             </#if>
+            <input id="EQ_status" type="hidden" name="EQ_status" value="A">
             <div class="form-group m-r-10">
                     <input type="text" placeholder="卡券ID" class="form-control" style="width: 100%" id="EQ_id" name="EQ_id">
             </div>
@@ -34,7 +35,7 @@
                 <button type="button"
                         class="btn btn-danger btn-sm"
                         onclick="getData('${rc.contextPath}/backend/coupon/add?groupId=${EQ_groupId}','displayArea')">
-                    <i class="fa fa-plus"></i>新增
+                    <i class="fa fa-plus"></i>新增卡券
                 </button>
             </div>
         </form>

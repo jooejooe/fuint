@@ -39,12 +39,6 @@ public class MtCouponGroup implements Serializable{
     private BigDecimal money;
 
    /**
-    * 分组类型
-    */ 
-    @Column(name = "TYPE", length = 10)
-    private String type;
-
-   /**
     * 种类数量
     */
    @Column(name = "NUM", length = 10)
@@ -103,12 +97,6 @@ public class MtCouponGroup implements Serializable{
     }
     public void setMoney(BigDecimal money){
     this.money=money;
-    }
-    public String getType(){
-        return type;
-    }
-    public void setType(String type){
-    this.type=type;
     }
     public Integer getNum(){
            return num;

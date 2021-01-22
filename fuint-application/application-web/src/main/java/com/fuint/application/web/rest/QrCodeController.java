@@ -126,7 +126,7 @@ public class QrCodeController extends BaseController {
             //组织返回参数
             Map<String, Object> outparams = new HashMap<String, Object>();
             outparams.put("img", img);
-            outparams.put("money", couponInfo.getMoney());
+            outparams.put("money", couponInfo.getAmount());
             String tips = "";
             outparams.put("tips", tips);
             outparams.put("name", couponInfo.getName());

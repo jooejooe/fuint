@@ -109,23 +109,14 @@ public class CouponServiceImpl extends BaseService implements CouponService {
             throw new BusinessCheckException("生效期结束时间不能早于开始时间");
         }
 
-        MtCouponGroup groupInfo = couponGroupService.queryCouponGroupById(reqCouponDto.getGroupId().longValue());
-
-        // 预存卡
-        if (groupInfo.getType().equals(GroupTypeEnum.PRESTORE.getKey())) {
-            coupon.setMoney(new BigDecimal(0));
-        }
-
-        // 优惠券
-        if (groupInfo.getType().equals(GroupTypeEnum.COUPON.getKey())) {
-            coupon.setMoney(reqCouponDto.getMoney());
-        }
-
         coupon.setGroupId(reqCouponDto.getGroupId());
-
+        coupon.setType(reqCouponDto.getType());
         coupon.setName(CommonUtil.replaceXSS(reqCouponDto.getName()));
         coupon.setStoreIds(CommonUtil.replaceXSS(reqCouponDto.getStoreIds()));
-        coupon.setTotal(reqCouponDto.getTotal());
+        if (null == reqCouponDto.getSendNum()) {
+            reqCouponDto.setSendNum(1);
+        }
+        coupon.setSendNum(reqCouponDto.getSendNum());
         coupon.setBeginTime(reqCouponDto.getBeginTime());
         coupon.setEndTime(reqCouponDto.getEndTime());
         coupon.setExceptTime(CommonUtil.replaceXSS(reqCouponDto.getExceptTime()));
@@ -133,7 +124,10 @@ public class CouponServiceImpl extends BaseService implements CouponService {
         coupon.setRemarks(CommonUtil.replaceXSS(reqCouponDto.getRemarks()));
         coupon.setInRule(CommonUtil.replaceXSS(reqCouponDto.getInRule()));
         coupon.setOutRule(CommonUtil.replaceXSS(reqCouponDto.getOutRule()));
-
+        if (null == reqCouponDto.getAmount()) {
+            reqCouponDto.setAmount(new BigDecimal(0));
+        }
+        coupon.setAmount(reqCouponDto.getAmount());
         String image = reqCouponDto.getImage();
         if (null == image || image.equals("")) {
             image = "";
@@ -208,8 +202,8 @@ public class CouponServiceImpl extends BaseService implements CouponService {
 
         coupon.setGroupId(reqCouponDto.getGroupId());
         coupon.setName(CommonUtil.replaceXSS(reqCouponDto.getName()));
-        coupon.setMoney(reqCouponDto.getMoney());
-        coupon.setTotal(reqCouponDto.getTotal());
+        coupon.setAmount(reqCouponDto.getAmount());
+        coupon.setSendNum(reqCouponDto.getSendNum());
         coupon.setDescription(CommonUtil.replaceXSS(reqCouponDto.getDescription()));
         coupon.setImage(reqCouponDto.getImage());
         coupon.setRemarks(CommonUtil.replaceXSS(reqCouponDto.getRemarks()));
@@ -286,7 +280,7 @@ public class CouponServiceImpl extends BaseService implements CouponService {
 
                  dto.setImage(baseImage + image);
                  dto.setStatus(userCouponDto.getStatus());
-                 dto.setMoney(couponInfo.getMoney());
+                 dto.setMoney(couponInfo.getAmount());
 
                  dataList.add(dto);
             }
@@ -353,7 +347,7 @@ public class CouponServiceImpl extends BaseService implements CouponService {
                         continue;
                     }
 
-                    for (int j = 1; j <= coupon.getTotal(); j++) {
+                    for (int j = 1; j <= coupon.getSendNum(); j++) {
                         MtUserCoupon userCoupon = new MtUserCoupon();
                         userCoupon.setCouponId(coupon.getId());
                         userCoupon.setGroupId(groupInfo.getId());

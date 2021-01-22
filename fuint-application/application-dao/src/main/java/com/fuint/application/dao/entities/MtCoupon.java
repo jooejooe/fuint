@@ -33,6 +33,12 @@ public class MtCoupon implements Serializable{
     private Integer groupId;
 
    /**
+    * 券类型
+    */
+    @Column(name = "TYPE", nullable = false, length = 1)
+    private String type;
+
+   /**
     * 券名称 
     */ 
     @Column(name = "NAME", nullable = false, length = 100)
@@ -53,14 +59,14 @@ public class MtCoupon implements Serializable{
    /**
     * 面额 
     */ 
-    @Column(name = "MONEY")
-    private BigDecimal money;
+    @Column(name = "AMOUNT")
+    private BigDecimal amount;
 
    /**
     * 数量 
     */ 
-    @Column(name = "TOTAL", length = 10)
-    private Integer total;
+    @Column(name = "SEND_NUM", length = 10)
+    private Integer sendNum;
 
    /**
     * 例外日期，逗号隔开。周末：weekend；其他：2019-01-02~2019-02-09 
@@ -140,6 +146,12 @@ public class MtCoupon implements Serializable{
     public void setGroupId(Integer groupId){
     this.groupId=groupId;
     }
+    public String getType(){
+           return type;
+       }
+    public void setType(String type){
+           this.type=type;
+       }
     public String getName(){
         return name;
     }
@@ -158,17 +170,17 @@ public class MtCoupon implements Serializable{
     public void setEndTime(Date endTime){
     this.endTime=endTime;
     }
-    public BigDecimal getMoney(){
-        return money;
+    public BigDecimal getAmount(){
+        return amount;
     }
-    public void setMoney(BigDecimal money){
-    this.money=money;
+    public void setAmount(BigDecimal amount){
+    this.amount=amount;
     }
-    public Integer getTotal(){
-        return total;
+    public Integer getSendNum(){
+        return sendNum;
     }
-    public void setTotal(Integer total){
-    this.total=total;
+    public void setSendNum(Integer sendNum){
+    this.sendNum=sendNum;
     }
     public String getExceptTime(){
         return exceptTime;

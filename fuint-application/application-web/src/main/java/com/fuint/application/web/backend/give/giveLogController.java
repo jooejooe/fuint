@@ -156,7 +156,7 @@ public class giveLogController extends BaseController{
             dto.setGroupName(groupInfo.getName());
             dto.setCouponId(userCouponInfo.getCouponId());
             dto.setCouponName(couponInfo.getName());
-            dto.setMoney(couponInfo.getMoney());
+            dto.setMoney(couponInfo.getAmount());
             dto.setCreateTime(item.getCreateTime());
 
             dataList.add(dto);

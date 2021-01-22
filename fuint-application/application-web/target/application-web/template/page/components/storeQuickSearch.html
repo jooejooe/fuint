@@ -3,7 +3,7 @@
 <link href="<@sp.static/>/assets/css/style.min.css" rel="stylesheet"/>
 <link href="<@sp.static/>/assets/plugins/datatables/css/data-table.css" rel="stylesheet"/>
 <div style="overflow: auto; height: 450px; position: relative; margin: 8px;">
-    <div class="panel panel-inverse" data-sortable-id="form-stuff-5">
+    <div class="panel panel-inverse pop-panel" data-sortable-id="form-stuff-5">
         <div class="panel-body">
             <form id="storeForm" name="storeForm" method="post" class="form-inline">
                     <input style="width:160px;" type="text" placeholder="店铺ID" class="form-control" name="EQ_id">
@@ -14,9 +14,11 @@
             </form>
         </div>
     </div>
-    <div id="qstoreList"></div>
+    <div class="pop-list" id="qstoreList"></div>
+    <div class="pop-footer">
+        <button type="button" id="selectedButton" class="btn btn-sm btn-success m-5">确定</button>
+    </div>
 </div>
-<button type="button" id="selectedButton" class="btn btn-sm btn-success m-5">确定</button>
 
 <!-- jquery -->
 <script src="<@sp.static/>/js/jquery/jquery-3.0.0.min.js" type="text/javascript" charset="UTF-8"></script>

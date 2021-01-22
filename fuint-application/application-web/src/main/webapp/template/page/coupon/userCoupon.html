@@ -66,7 +66,7 @@
                     <button type="button" class="btn btn-sm btn-success m-r-5"
                             onclick="postDataByForm('backend/member/CouponinfoList','displayArea','memberForm')"><i class="fa fa-search"></i>查询
                     </button>
-                    <button type="button" class="btn btn-sm btn-success m-r-5" onclick="exportExcel();"><i class="fa fa-sign-out"></i>导出excel
+                    <button type="button" class="btn btn-sm btn-danger m-r-5" onclick="exportExcel();"><i class="fa fa-sign-out"></i>导出excel
                     </button>&nbsp;<label style="color:#E53333;">(一次导出表格不可超过50000条，否则可能导致出错哦)</label>
                 </div>
             </div>
@@ -81,14 +81,12 @@
         <h4 class="panel-title">已发放<span class="focus-num">${couponTotalDto.couponTotal}</span>张券；<span class="focus-num">${couponTotalDto.unUsedTotal}</span>张未使用；<span class="focus-num">${couponTotalDto.usedTotal}</span>张已使用；<span class="focus-num">${couponTotalDto.expireTotal}</span>张已过期；<span class="focus-num">${couponTotalDto.disableTotal}</span>张券已作废</h4>
     </div>
     <div class="panel-body">
-        <table class="table table-striped">
+        <table class="table table-striped table-bordered">
             <thead>
             <tr>
                 <th>会员手机</th>
-                <th>分组ID</th>
-                <th>分组名称</th>
-                <th>优惠券ID</th>
-                <th>券名称</th>
+                <th>卡券类型</th>
+                <th>卡券名称</th>
                 <th>状态</th>
                 <th>面额</th>
                 <th>使用店铺</th>
@@ -102,18 +100,16 @@
             <#list paginationResponse.content as ct>
             <tr>
                 <td>${ct.mobile}</td>
-                <td>${ct.groupId}</td>
-                <td>${ct.couponGroupName}</td>
-                <td>${ct.couponId}</td>
+                <td>优惠券</td>
                 <td>${ct.couponName}</td>
                 <td>${ct.couponInfoStatusDesc}</td>
                 <td>${ct.money}</td>
-                <td><#if ct.storeName>${ct.storeName}<#else>--</#if></td>
-                <td><#if ct.usedTime>${ct.usedTime}<#else>--</#if></td>
+                <td><#if ct.storeName>${ct.storeName}<#else>不限</#if></td>
+                <td><#if ct.usedTime>${ct.usedTime}<#else>暂无</#if></td>
                 <td>${ct.updateTime}</td>
                 <td>
                     <#if ct.couponInfoStatus == "A">
-                    <a class="label label-success small-btn" href="javascript:confirmerCoupon('${ct.id}')"  title="核销优惠券"><i class="fa fa-adjust"></i>核销</a>
+                    <a class="label label-success small-btn" href="javascript:confirmerCoupon('${ct.id}')"  title="手动核销"><i class="fa fa-adjust"></i>核销</a>
                     <a class="label label-danger small-btn" href="javascript:getConfirmData('确定作废${ct.mobile}的${ct.couponName}券？作废后用户端无法再看到此劵.注意：该操作不可撤回','${rc.contextPath}/backend/coupon/deleteUserCoupon/${ct.id}','displayArea')"><i class="fa fa-trash"></i>作废</a>
                     <#elseif ct.couponInfoStatus == "B">
                     --
@@ -151,7 +147,6 @@
         params+="temppara1=temppara1";
         //alert(params);
         window.location = "${rc.contextPath}/backend/member/exportCouponinfoList?" + params;
-        //getData("${rc.contextPath}/backend/member/exportCouponinfoList?" + params, "displayArea");
     }
 
     /**
