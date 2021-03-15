@@ -1,17 +1,16 @@
 package com.fuint.application.service.member;
 
+import com.fuint.application.dao.entities.MtUserGroup;
+import com.fuint.application.dao.repositories.MtUserGroupRepository;
 import com.fuint.base.annoation.OperationServiceLog;
 import com.fuint.base.dao.pagination.PaginationRequest;
 import com.fuint.base.dao.pagination.PaginationResponse;
-import com.fuint.cache.redis.RedisTemplate;
 import com.fuint.exception.BusinessCheckException;
 import com.fuint.exception.BusinessRuntimeException;
 import com.fuint.application.dao.entities.MtUser;
 import com.fuint.application.dao.entities.MtUserCoupon;
-import com.fuint.application.dao.entities.UvCouponInfo;
 import com.fuint.application.dao.repositories.MtUserCouponRepository;
 import com.fuint.application.dao.repositories.MtUserRepository;
-import com.fuint.application.dao.repositories.MtCouponInfoRepository;
 import com.fuint.application.enums.StatusEnum;
 import com.fuint.application.service.sms.SendSmsInterface;
 import com.fuint.application.service.token.TokenService;
@@ -28,8 +27,8 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
- * 会员用户管理业务实现类
- * Created by zach 20190808
+ * 会员管理业务实现类
+ * Created by zach 2021.3.15
  */
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -40,7 +39,7 @@ public class MemberServiceImpl implements MemberService {
     private MtUserRepository userRepository;
 
     @Autowired
-    private MtCouponInfoRepository couponInfoRepository;
+    private MtUserGroupRepository userGroupRepository;
 
     @Autowired
     private TokenService tokenService;
@@ -87,7 +86,7 @@ public class MemberServiceImpl implements MemberService {
                 newFlag=Boolean.TRUE;
                 mtUser.setCreateTime(addtime);
                 mtUser.setStatus(StatusEnum.ENABLED.getKey().toString());
-                MtUser mtUser_1=userRepository.queryMemberByMobile(mtUser.getMobile());
+                MtUser mtUser_1 = userRepository.queryMemberByMobile(mtUser.getMobile());
                 if (mtUser_1 != null) {
                     throw new BusinessCheckException("手机号码已经存在");
                 }
@@ -243,6 +242,22 @@ public class MemberServiceImpl implements MemberService {
         Specification<MtUser> specification = userRepository.buildSpecification(params);
         Sort sort = new Sort(Sort.Direction.DESC, "createTime");
         List<MtUser> result = userRepository.findAll(specification, sort);
+
+        return result;
+    }
+
+    /**
+     * 根据条件搜索会员分组
+     * */
+    @Override
+    public List<MtUserGroup> queryMemberGroupByParams(Map<String, Object> params) throws BusinessCheckException {
+        if (MapUtils.isEmpty(params)) {
+            params = new HashMap<>();
+        }
+
+        Specification<MtUserGroup> specification = userGroupRepository.buildSpecification(params);
+        Sort sort = new Sort(Sort.Direction.DESC, "id");
+        List<MtUserGroup> result = userGroupRepository.findAll(specification, sort);
 
         return result;
     }

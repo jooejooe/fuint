@@ -1,16 +1,15 @@
 package com.fuint.application.web.backend.member;
 
+import com.fuint.application.dao.entities.MtUserGroup;
 import com.fuint.base.dao.pagination.PaginationRequest;
 import com.fuint.base.dao.pagination.PaginationResponse;
 import com.fuint.base.util.RequestHandler;
-import com.fuint.excel.export.service.ExportService;
 import com.fuint.exception.BusinessCheckException;
 import com.fuint.exception.BusinessRuntimeException;
 import com.fuint.util.StringUtil;
 import com.fuint.application.dao.entities.MtUser;
 import com.fuint.application.dto.ReqResult;
 import com.fuint.application.enums.StatusEnum;
-import com.fuint.application.service.store.StoreService;
 import com.fuint.application.service.member.MemberService;
 import com.fuint.application.service.sms.SendSmsInterface;
 
@@ -51,15 +50,6 @@ public class MemberController {
     private MemberService memberService;
 
     /**
-     * 店铺信息管理服务接口
-     */
-    @Autowired
-    private StoreService storeService;
-
-    @Autowired
-    private ExportService exportService;
-
-    /**
      * 短信发送接口
      */
     @Autowired
@@ -95,7 +85,11 @@ public class MemberController {
         paginationRequest.setSearchParams(params);
         PaginationResponse<MtUser> paginationResponse = memberService.queryMemberListByPagination(paginationRequest);
 
+        Map<String, Object> param = new HashMap<>();
+        List<MtUserGroup> userGroupMap = memberService.queryMemberGroupByParams(param);
+
         model.addAttribute("paginationResponse", paginationResponse);
+        model.addAttribute("userGroupMap", userGroupMap);
         model.addAttribute("LIKE_mobile", mobile);
         model.addAttribute("LIKE_realName", realName);
         model.addAttribute("LIKE_birthday", birthday);

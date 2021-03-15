@@ -42,9 +42,11 @@
             <thead>
             <tr>
                 <th>会员ID</th>
+                <th>分组</th>
                 <th>手机号</th>
                 <th>姓名</th>
                 <th>生日</th>
+                <th>积分</th>
                 <th>状态</th>
                 <th>创建时间</th>
                 <th>活跃时间</th>
@@ -56,9 +58,17 @@
                 <#list paginationResponse.content as ct>
                     <tr>
                         <td>${ct.id}</td>
+                        <td>
+                            <#list userGroupMap as group>
+                            <#if group.id == ct.groupId >
+                            ${group.name}
+                            </#if>
+                            </#list>
+                        </td>
                         <td>${ct.mobile}</td>
                         <td>${ct.realName}</td>
                         <td>${ct.birthday}</td>
+                        <td>${ct.point}</td>
                         <td>
                         <#if ct.status == "A">
                             激活

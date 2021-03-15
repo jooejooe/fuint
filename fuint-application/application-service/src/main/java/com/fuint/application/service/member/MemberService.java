@@ -1,17 +1,16 @@
 package com.fuint.application.service.member;
 
+import com.fuint.application.dao.entities.MtUserGroup;
 import com.fuint.base.dao.pagination.PaginationRequest;
 import com.fuint.base.dao.pagination.PaginationResponse;
 import com.fuint.exception.BusinessCheckException;
 import com.fuint.application.dao.entities.MtUser;
-import com.fuint.application.dao.entities.UvCouponInfo;
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
 
 /**
  * 会员用户业务接口
- * Created by zach 20190820
+ * Created by zach 2021.3.15
  */
 public interface MemberService {
 
@@ -62,7 +61,7 @@ public interface MemberService {
      * @return
      * @throws BusinessCheckException
      */
-    public List<MtUser> queryEffectiveMemberRange(Map<String, Object> params) throws BusinessCheckException;
+    List<MtUser> queryEffectiveMemberRange(Map<String, Object> params) throws BusinessCheckException;
 
     /**
      * 更改状态(禁用)
@@ -75,8 +74,7 @@ public interface MemberService {
     /**
      * 根据条件搜索会员用户
      * */
-    public List<MtUser> queryMembersByParams(Map<String, Object> params) throws BusinessCheckException;
-
+    List<MtUser> queryMembersByParams(Map<String, Object> params) throws BusinessCheckException;
 
     /**
      * 根据会员ID 删除店铺信息
@@ -86,4 +84,9 @@ public interface MemberService {
      * @throws BusinessCheckException
      */
     Integer deleteMember(Integer id, String operator) throws BusinessCheckException;
+
+    /**
+     * 根据条件搜索会员分组
+     * */
+    List<MtUserGroup> queryMemberGroupByParams(Map<String, Object> params) throws BusinessCheckException;
 }

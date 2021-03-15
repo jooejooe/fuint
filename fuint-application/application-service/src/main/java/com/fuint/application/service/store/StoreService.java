@@ -12,7 +12,7 @@ import java.util.Map;
 
 /**
  * 店铺业务接口
- * Created by zach 20190820
+ * Created by zach 2021.3.15
  */
 public interface StoreService {
 

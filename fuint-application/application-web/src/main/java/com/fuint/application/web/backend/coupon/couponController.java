@@ -133,7 +133,7 @@ public class couponController extends BaseController{
     }
 
     /**
-     * 查询促销活动组列表
+     * 查询卡券列表
      *
      * @param request
      * @param response
