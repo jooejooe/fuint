@@ -9,8 +9,7 @@
 
 #### 软件架构
 JAVA（springMvc+mybatis） + MYSQL + Redis
-
-<p><img src="screenshots/coupon-list.png" alt="首页"></p>
+<p><img src="screenshots/login.png" alt="卡券登录界面"></p>
 
 #### 安装步骤
 
@@ -26,7 +25,6 @@ JAVA（springMvc+mybatis） + MYSQL + Redis
 3.  核销卡券，会员在前台出示二维码，管理员用微信扫一扫即可核销。
 4.  卡券转赠，会员可将自己的卡券转赠给其他用户，输入对方的手机号即可完成转赠，获赠的好友会收到卡券赠送的短信。
 
-<p><img src="screenshots/login.png" alt="卡券登录界面"></p>
 <p><img src="screenshots/create.png" alt="卡券创建界面"></p>
 
 #### 后台使用
@@ -41,7 +39,8 @@ JAVA（springMvc+mybatis） + MYSQL + Redis
 9.  短信模板管理：可配置不同场景和业务的短信内容。
 10. 卡券发放：单独发放、批量发放，发放成功后给会员发送短信通知
 11. 操作日志主要针对电子券系统后台的一些关键操作进行日志记录，方便排查相关操作人的行为等问题。
-12. 发券记录主要根据发券的实际操作情况来记录，分为单用户发券和批量发券，同时可针对该次发券记录进行作废操作。
+12. 发券记录主要根据发券的实际操作情况来记录，分为单用户发券和批量发券，同时可针对该次发券记录进行作废操作。
+<p><img src="screenshots/coupon-list.png" alt="卡券列表"></p>
 
 
 #### 后续功能迭代
