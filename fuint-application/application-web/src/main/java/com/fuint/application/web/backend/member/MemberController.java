@@ -34,7 +34,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
- * 会员用户信息管理类controller
+ * 会员信息管理类controller
  * Created by zach on 2019-07-19
  */
 @Controller
@@ -97,7 +97,6 @@ public class MemberController {
         return "member/member_list";
     }
 
-
     /**
      * 删除会员用户
      *
@@ -155,8 +154,7 @@ public class MemberController {
                     idList.add(Integer.parseInt(id));
                 }
             }
-            Integer i = memberService.updateStatus(idList, StatusEnum.DISABLE.getKey());
-
+            memberService.updateStatus(idList, StatusEnum.DISABLE.getKey());
         }
         ReqResult reqResult = new ReqResult();
         reqResult.setResult(true);
@@ -174,6 +172,10 @@ public class MemberController {
     @RequiresPermissions("backend/member/add")
     @RequestMapping(value = "/add")
     public String add(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException {
+        Map<String, Object> param = new HashMap<>();
+        List<MtUserGroup> userGroupMap = memberService.queryMemberGroupByParams(param);
+
+        model.addAttribute("userGroupMap", userGroupMap);
         return "member/member_add";
     }
 
@@ -186,10 +188,8 @@ public class MemberController {
      */
     @RequiresPermissions("backend/member/create")
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String addstoreHandler(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException {
-
-        MtUser tmemberInfo = (MtUser) RequestHandler.createBean(request, new MtUser());
-
+    public String addUserHandler(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException {
+        MtUser memberInfo = (MtUser) RequestHandler.createBean(request, new MtUser());
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String dt=sdf.format(new Date());
         Date currentDT;
@@ -199,25 +199,22 @@ public class MemberController {
             throw new BusinessCheckException("日期转换错误!");
         }
 
-        if (StringUtils.isEmpty(tmemberInfo.getMobile())) {
+        if (StringUtils.isEmpty(memberInfo.getMobile())) {
             throw new BusinessRuntimeException("手机号码不能为空");
         } else {
             MtUser tempUser = null;
-
-            //不是edit
-            if (tmemberInfo.getId() == null) {
-                tempUser = memberService.queryMemberByMobile(tmemberInfo.getMobile());
+            if (memberInfo.getId() == null) {
+                tempUser = memberService.queryMemberByMobile(memberInfo.getMobile());
 
             }else{
-                tmemberInfo.setUpdateTime(currentDT);
+                memberInfo.setUpdateTime(currentDT);
             }
 
             if (null != tempUser) {
                 throw new BusinessCheckException("该会员手机号码已经存在!");
             }
-
         }
-        memberService.addMember(tmemberInfo);
+        memberService.addMember(memberInfo);
 
         return "redirect:/backend/member/queryList";
     }
@@ -233,9 +230,11 @@ public class MemberController {
     @RequiresPermissions("backend/member/memberEditInit/{id}")
     @RequestMapping(value = "/memberEditInit/{id}")
     public String storeRuleEditInit(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable("id") Integer id) throws BusinessCheckException {
-        MtUser mtUserInfo;
+        MtUser mtUserInfo = memberService.queryMemberById(id);
+        Map<String, Object> param = new HashMap<>();
+        List<MtUserGroup> userGroupMap = memberService.queryMemberGroupByParams(param);
 
-        mtUserInfo = memberService.queryMemberById(id);
+        model.addAttribute("userGroupMap", userGroupMap);
         model.addAttribute("member", mtUserInfo);
 
         return "member/member_edit";

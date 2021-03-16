@@ -389,7 +389,6 @@ public class couponController extends BaseController{
                         DateDto dto = new DateDto();
                         dto.setStartDate(date[0]);
                         dto.setEndDate(date[1]);
-
                         exceptTimeList.add(dto);
                     }
                 }
@@ -476,13 +475,11 @@ public class couponController extends BaseController{
         if (list.getContent().size() > 0) {
             MtSendLog sendLog = list.getContent().get(0);
             if (sendLog.getStatus().equals("A")) {
-
                 Integer total = sendLog.getRemoveSuccessNum();
                 if (total==null) {
-                    total=0;
+                    total = 0;
                 }
                 sendLog.setRemoveSuccessNum((total+1));
-
                 sendLog.setStatus("B");
                 sendLogRepository.save(sendLog);
             }
@@ -491,9 +488,8 @@ public class couponController extends BaseController{
         return "redirect:/backend/member/CouponinfoList";
     }
 
-
     /**
-     * 根据券ID 撤销个人已使用的优惠券 zach 20190912 add
+     * 根据券ID 撤销个人已使用的优惠券
      *
      * @param request
      * @param response

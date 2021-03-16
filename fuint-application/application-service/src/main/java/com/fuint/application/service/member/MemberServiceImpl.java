@@ -74,7 +74,7 @@ public class MemberServiceImpl implements MemberService {
     @Override
     @OperationServiceLog(description = "添加会员用户信息")
     public MtUser addMember(MtUser mtUser) throws BusinessCheckException {
-        Boolean newFlag=Boolean.FALSE;
+        Boolean newFlag = Boolean.FALSE;
         try {
             // 创建时间
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -105,7 +105,6 @@ public class MemberServiceImpl implements MemberService {
             // 发送短信
             List<String> mobileList = new ArrayList<String>();
             mobileList.add(mtUser.getMobile());
-
             // 短信模板
             try {
                 Map<String, String> params = new HashMap<>();
@@ -256,7 +255,7 @@ public class MemberServiceImpl implements MemberService {
         }
 
         Specification<MtUserGroup> specification = userGroupRepository.buildSpecification(params);
-        Sort sort = new Sort(Sort.Direction.DESC, "id");
+        Sort sort = new Sort(Sort.Direction.ASC, "id");
         List<MtUserGroup> result = userGroupRepository.findAll(specification, sort);
 
         return result;

@@ -10,6 +10,16 @@
         <form class="form-horizontal" id="memberForm" name="memberForm" action="" method="post">
             <input type="hidden" id="id" name="id" placeholder="会员号" value="${member.id}">
             <div class="form-group">
+                <label class="col-md-3 control-label">分组：</label>
+                <div class="col-md-9">
+                    <select class="form-control" id="groupId" name="groupId">
+                        <#list userGroupMap as group>
+                        <option <#if group.id == member.groupId>selected</#if> value="${group.id}">${group.name}</option>
+                        </#list>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
                 <label class="col-md-3 control-label">手机号：</label>
                 <div class="col-md-9">
                     <input type="text" id="mobile" class="form-control" name="mobile" placeholder="手机号"
@@ -17,10 +27,27 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-md-3 control-label">真实姓名：</label>
+                <label class="col-md-3 control-label">姓名：</label>
                 <div class="col-md-9">
-                    <input type="text" id="realName" class="form-control" name="realName" placeholder="真实姓名 最长20位"
-                           maxlength="20" value="${member.realName}" >
+                    <input type="text" id="realName" class="form-control" name="realName" placeholder="姓名，最长20位" maxlength="20" value="${member.realName}" >
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label">生日：</label>
+                <div class="col-md-9">
+                    <input type="text" id="birthday" class="form-control" name="birthday" placeholder="生日，如：1998-10-30" maxlength="20" value="${member.birthday}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label">积分数量：</label>
+                <div class="col-md-9">
+                    <input type="text" id="point" class="form-control" name="point" placeholder="积分数量，正整数" maxlength="20" value="${member.point}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label">通讯地址：</label>
+                <div class="col-md-9">
+                    <input type="text" id="address" class="form-control" name="address" placeholder="通讯地址" maxlength="20" value="${member.address}">
                 </div>
             </div>
             <div class="form-group">

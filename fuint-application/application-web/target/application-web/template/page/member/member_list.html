@@ -79,11 +79,10 @@
                         <td>${ct.createTime}</td>
                         <td>${ct.updateTime}</td>
                         <td>
-                            <a class="label label-success small-btn" href="javascript:getData('${rc.contextPath}/backend/member/memberDetail/${ct.id}','displayArea')"><i class="fa fa-eye"></i>查看</a>
+                            <a class="label label-success small-btn" href="javascript:getData('${rc.contextPath}/backend/member/memberEditInit/${ct.id}','displayArea')"><i class="fa fa-edit"></i>编辑</a>
                             <#if ct.status == "A">
                             <a class="label label-danger small-btn" href="javascript:getConfirmData('确定删除该会员用户信息吗?','${rc.contextPath}/backend/member/delete/${ct.id}','displayArea')"><i class="fa fa-remove"></i>删除</a>
                             </#if>
-                            <a class="label label-success small-btn" href="javascript:getData('${rc.contextPath}/backend/member/memberEditInit/${ct.id}','displayArea')"><i class="fa fa-edit"></i>编辑</a>
                         </td>
                     </tr>
                 </#list>

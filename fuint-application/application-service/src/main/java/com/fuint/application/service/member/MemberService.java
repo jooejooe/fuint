@@ -25,18 +25,18 @@ public interface MemberService {
     /**
      * 添加会员用户
      *
-     * @param reqStoreDto
+     * @param reqUserDto
      * @throws BusinessCheckException
      */
-    MtUser addMember(MtUser reqStoreDto) throws BusinessCheckException;
+    MtUser addMember(MtUser reqUserDto) throws BusinessCheckException;
 
     /**
      * 修改会员用户
      *
-     * @param reqStoreDto
+     * @param reqUserDto
      * @throws BusinessCheckException
      */
-    MtUser updateMember(MtUser reqStoreDto) throws BusinessCheckException;
+    MtUser updateMember(MtUser reqUserDto) throws BusinessCheckException;
 
     /**
      * 根据会员用户ID获取会员用户信息
