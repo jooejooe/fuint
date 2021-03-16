@@ -26,6 +26,7 @@ JAVA（springMvc+mybatis） + MYSQL + Redis
 3.  核销卡券，会员在前台出示二维码，管理员用微信扫一扫即可核销。
 4.  卡券转赠，会员可将自己的卡券转赠给其他用户，输入对方的手机号即可完成转赠，获赠的好友会收到卡券赠送的短信。
 
+<p><img src="screenshots/login.png" alt="卡券登录界面"></p>
 <p><img src="screenshots/create.png" alt="卡券创建界面"></p>
 
 #### 后台使用
