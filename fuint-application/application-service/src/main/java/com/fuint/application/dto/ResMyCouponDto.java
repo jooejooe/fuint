@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * 我的优惠券返回DTO
+ * 我的卡券返回DTO
  * Created by zach on 2019/8/28.
  */
 public class ResMyCouponDto implements Serializable {

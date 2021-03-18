@@ -14,11 +14,11 @@ public class MTActivityCouponFixedDto {
     private String couponId;
 
     /***
-     * 优惠券活动Code
+     * 卡券活动Code
      */
     private String activityCode;
     /***
-     * 优惠券活动名称
+     * 卡券活动名称
       */
     private String activityName;
 
@@ -40,7 +40,7 @@ public class MTActivityCouponFixedDto {
 
 
     /***
-     * 优惠券状态  0:未领取； 1：已领取未使用；2：已冻结；3：已使用；4：已结算；9：已作废
+     * 卡券状态  0:未领取； 1：已领取未使用；2：已冻结；3：已使用；4：已结算；9：已作废
      */
     private String status;
 

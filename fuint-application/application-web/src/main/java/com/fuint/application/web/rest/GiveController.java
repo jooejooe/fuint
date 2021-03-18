@@ -57,7 +57,7 @@ public class GiveController extends BaseController {
     private VerifyCodeService verifyCodeService;
 
     /**
-     * 转赠优惠券
+     * 转赠卡券
      *
      * @param param  Request对象
      */

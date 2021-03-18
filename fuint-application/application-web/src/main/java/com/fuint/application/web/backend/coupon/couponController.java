@@ -3,7 +3,6 @@ package com.fuint.application.web.backend.coupon;
 import com.fuint.base.shiro.ShiroUser;
 import com.fuint.base.shiro.util.ShiroUserHelper;
 import com.fuint.application.dao.repositories.MtCouponGroupRepository;
-import com.fuint.application.enums.GroupTypeEnum;
 import com.fuint.exception.BusinessCheckException;
 import com.fuint.util.DateUtil;
 import com.fuint.application.dao.entities.*;
@@ -16,7 +15,6 @@ import com.fuint.application.service.coupon.CouponService;
 import com.fuint.application.service.coupongroup.CouponGroupService;
 import com.fuint.application.service.store.StoreService;
 import com.fuint.application.service.sendlog.SendLogService;
-import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
@@ -45,17 +43,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 优惠券管理类controller
+ * 卡券管理类controller
  * Created by zach on 2019/08/05.
  */
 @Controller
 @RequestMapping(value = "/backend/coupon")
-public class couponController extends BaseController{
-
+public class couponController extends BaseController {
     private static final Logger logger = LoggerFactory.getLogger(couponController.class);
 
     /**
-     * 优惠券服务接口
+     * 卡券服务接口
      */
     @Autowired
     private CouponService couponService;
@@ -93,12 +90,12 @@ public class couponController extends BaseController{
     private Date lastIndexTime = null;
 
     /**
-     * 优惠券列表查询
+     * 卡券列表查询
      *
      * @param request  HttpServletRequest对象
      * @param response HttpServletResponse对象
      * @param model    SpringFramework Model对象
-     * @return 优惠券列表展现页面
+     * @return 卡券列表展现页面
      */
     @RequiresPermissions("backend/coupon/index")
     @RequestMapping(value = "/index")
@@ -278,7 +275,7 @@ public class couponController extends BaseController{
     }
 
     /**
-     * 新增优惠券
+     * 新增卡券
      *
      * @param request  HttpServletRequest对象
      * @param response HttpServletResponse对象
@@ -286,9 +283,7 @@ public class couponController extends BaseController{
      */
     @RequiresPermissions("backend/coupon/create")
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String addCouponHandler(HttpServletRequest request, HttpServletResponse response,
-                                     Model model, ReqCouponDto reqCouponDto) throws BusinessCheckException {
-
+    public String addCouponHandler(HttpServletRequest request, HttpServletResponse response, Model model, ReqCouponDto reqCouponDto) throws BusinessCheckException {
         String operator = ShiroUserHelper.getCurrentShiroUser().getAcctName();
         reqCouponDto.setOperator(operator);
 
@@ -305,6 +300,7 @@ public class couponController extends BaseController{
         paginationRequest.setCurrentPage(1);
         paginationRequest.setPageSize(1);
         paginationRequest.getSearchParams().put("EQ_groupId", reqCouponDto.getGroupId().toString());
+        paginationRequest.getSearchParams().put("EQ_status", "B");
         PaginationResponse<MtUserCoupon> paginationResponse = userCouponRepository.findResultsByPagination(paginationRequest);
         if (paginationResponse.getContent().size() > 0) {
             throw new BusinessCheckException("该分组已开始使用，不允许再新增卡券");
@@ -316,7 +312,7 @@ public class couponController extends BaseController{
     }
 
     /**
-     * 编辑优惠券
+     * 编辑卡券
      *
      * @param request  HttpServletRequest对象
      * @param response HttpServletResponse对象
@@ -324,9 +320,7 @@ public class couponController extends BaseController{
      */
     @RequiresPermissions("backend/coupon/update")
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public String updateCouponHandler(HttpServletRequest request, HttpServletResponse response,
-                                     Model model, ReqCouponDto reqCouponDto) throws BusinessCheckException {
-
+    public String updateCouponHandler(HttpServletRequest request, HttpServletResponse response, Model model, ReqCouponDto reqCouponDto) throws BusinessCheckException {
         String operator = ShiroUserHelper.getCurrentShiroUser().getAcctName();
         reqCouponDto.setOperator(operator);
 
@@ -338,7 +332,7 @@ public class couponController extends BaseController{
 
         PaginationResponse<MtUserCoupon> paginationResponse = userCouponRepository.findResultsByPagination(paginationRequest);
         if (paginationResponse.getContent().size() > 0) {
-            throw new BusinessCheckException("该分组已发放，不允许再修改优惠券");
+            throw new BusinessCheckException("该分组已发放，不允许再修改卡券");
         }
 
         MtCoupon coupon = couponService.updateCoupon(reqCouponDto);
@@ -347,7 +341,7 @@ public class couponController extends BaseController{
     }
 
     /**
-     * 编辑优惠券初始化页面
+     * 编辑卡券初始化页面
      *
      * @param request
      * @param response
@@ -444,7 +438,7 @@ public class couponController extends BaseController{
 
 
     /**
-     * 根据券ID 删除个人优惠券
+     * 根据券ID 删除个人卡券
      *
      * @param request
      * @param response
@@ -476,7 +470,7 @@ public class couponController extends BaseController{
             MtSendLog sendLog = list.getContent().get(0);
             if (sendLog.getStatus().equals("A")) {
                 Integer total = sendLog.getRemoveSuccessNum();
-                if (total==null) {
+                if (null == total) {
                     total = 0;
                 }
                 sendLog.setRemoveSuccessNum((total+1));
@@ -489,7 +483,7 @@ public class couponController extends BaseController{
     }
 
     /**
-     * 根据券ID 撤销个人已使用的优惠券
+     * 根据券ID 撤销个人已使用的卡券
      *
      * @param request
      * @param response
@@ -499,7 +493,6 @@ public class couponController extends BaseController{
     @RequiresPermissions("backend/coupon/rollbackUserCoupon/{id}")
     @RequestMapping(value = "/rollbackUserCoupon/{id}")
     public String rollbackUserCoupon(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable("id") Integer id) throws BusinessCheckException {
-
         String tempuserCouponId = request.getParameter("userCouponId");
         Integer userCouponId = 0;
         if (tempuserCouponId!=null) {

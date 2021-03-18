@@ -178,8 +178,8 @@ function getMenuData(actionUrl, resultArea,obj) {
  * @param actionUrl
  * @param resultArea
  */
-function getData(actionUrl, resultArea) {
-    getDataByParams(actionUrl, resultArea, '');
+function getData(actionUrl, resultArea, isParent) {
+    getDataByParams(actionUrl, resultArea, '', isParent);
 }
 
 /**
@@ -298,7 +298,7 @@ function getDataByForm(actionUrl, resultArea, formname) {
         $.error('请求参数错误.');
         return;
     }
-    getDataByParams(actionUrl, resultArea, $("#" + formname).serialize());
+    getDataByParams(actionUrl, resultArea, $("#" + formname).serialize(), false);
 }
 
 /**
@@ -308,7 +308,7 @@ function getDataByForm(actionUrl, resultArea, formname) {
  * @param params  请求参数
  * @param resultArea 结果显示区域
  */
-function getDataByParams(actionUrl, resultArea, params) {
+function getDataByParams(actionUrl, resultArea, params, isParent) {
     if ($.isBlank(actionUrl) || $.isBlank(resultArea)) {
         $.error('请求参数错误.');
         return;
@@ -324,9 +324,15 @@ function getDataByParams(actionUrl, resultArea, params) {
             url: actionUrl,
             data: params,
             success: function (data) {
-                $('#' + resultArea).html("");
-                $('#' + resultArea).html(data);
-                //$.close();
+                if (true === isParent) {
+                    parent.$('#' + resultArea).html("");
+                    parent.$('#' + resultArea).html(data);
+                    parent.layer.closeAll();
+                } else {
+                    $('#' + resultArea).html("");
+                    $('#' + resultArea).html(data);
+                    //$.close();
+                }
             },
             error: function (msg) {
                 //$.close();

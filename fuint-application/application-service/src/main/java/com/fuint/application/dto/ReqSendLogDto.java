@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 发放优惠券记录请求DTO
+ * 发放卡券记录请求DTO
  * Created by zach on 2019/9/17.
  */
 public class ReqSendLogDto implements Serializable {

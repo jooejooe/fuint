@@ -13,6 +13,7 @@
             <thead>
             <tr>
                 <th >卡券ID</th>
+                <th >效果图</th>
                 <th >分组</th>
                 <th >类型</th>
                 <th >卡券名称</th>
@@ -28,6 +29,7 @@
                 <#list paginationResponse.content as ct>
                         <tr>
                             <td>${ct.id}</td>
+                            <td><img class="coupon-preview" src="<@mh.static/>${ct.image}"/></td>
                             <td>
                                 <#list groupMap as group>
                                 <#if group.id == ct.groupId >
@@ -41,7 +43,7 @@
                                 <#elseif ct.type == 'P'>
                                 预存卡
                                 <#else>
-                                优惠券
+                                卡券
                                 </#if>
                             </td>
                             <td>${ct.name}</td>
@@ -80,6 +82,7 @@
                                     <#else>
                                         <a class="label label-success small-btn" href="javascript:void(0)" onclick="javascript:getData('${rc.contextPath}/backend/coupon/couponEditInit/${ct.id}','displayArea')"><i class="fa fa-eye" title="查看"></i>详情</a>
                                     </#if>
+                                        <a class="label label-success small-btn" href="javascript:void(0)" onclick="javascript:getData('${rc.contextPath}/backend/member/CouponinfoList/?EQ_couponId=${ct.id}','displayArea')"><i class="fa fa-list" title="明细"></i>明细</a>
                                 </#if>
                             </td>
                         </tr>

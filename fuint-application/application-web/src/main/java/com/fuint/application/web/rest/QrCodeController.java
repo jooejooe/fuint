@@ -32,7 +32,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**-
- * 优惠券二维码controller
+ * 卡券二维码controller
  * Created by zach on 2020.08.18.
  */
 @RestController
@@ -45,7 +45,7 @@ public class QrCodeController extends BaseController {
     private MtUserCouponRepository userCouponRepository;
 
     /**
-     * 优惠券服务接口
+     * 卡券服务接口
      */
     @Autowired
     private CouponService couponService;
@@ -60,7 +60,7 @@ public class QrCodeController extends BaseController {
     private Environment env;
 
     /**
-     * 查询优惠券二维码
+     * 查询卡券二维码
      *
      * @param param  Request对象
      */

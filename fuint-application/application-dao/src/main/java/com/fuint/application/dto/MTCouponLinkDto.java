@@ -20,21 +20,21 @@ public class MTCouponLinkDto {
     private String couponCode;
 
     /***
-     * 优惠券活动id
+     * 卡券活动id
      */
     private String activityId;
     /***
-     * 优惠券活动名称
+     * 卡券活动名称
       */
     private String couponActivityName;
 
     /***
-     * 优惠券状态  0:未领取； 1：已领取未使用；2：已冻结；3：已使用；4：已结算；9：已作废
+     * 卡券状态  0:未领取； 1：已领取未使用；2：已冻结；3：已使用；4：已结算；9：已作废
      */
     private String status;
 
     /***
-     * 优惠券链接
+     * 卡券链接
      */
     private String couponLink;
 
@@ -49,12 +49,12 @@ public class MTCouponLinkDto {
     private String receiveLinkType;
 
     /***
-     * 优惠券结束时间
+     * 卡券结束时间
      */
     private Date endTime;
 
     /***
-     * 优惠券活动Code
+     * 卡券活动Code
      */
     private String couponInfoCode;
 

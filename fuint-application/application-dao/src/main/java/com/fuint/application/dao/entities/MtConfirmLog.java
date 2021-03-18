@@ -50,7 +50,7 @@ public class MtConfirmLog implements Serializable{
     private Date updateTime;
 
    /**
-    * 用户优惠券所属用户id 
+    * 用户卡券所属用户id
     */ 
     @Column(name = "USER_ID", nullable = false, length = 10)
     private Integer userId;

@@ -173,8 +173,8 @@ public class MemberServiceImpl implements MemberService {
 
         List<MtUserCoupon> listMtUserCoupon = mtUserCouponRepository.getUserCouponList(id);
         if (listMtUserCoupon!=null && listMtUserCoupon.size()>0 ) {
-            log.error(id.toString()+"该会员用户有未使用的优惠券，不能被删除!");
-            throw new BusinessCheckException("该会员用户有未使用的优惠券，不能被删除!");
+            log.error(id.toString()+"该会员用户有未使用的卡券，不能被删除!");
+            throw new BusinessCheckException("该会员用户有未使用的卡券，不能被删除!");
         }
 
         mtUser.setStatus(StatusEnum.DISABLE.getKey());

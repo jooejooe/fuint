@@ -35,7 +35,7 @@ public class ActivityRuleDto implements Serializable{
      */
     private String status;
     /**
-     * 规则类型（1 限时折扣、 2 每满减、3 满额减、4 满件折、5 优惠券）
+     * 规则类型（1 限时折扣、 2 每满减、3 满额减、4 满件折、5 卡券）
      */
     private String ruleType;
 

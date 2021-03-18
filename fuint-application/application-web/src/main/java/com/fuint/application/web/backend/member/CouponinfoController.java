@@ -42,7 +42,7 @@ import java.util.*;
 import static com.fuint.application.util.XlsUtil.objectConvertToString;
 
 /**
- * 会员优惠券控制器controller
+ * 会员卡券控制器controller
  * Created by zach on 2019-09-12
  */
 @Controller
@@ -52,7 +52,7 @@ public class CouponinfoController {
     private static final Logger logger = LoggerFactory.getLogger(CouponinfoController.class);
 
     /**
-     * 优惠券信息服务接口
+     * 卡券信息服务接口
      */
     @Autowired
     private UvCouponInfoService uvCouponInfoService;
@@ -69,13 +69,13 @@ public class CouponinfoController {
     private TAccountService tAccountService;
 
     /**
-     * 优惠券服务接口
+     * 卡券服务接口
      */
     @Autowired
     private CouponService couponService;
 
     /**
-     * 会员优惠券消费记录
+     * 会员卡券消费记录
      *
      * @param request  HttpServletRequest对象
      * @param response HttpServletResponse对象
@@ -294,10 +294,9 @@ public class CouponinfoController {
     public String CouponinfoList(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException {
         PaginationRequest paginationRequest = RequestHandler.buildPaginationRequest(request, model);
         Map<String, Object> params = paginationRequest.getSearchParams();
-        if (params == null || params.size()==0) {
+        if (params == null || params.size() == 0) {
             params = new HashMap<>();
             String mobile = request.getParameter("LIKE_mobile");
-            String hnaName = request.getParameter("LIKE_hnaName");
             String groupId = request.getParameter("EQ_groupId");
             String couponGroupName = request.getParameter("LIKE_couponGroupName");
             String couponId = request.getParameter("EQ_couponId");
@@ -309,9 +308,6 @@ public class CouponinfoController {
 
             if (StringUtils.isNotEmpty(mobile)) {
                 params.put("LIKE_mobile", CommonUtil.filter(mobile));
-            }
-            if (StringUtils.isNotEmpty(hnaName)) {
-                params.put("LIKE_hnaName", CommonUtil.filter(hnaName));
             }
             if (StringUtils.isNotEmpty(groupId)) {
                 params.put("EQ_groupId", Integer.parseInt(groupId));
@@ -342,6 +338,7 @@ public class CouponinfoController {
         paginationRequest.setSearchParams(params);
         PaginationResponse<UvCouponInfo> paginationResponse = uvCouponInfoService.queryCouponInfoListByPagination(paginationRequest);
         CouponTotalDto couponTotalDto = uvCouponInfoService.queryCouponInfoTotalByParams(params);
+
         // 状态更新
         String usercouponstatus;
         for (UvCouponInfo u :paginationResponse.getContent()) {
@@ -349,13 +346,12 @@ public class CouponinfoController {
             u.setCouponInfoStatusDesc(UserCouponStatusEnum.getValue(usercouponstatus));
         }
 
-        model.addAttribute("paginationResponse", paginationResponse);
-
         List<MtStore> storeList = storeService.queryStoresByParams(new HashMap<>());
 
         model.addAttribute("storeList", storeList);
         model.addAttribute("couponTotalDto", couponTotalDto);
         model.addAttribute("params", params);
+        model.addAttribute("paginationResponse", paginationResponse);
 
         return "coupon/userCoupon";
     }
@@ -431,13 +427,12 @@ public class CouponinfoController {
         String[] title = {"最后操作时间", "消费分组ID", "消费分组名称", "消费券ID"
                 , "消费券名称", "用户手机号","FuInt用户","FuInt账号","状态","面额","使用店铺","使用时间"};
         //excel文件名
-        String fileName = "优惠券统计列表" + System.currentTimeMillis() + ".xls";
+        String fileName = "会员卡券列表.xls";
         //sheet名
-        String sheetName = "优惠券记录";
+        String sheetName = "数据列表";
 
         String[][] content=null;
-        if(list.size()>0)
-        {
+        if (list.size() > 0) {
             content= new String[list.size()][title.length];
         }
 
@@ -464,16 +459,15 @@ public class CouponinfoController {
     }
 
     /**
-     * 核销页面 0915 add
+     * 核销页面
      * */
     @RequiresPermissions("backend/member/confirmerUserCouponPage/{id}")
     @RequestMapping(value = "/confirmerUserCouponPage/{id}")
     public String confirmerUserCouponPage(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable("id") Long id) throws BusinessCheckException {
 
         UvCouponInfo uvCounponInfo=uvCouponInfoService.queryUvCouponInfoById(id.intValue());
-        if(uvCounponInfo==null)
-        {
-            throw new BusinessCheckException("用户优惠券不存在.");
+        if (uvCounponInfo==null) {
+            throw new BusinessCheckException("用户卡券不存在.");
         }
 
         String StringIds=uvCounponInfo.getSuitStoreIds();
@@ -489,16 +483,14 @@ public class CouponinfoController {
                     storeIds.add(Integer.valueOf(s));
                 }
             }
-        }catch (Exception e)
-        {
+        } catch (Exception e) {
 
             storeIds = null;
         }
 
-        if(storeIds==null || storeIds.size()==0)
-        {
+        if (storeIds==null || storeIds.size() == 0) {
             storeList = storeService.queryStoresByParams(new HashMap<>());
-        }else {
+        } else {
             storeList = storeService.queryStoresByIds(storeIds);
         }
 
@@ -509,7 +501,7 @@ public class CouponinfoController {
     }
 
     /**
-     * 核销用户优惠券,刷新页面
+     * 核销用户卡券,刷新页面
      * */
     @RequiresPermissions("backend/member/stringconfirmerUserCoupon")
     @RequestMapping(value = "/stringconfirmerUserCoupon")
@@ -519,7 +511,7 @@ public class CouponinfoController {
         MtUserCoupon mtUserCoupon = couponService.queryUserCouponById(Integer.parseInt(id));
 
         if (mtUserCoupon == null) {
-            throw new BusinessCheckException("用户优惠券不存在.");
+            throw new BusinessCheckException("用户卡券不存在.");
         }
 
         MtStore store = storeService.queryStoreById(Integer.parseInt(storeId));

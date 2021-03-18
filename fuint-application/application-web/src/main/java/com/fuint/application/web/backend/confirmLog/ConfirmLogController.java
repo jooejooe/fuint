@@ -31,7 +31,7 @@ import static com.fuint.application.util.XlsUtil.objectConvertToString;
 import java.util.*;
 
 /**
- * 会员优惠券核销统计controller
+ * 会员卡券核销统计controller
  * Created by zach on 2020-04-17
  */
 @Controller
@@ -41,7 +41,7 @@ public class ConfirmLogController {
     private static final Logger logger = LoggerFactory.getLogger(ConfirmLogController.class);
 
     /**
-     * 优惠券核销流水接口
+     * 卡券核销流水接口
      */
     @Autowired
     private ConfirmLogService ConfirmLogService;
@@ -59,7 +59,7 @@ public class ConfirmLogController {
     private TAccountService tAccountService;
 
     /**
-     * 会员优惠券核销记录列表
+     * 会员卡券核销记录列表
      *
      * @param request  HttpServletRequest对象
      * @param response HttpServletResponse对象

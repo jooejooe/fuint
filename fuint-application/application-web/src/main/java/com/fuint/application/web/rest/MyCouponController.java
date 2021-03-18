@@ -31,7 +31,7 @@ public class MyCouponController extends BaseController {
     private static final Logger logger = LoggerFactory.getLogger(MyCouponController.class);
 
     /**
-     * 优惠券服务接口
+     * 卡券服务接口
      */
     @Autowired
     private CouponService couponService;
@@ -43,7 +43,7 @@ public class MyCouponController extends BaseController {
     private TokenService tokenService;
 
     /**
-     * 查询我的优惠券
+     * 查询我的卡券
      *
      * @param param  Request对象
      */
@@ -69,7 +69,7 @@ public class MyCouponController extends BaseController {
     }
 
     /**
-     * 查询我的优惠券是否已使用
+     * 查询我的卡券是否已使用
      *
      * @param param  Request对象
      */

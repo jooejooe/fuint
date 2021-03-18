@@ -17,7 +17,7 @@ import java.util.Map;
 public interface UvCouponInfoService {
 
     /**
-     * 分页查询会员优惠券消费列表
+     * 分页查询会员卡券消费列表
      *
      * @param paginationRequest
      * @return
@@ -25,21 +25,21 @@ public interface UvCouponInfoService {
     PaginationResponse<UvCouponInfo> queryCouponInfoListByPagination(PaginationRequest paginationRequest) throws BusinessCheckException;
 
     /**
-     * 分页查询会员优惠券消费列表
+     * 分页查询会员卡券消费列表
      * */
     public List<UvCouponInfo> queryCouponInfoByParams(Map<String, Object> params) throws BusinessCheckException;
 
 
     /**
-     * 查询会员优惠券总计
+     * 查询会员卡券总计
      * */
     public CouponTotalDto queryCouponInfoTotalByParams(Map<String, Object> params) throws BusinessCheckException;
 
 
     /**
-     * 根据ID获取用户优惠券信息
+     * 根据ID获取用户卡券信息
      *
-     * @param id 用户优惠券id
+     * @param id 用户卡券id
      * @throws BusinessCheckException
      */
     UvCouponInfo queryUvCouponInfoById(Integer id) throws BusinessCheckException;

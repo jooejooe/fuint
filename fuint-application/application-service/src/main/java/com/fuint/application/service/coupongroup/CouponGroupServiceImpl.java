@@ -212,7 +212,7 @@ public class CouponGroupServiceImpl implements CouponGroupService {
     }
 
     /**
-     * 获取优惠券种类数量
+     * 获取卡券种类数量
      *
      * @param id
      * @throws BusinessCheckException
@@ -225,7 +225,7 @@ public class CouponGroupServiceImpl implements CouponGroupService {
     }
 
     /**
-     * 获取优惠券总价值
+     * 获取卡券总价值
      *
      * @param groupId
      * @throws BusinessCheckException
@@ -409,7 +409,7 @@ public class CouponGroupServiceImpl implements CouponGroupService {
 
              List<MtCoupon> couponList = couponService.queryCouponListByGroupId(Long.parseLong(key));
              if (couponList.size() < 1) {
-                 throw new BusinessCheckException("分组ID"+key+"种类为空，请增加优惠券");
+                 throw new BusinessCheckException("分组ID"+key+"种类为空，请增加卡券");
              }
 
              Integer totalNum = groupInfo.getTotal() == null ? 0 : groupInfo.getTotal();
@@ -451,9 +451,7 @@ public class CouponGroupServiceImpl implements CouponGroupService {
 
                 for (int gid = 0; gid < cellDto.getGroupId().size(); gid++) {
                     couponService.sendCoupon(cellDto.getGroupId().get(gid).longValue(), cellDto.getMobile(), cellDto.getNum().get(gid), uuid);
-
                     List<MtCoupon> couponList = couponService.queryCouponListByGroupId(cellDto.getGroupId().get(gid).longValue());
-
                     // 累加总张数、总价值
                     for (MtCoupon coupon : couponList) {
                          totalNum = totalNum + (coupon.getSendNum()*cellDto.getNum().get(gid));

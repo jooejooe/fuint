@@ -206,7 +206,7 @@ public class MemberController {
             if (memberInfo.getId() == null) {
                 tempUser = memberService.queryMemberByMobile(memberInfo.getMobile());
 
-            }else{
+            } else {
                 memberInfo.setUpdateTime(currentDT);
             }
 
@@ -229,7 +229,7 @@ public class MemberController {
      */
     @RequiresPermissions("backend/member/memberEditInit/{id}")
     @RequestMapping(value = "/memberEditInit/{id}")
-    public String storeRuleEditInit(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable("id") Integer id) throws BusinessCheckException {
+    public String userEditInit(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable("id") Integer id) throws BusinessCheckException {
         MtUser mtUserInfo = memberService.queryMemberById(id);
         Map<String, Object> param = new HashMap<>();
         List<MtUserGroup> userGroupMap = memberService.queryMemberGroupByParams(param);

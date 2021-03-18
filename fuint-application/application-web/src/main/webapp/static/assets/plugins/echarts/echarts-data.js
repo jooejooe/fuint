@@ -257,10 +257,10 @@ Echarts.prototype = {
                     break;
 
             case 'coupon_get':
-                arr.push('优惠券领取金额');
+                arr.push('卡券领取金额');
                 break;
             case 'coupon_spend':
-                arr.push('优惠券消费金额');
+                arr.push('卡券消费金额');
                 break;
 
             case 'new_user':

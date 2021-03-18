@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fuint.base.dao.pagination.PaginationRequest;
 import com.fuint.base.dao.pagination.PaginationResponse;
 import com.fuint.application.dto.ReqCouponGroupDto;
-import com.fuint.application.dto.ReqSendCouponDto;
 import com.fuint.base.util.RequestHandler;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,17 +27,16 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * 优惠券统计管理类controller
- * Created by zach on 2019/08/28.
+ * 卡券统计管理类controller
+ * Created by zach on 2021/03/18.
  */
 @Controller
 @RequestMapping(value = "/backend/userCoupon")
 public class userCouponController {
-
     private static final Logger logger = LoggerFactory.getLogger(userCouponController.class);
 
     /**
-     * 优惠分组服务接口
+     * 卡券分组服务接口
      */
     @Autowired
     private CouponGroupService couponGroupService;
@@ -49,14 +47,14 @@ public class userCouponController {
     private Date lastIndexTime = null;
 
     /**
-     * 优惠分组列表查询
+     * 会员卡券列表查询
      *
      * @param request  HttpServletRequest对象
      * @param response HttpServletResponse对象
      * @param model    SpringFramework Model对象
-     * @return 促销活动列表展现页面
+     * @return 会员卡券列表展现页面
      */
-    @RequiresPermissions("backend/couponGroup/index")
+    @RequiresPermissions("backend/userCoupon/index")
     @RequestMapping(value = "/index")
     public String index(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException {
         String EQ_code = request.getParameter("EQ_code");
@@ -69,7 +67,7 @@ public class userCouponController {
     }
 
     /**
-     * 查询促销活动组列表
+     * 查询会员卡券列表
      *
      * @param request
      * @param response
@@ -78,7 +76,7 @@ public class userCouponController {
      * @throws BusinessCheckException
      */
     @RequestMapping(value = "/queryList", method = RequestMethod.POST)
-    @RequiresPermissions("/backend/couponGroup/queryList")
+    @RequiresPermissions("/backend/userCoupon/queryList")
     public String queryList(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException {
         PaginationRequest paginationRequest = RequestHandler.buildPaginationRequest(request, model);
         PaginationResponse<MtCouponGroup> paginationResponse = couponGroupService.queryCouponGroupListByPagination(paginationRequest);
@@ -185,7 +183,7 @@ public class userCouponController {
     }
 
     /**
-     * 发放优惠券
+     * 发放卡券
      *
      * @return
      */

@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 用户优惠券业务接口
+ * 用户卡券业务接口
  * Created by zach on 2019/9/20
  */
 public interface UserCouponService {

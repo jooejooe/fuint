@@ -33,7 +33,7 @@
                 </div>
                 <div class="form-group m-r-10">
                     <select class="form-control" name="LIKE_suitStoreIds" id="LIKE_suitStoreIds">
-                        <option value="">卡券适用店铺</option>
+                        <option value="">适用店铺</option>
                         <#if storeList?has_content && storeList?exists>
                         <#list storeList as pf>
                             <option value="${pf.id}" <#if params.LIKE_suitStoreIds== pf.id> selected</#if>>${pf.name}</option>
@@ -43,15 +43,6 @@
                 </div>
             </div>
             <div class="block clearfix" style="display: block;height: 45px;">
-                <div class="form-group m-r-10">
-                    <select class="form-control" name="EQ_couponInfoStatus" id="EQ_couponInfoStatus">
-                        <option value="">状态</option>
-                        <option value="A" <#if params.EQ_couponInfoStatus== "A"> selected</#if>>未使用</option>
-                        <option value="B" <#if params.EQ_couponInfoStatus== "B"> selected</#if>>已使用</option>
-                        <option value="C" <#if params.EQ_couponInfoStatus== "C"> selected</#if>>已过期</option>
-                        <option value="D" <#if params.EQ_couponInfoStatus== "D"> selected</#if>>已作废</option>
-                    </select>
-                </div>
                 <div class="form-group m-r-10">
                     <select class="form-control" name="EQ_storeId" id="EQ_storeId">
                         <option value="">使用店铺</option>
@@ -63,11 +54,21 @@
                     </select>
                 </div>
                 <div class="form-group m-r-10">
+                    <select class="form-control" name="EQ_couponInfoStatus" id="EQ_couponInfoStatus">
+                        <option value="">状态</option>
+                        <option value="A" <#if params.EQ_couponInfoStatus== "A"> selected</#if>>未使用</option>
+                        <option value="B" <#if params.EQ_couponInfoStatus== "B"> selected</#if>>已使用</option>
+                        <option value="C" <#if params.EQ_couponInfoStatus== "C"> selected</#if>>已过期</option>
+                        <option value="D" <#if params.EQ_couponInfoStatus== "D"> selected</#if>>已作废</option>
+                        <option value="E" <#if params.EQ_couponInfoStatus== "E"> selected</#if>>未领取</option>
+                     </select>
+                </div>
+                <div class="form-group m-r-10">
                     <button type="button" class="btn btn-sm btn-success m-r-5"
                             onclick="postDataByForm('backend/member/CouponinfoList','displayArea','memberForm')"><i class="fa fa-search"></i>查询
                     </button>
-                    <button type="button" class="btn btn-sm btn-danger m-r-5" onclick="exportExcel();"><i class="fa fa-sign-out"></i>导出excel
-                    </button>&nbsp;<label style="color:#E53333;">(一次导出表格不可超过50000条，否则可能导致出错哦)</label>
+                    <button type="button" class="btn btn-sm btn-success m-r-5" onclick="exportExcel();"><i class="fa fa-sign-out"></i>导出Excel</button>
+                    <button type="button" class="btn btn-sm btn-danger m-r-5" onclick="downLoad();"><i class="fa fa-download"></i>下载打印</button>
                 </div>
             </div>
         </form>
@@ -86,6 +87,7 @@
             <tr>
                 <th>会员手机</th>
                 <th>卡券类型</th>
+                <th>效果图</th>
                 <th>卡券名称</th>
                 <th>状态</th>
                 <th>面额</th>
@@ -99,8 +101,17 @@
             <#if paginationResponse.content?has_content && paginationResponse.content?exists && paginationResponse.content?size gt 0>
             <#list paginationResponse.content as ct>
             <tr>
-                <td>${ct.mobile}</td>
-                <td>优惠券</td>
+                <td><#if ct.mobile>${ct.mobile}<#else>暂无</#if></td>
+                <td>
+                    <#if ct.type == 'T' >
+                    集次卡
+                    <#elseif ct.type == 'P'>
+                    预存卡
+                    <#else>
+                    优惠券
+                    </#if>
+                </td>
+                <td><img class="coupon-preview" src="<@mh.static/>${ct.couponImage}"/></td>
                 <td>${ct.couponName}</td>
                 <td>${ct.couponInfoStatusDesc}</td>
                 <td>${ct.money}</td>
@@ -108,7 +119,7 @@
                 <td><#if ct.usedTime>${ct.usedTime}<#else>暂无</#if></td>
                 <td>${ct.updateTime}</td>
                 <td>
-                    <#if ct.couponInfoStatus == "A">
+                    <#if ct.couponInfoStatus == "A" || ct.couponInfoStatus == "E">
                     <a class="label label-success small-btn" href="javascript:confirmerCoupon('${ct.id}')"  title="手动核销"><i class="fa fa-adjust"></i>核销</a>
                     <a class="label label-danger small-btn" href="javascript:getConfirmData('确定作废${ct.mobile}的${ct.couponName}券？作废后用户端无法再看到此劵.注意：该操作不可撤回','${rc.contextPath}/backend/coupon/deleteUserCoupon/${ct.id}','displayArea')"><i class="fa fa-trash"></i>作废</a>
                     <#elseif ct.couponInfoStatus == "B">
@@ -145,7 +156,24 @@
             }
         }
         params+="temppara1=temppara1";
-        //alert(params);
+        window.location = "${rc.contextPath}/backend/member/exportCouponinfoList?" + params;
+    }
+
+    function downLoad() {
+        var params = "";
+        var inp =document.getElementsByTagName("input");
+        for(var i=0;i<inp.length;i++){
+            if(inp[i].value.length > 0){
+                params += inp[i].name+"="+inp[i].value+"&"
+            }
+        }
+        var sel =document.getElementsByTagName("select");
+        for(var i=0;i<sel.length;i++){
+            if(sel[i].value.length > 0){
+                params += sel[i].name+"="+sel[i].value+"&"
+            }
+        }
+        params+="temppara1=temppara1";
         window.location = "${rc.contextPath}/backend/member/exportCouponinfoList?" + params;
     }
 

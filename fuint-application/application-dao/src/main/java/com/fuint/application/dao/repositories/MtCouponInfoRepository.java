@@ -17,7 +17,7 @@ import java.util.List;
 public interface MtCouponInfoRepository extends BaseRepository<UvCouponInfo, Integer> {
 
    /**
-    * 根据活动Id获取用户优惠券信息列表
+    * 根据活动Id获取用户卡券信息列表
     *
     * @return
     */

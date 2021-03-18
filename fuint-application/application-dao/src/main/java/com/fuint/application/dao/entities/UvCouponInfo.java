@@ -60,8 +60,6 @@ public class UvCouponInfo implements Serializable{
     @Column(name = "USED_TIME")
     private Date usedTime;
 
-
-
    /**
     * 创建时间 
     */
@@ -82,11 +80,11 @@ public class UvCouponInfo implements Serializable{
     @Column(name = "MOBILE", nullable = false, length = 16)
     private String mobile;
 
-       /**
-        * 适用店铺id列表
-        */
-       @Column(name = "SUIT_STORE_IDS", nullable = false, length = 256)
-       private String suitStoreIds;
+   /**
+    * 适用店铺id列表
+    */
+    @Column(name = "SUIT_STORE_IDS", nullable = false, length = 256)
+    private String suitStoreIds;
 
    /**
     * 真实姓名 
@@ -99,6 +97,12 @@ public class UvCouponInfo implements Serializable{
     */ 
     @Column(name = "coupon_name", nullable = false, length = 100)
     private String couponName;
+
+   /**
+    * 券效果图
+    */
+    @Column(name = "coupon_image", nullable = false, length = 100)
+    private String couponImage;
 
    /**
     * 面额 
@@ -143,43 +147,41 @@ public class UvCouponInfo implements Serializable{
     private String storeName;
 
 
-       /**
-        * 发券量
-        */
-       @Transient
-       private int couponTotal;
-       /**
-        * 未使用量
-        */
-       @Transient
-       private int unUsedTotal;
-       /**
-        * 使用量
-        */
-       @Transient
-       private int usedTotal;
+    /**
+    * 发券量
+    */
+    @Transient
+    private int couponTotal;
+   /**
+    * 未使用量
+    */
+    @Transient
+    private int unUsedTotal;
+    /**
+    * 使用量
+    */
+    @Transient
+    private int usedTotal;
 
-       /**
-        * 过期量
-        */
-       @Transient
-       private int expireTotal;
+    /**
+     * 过期量
+     */
+    @Transient
+    private int expireTotal;
 
-       /**
-        * 作废量
-        */
-       @Transient
-       private int disableTotal;
+    /**
+     * 作废量
+     */
+    @Transient
+    private int disableTotal;
 
+    /**
+     * 导入UUID
+     */
+    @Column(name = "UUID", nullable = false, length = 50)
+    private String uuid;
 
-       /**
-        * 导入UUID
-        */
-       @Column(name = "UUID", nullable = false, length = 50)
-       private String uuid;
-
-
-       public Integer getId(){
+    public Integer getId(){
         return id;
     }
     public void setId(Integer id){
@@ -251,6 +253,12 @@ public class UvCouponInfo implements Serializable{
     public void setCouponName(String couponName){
     this.couponName=couponName;
     }
+    public String getCouponImage(){
+           return couponImage;
+       }
+    public void setCouponImage(String couponImage){
+           this.couponImage=couponImage;
+       }
     public BigDecimal getMoney(){
         return money;
     }

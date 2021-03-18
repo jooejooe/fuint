@@ -221,14 +221,14 @@ public class GiveServiceImpl extends BaseService implements GiveService {
     }
 
     /**
-     * 优惠券转赠
+     * 卡券转赠
      *
      * @param paramMap
      * @throws BusinessCheckException
      */
     @Override
     @Transactional
-    @OperationServiceLog(description = "转赠优惠券")
+    @OperationServiceLog(description = "转赠卡券")
     public ResponseObject addGive(Map<String, Object> paramMap) throws BusinessCheckException {
         MtGive give = new MtGive();
 
@@ -243,12 +243,12 @@ public class GiveServiceImpl extends BaseService implements GiveService {
         }
 
         if (StringUtils.isEmpty(couponId)) {
-            throw new BusinessCheckException("转增优惠券不能为空");
+            throw new BusinessCheckException("转增卡券不能为空");
         }
 
         String[] couponIds = couponId.split(",");
         if (couponIds.length > 10) {
-            throw new BusinessCheckException("转增优惠券数量不能超过10张");
+            throw new BusinessCheckException("转增卡券数量不能超过10张");
         }
 
         MtUser user = memberService.queryMemberByMobile(mobile);
@@ -299,10 +299,10 @@ public class GiveServiceImpl extends BaseService implements GiveService {
 
             money = money.add(coupon.getAmount());
             if (null == userCoupon) {
-                throw new BusinessCheckException("转增优惠券不存在");
+                throw new BusinessCheckException("转增卡券不存在");
             } else {
                 if (!userCoupon.getStatus().equals("A")) {
-                    throw new BusinessCheckException("转增优惠券必须是未使用状态");
+                    throw new BusinessCheckException("转增卡券必须是未使用状态");
                 }
                 if (!userCoupon.getUserId().toString().equals(userId.toString())) {
                     throw new BusinessCheckException("您的券可能已经转赠出去了");

@@ -28,7 +28,7 @@ import java.math.BigDecimal;
 import java.util.*;
 
 /**
- * 会员优惠券统计业务实现类
+ * 会员卡券统计业务实现类
  * Created by zach 20190808
  */
 @Service
@@ -43,7 +43,7 @@ public class UvCouponInfoServiceImpl implements UvCouponInfoService {
     private EntityManager entityManager;
 
     /**
-     * 分页查询会员优惠券消费列表 SQL
+     * 分页查询会员卡券消费列表 SQL
      *
      * @param paginationRequest
      * @return
@@ -75,7 +75,7 @@ public class UvCouponInfoServiceImpl implements UvCouponInfoService {
      */
     @Override
     public List<UvCouponInfo> queryCouponInfoByParams(Map<String, Object> params) throws BusinessCheckException {
-        log.info("############ 根据参数查询优惠券使用情况信息 #################.");
+        log.info("############ 根据参数查询卡券使用情况信息 #################.");
         if (MapUtils.isEmpty(params)) {
             params = new HashMap<>();
         }
@@ -86,14 +86,14 @@ public class UvCouponInfoServiceImpl implements UvCouponInfoService {
     }
 
     /**
-     *查询会员优惠券总计
+     *查询会员卡券总计
      *
      * @param  params
      * @throws BusinessCheckException
      */
     @Override
     public CouponTotalDto queryCouponInfoTotalByParams(Map<String, Object> params) throws BusinessCheckException {
-        log.info("############ 根据参数查询优惠券统计情况信息 #################.");
+        log.info("############ 根据参数查询卡券统计情况信息 #################.");
         if (MapUtils.isEmpty(params)) {
             params = new HashMap<>();
         }
@@ -102,9 +102,9 @@ public class UvCouponInfoServiceImpl implements UvCouponInfoService {
     }
 
     /**
-     * 根据ID获取用户优惠券信息
+     * 根据ID获取用户卡券信息
      *
-     * @param id 用户优惠券id
+     * @param id 用户卡券id
      * @return
      * @throws BusinessCheckException
      */
@@ -112,8 +112,8 @@ public class UvCouponInfoServiceImpl implements UvCouponInfoService {
     public UvCouponInfo queryUvCouponInfoById(Integer id) throws BusinessCheckException {
         UvCouponInfo uvCouponInfo = mtCouponInfoRepository.findOne(id);
         if (null == uvCouponInfo || StatusEnum.DISABLE.getKey().equals(uvCouponInfo.getCouponInfoStatus())) {
-            log.error("该优惠券不存在或已被删除"+id.toString());
-            throw new BusinessCheckException("该优惠券不存在或已被删除");
+            log.error("该卡券不存在或已被删除"+id.toString());
+            throw new BusinessCheckException("该卡券不存在或已被删除");
         }
         return uvCouponInfo;
     }
@@ -142,6 +142,7 @@ public class UvCouponInfoServiceImpl implements UvCouponInfoService {
                 "\t`mt_user`.`REAL_NAME` AS `REAL_NAME`,\n" +
                 "  CONCAT(',',`mt_coupon`.STORE_IDS,',') AS SUIT_STORE_IDS,\n" +
                 "\t`mt_coupon`.`NAME` AS `coupon_name`,\n" +
+                "\t`mt_coupon`.`IMAGE` AS `coupon_image`,\n" +
                 "\t`mt_coupon`.`AMOUNT` AS `MONEY`,\n" +
                 "\t`mt_coupon`.`GROUP_ID` AS `GROUP_ID`,\n" +
                 "\t`mt_coupon`.`STATUS` AS `coupon_status`,\n" +
@@ -298,7 +299,6 @@ public class UvCouponInfoServiceImpl implements UvCouponInfoService {
         return  new CouponTotalDto();
     }
 
-
     /**
      * 根据Query设置的参数查询并封装成实体对象
      *
@@ -325,17 +325,17 @@ public class UvCouponInfoServiceImpl implements UvCouponInfoService {
                 uvCouponInfo.setRealName(null != objArray[11] ? objArray[11].toString() : "");
                 uvCouponInfo.setSuitStoreIds(null != objArray[12] ? objArray[12].toString() : "");
                 uvCouponInfo.setCouponName(null != objArray[13] ? objArray[13].toString() : "");
-                uvCouponInfo.setMoney(null != objArray[14] ? new BigDecimal(objArray[14].toString()) : null);
-                uvCouponInfo.setGroupId(null != objArray[15] ? Integer.parseInt(objArray[15].toString()) : null);
-                uvCouponInfo.setCouponStatus(null != objArray[16] ? objArray[16].toString() : "");
-                uvCouponInfo.setBeginTime(null != objArray[17] ? (Date) objArray[17] : null);
-                uvCouponInfo.setEndTime(null != objArray[18] ? (Date) objArray[18] : null);
-                uvCouponInfo.setCouponGroupName(null != objArray[19] ? objArray[19].toString() : "");
-                uvCouponInfo.setStoreName(null != objArray[20] ? objArray[20].toString() : "");
+                uvCouponInfo.setCouponImage(null != objArray[14] ? objArray[14].toString() : "");
+                uvCouponInfo.setMoney(null != objArray[15] ? new BigDecimal(objArray[15].toString()) : null);
+                uvCouponInfo.setGroupId(null != objArray[16] ? Integer.parseInt(objArray[16].toString()) : null);
+                uvCouponInfo.setCouponStatus(null != objArray[17] ? objArray[17].toString() : "");
+                uvCouponInfo.setBeginTime(null != objArray[18] ? (Date) objArray[18] : null);
+                uvCouponInfo.setEndTime(null != objArray[19] ? (Date) objArray[19] : null);
+                uvCouponInfo.setCouponGroupName(null != objArray[20] ? objArray[20].toString() : "");
+                uvCouponInfo.setStoreName(null != objArray[21] ? objArray[21].toString() : "");
                 content.add(uvCouponInfo);
             }
         }
         return content;
     }
-
 }

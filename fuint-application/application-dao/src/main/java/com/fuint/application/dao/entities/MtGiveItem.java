@@ -32,7 +32,7 @@ public class MtGiveItem implements Serializable{
     private Integer giveId;
 
    /**
-    * 用户优惠券ID
+    * 用户卡券ID
     */ 
     @Column(name = "USER_COUPON_ID", nullable = false, length = 10)
     private Integer userCouponId;

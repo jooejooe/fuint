@@ -28,7 +28,7 @@ public interface GiveService {
     PaginationResponse<GiveDto> queryGiveListByPagination(PaginationRequest paginationRequest) throws BusinessCheckException;
 
     /**
-     * 转赠优惠券
+     * 转赠卡券
      *
      * @param paramMap
      * @throws BusinessCheckException

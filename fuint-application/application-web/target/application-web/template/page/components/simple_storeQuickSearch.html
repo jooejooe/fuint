@@ -70,6 +70,7 @@
             parent.layer.closeAll();
         })
     }
+
     function query() {
         postDataByForm('${rc.contextPath}/backend/store/simple-quick-search-store', 'activityList', 'activityForm');
     }
@@ -78,8 +79,8 @@
         var itemCheckBox = $("[name = 'id']:checkbox");
         $("#checkAll").prop("checked", itemCheckBox.length == itemCheckBox.filter(":checked").length);
     }
+
     function checkAll() {
         $("[name='id']").prop("checked",$("#checkAll").prop("checked"));
-
     }
 </script>

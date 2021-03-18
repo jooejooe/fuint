@@ -3,16 +3,16 @@ package com.fuint.application.dto;
 import java.io.Serializable;
 
 /**
- * 优惠券状态统计实体
+ * 卡券状态统计实体
  * Created by zach on 2017/7/26.
  */
 public class CouponStatusCountDto implements Serializable {
     /**
-     * 优惠券状态
+     * 卡券状态
      */
     private String status;
     /**
-     * 优惠券数量
+     * 卡券数量
      */
     private Integer codeNum;
 

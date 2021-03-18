@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * 我的优惠券DTO
+ * 我的卡券DTO
  * Created by zach on 2019/8/28.
  */
 public class MyCouponDto implements Serializable {

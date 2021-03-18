@@ -45,7 +45,7 @@ public interface MtUserCouponRepository extends BaseRepository<MtUserCoupon, Int
        MtUserCoupon findByCode(@Param("code") String code);
 
        /**
-        * 作废优惠券
+        * 作废卡券
         *
         * @return
         */

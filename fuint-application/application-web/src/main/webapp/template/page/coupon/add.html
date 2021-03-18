@@ -3,7 +3,7 @@
 </h1>
 <div class="panel panel-inverse" data-sortable-id="form-stuff-1">
     <div class="panel-heading">
-        <h4 class="panel-title"><#if (groupInfo.type == 'P')>新增预存券<#elseif groupInfo.type == 'C'>新增优惠券<#else>新增卡券</#if></h4>
+        <h4 class="panel-title"><#if (groupInfo.type == 'P')>新增预存券<#elseif groupInfo.type == 'C'>新增卡券<#else>新增卡券</#if></h4>
     </div>
     <div class="panel-body">
         <form id="activityForm" name="activityForm" action="" method="post" class="form-horizontal">
@@ -12,7 +12,7 @@
                 <label class="col-md-3 control-label"><span class="requiredstar">* </span>卡券类型：</label>
                 <div class="col-md-2">
                     <select class="form-control" name="type" id="type" onchange="selectType();">
-                        <option value="C">优惠券</option>
+                        <option value="C">卡券</option>
                         <option value="P">预存卡</option>
                         <option value="T">集次卡</option>
                     </select>
@@ -53,8 +53,7 @@
                     至
                 </div>
                 <div class="col-md-2 m-r-10">
-                    <input type="text" class="form-control" id="endTime" name="endTime" autocomplete="off" value="${endTime}" required
-                           placeholder="结束时间">
+                    <input type="text" class="form-control" id="endTime" name="endTime" autocomplete="off" value="${endTime}" required placeholder="结束时间">
                 </div>
             </div>
             <div id="prestore-private" class="<#if (groupInfo.type != 'P')>hide<#else>show</#if>">
@@ -62,7 +61,7 @@
                     <label class="col-md-3 control-label"><span class="requiredstar">*</span>预存规则：</label>
                     <input id="inRule" name="inRule" type="hidden" value="">
                     <div class="col-md-1" id="addInRuleBtn">
-                        <a id="addInRule" class="btn btn-success btn-icon btn-circle" onclick="javascript:addInRuleDiv();" title="添加"><i class="fa fa-plus"></i></a>
+                         <a id="addInRule" class="btn btn-success btn-icon btn-circle" onclick="javascript:addInRuleDiv();" title="添加"><i class="fa fa-plus"></i></a>
                     </div>
                     <div class="form-group"></div>
                     <div class="form-group inRuleItem">
@@ -79,9 +78,9 @@
             </div>
             <div id="coupon-private" class="show">
                 <div class="form-group">
-                    <label class="col-md-3 control-label"><span class="requiredstar">*</span>优惠券面额：</label>
+                    <label class="col-md-3 control-label"><span class="requiredstar">*</span>卡券面额：</label>
                     <div class="col-md-2  m-r-10">
-                        <input type="text" class="form-control" id="amount" name="amount" value="${amount}" required placeholder="优惠券面额">
+                        <input type="text" class="form-control" id="amount" name="amount" value="${amount}" required placeholder="卡券面额">
                     </div>
                     <label class="col-md-3 control-label"><span class="fl">单位：元</span></label>
                 </div>
@@ -100,6 +99,16 @@
                     <label class="control-label">
                         <span class="fl">（举例：配置3，每发1套时将该卡券将一次性发出3张）</span>
                     </label>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label"><span class="requiredstar">* </span>发放方式：</label>
+                    <div class="col-md-2">
+                        <select class="form-control" name="sendWay" id="sendWay">
+                            <option value="backend">后台发放</option>
+                            <option value="front">前台领取</option>
+                            <option value="offline">线下发放</option>
+                        </select>
+                    </div>
                 </div>
             </div>
             <div id="timer-private" class="hide">
@@ -141,8 +150,8 @@
                         <input type="file" name="picture1" id="picture1" style="display: inline-block" onchange="ajaxFileUpload(1,'${rc.contextPath}/backend');">
                     </div>
                     <div class="m-t-10">
-                        <input type="text" type="hidden" placeholder="图片路径" class="form-control" name="image" id="filePath1" value=""
-                               style="width:400px" onchange="changeImagePath('<@mh.images/>','1')">
+                        <input type="text" type="hidden" placeholder="图片路径" class="form-control" name="image" id="filePath1" value="/default-coupon.jpg"
+                               style="width:400px" onchange="changeImagePath('<@mh.static/>', '1')">
                     </div>
                     <div class="m-t-10"><span> 格式：</span>
                         jpeg/jpg/png
@@ -152,15 +161,13 @@
             <div class="form-group">
                 <label class="col-md-3 control-label">描述信息：</label>
                 <div class="col-md-5">
-                        <textarea rows="8" class="form-control" id="description" name="description"
-                                  maxlength="500" required placeholder="输入卡券介绍，使用范围等等..."></textarea>
+                     <textarea rows="8" class="form-control" id="description" name="description" maxlength="500" required placeholder="输入卡券介绍，使用范围等等..."></textarea>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-md-3 control-label">后台备注：</label>
                 <div class="col-md-5">
-                    <textarea rows="3" class="form-control" id="remarks" name="remarks"
-                              maxlength="500" placeholder="输入后台备注信息"></textarea>
+                    <textarea rows="3" class="form-control" id="remarks" name="remarks" maxlength="500" placeholder="输入后台备注信息"></textarea>
                 </div>
             </div>
             <div class="form-group">

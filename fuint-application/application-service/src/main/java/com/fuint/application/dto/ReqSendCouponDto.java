@@ -3,7 +3,7 @@ package com.fuint.application.dto;
 import java.io.Serializable;
 
 /**
- * 发放优惠券请求DTO
+ * 发放卡券请求DTO
  * Created by zach on 2019/8/28.
  */
 public class ReqSendCouponDto implements Serializable {

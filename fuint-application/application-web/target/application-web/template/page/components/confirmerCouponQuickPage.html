@@ -65,7 +65,6 @@
             submitHandler: function () {
                 var id = $('#id').val();
                 var storeId = $('#storeId').val();
-                //alert(id);
                 postDataByForm('${rc.contextPath}/backend/member/stringconfirmerUserCoupon?id='+id+'&storeId='+storeId, 'displayArea', 'memberForm');
                 parent.layer.closeAll();
             }

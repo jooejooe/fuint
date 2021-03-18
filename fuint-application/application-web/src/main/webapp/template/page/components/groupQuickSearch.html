@@ -9,7 +9,14 @@
                 <input style="width:160px;" type="text" placeholder="分组ID" class="form-control" name="EQ_id">
                 <input style="width:200px;" type="text" placeholder="分组名称" class="form-control" name="LIKE_name">&nbsp;
                 <button type="button" class="btn btn-success btn-sm"
-                      onclick="postDataByForm('${rc.contextPath}/backend/couponGroup/quickSearch', 'groupList', 'groupForm');"><i class="fa fa-search"></i>查询
+                      onclick="postDataByForm('${rc.contextPath}/backend/couponGroup/quickSearch', 'groupList', 'groupForm');">
+                      <i class="fa fa-search"></i>
+                      查询
+                </button>
+                <button type="button" class="btn btn-danger btn-sm"
+                      onclick="getData('${rc.contextPath}/backend/couponGroup/add', 'displayArea', true)">
+                      <i class="fa fa-plus"></i>
+                      新增分组
                 </button>
             </form>
         </div>

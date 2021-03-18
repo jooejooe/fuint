@@ -19,7 +19,7 @@ import java.util.List;
 public interface MtSendLogRepository extends BaseRepository<MtSendLog, Integer> {
 
    /**
-    * 作废优惠券
+    * 作废卡券
     *
     * @return
     */
@@ -30,7 +30,7 @@ public interface MtSendLogRepository extends BaseRepository<MtSendLog, Integer> 
 
 
    /**
-    * 作废优惠券单个用户的券
+    * 作废卡券单个用户的券
     *
     * @return
     */

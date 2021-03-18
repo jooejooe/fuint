@@ -38,7 +38,7 @@ public class MtUserCoupon implements Serializable{
     private Integer groupId;
 
    /**
-    * 优惠券ID
+    * 卡券ID
     */ 
     @Column(name = "COUPON_ID", nullable = false, length = 10)
     private Integer couponId;

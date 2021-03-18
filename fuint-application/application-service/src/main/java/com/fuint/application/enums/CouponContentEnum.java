@@ -1,7 +1,7 @@
 package com.fuint.application.enums;
 
 /**
- * 优惠券内容枚举
+ * 卡券内容枚举
  * <p/>
  * Created by zach on 2019/9/6.
  */

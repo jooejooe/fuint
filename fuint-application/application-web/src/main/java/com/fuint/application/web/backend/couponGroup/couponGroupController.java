@@ -57,7 +57,7 @@ public class couponGroupController {
     private CouponGroupService couponGroupService;
 
     /**
-     * 优惠券服务接口
+     * 卡券服务接口
      * */
     @Autowired
     CouponService couponService;
@@ -209,7 +209,7 @@ public class couponGroupController {
         if (paginationResponse.getContent().size() > 0) {
             ReqResult reqResult = new ReqResult();
             reqResult.setResult(false);
-            reqResult.setMsg("已发放优惠券，不允许删除！");
+            reqResult.setMsg("已发放卡券，不允许删除！");
             return reqResult;
         }
 
@@ -346,7 +346,7 @@ public class couponGroupController {
     }
 
     /**
-     * 发放优惠券
+     * 发放卡券
      *
      * @param request
      * @param response
@@ -487,7 +487,7 @@ public class couponGroupController {
     }
 
     /**
-     * 废除用户优惠券
+     * 废除用户卡券
      *
      * @param request
      * @param response

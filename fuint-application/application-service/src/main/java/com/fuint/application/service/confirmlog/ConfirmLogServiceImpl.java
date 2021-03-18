@@ -30,7 +30,7 @@ import java.math.BigDecimal;
 import java.util.*;
 
 /**
- * 核销优惠券视图
+ * 核销卡券视图
  * Created by zach 20191012
  */
 @Service
@@ -45,7 +45,7 @@ public class ConfirmLogServiceImpl implements ConfirmLogService{
     private EntityManager entityManager;
 
     /**
-     * 分页查询会员优惠券消费列表 SQL
+     * 分页查询会员卡券消费列表 SQL
      *
      * @param paginationRequest
      * @return
@@ -85,9 +85,9 @@ public class ConfirmLogServiceImpl implements ConfirmLogService{
 
 
     /**
-     * 根据ID获取用户优惠券信息
+     * 根据ID获取用户卡券信息
      *
-     * @param id 用户优惠券id
+     * @param id 用户卡券id
      * @return
      * @throws BusinessCheckException
      */
@@ -277,7 +277,7 @@ public class ConfirmLogServiceImpl implements ConfirmLogService{
 
 
     /**
-     * 根据Query设置的参数查询并封装成实体核销优惠券流水对象
+     * 根据Query设置的参数查询并封装成实体核销卡券流水对象
      *
      * @param query
      * @return

@@ -16,7 +16,7 @@ import java.util.Map;
 public interface ConfirmLogService {
 
     /**
-     * 分页查询会员优惠券核销列表
+     * 分页查询会员卡券核销列表
      *
      * @param paginationRequest
      * @return
@@ -25,15 +25,15 @@ public interface ConfirmLogService {
 
 
     /**
-     * 查询会员优惠券核销列表
+     * 查询会员卡券核销列表
      * */
     public List<ConfirmLogDto> queryConfirmLogListByParams(Map<String, Object> params) throws BusinessCheckException;
 
 
     /**
-     * 根据ID获取用户优惠券信息
+     * 根据ID获取用户卡券信息
      *
-     * @param id 用户优惠券id
+     * @param id 用户卡券id
      * @throws BusinessCheckException
      */
     ConfirmLogDto queryConfirmLogById(Integer id) throws BusinessCheckException;

@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 /**
- * 用户优惠券业务实现类
+ * 用户卡券业务实现类
  * Created by zach on 2019/09/06.
  */
 @Service

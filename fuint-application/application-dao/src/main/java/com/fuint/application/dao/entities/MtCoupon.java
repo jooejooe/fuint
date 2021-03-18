@@ -63,13 +63,19 @@ public class MtCoupon implements Serializable{
     private BigDecimal amount;
 
    /**
+    * 获取方式
+    */
+    @Column(name = "SEND_WAY", length = 20)
+    private String sendWay;
+
+   /**
     * 数量 
     */ 
     @Column(name = "SEND_NUM", length = 10)
     private Integer sendNum;
 
    /**
-    * 例外日期，逗号隔开。周末：weekend；其他：2019-01-02~2019-02-09 
+    * 例外日期，逗号隔开。周末：weekend；其他：2021-01-02~2021-02-09
     */ 
     @Column(name = "EXCEPT_TIME", length = 500)
     private String exceptTime;
@@ -176,6 +182,12 @@ public class MtCoupon implements Serializable{
     public void setAmount(BigDecimal amount){
     this.amount=amount;
     }
+    public String getSendWay(){
+       return sendWay;
+   }
+    public void setSendWay(String sendWay){
+           this.sendWay=sendWay;
+       }
     public Integer getSendNum(){
         return sendNum;
     }

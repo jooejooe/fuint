@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * 核销优惠券流水表
+ * 核销卡券流水表
  * Created by zach
  * 2019-10-11 16:09
  */
@@ -29,7 +29,7 @@ public class ConfirmLogDto{
     private String confirmStatus;
 
     /**
-     * 用户优惠券ID
+     * 用户卡券ID
      */
     private Integer userCouponId;
 
@@ -97,14 +97,14 @@ public class ConfirmLogDto{
 
 
 /**
- * 用户优惠券创建时间
+ * 用户卡券创建时间
  */
 @JSONField(format="yyyy-MM-dd HH:mm:ss")
  //@Column(name = "CREATE_TIME")
  private Date createTime;
 
 /**
- * 用户优惠券更新时间
+ * 用户卡券更新时间
  */
 @JSONField(format="yyyy-MM-dd HH:mm:ss")
  //@Column(name = "UPDATE_TIME")

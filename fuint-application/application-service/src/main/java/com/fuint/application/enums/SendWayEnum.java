@@ -1,22 +1,20 @@
 package com.fuint.application.enums;
 
 /**
- * 用户卡券状态 状态：A：未使用；B：已使用；C：已过期; D：已作废
+ * 卡券发放方式
  * <p/>
  * Created by zach on 2021-03-17.
  */
-public enum UserCouponStatusEnum {
-    UNUSED("A", "未使用"),
-    USED("B", "已使用"),
-    EXPIRE("C", "已过期"),
-    DISABLE("D", "已作废"),
-    UNSEND("E", "未领取");
+public enum SendWayEnum {
+    BACKEND("backend", "后台发放"),
+    OFFLINE("offline", "线下发放"),
+    FRONT("front", "前台领取");
 
     private String key;
 
     private String value;
 
-    UserCouponStatusEnum(String key, String value) {
+    SendWayEnum(String key, String value) {
         this.key = key;
         this.value = value;
     }
@@ -39,8 +37,7 @@ public enum UserCouponStatusEnum {
 
     // 普通方法，通过key获取value
     public static String getValue(String k) {
-       // for (StatusEnum se : sees)
-        for (UserCouponStatusEnum c : UserCouponStatusEnum.values()) {
+        for (SendWayEnum c : SendWayEnum.values()) {
             if (c.getKey().equals(k)) {
                 return c.getValue();
             }
@@ -50,7 +47,7 @@ public enum UserCouponStatusEnum {
 
     // 普通方法，通过Value获取key
     public static String getKey(String v) {
-        for (UserCouponStatusEnum c : UserCouponStatusEnum.values()) {
+        for (SendWayEnum c : SendWayEnum.values()) {
             if (c.getValue() == v) {
                 return c.getKey();
             }

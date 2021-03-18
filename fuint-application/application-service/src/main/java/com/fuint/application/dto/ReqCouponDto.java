@@ -45,7 +45,12 @@ public class ReqCouponDto implements Serializable {
     private BigDecimal amount;
 
     /**
-     * 发行数量
+     * 发放方式
+     * */
+    private String send_way;
+
+    /**
+     * 每次发放数量
      * */
      private Integer send_num;
 
@@ -148,6 +153,14 @@ public class ReqCouponDto implements Serializable {
 
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
+    }
+
+    public String getSendWay() {
+        return send_way;
+    }
+
+    public void setSendWay(String send_way) {
+        this.send_way = send_way;
     }
 
     public Integer getSendNum() {

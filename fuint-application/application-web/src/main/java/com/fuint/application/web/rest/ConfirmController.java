@@ -27,7 +27,7 @@ import java.util.Map;
 import java.util.List;
 
 /**-
- * 核销优惠券controller
+ * 核销卡券controller
  * Created by zach on 2019/9/05.
  */
 @RestController
@@ -37,7 +37,7 @@ public class ConfirmController extends BaseController {
     private static final Logger logger = LoggerFactory.getLogger(ConfirmController.class);
 
     /**
-     * 优惠券服务接口
+     * 卡券服务接口
      */
     @Autowired
     private CouponService couponService;
@@ -58,7 +58,7 @@ public class ConfirmController extends BaseController {
     private MemberService memberService;
 
     /**
-     * 核销优惠券
+     * 核销卡券
      *
      * @param param  Request对象
      */
@@ -115,7 +115,7 @@ public class ConfirmController extends BaseController {
                         }
                     }
                     if (!isSameStore) {
-                        return getFailureResult(1003, "核销人员对该优惠券没有权限");
+                        return getFailureResult(1003, "核销人员对该卡券没有权限");
                     }
                 }
             }
