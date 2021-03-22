@@ -3,7 +3,6 @@ package com.fuint.application.service.coupongroup;
 import com.fuint.base.annoation.OperationServiceLog;
 import com.fuint.base.dao.pagination.PaginationRequest;
 import com.fuint.base.dao.pagination.PaginationResponse;
-import com.fuint.base.shiro.util.ShiroUserHelper;
 import com.fuint.base.util.RequestHandler;
 import com.fuint.exception.BusinessCheckException;
 import com.fuint.application.dao.entities.MtCoupon;
@@ -29,7 +28,6 @@ import com.fuint.application.util.DateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -46,7 +44,6 @@ import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.lang.String;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.regex.Pattern;
 
@@ -56,7 +53,6 @@ import java.util.regex.Pattern;
  */
 @Service
 public class CouponGroupServiceImpl implements CouponGroupService {
-
     private static final Logger log = LoggerFactory.getLogger(CouponGroupServiceImpl.class);
 
     @Autowired
@@ -85,9 +81,6 @@ public class CouponGroupServiceImpl implements CouponGroupService {
      */
     @Autowired
     private SendSmsInterface sendSmsService;
-
-    @Autowired
-    private Environment env;
 
     /**
      * 分页查询优惠分组列表
@@ -445,7 +438,6 @@ public class CouponGroupServiceImpl implements CouponGroupService {
             for (CouponCellDto cellDto : rows) {
                 // 发送张数
                 Integer totalNum = 0;
-
                 // 发送总价值
                 BigDecimal totalMoney = new BigDecimal("0.0");
 

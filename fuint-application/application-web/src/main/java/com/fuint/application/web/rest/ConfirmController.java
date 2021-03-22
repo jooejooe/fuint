@@ -54,9 +54,6 @@ public class ConfirmController extends BaseController {
     @Autowired
     private ConfirmerService confirmerService;
 
-    @Autowired
-    private MemberService memberService;
-
     /**
      * 核销卡券
      *

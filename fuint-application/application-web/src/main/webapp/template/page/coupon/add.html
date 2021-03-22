@@ -12,7 +12,7 @@
                 <label class="col-md-3 control-label"><span class="requiredstar">* </span>卡券类型：</label>
                 <div class="col-md-2">
                     <select class="form-control" name="type" id="type" onchange="selectType();">
-                        <option value="C">卡券</option>
+                        <option value="C">优惠券</option>
                         <option value="P">预存卡</option>
                         <option value="T">集次卡</option>
                     </select>
@@ -150,7 +150,7 @@
                         <input type="file" name="picture1" id="picture1" style="display: inline-block" onchange="ajaxFileUpload(1,'${rc.contextPath}/backend');">
                     </div>
                     <div class="m-t-10">
-                        <input type="text" type="hidden" placeholder="图片路径" class="form-control" name="image" id="filePath1" value="/default-coupon.jpg"
+                        <input type="text" type="hidden" placeholder="图片路径" class="form-control" name="image" id="filePath1" value="<@mh.static/>/defaultImage/coupon.png"
                                style="width:400px" onchange="changeImagePath('<@mh.static/>', '1')">
                     </div>
                     <div class="m-t-10"><span> 格式：</span>

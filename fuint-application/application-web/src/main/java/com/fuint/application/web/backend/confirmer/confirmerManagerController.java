@@ -6,15 +6,11 @@ import com.fuint.base.dao.pagination.PaginationResponse;
 import com.fuint.base.service.account.TAccountService;
 import com.fuint.base.shiro.util.ShiroUserHelper;
 import com.fuint.base.util.RequestHandler;
-import com.fuint.excel.export.service.ExportService;
 import com.fuint.exception.BusinessCheckException;
 import com.fuint.exception.BusinessRuntimeException;
-import com.fuint.util.StringUtil;
 import com.fuint.application.dao.entities.MtStore;
 import com.fuint.application.dao.entities.MtConfirmer;
-import com.fuint.application.dto.ReqResult;
 import com.fuint.application.enums.StatusEnum;
-import com.fuint.application.enums.UserCouponStatusEnum;
 import com.fuint.application.service.store.StoreService;
 import com.fuint.application.service.confirmer.ConfirmerService;
 import com.fuint.application.util.CommonUtil;
@@ -27,8 +23,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -41,7 +35,6 @@ import java.util.*;
 @Controller
 @RequestMapping(value = "/backend/confirmer")
 public class confirmerManagerController {
-
     private static final Logger logger = LoggerFactory.getLogger(confirmerManagerController.class);
 
     /**
@@ -61,12 +54,6 @@ public class confirmerManagerController {
      */
     @Autowired
     private TAccountService tAccountService;
-
-
-    /**
-     * 上次执行搜索全量索引的时间
-     */
-    private Date lastIndexTime = null;
 
     /**
      * 会员列表查询
@@ -188,7 +175,6 @@ public class confirmerManagerController {
     @RequiresPermissions("backend/confirmer/confirmerEditInit/{id}")
     @RequestMapping(value = "/confirmerEditInit/{id}")
     public String storeRuleEditInit(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable("id") Integer id) throws BusinessCheckException {
-
         MtConfirmer mtConfirmer;
         mtConfirmer = confirmerService.queryConfirmerById(id);
 
@@ -212,8 +198,7 @@ public class confirmerManagerController {
      */
     @RequiresPermissions("backend/confirmer/doEdit")
     @RequestMapping(value = "/doEdit")
-    public String doEdit(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException{
-
+    public String doEdit(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException {
         String id_str = request.getParameter("id");
         Integer id = 0;
         if (StringUtils.isNotEmpty(id_str)) {

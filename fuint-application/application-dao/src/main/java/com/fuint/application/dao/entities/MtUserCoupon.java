@@ -32,6 +32,12 @@ public class MtUserCoupon implements Serializable{
     private String code;
 
    /**
+    * 效果图
+    */
+   @Column(name = "IMAGE", length = 100)
+   private String image;
+
+   /**
     * 分组ID
     */ 
     @Column(name = "GROUP_ID", nullable = false, length = 10)
@@ -108,6 +114,12 @@ public class MtUserCoupon implements Serializable{
        }
     public void setCode(String code){
            this.code=code;
+       }
+    public String getImage(){
+           return image;
+       }
+    public void setImage(String image){
+           this.image=image;
        }
     public Integer getGroupId(){
         return groupId;

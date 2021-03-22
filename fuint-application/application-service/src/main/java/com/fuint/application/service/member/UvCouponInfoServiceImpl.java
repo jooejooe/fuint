@@ -1,5 +1,7 @@
 package com.fuint.application.service.member;
 
+import com.fuint.application.util.Base64Util;
+import com.fuint.application.util.QRCodeUtil;
 import com.fuint.base.dao.pagination.PaginationRequest;
 import com.fuint.base.dao.pagination.PaginationResponse;
 import com.fuint.exception.BusinessCheckException;
@@ -16,6 +18,7 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -24,7 +27,12 @@ import org.springframework.stereotype.Service;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.EntityManager;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -38,6 +46,9 @@ public class UvCouponInfoServiceImpl implements UvCouponInfoService {
 
     @Autowired
     private MtCouponInfoRepository mtCouponInfoRepository;
+
+    @Autowired
+    private Environment env;
 
     @PersistenceContext(unitName = "defaultPersistenceUnit")
     private EntityManager entityManager;
@@ -129,6 +140,7 @@ public class UvCouponInfoServiceImpl implements UvCouponInfoService {
         StringBuffer queryStr = new StringBuffer();
         queryStr.append("SELECT\n" +
                 "\t`mt_user_coupon`.`ID` AS `ID`,\n" +
+                "\t`mt_user_coupon`.`CODE` AS `CODE`,\n" +
                 "\t`mt_user_coupon`.`COUPON_ID` AS `COUPON_ID`,\n" +
                 "\t`mt_user_coupon`.`USER_ID` AS `USER_ID`,\n" +
                 "\tif(NOW() BETWEEN `mt_coupon`.`BEGIN_TIME` and `mt_coupon`.`END_TIME` or NOW() < `mt_coupon`.`BEGIN_TIME`,`mt_user_coupon`.`STATUS`,if(`mt_user_coupon`.`STATUS`='B','B','C')) AS `COUPON_INFO_STATUS`,\n" +
@@ -312,27 +324,43 @@ public class UvCouponInfoServiceImpl implements UvCouponInfoService {
             for (Object[] objArray : contentObj) {
                 UvCouponInfo uvCouponInfo = new UvCouponInfo();
                 uvCouponInfo.setId(null != objArray[0] ? Integer.parseInt(objArray[0].toString()) : null);
-                uvCouponInfo.setCouponId(null != objArray[1] ? Integer.parseInt(objArray[1].toString()) : null);
-                uvCouponInfo.setUserId(null != objArray[2] ? Integer.parseInt(objArray[2].toString()) : null);
-                uvCouponInfo.setCouponInfoStatus(null != objArray[3] ? objArray[3].toString() : "");
-                uvCouponInfo.setCouponInfoStatusDesc(null != objArray[4] ? objArray[4].toString() : "");
-                uvCouponInfo.setStoreId(null != objArray[5] ? Integer.parseInt(objArray[5].toString()) : null);
-                uvCouponInfo.setUsedTime(null != objArray[6] ? (Date) objArray[6] : null);
-                uvCouponInfo.setCreateTime(null != objArray[7] ? (Date) objArray[7] : null);
-                uvCouponInfo.setUpdateTime(null != objArray[8] ? (Date) objArray[8] : null);
-                uvCouponInfo.setUuid(null != objArray[9] ? objArray[9].toString() : "");
-                uvCouponInfo.setMobile(null != objArray[10] ? objArray[10].toString() : "");
-                uvCouponInfo.setRealName(null != objArray[11] ? objArray[11].toString() : "");
-                uvCouponInfo.setSuitStoreIds(null != objArray[12] ? objArray[12].toString() : "");
-                uvCouponInfo.setCouponName(null != objArray[13] ? objArray[13].toString() : "");
-                uvCouponInfo.setCouponImage(null != objArray[14] ? objArray[14].toString() : "");
-                uvCouponInfo.setMoney(null != objArray[15] ? new BigDecimal(objArray[15].toString()) : null);
-                uvCouponInfo.setGroupId(null != objArray[16] ? Integer.parseInt(objArray[16].toString()) : null);
-                uvCouponInfo.setCouponStatus(null != objArray[17] ? objArray[17].toString() : "");
-                uvCouponInfo.setBeginTime(null != objArray[18] ? (Date) objArray[18] : null);
-                uvCouponInfo.setEndTime(null != objArray[19] ? (Date) objArray[19] : null);
-                uvCouponInfo.setCouponGroupName(null != objArray[20] ? objArray[20].toString() : "");
-                uvCouponInfo.setStoreName(null != objArray[21] ? objArray[21].toString() : "");
+                uvCouponInfo.setCode(null != objArray[1] ? objArray[1].toString() : null);
+                uvCouponInfo.setCouponId(null != objArray[2] ? Integer.parseInt(objArray[2].toString()) : null);
+                uvCouponInfo.setUserId(null != objArray[3] ? Integer.parseInt(objArray[3].toString()) : null);
+                uvCouponInfo.setCouponInfoStatus(null != objArray[4] ? objArray[4].toString() : "");
+                uvCouponInfo.setCouponInfoStatusDesc(null != objArray[5] ? objArray[5].toString() : "");
+                uvCouponInfo.setStoreId(null != objArray[6] ? Integer.parseInt(objArray[6].toString()) : null);
+                uvCouponInfo.setUsedTime(null != objArray[7] ? (Date) objArray[7] : null);
+                uvCouponInfo.setCreateTime(null != objArray[8] ? (Date) objArray[8] : null);
+                uvCouponInfo.setUpdateTime(null != objArray[9] ? (Date) objArray[9] : null);
+                uvCouponInfo.setUuid(null != objArray[10] ? objArray[10].toString() : "");
+                uvCouponInfo.setMobile(null != objArray[11] ? objArray[11].toString() : "");
+                uvCouponInfo.setRealName(null != objArray[12] ? objArray[12].toString() : "");
+                uvCouponInfo.setSuitStoreIds(null != objArray[13] ? objArray[13].toString() : "");
+                uvCouponInfo.setCouponName(null != objArray[14] ? objArray[14].toString() : "");
+                uvCouponInfo.setCouponImage(null != objArray[15] ? objArray[15].toString() : "");
+                uvCouponInfo.setMoney(null != objArray[16] ? new BigDecimal(objArray[16].toString()) : null);
+                uvCouponInfo.setGroupId(null != objArray[17] ? Integer.parseInt(objArray[17].toString()) : null);
+                uvCouponInfo.setCouponStatus(null != objArray[18] ? objArray[18].toString() : "");
+                uvCouponInfo.setBeginTime(null != objArray[19] ? (Date) objArray[19] : null);
+                uvCouponInfo.setEndTime(null != objArray[20] ? (Date) objArray[20] : null);
+                uvCouponInfo.setCouponGroupName(null != objArray[21] ? objArray[21].toString() : "");
+                uvCouponInfo.setStoreName(null != objArray[22] ? objArray[22].toString() : "");
+
+                // 生成效果图 todo 多线程
+                String website = env.getProperty("website.url");
+                String code = uvCouponInfo.getCode();
+                String codeContent  = website + "/index.html#/result?code=" + code +"&time=" + new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date());
+                ByteArrayOutputStream out = new ByteArrayOutputStream();
+                String source = uvCouponInfo.getCouponImage();
+                QRCodeUtil.createQrCode(out, codeContent, 120, 120, "png", source);
+                try {
+                    String img = new String(Base64Util.baseEncode(out.toByteArray()), "UTF-8");
+                    uvCouponInfo.setCouponImage(img);
+                } catch (Exception e ) {
+                    // empty
+                }
+
                 content.add(uvCouponInfo);
             }
         }

@@ -3,7 +3,7 @@
 </h1>
 <div class="panel panel-inverse" data-sortable-id="form-stuff-1">
     <div class="panel-heading">
-        <h4 class="panel-title"><#if (groupInfo.type == 'P')>编辑预存券<#elseif groupInfo.type == 'C'>编辑优惠券<#else>编辑卡券</#if></h4>
+        <h4 class="panel-title"><#if (groupInfo.type == 'P')>编辑预存券<#elseif groupInfo.type == 'C'>编辑卡券<#else>编辑卡券</#if></h4>
     </div>
     <div class="panel-body">
         <form id="activityForm" name="activityForm" action="" method="post" class="form-horizontal">
@@ -72,9 +72,9 @@
     </div>
     <div id="coupon-private" class="<#if (groupInfo.type != 'C')>hide<#else>show</#if>">
         <div class="form-group">
-            <label class="col-md-3 control-label"><span class="requiredstar">*</span>优惠券面额：</label>
+            <label class="col-md-3 control-label"><span class="requiredstar">*</span>卡券面额：</label>
             <div class="col-md-2  m-r-10">
-                <input type="text" class="form-control" id="money" name="money" value="${couponInfo.money}" required placeholder="优惠券面额">
+                <input type="text" class="form-control" id="money" name="money" value="${couponInfo.money}" required placeholder="卡券面额">
             </div>
             <label class="col-md-3 control-label"><span class="fl">单位：元</span></label>
         </div>

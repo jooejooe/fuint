@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * 请求结果bean
  *
- * Created by lyj on 2016/9/12.
+ * Created by zach on 2021/3/18.
  */
 public class ReqResult implements Serializable {
 

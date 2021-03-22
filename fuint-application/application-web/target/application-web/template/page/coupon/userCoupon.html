@@ -1,10 +1,10 @@
 <h1 class="page-header">
-    <small>会员卡券</small>
+    <small>卡券明细</small>
 </h1>
 <hr/>
 <div class="panel panel-inverse" data-sortable-id="form-stuff-5">
     <div class="panel-heading">
-        <h4 class="panel-title">查询会员卡券</h4>
+        <h4 class="panel-title">明细查询</h4>
     </div>
     <div class="panel-body">
         <form id="memberForm" name="memberForm" method="post" class="form-inline">
@@ -111,7 +111,7 @@
                     优惠券
                     </#if>
                 </td>
-                <td><img class="coupon-preview" src="<@mh.static/>${ct.couponImage}"/></td>
+                <td><img class="coupon-preview-small" src="data:image/jpg;base64,${ct.couponImage}"/></td>
                 <td>${ct.couponName}</td>
                 <td>${ct.couponInfoStatusDesc}</td>
                 <td>${ct.money}</td>
@@ -178,11 +178,11 @@
     }
 
     /**
-     * 核销优惠券
+     * 核销卡券
      * @param name
      */
     function confirmerCoupon(userCouponId) {
-        //alterpage('${rc.contextPath}/backend/member/confirmerUserCouponPage/'+userCouponId, "核销优惠券","500px","300px");
+        //alterpage('${rc.contextPath}/backend/member/confirmerUserCouponPage/'+userCouponId, "核销卡券","500px","300px");
        getData('${rc.contextPath}/backend/member/confirmerUserCouponPage/'+userCouponId, "displayArea");
     }
 

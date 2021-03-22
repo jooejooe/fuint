@@ -6,7 +6,7 @@ package com.fuint.application.enums;
  * Created by zach on 2021/1/19.
  */
 public enum GroupTypeEnum {
-    COUPON("C", "卡券"),
+    COUPON("C", "优惠券"),
     PRESTORE("P", "预存卡"),
     TIMER("T", "集次卡");
 

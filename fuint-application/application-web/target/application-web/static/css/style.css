@@ -20,6 +20,12 @@ body {
     border: solid #ccc 1px;
     border-radius: 3px;
 }
+.coupon-preview-small{
+    width: 80px;
+    height: 44px;
+    border: solid #ccc 1px;
+    border-radius: 3px;
+}
 .small-btn{
     width:55px;
     display: block;

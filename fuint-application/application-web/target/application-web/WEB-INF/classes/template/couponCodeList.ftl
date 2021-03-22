@@ -102,8 +102,8 @@
    <Interior ss:Color="#00B050" ss:Pattern="Solid"/>
   </Style>
  </Styles>
- <#--优惠券信息-->
- <Worksheet ss:Name="优惠券码信息">
+ <#--卡券信息-->
+ <Worksheet ss:Name="卡券码信息">
   <Table ss:ExpandedColumnCount="13"  x:FullColumns="1"
    x:FullRows="1" ss:StyleID="s62" ss:DefaultColumnWidth="54"
    ss:DefaultRowHeight="16.5">
@@ -122,12 +122,12 @@
    <Column ss:StyleID="s62" ss:AutoFitWidth="0" ss:Width="100"/>
    <Row ss:Height="22.5">
      <Cell ss:StyleID="s58" ss:MergeAcross="6">
-       <Data ss:Type="String">优惠券码列表</Data>
+       <Data ss:Type="String">卡券码列表</Data>
      </Cell>
    </Row>
    <Row>
-    <Cell ss:StyleID="s59"><Data ss:Type="String">优惠券活动编码</Data></Cell>
-    <Cell ss:StyleID="s59"><Data ss:Type="String">优惠券活动名称</Data></Cell>
+    <Cell ss:StyleID="s59"><Data ss:Type="String">卡券活动编码</Data></Cell>
+    <Cell ss:StyleID="s59"><Data ss:Type="String">卡券活动名称</Data></Cell>
     <Cell ss:StyleID="s59"><Data ss:Type="String">券码</Data></Cell>
     <Cell ss:StyleID="s59"><Data ss:Type="String">兑换码</Data></Cell>
     <Cell ss:StyleID="s59"><Data ss:Type="String">状态</Data></Cell>

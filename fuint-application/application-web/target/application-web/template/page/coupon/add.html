@@ -3,7 +3,7 @@
 </h1>
 <div class="panel panel-inverse" data-sortable-id="form-stuff-1">
     <div class="panel-heading">
-        <h4 class="panel-title"><#if (groupInfo.type == 'P')>新增预存券<#elseif groupInfo.type == 'C'>新增优惠券<#else>新增卡券</#if></h4>
+        <h4 class="panel-title"><#if (groupInfo.type == 'P')>新增预存券<#elseif groupInfo.type == 'C'>新增卡券<#else>新增卡券</#if></h4>
     </div>
     <div class="panel-body">
         <form id="activityForm" name="activityForm" action="" method="post" class="form-horizontal">
@@ -78,9 +78,9 @@
             </div>
             <div id="coupon-private" class="show">
                 <div class="form-group">
-                    <label class="col-md-3 control-label"><span class="requiredstar">*</span>优惠券面额：</label>
+                    <label class="col-md-3 control-label"><span class="requiredstar">*</span>卡券面额：</label>
                     <div class="col-md-2  m-r-10">
-                        <input type="text" class="form-control" id="amount" name="amount" value="${amount}" required placeholder="优惠券面额">
+                        <input type="text" class="form-control" id="amount" name="amount" value="${amount}" required placeholder="卡券面额">
                     </div>
                     <label class="col-md-3 control-label"><span class="fl">单位：元</span></label>
                 </div>
@@ -150,7 +150,7 @@
                         <input type="file" name="picture1" id="picture1" style="display: inline-block" onchange="ajaxFileUpload(1,'${rc.contextPath}/backend');">
                     </div>
                     <div class="m-t-10">
-                        <input type="text" type="hidden" placeholder="图片路径" class="form-control" name="image" id="filePath1" value="/default-coupon.jpg"
+                        <input type="text" type="hidden" placeholder="图片路径" class="form-control" name="image" id="filePath1" value="<@mh.static/>/defaultImage/coupon.png"
                                style="width:400px" onchange="changeImagePath('<@mh.static/>', '1')">
                     </div>
                     <div class="m-t-10"><span> 格式：</span>

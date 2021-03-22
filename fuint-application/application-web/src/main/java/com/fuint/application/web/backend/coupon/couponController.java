@@ -44,7 +44,7 @@ import java.util.Map;
 
 /**
  * 卡券管理类controller
- * Created by zach on 2019/08/05.
+ * Created by zach on 2021/03/18
  */
 @Controller
 @RequestMapping(value = "/backend/coupon")
@@ -436,7 +436,6 @@ public class couponController extends BaseController {
         return "components/storeList";
     }
 
-
     /**
      * 根据券ID 删除个人卡券
      *
@@ -452,7 +451,7 @@ public class couponController extends BaseController {
         ids.add(id);
 
         ShiroUser shiroUser = ShiroUserHelper.getCurrentShiroUser();
-        if (null==shiroUser) {
+        if (null == shiroUser) {
             return "redirect:/login";
         }
 
@@ -495,8 +494,8 @@ public class couponController extends BaseController {
     public String rollbackUserCoupon(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable("id") Integer id) throws BusinessCheckException {
         String tempuserCouponId = request.getParameter("userCouponId");
         Integer userCouponId = 0;
-        if (tempuserCouponId!=null) {
-            userCouponId=Integer.parseInt(tempuserCouponId);
+        if (tempuserCouponId != null) {
+            userCouponId = Integer.parseInt(tempuserCouponId);
         }
 
         ShiroUser shiroUser = ShiroUserHelper.getCurrentShiroUser();

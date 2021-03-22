@@ -24,6 +24,12 @@ public class UvCouponInfo implements Serializable{
     private Integer id;
 
    /**
+    * 编码
+    */
+   @Column(name = "CODE", nullable = false, length = 20)
+   private String code;
+
+   /**
     * 券ID 
     */
     @Column(name = "COUPON_ID", nullable = false, length = 10)
@@ -187,6 +193,12 @@ public class UvCouponInfo implements Serializable{
     public void setId(Integer id){
     this.id=id;
     }
+    public String getCode(){
+           return code;
+       }
+    public void setCode(String code){
+           this.code=code;
+       }
     public Integer getCouponId(){
         return couponId;
     }
@@ -258,7 +270,7 @@ public class UvCouponInfo implements Serializable{
        }
     public void setCouponImage(String couponImage){
            this.couponImage=couponImage;
-       }
+    }
     public BigDecimal getMoney(){
         return money;
     }
@@ -302,60 +314,55 @@ public class UvCouponInfo implements Serializable{
     this.storeName=storeName;
     }
 
-   public String getSuitStoreIds(){
+    public String getSuitStoreIds(){
        return suitStoreIds;
    }
-   public void setSuitStoreIds(String suitStoreIds){
+    public void setSuitStoreIds(String suitStoreIds){
        this.suitStoreIds=suitStoreIds;
    }
+    public int getCouponTotal() {
+       return couponTotal;
+   }
+    public void setCouponTotal(int couponTotal) {
+       this.couponTotal = couponTotal;
+   }
 
+    public int getUnUsedTotal() {
+       return unUsedTotal;
+   }
 
-       public int getCouponTotal() {
-           return couponTotal;
-       }
+    public void setUnUsedTotal(int unUsedTotal) {
+       this.unUsedTotal = unUsedTotal;
+   }
 
-       public void setCouponTotal(int couponTotal) {
-           this.couponTotal = couponTotal;
-       }
+    public int getUsedTotal() {
+       return usedTotal;
+   }
 
-       public int getUnUsedTotal() {
-           return unUsedTotal;
-       }
+    public void setUsedTotal(int usedTotal) {
+       this.usedTotal = usedTotal;
+   }
 
-       public void setUnUsedTotal(int unUsedTotal) {
-           this.unUsedTotal = unUsedTotal;
-       }
+    public int getExpireTotal() {
+       return expireTotal;
+   }
 
-       public int getUsedTotal() {
-           return usedTotal;
-       }
+    public void setExpireTotal(int expireTotal) {
+       this.expireTotal = expireTotal;
+   }
 
-       public void setUsedTotal(int usedTotal) {
-           this.usedTotal = usedTotal;
-       }
+    public int getDisableTotal() {
+       return disableTotal;
+   }
 
-       public int getExpireTotal() {
-           return expireTotal;
-       }
+    public void setDisableTotal(int disableTotal) {
+       this.disableTotal = disableTotal;
+   }
 
-       public void setExpireTotal(int expireTotal) {
-           this.expireTotal = expireTotal;
-       }
-
-       public int getDisableTotal() {
-           return disableTotal;
-       }
-
-       public void setDisableTotal(int disableTotal) {
-           this.disableTotal = disableTotal;
-       }
-
-       public String getUuid(){
-           return uuid;
-       }
-       public void setUuid(String uuid){
+    public String getUuid(){
+       return uuid;
+   }
+    public void setUuid(String uuid){
            this.uuid=uuid;
        }
-
   }
-

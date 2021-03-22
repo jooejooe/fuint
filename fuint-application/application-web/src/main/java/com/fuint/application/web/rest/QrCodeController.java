@@ -118,7 +118,7 @@ public class QrCodeController extends BaseController {
 
             // 生成并输出二维码
             out = new ByteArrayOutputStream();
-            QRCodeUtil.createQrCode(out, content, width, height, "JPEG");
+            QRCodeUtil.createQrCode(out, content, width, height, "png", "");
 
             // 对数据进行Base64编码，返回的码需加上：data:image/jpg;base64
             String img = new String(Base64Util.baseEncode(out.toByteArray()), "UTF-8");

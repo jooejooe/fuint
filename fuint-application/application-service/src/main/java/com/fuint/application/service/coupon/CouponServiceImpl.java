@@ -34,6 +34,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.fuint.application.dto.ResMyCouponDto;
 import org.springframework.core.env.Environment;
+
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -168,6 +169,7 @@ public class CouponServiceImpl extends BaseService implements CouponService {
                     userCoupon.setCreateTime(new Date());
                     userCoupon.setUpdateTime(new Date());
                     userCoupon.setUuid(uuid);
+
                     // 12位随机数
                     StringBuffer code = new StringBuffer();
                     code.append(SeqUtil.getRandomNumber(4));
@@ -175,6 +177,7 @@ public class CouponServiceImpl extends BaseService implements CouponService {
                     code.append(SeqUtil.getRandomNumber(4));
                     code.append(SeqUtil.getRandomNumber(4));
                     userCoupon.setCode(code.toString());
+
                     userCouponRepository.save(userCoupon);
                 }
             }

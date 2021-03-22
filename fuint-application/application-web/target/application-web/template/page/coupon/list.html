@@ -29,7 +29,7 @@
                 <#list paginationResponse.content as ct>
                         <tr>
                             <td>${ct.id}</td>
-                            <td><img class="coupon-preview" src="<@mh.static/>${ct.image}"/></td>
+                            <td><img class="coupon-preview" src="${ct.image}"/></td>
                             <td>
                                 <#list groupMap as group>
                                 <#if group.id == ct.groupId >

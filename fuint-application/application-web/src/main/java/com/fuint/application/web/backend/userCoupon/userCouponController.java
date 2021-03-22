@@ -118,7 +118,7 @@ public class userCouponController {
     }
 
     /**
-     * 添加优惠分组初始化页面
+     * 添加卡券分组初始化页面
      *
      * @param request
      * @param response
@@ -140,9 +140,7 @@ public class userCouponController {
      */
     @RequiresPermissions("backend/couponGroup/create")
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String addActivityHandler(HttpServletRequest request, HttpServletResponse response,
-                                     Model model, ReqCouponGroupDto reqCouponGroupDto) throws BusinessCheckException {
-
+    public String addActivityHandler(HttpServletRequest request, HttpServletResponse response, Model model, ReqCouponGroupDto reqCouponGroupDto) throws BusinessCheckException {
         String operator = ShiroUserHelper.getCurrentShiroUser().getAcctName();
         reqCouponGroupDto.setOperator(operator);
         couponGroupService.addCouponGroup(reqCouponGroupDto);
@@ -174,7 +172,6 @@ public class userCouponController {
     @RequiresPermissions("backend/couponGroup/update")
     @RequestMapping(value = "/update")
     public String couponGroupUpdate( ReqCouponGroupDto reqCouponGroupDto) throws BusinessCheckException {
-
         String operator = ShiroUserHelper.getCurrentShiroUser().getAcctName();
         reqCouponGroupDto.setOperator(operator);
         couponGroupService.updateCouponGroup(reqCouponGroupDto);

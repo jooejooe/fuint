@@ -1,5 +1,6 @@
 package com.fuint.application.util;
 
+import com.fuint.util.StringUtil;
 import com.google.zxing.*;
 import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
 import com.google.zxing.common.BitMatrix;
@@ -12,6 +13,8 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 
 /**
@@ -29,8 +32,9 @@ public class QRCodeUtil {
      * @param width        宽度
      * @param height       高度
      * @param imageFormat  二维码的格式
+     * @param resource     原图
      */
-    public static boolean createQrCode(OutputStream outputStream, String content, int width, int height, String imageFormat) {
+    public static boolean createQrCode(OutputStream outputStream, String content, int width, int height, String imageFormat, String resource) {
         //设置二维码纠错级别
         HashMap<EncodeHintType, String> hints = new HashMap<EncodeHintType, String>();
         hints.put(EncodeHintType.CHARACTER_SET, "utf-8");
@@ -58,7 +62,24 @@ public class QRCodeUtil {
                     }
                 }
             }
-            return ImageIO.write(image, imageFormat, outputStream);
+
+            if (StringUtil.isNotEmpty(resource)) {
+                BufferedImage big = getRemoteBufferedImage(resource);
+
+                BufferedImage small = image;
+                Graphics2D g = big.createGraphics();
+
+                // 二维码坐标（默认在右上角）
+                int x = big.getWidth() - small.getWidth() - 2;
+                int y = 2;
+
+                g.drawImage(small, x, y, small.getWidth(), small.getHeight(), null);
+                g.dispose();
+
+                return ImageIO.write(big, imageFormat, outputStream);
+            } else {
+                return ImageIO.write(image, imageFormat, outputStream);
+            }
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
         }
@@ -88,12 +109,46 @@ public class QRCodeUtil {
     }
 
     /**
+     * 获取远程网络图片信息
+     * @param imageURL
+     * @return
+     */
+    public static BufferedImage getRemoteBufferedImage(String imageURL) {
+        URL url = null;
+        InputStream is = null;
+        BufferedImage bufferedImage = null;
+        try {
+            url = new URL(imageURL);
+            is = url.openStream();
+            bufferedImage = ImageIO.read(is);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            System.out.println("imageURL: " + imageURL + ",无效!");
+            return null;
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("imageURL: " + imageURL + ",读取失败!");
+            return null;
+        } finally {
+            try {
+                if (is!=null) {
+                    is.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.out.println("imageURL: " + imageURL + ",流关闭异常!");
+                return null;
+            }
+        }
+        return bufferedImage;
+    }
+
+    /**
      * 测试代码
      *
      * @throws WriterException
      */
     public static void main(String[] args) throws IOException, WriterException {
-        createQrCode(new FileOutputStream(new File("d:\\qrcode.jpg")), "abcdefg_order123456_20171102140750", 200, 200, "JPEG");
-        readQrCode(new FileInputStream(new File("d:\\qrcode.jpg")));
+        createQrCode(new FileOutputStream(new File("d:\\tmp\\qrcode.jpg")), "abcdefg_order123456_20171102140750", 120, 120, "png", "D:/tmp/1.png");
     }
 }
