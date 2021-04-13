@@ -13,12 +13,9 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import com.fuint.application.BaseController;
 import com.fuint.application.ResponseObject;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 import com.fuint.application.dao.entities.MtUser;
 
 import javax.servlet.http.HttpServletRequest;
@@ -60,6 +57,7 @@ public class ConfirmController extends BaseController {
      * @param param  Request对象
      */
     @RequestMapping(value = "/doConfirm", method = RequestMethod.POST)
+    @CrossOrigin
     public ResponseObject doConfirm(HttpServletRequest request, @RequestParam Map<String, Object> param) throws BusinessCheckException {
         String token = request.getHeader("token");
         String code = request.getParameter("code") == null ? "" : request.getParameter("code");

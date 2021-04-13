@@ -24,91 +24,57 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="couponController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/backend/coupon/couponController.java">
+      <file leaf-file-name="BannerController.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/backend/content/BannerController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="308" column="0" lean-forward="false" selection-start-line="308" selection-start-column="0" selection-end-line="308" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="558">
+              <caret line="164" column="13" lean-forward="true" selection-start-line="164" selection-start-column="13" selection-end-line="164" selection-end-column="13" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MtUserCoupon.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/entities/MtUserCoupon.java">
+      <file leaf-file-name="BannerService.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/banner/BannerService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="291">
-              <caret line="38" column="0" lean-forward="false" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="282">
+              <caret line="29" column="13" lean-forward="false" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CouponService.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/coupon/CouponService.java">
+      <file leaf-file-name="BannerServiceImpl.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/banner/BannerServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="651">
-              <caret line="44" column="6" lean-forward="true" selection-start-line="44" selection-start-column="6" selection-end-line="44" selection-end-column="6" />
-              <folding />
+            <state relative-caret-position="282">
+              <caret line="55" column="20" lean-forward="false" selection-start-line="55" selection-start-column="20" selection-end-line="55" selection-end-column="20" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CouponinfoController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/backend/member/CouponinfoController.java">
+      <file leaf-file-name="list.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/application-web/src/main/webapp/template/page/banner/list.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="316" column="13" lean-forward="true" selection-start-line="316" selection-start-column="13" selection-end-line="316" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UvCouponInfoServiceImpl.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/member/UvCouponInfoServiceImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="278">
-              <caret line="355" column="34" lean-forward="false" selection-start-line="355" selection-start-column="34" selection-end-line="355" selection-end-column="34" />
+            <state relative-caret-position="1598">
+              <caret line="71" column="16" lean-forward="true" selection-start-line="71" selection-start-column="16" selection-end-line="71" selection-end-column="16" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="add.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application-web/src/main/webapp/template/page/coupon/add.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="14" column="45" lean-forward="false" selection-start-line="14" selection-start-column="42" selection-end-line="14" selection-end-column="45" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="edit.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application-web/src/main/webapp/template/page/coupon/edit.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="600">
-              <caret line="26" column="17" lean-forward="false" selection-start-line="26" selection-start-column="17" selection-end-line="26" selection-end-column="17" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="QRCodeUtil.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/util/QRCodeUtil.java">
+        <entry file="file://$PROJECT_DIR$/application-web/src/main/webapp/template/page/banner/add.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="372">
-              <caret line="66" column="69" lean-forward="true" selection-start-line="66" selection-start-column="69" selection-end-line="66" selection-end-column="69" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="list.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application-web/src/main/webapp/template/page/coupon/list.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="395">
-              <caret line="37" column="40" lean-forward="false" selection-start-line="37" selection-start-column="40" selection-end-line="37" selection-end-column="40" />
+              <caret line="17" column="65" lean-forward="true" selection-start-line="17" selection-start-column="65" selection-end-line="17" selection-end-column="65" />
               <folding />
             </state>
           </provider>
@@ -118,10 +84,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>信息</find>
-      <find>table-bordered</find>
-      <find>table table-striped</find>
-      <find>&lt;#elseif</find>
       <find>EQ_status</find>
       <find>searchParams</find>
       <find>EQ_groupId</find>
@@ -148,12 +110,18 @@
       <find>ACCESSKRYID</find>
       <find>images.website</find>
       <find>mh.static</find>
+      <find>跨域</find>
+      <find>new ArrayList</find>
+      <find>wang.yq</find>
+      <find>store</find>
     </findStrings>
     <replaceStrings>
       <replace>com.fuint.application</replace>
       <replace>适用店铺</replace>
       <replace>table table-striped table-bordered</replace>
       <replace>卡券</replace>
+      <replace />
+      <replace>zach</replace>
     </replaceStrings>
   </component>
   <component name="GradleLocalSettings">
@@ -164,29 +132,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/application-web/src/main/webapp/template/page/store/store_list.html" />
-        <option value="$PROJECT_DIR$/application-web/src/main/webapp/template/page/confirmer/confirmer_list.html" />
-        <option value="$PROJECT_DIR$/application-web/src/main/webapp/template/page/store/store_add.html" />
-        <option value="$PROJECT_DIR$/application-web/src/main/webapp/template/page/source/source_list.html" />
-        <option value="$PROJECT_DIR$/application-web/src/main/webapp/template/page/account/account_list.html" />
-        <option value="$PROJECT_DIR$/application-web/src/main/webapp/template/page/duty/duty_list.html" />
-        <option value="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/entities/MtUser.java" />
-        <option value="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/store/StoreService.java" />
-        <option value="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/repositories/MtUserRepository.java" />
-        <option value="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/generator/GenEntityMysql.java" />
-        <option value="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/point/PointServiceImpl.java" />
-        <option value="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/point/PointService.java" />
-        <option value="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/member/MemberService.java" />
-        <option value="$PROJECT_DIR$/application-web/src/main/webapp/template/page/member/member_add.html" />
-        <option value="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/member/MemberServiceImpl.java" />
-        <option value="$PROJECT_DIR$/application-web/src/main/webapp/template/page/member/member_list.html" />
-        <option value="$PROJECT_DIR$/application-web/src/main/webapp/template/page/member/member_edit.html" />
-        <option value="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/backend/member/MemberController.java" />
-        <option value="$PROJECT_DIR$/application-web/src/main/webapp/template/page/components/simple_storeQuickSearch.html" />
-        <option value="$PROJECT_DIR$/application-web/src/main/webapp/template/page/components/confirmerCouponQuickPage.html" />
-        <option value="$PROJECT_DIR$/application-web/src/main/webapp/template/page/couponGroup/index.html" />
-        <option value="$PROJECT_DIR$/application-web/src/main/webapp/template/page/components/groupQuickSearch.html" />
-        <option value="$PROJECT_DIR$/application-web/src/main/webapp/static/js/custom/send.js" />
         <option value="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/dto/ReqCouponDto.java" />
         <option value="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/entities/MtCoupon.java" />
         <option value="$PROJECT_DIR$/application-web/src/main/webapp/template/page/coupon/edit.html" />
@@ -198,14 +143,10 @@
         <option value="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/dto/ReqResult.java" />
         <option value="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/backend/userCoupon/userCouponController.java" />
         <option value="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/backend/confirmer/confirmerManagerController.java" />
-        <option value="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/backend/coupon/couponController.java" />
         <option value="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/enums/GroupTypeEnum.java" />
         <option value="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/backend/give/giveLogController.java" />
         <option value="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/coupongroup/CouponGroupServiceImpl.java" />
         <option value="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/util/ImageQrUtil.java" />
-        <option value="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/rest/QrCodeController.java" />
-        <option value="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/rest/ConfirmController.java" />
-        <option value="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/coupon/CouponServiceImpl.java" />
         <option value="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/entities/UvCouponInfo.java" />
         <option value="$PROJECT_DIR$/application-web/src/main/webapp/template/page/coupon/userCoupon.html" />
         <option value="$PROJECT_DIR$/application-web/src/main/webapp/static/css/style.css" />
@@ -213,8 +154,35 @@
         <option value="$PROJECT_DIR$/application-web/src/main/webapp/template/page/coupon/list.html" />
         <option value="$PROJECT_DIR$/application-web/src/main/webapp/template/page/coupon/add.html" />
         <option value="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/member/UvCouponInfoServiceImpl.java" />
-        <option value="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/entities/MtUserCoupon.java" />
         <option value="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/util/QRCodeUtil.java" />
+        <option value="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/backend/coupon/couponController.java" />
+        <option value="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/entities/MtUserCoupon.java" />
+        <option value="$PROJECT_DIR$/application-core/src/main/java/com/fuint/application/BaseController.java" />
+        <option value="$PROJECT_DIR$/application-web/src/main/webapp/WEB-INF/web.xml" />
+        <option value="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/rest/ConfirmController.java" />
+        <option value="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/rest/GiveController.java" />
+        <option value="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/rest/MyCouponController.java" />
+        <option value="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/rest/QrCodeController.java" />
+        <option value="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/rest/SignController.java" />
+        <option value="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/rest/SmsController.java" />
+        <option value="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/rest/ConfirmerController.java" />
+        <option value="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/rest/PageController.java" />
+        <option value="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/generator/GenEntityMysql.java" />
+        <option value="$PROJECT_DIR$/application-web/src/main/webapp/template/page/banner/edit.html" />
+        <option value="$PROJECT_DIR$/application-web/src/main/webapp/template/page/banner/list.html" />
+        <option value="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/store/StoreServiceImpl.java" />
+        <option value="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/dto/ResMyCouponDto.java" />
+        <option value="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/dto/Message.java" />
+        <option value="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/dto/MessageStatusEnum.java" />
+        <option value="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/dto/Head.java" />
+        <option value="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/dto/ConfirmLogDto.java" />
+        <option value="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/dto/Banner.java" />
+        <option value="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/dto/BannerDto.java" />
+        <option value="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/coupon/CouponServiceImpl.java" />
+        <option value="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/banner/BannerServiceImpl.java" />
+        <option value="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/banner/BannerService.java" />
+        <option value="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/backend/content/BannerController.java" />
+        <option value="$PROJECT_DIR$/application-web/src/main/webapp/template/page/banner/add.html" />
       </list>
     </option>
   </component>
@@ -262,10 +230,10 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="518" />
-    <option name="y" value="91" />
+    <option name="x" value="33" />
+    <option name="y" value="147" />
     <option name="width" value="1934" />
-    <option name="height" value="859" />
+    <option name="height" value="1038" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -282,9 +250,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="AndroidView" />
       <pane id="Scope" />
-      <pane id="PackagesPane" />
+      <pane id="Scratches" />
+      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -295,72 +263,72 @@
             <path>
               <item name="fuint-application" type="b2602c69:ProjectViewProjectNode" />
               <item name="fuint-application" type="462c0819:PsiDirectoryNode" />
-              <item name="application-dao" type="462c0819:PsiDirectoryNode" />
+              <item name="application-web" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="fuint-application" type="b2602c69:ProjectViewProjectNode" />
               <item name="fuint-application" type="462c0819:PsiDirectoryNode" />
-              <item name="application-dao" type="462c0819:PsiDirectoryNode" />
+              <item name="application-web" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="fuint-application" type="b2602c69:ProjectViewProjectNode" />
               <item name="fuint-application" type="462c0819:PsiDirectoryNode" />
-              <item name="application-dao" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="fuint-application" type="b2602c69:ProjectViewProjectNode" />
-              <item name="fuint-application" type="462c0819:PsiDirectoryNode" />
-              <item name="application-dao" type="462c0819:PsiDirectoryNode" />
+              <item name="application-web" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="fuint-application" type="b2602c69:ProjectViewProjectNode" />
               <item name="fuint-application" type="462c0819:PsiDirectoryNode" />
-              <item name="application-dao" type="462c0819:PsiDirectoryNode" />
+              <item name="application-web" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="fuint-application" type="b2602c69:ProjectViewProjectNode" />
               <item name="fuint-application" type="462c0819:PsiDirectoryNode" />
-              <item name="application-dao" type="462c0819:PsiDirectoryNode" />
+              <item name="application-web" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="application" type="462c0819:PsiDirectoryNode" />
-              <item name="dao" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="template" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="fuint-application" type="b2602c69:ProjectViewProjectNode" />
               <item name="fuint-application" type="462c0819:PsiDirectoryNode" />
-              <item name="application-dao" type="462c0819:PsiDirectoryNode" />
+              <item name="application-web" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="application" type="462c0819:PsiDirectoryNode" />
-              <item name="dao" type="462c0819:PsiDirectoryNode" />
-              <item name="entities" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="template" type="462c0819:PsiDirectoryNode" />
+              <item name="page" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="fuint-application" type="b2602c69:ProjectViewProjectNode" />
+              <item name="fuint-application" type="462c0819:PsiDirectoryNode" />
+              <item name="application-web" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="template" type="462c0819:PsiDirectoryNode" />
+              <item name="page" type="462c0819:PsiDirectoryNode" />
+              <item name="banner" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
-    <property name="settings.editor.selected.configurable" value="MavenSettings" />
+    <property name="settings.editor.selected.configurable" value="configurable.group.editor" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/pom.xml" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../learnJava/fushop" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
@@ -377,7 +345,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Tomcat Server.fuint-application">
+  <component name="RunManager" selected="Application.GenEntityMysql">
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="HTML_USED" value="false" />
       <option name="WIDTH" value="400" />
@@ -543,6 +511,7 @@
     </configuration>
     <configuration name="fuint-application" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 7.0.90" ALTERNATIVE_JRE_ENABLED="false">
       <option name="OPEN_IN_BROWSER" value="false" />
+      <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8082/fuint-application/" />
       <option name="COMMON_VM_ARGUMENTS" value="-Denv.level=dev -Denv.properties.path=/code/fuint/opt" />
       <option name="UPDATING_POLICY" value="restart-server" />
       <deployment>
@@ -554,6 +523,7 @@
       </deployment>
       <server-settings>
         <option name="BASE_DIRECTORY_NAME" value="Unnamed_fuint-application" />
+        <option name="HTTP_PORT" value="8082" />
       </server-settings>
       <predefined_log_file id="Tomcat" enabled="true" />
       <predefined_log_file id="Tomcat Catalina" enabled="true" />
@@ -630,10 +600,10 @@
     </list>
     <recent_temporary>
       <list size="4">
-        <item index="0" class="java.lang.String" itemvalue="Application.QRCodeUtil" />
-        <item index="1" class="java.lang.String" itemvalue="Application.ImageQrUtil" />
-        <item index="2" class="java.lang.String" itemvalue="Application.ErWeiMa" />
-        <item index="3" class="java.lang.String" itemvalue="Application.GenEntityMysql" />
+        <item index="0" class="java.lang.String" itemvalue="Application.GenEntityMysql" />
+        <item index="1" class="java.lang.String" itemvalue="Application.QRCodeUtil" />
+        <item index="2" class="java.lang.String" itemvalue="Application.ImageQrUtil" />
+        <item index="3" class="java.lang.String" itemvalue="Application.ErWeiMa" />
       </list>
     </recent_temporary>
   </component>
@@ -664,14 +634,23 @@
       <workItem from="1616115589502" duration="12945000" />
       <workItem from="1616374920200" duration="9779000" />
       <workItem from="1616393153314" duration="6178000" />
+      <workItem from="1616633380084" duration="16783000" />
+      <workItem from="1616737219358" duration="1224000" />
+      <workItem from="1617065340363" duration="212000" />
+      <workItem from="1617683515533" duration="592000" />
+      <workItem from="1617761035389" duration="514000" />
+      <workItem from="1617778661157" duration="7362000" />
+      <workItem from="1618207710681" duration="6939000" />
+      <workItem from="1618300501370" duration="5028000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="189724000" />
+    <option name="totallyTimeSpent" value="228378000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -683,7 +662,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5873894" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.53097343" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32964602" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -714,273 +693,23 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="21" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/backend/content/BannerController.java</url>
+          <line>161</line>
+          <properties />
+          <option name="timeStamp" value="22" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="23" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/enums/CouponCodeStatusEnum.java" />
-    <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/enums/CodeTypeEnum.java" />
-    <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/enums/ActivityTypeEnum.java" />
-    <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/enums/CouponCodeLogTypeEnum.java" />
-    <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/enums/CouponExportStatusEnum.java" />
-    <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/enums/OperatorEnum.java" />
-    <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/enums/ParameterTypeEnum.java" />
-    <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/enums/PlatformTypeEnum.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="6" column="12" lean-forward="false" selection-start-line="6" selection-start-column="12" selection-end-line="6" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/enums/PrivilegeCodeLogTypeEnum.java" />
-    <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/enums/RuleParameterKeyEnum.java" />
-    <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/enums/TagUsedEnum.java" />
-    <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/enums/TimeTypeEnum.java" />
-    <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/enums/UserCouponStatusEnum.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="14" column="23" lean-forward="true" selection-start-line="14" selection-start-column="23" selection-end-line="14" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/enums/StatusEnum.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="7" column="12" lean-forward="false" selection-start-line="7" selection-start-column="12" selection-end-line="7" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/enums/CouponContentEnum.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="7" column="12" lean-forward="false" selection-start-line="7" selection-start-column="12" selection-end-line="7" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_161/src.zip!/java/util/UUID.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="282">
-          <caret line="140" column="23" lean-forward="false" selection-start-line="140" selection-start-column="23" selection-end-line="140" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/enums/SendWayEnum.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="16" column="43" lean-forward="true" selection-start-line="16" selection-start-column="43" selection-end-line="16" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/entities/MtCoupon.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1779">
-          <caret line="19" column="13" lean-forward="false" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://D:/Users/user/.m2/repository/com/fuint/fuint-base/0.0.1-SNAPSHOT/fuint-base-0.0.1-SNAPSHOT.jar!/com/fuint/base/dao/pagination/PaginationRequest.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="635">
-          <caret line="61" column="16" lean-forward="false" selection-start-line="61" selection-start-column="16" selection-end-line="61" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-web/src/main/webapp/template/page/couponGroup/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1140">
-          <caret line="38" column="98" lean-forward="false" selection-start-line="38" selection-start-column="98" selection-end-line="38" selection-end-column="98" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/dto/ReqResult.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="630">
-          <caret line="29" column="5" lean-forward="true" selection-start-line="29" selection-start-column="5" selection-end-line="29" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/backend/smsManager/smsManagerController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-760">
-          <caret line="24" column="13" lean-forward="false" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/backend/home/homeController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-490">
-          <caret line="23" column="13" lean-forward="false" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/backend/confirmer/confirmerManagerController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-802">
-          <caret line="200" column="126" lean-forward="false" selection-start-line="200" selection-start-column="126" selection-end-line="200" selection-end-column="126" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/coupongroup/CouponGroupServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="780">
-          <caret line="71" column="0" lean-forward="false" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/backend/give/giveLogController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6000">
-          <caret line="236" column="9" lean-forward="false" selection-start-line="236" selection-start-column="9" selection-end-line="236" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/enums/GroupTypeEnum.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="570">
-          <caret line="19" column="5" lean-forward="false" selection-start-line="19" selection-start-column="5" selection-end-line="19" selection-end-column="5" />
-          <folding>
-            <element signature="e#381#382#0" expanded="false" />
-            <element signature="e#407#408#0" expanded="false" />
-            <element signature="e#445#446#0" expanded="false" />
-            <element signature="e#475#476#0" expanded="false" />
-            <element signature="e#507#508#0" expanded="false" />
-            <element signature="e#535#536#0" expanded="false" />
-            <element signature="e#577#578#0" expanded="false" />
-            <element signature="e#611#612#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/backend/member/MemberController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4530">
-          <caret line="182" column="13" lean-forward="false" selection-start-line="182" selection-start-column="13" selection-end-line="182" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/backend/sendLog/sendLogController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="37" column="13" lean-forward="false" selection-start-line="37" selection-start-column="13" selection-end-line="37" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/backend/userCoupon/userCouponController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1350">
-          <caret line="69" column="15" lean-forward="false" selection-start-line="69" selection-start-column="15" selection-end-line="69" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/util/ImageQrUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/rest/ConfirmController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1830">
-          <caret line="41" column="14" lean-forward="true" selection-start-line="41" selection-start-column="14" selection-end-line="41" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/sms/SmsPlatformService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="291">
-          <caret line="74" column="8" lean-forward="false" selection-start-line="74" selection-start-column="8" selection-end-line="74" selection-end-column="71" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/member/UvCouponInfoService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="365">
-          <caret line="35" column="26" lean-forward="false" selection-start-line="35" selection-start-column="26" selection-end-line="35" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/entities/UvCouponInfo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3681">
-          <caret line="272" column="4" lean-forward="false" selection-start-line="272" selection-start-column="4" selection-end-line="272" selection-end-column="4" />
-          <folding>
-            <element signature="e#5492#5493#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/rest/QrCodeController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="702">
-          <caret line="130" column="40" lean-forward="false" selection-start-line="130" selection-start-column="40" selection-end-line="130" selection-end-column="40" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_161/src.zip!/javax/management/remote/rmi/RMIConnectionImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="141">
-          <caret line="828" column="0" lean-forward="false" selection-start-line="828" selection-start-column="0" selection-end-line="828" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-web/src/main/webapp/static/css/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="26" column="23" lean-forward="false" selection-start-line="26" selection-start-column="23" selection-end-line="26" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-web/src/main/webapp/template/page/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="21" column="70" lean-forward="false" selection-start-line="21" selection-start-column="70" selection-end-line="21" selection-end-column="70" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-web/src/main/webapp/template/page/coupon/userCoupon.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2760">
-          <caret line="113" column="52" lean-forward="false" selection-start-line="113" selection-start-column="52" selection-end-line="113" selection-end-column="52" />
-          <folding>
-            <element signature="n#src#0;n#img#0;n#td#2;n#tr#0;n#tbody#0;n#table#0;n#div#1;n#div#4;n#!!top" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/application-web/src/main/webapp/static/js/custom/custom.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="411">
           <caret line="570" column="0" lean-forward="true" selection-start-line="570" selection-start-column="0" selection-end-line="570" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-web/src/main/webapp/template/page/coupon/list.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="395">
-          <caret line="37" column="40" lean-forward="false" selection-start-line="37" selection-start-column="40" selection-end-line="37" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-web/src/main/webapp/template/page/coupon/edit.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="600">
-          <caret line="26" column="17" lean-forward="false" selection-start-line="26" selection-start-column="17" selection-end-line="26" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -988,65 +717,416 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="420">
           <caret line="14" column="45" lean-forward="false" selection-start-line="14" selection-start-column="42" selection-end-line="14" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application-web/src/main/webapp/template/page/coupon/edit.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="780">
+          <caret line="26" column="17" lean-forward="false" selection-start-line="26" selection-start-column="17" selection-end-line="26" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application-web/src/main/webapp/template/page/coupon/list.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1110">
+          <caret line="37" column="40" lean-forward="false" selection-start-line="37" selection-start-column="40" selection-end-line="37" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/util/QRCodeUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="492">
+          <caret line="61" column="21" lean-forward="true" selection-start-line="61" selection-start-column="21" selection-end-line="61" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/member/UvCouponInfoServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3458">
+          <caret line="302" column="119" lean-forward="true" selection-start-line="302" selection-start-column="119" selection-end-line="302" selection-end-column="119" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/backend/member/CouponinfoController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1470">
+          <caret line="407" column="87" lean-forward="false" selection-start-line="407" selection-start-column="87" selection-end-line="407" selection-end-column="87" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/backend/coupon/couponController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="308" column="0" lean-forward="false" selection-start-line="308" selection-start-column="0" selection-end-line="308" selection-end-column="0" />
+        <state relative-caret-position="180">
+          <caret line="359" column="0" lean-forward="false" selection-start-line="359" selection-start-column="0" selection-end-line="359" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/coupon/CouponService.java">
+    <entry file="file://$PROJECT_DIR$/application-web/src/main/webapp/WEB-INF/web.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="651">
-          <caret line="44" column="6" lean-forward="true" selection-start-line="44" selection-start-column="6" selection-end-line="44" selection-end-column="6" />
+        <state relative-caret-position="270">
+          <caret line="9" column="20" lean-forward="true" selection-start-line="9" selection-start-column="20" selection-end-line="9" selection-end-column="20" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/coupon/CouponServiceImpl.java">
+    <entry file="file://$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/rest/ConfirmerController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="180" column="0" lean-forward="false" selection-start-line="180" selection-start-column="0" selection-end-line="180" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="921">
+          <caret line="114" column="140" lean-forward="false" selection-start-line="114" selection-start-column="140" selection-end-line="114" selection-end-column="140" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/backend/member/CouponinfoController.java">
+    <entry file="file://$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/rest/GiveController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="316" column="13" lean-forward="true" selection-start-line="316" selection-start-column="13" selection-end-line="316" selection-end-column="13" />
+        <state relative-caret-position="-2310">
+          <caret line="27" column="3" lean-forward="true" selection-start-line="27" selection-start-column="3" selection-end-line="27" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application-core/src/main/java/com/fuint/application/BaseController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2250">
+          <caret line="77" column="1" lean-forward="true" selection-start-line="77" selection-start-column="1" selection-end-line="77" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/rest/ConfirmController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1178">
+          <caret line="137" column="37" lean-forward="true" selection-start-line="137" selection-start-column="37" selection-end-line="137" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/rest/SignController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="123" column="16" lean-forward="false" selection-start-line="123" selection-start-column="16" selection-end-line="123" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/rest/QrCodeController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1852">
+          <caret line="64" column="16" lean-forward="false" selection-start-line="64" selection-start-column="16" selection-end-line="64" selection-end-column="16" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/entities/MtUserCoupon.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="291">
-          <caret line="38" column="0" lean-forward="false" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="330">
+          <caret line="18" column="13" lean-forward="false" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/member/UvCouponInfoServiceImpl.java">
+    <entry file="file://$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/rest/MyCouponController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="278">
-          <caret line="355" column="34" lean-forward="false" selection-start-line="355" selection-start-column="34" selection-end-line="355" selection-end-column="34" />
+        <state relative-caret-position="480">
+          <caret line="89" column="12" lean-forward="false" selection-start-line="89" selection-start-column="12" selection-end-line="89" selection-end-column="12" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/util/QRCodeUtil.java">
+    <entry file="file://$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/rest/SmsController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1127">
+          <caret line="94" column="60" lean-forward="false" selection-start-line="94" selection-start-column="60" selection-end-line="94" selection-end-column="60" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/repositories/MtBannerRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="12" column="17" lean-forward="false" selection-start-line="12" selection-start-column="17" selection-end-line="12" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/rest/PageController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="34" column="7" lean-forward="false" selection-start-line="34" selection-start-column="7" selection-end-line="34" selection-end-column="7" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application-web/src/main/webapp/template/page/banner/edit.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="17" column="18" lean-forward="false" selection-start-line="17" selection-start-column="18" selection-end-line="17" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/store/StoreServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1070">
+          <caret line="233" column="14" lean-forward="false" selection-start-line="233" selection-start-column="14" selection-end-line="233" selection-end-column="14" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/store/StoreService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="16" column="17" lean-forward="false" selection-start-line="16" selection-start-column="17" selection-end-line="16" selection-end-column="17" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dto/MtActivityRuleRelation.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dto/MTCouponLinkDto.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="291">
+          <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dto/MtPrivilegeRuleDto.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="291">
+          <caret line="15" column="13" lean-forward="false" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dto/PrivilegeCodeDto.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="291">
+          <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dto/ActivityDto.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="600">
+          <caret line="21" column="7" lean-forward="true" selection-start-line="21" selection-start-column="7" selection-end-line="21" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/dto/ResMyCouponDto.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-172">
+          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/dto/ReqCouponDto.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3060">
+          <caret line="41" column="7" lean-forward="true" selection-start-line="41" selection-start-column="7" selection-end-line="41" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/coupon/CouponService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2100">
+          <caret line="32" column="29" lean-forward="true" selection-start-line="32" selection-start-column="29" selection-end-line="32" selection-end-column="29" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/dto/Message.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-262">
+          <caret line="6" column="26" lean-forward="false" selection-start-line="6" selection-start-column="26" selection-end-line="6" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/dto/MessageStatusEnum.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="4" column="26" lean-forward="false" selection-start-line="4" selection-start-column="26" selection-end-line="4" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/dto/Head.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-202">
+          <caret line="18" column="30" lean-forward="true" selection-start-line="18" selection-start-column="30" selection-end-line="18" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/dto/GroupDataListDto.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dto/MtSmsTemplateDto.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="17" column="24" lean-forward="true" selection-start-line="17" selection-start-column="24" selection-end-line="17" selection-end-column="24" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dto/MtStoreDto.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/generator/GenEntityMysql.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="45" column="42" lean-forward="true" selection-start-line="45" selection-start-column="42" selection-end-line="45" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/entities/MtBanner.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="282">
+          <caret line="79" column="16" lean-forward="false" selection-start-line="79" selection-start-column="16" selection-end-line="79" selection-end-column="16" />
+          <folding>
+            <element signature="e#1462#1463#0" expanded="false" />
+            <element signature="e#1484#1485#0" expanded="false" />
+            <element signature="e#1960#1961#0" expanded="false" />
+            <element signature="e#1992#1993#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/dto/Body.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/dto/Banner.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="14" column="47" lean-forward="false" selection-start-line="14" selection-start-column="47" selection-end-line="14" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/dto/ConfirmLogDto.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="13" column="13" lean-forward="false" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/dto/BannerDto.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="9" column="3" lean-forward="true" selection-start-line="9" selection-start-column="3" selection-end-line="9" selection-end-column="3" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/coupon/CouponServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4030">
+          <caret line="651" column="8" lean-forward="false" selection-start-line="651" selection-start-column="8" selection-end-line="651" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/coupongroup/CouponGroupServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1530">
+          <caret line="54" column="13" lean-forward="false" selection-start-line="54" selection-start-column="13" selection-end-line="54" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application-web/src/main/webapp/template/page/banner/add.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="372">
-          <caret line="66" column="69" lean-forward="true" selection-start-line="66" selection-start-column="69" selection-end-line="66" selection-end-column="69" />
+          <caret line="17" column="65" lean-forward="true" selection-start-line="17" selection-start-column="65" selection-end-line="17" selection-end-column="65" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application-web/src/main/webapp/template/page/banner/list.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1598">
+          <caret line="71" column="16" lean-forward="true" selection-start-line="71" selection-start-column="16" selection-end-line="71" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/banner/BannerServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="282">
+          <caret line="55" column="20" lean-forward="false" selection-start-line="55" selection-start-column="20" selection-end-line="55" selection-end-column="20" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/banner/BannerService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="282">
+          <caret line="29" column="13" lean-forward="false" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/backend/content/BannerController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="558">
+          <caret line="164" column="13" lean-forward="true" selection-start-line="164" selection-start-column="13" selection-end-line="164" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

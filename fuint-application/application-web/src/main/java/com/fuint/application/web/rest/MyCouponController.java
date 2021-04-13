@@ -8,12 +8,9 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import com.fuint.application.BaseController;
 import com.fuint.application.ResponseObject;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 import com.fuint.application.dao.entities.MtUser;
 import com.fuint.application.enums.UserCouponStatusEnum;
 
@@ -48,6 +45,7 @@ public class MyCouponController extends BaseController {
      * @param param  Request对象
      */
     @RequestMapping(value = "/doQuery", method = RequestMethod.GET)
+    @CrossOrigin
     public ResponseObject doQuery(HttpServletRequest request, @RequestParam Map<String, Object> param) throws BusinessCheckException {
         String token = request.getHeader("token");
 
@@ -74,6 +72,7 @@ public class MyCouponController extends BaseController {
      * @param param  Request对象
      */
     @RequestMapping(value = "/isUsed", method = RequestMethod.GET)
+    @CrossOrigin
     public ResponseObject isUsed(HttpServletRequest request, @RequestParam Map<String, Object> param) throws BusinessCheckException {
         String token = request.getHeader("token");
         Integer userCouponId = param.get("id") == null ? 0 : Integer.parseInt(param.get("id").toString());

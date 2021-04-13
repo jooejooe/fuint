@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,6 +34,7 @@ import com.fuint.application.util.PhoneFormatCheckUtils;
 public class SmsController extends BaseController{
 
     private static final Logger logger = LoggerFactory.getLogger(SmsController.class);
+
     /**
      * 会员用户信息管理服务接口
      */
@@ -62,6 +64,7 @@ public class SmsController extends BaseController{
      * @param model    SpringFramework Model对象
      */
     @RequestMapping(value = "/doSendVeryfiCode", method = RequestMethod.POST)
+    @CrossOrigin
     public ResponseObject doSendVeryfiCode(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
 
         String second = env.getProperty("SMS.PERIOD");

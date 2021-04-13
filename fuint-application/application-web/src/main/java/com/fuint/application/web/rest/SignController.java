@@ -19,6 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -56,6 +57,7 @@ public class SignController extends BaseController{
      * 会员验证码登录接口
      */
     @RequestMapping(value = "/doSign", method = RequestMethod.POST)
+    @CrossOrigin
     public ResponseObject doLogin(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException{
         String mobile = request.getParameter("mobile");
         String verifyCode = request.getParameter("verifyCode");
@@ -76,8 +78,8 @@ public class SignController extends BaseController{
         MtUser mtUser=memberService.queryMemberByMobile(mobile);
         // 1,验证码验证
         MtVerifyCode mtVerifyCode= verifyCodeService.checkVerifyCode(mobile,verifyCode);
-        // 2,写入token redis session
 
+        // 2,写入token redis session
         if (mtUser != null && mtVerifyCode!=null) {
             if(!mtUser.getStatus().equals(StatusEnum.ENABLED.getKey())) {
                 return getFailureResult(1002, mobile+"账号异常!");
@@ -104,6 +106,7 @@ public class SignController extends BaseController{
      * 会员token获取会员信息
      */
     @RequestMapping(value = "/doGetUserInfo", method = RequestMethod.POST)
+    @CrossOrigin
     public ResponseObject doGetUserInfo(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException{
         String usertoken = request.getHeader("token");
         MtUser mtUser=tokenService.getUserInfoByToken(usertoken);
@@ -118,6 +121,7 @@ public class SignController extends BaseController{
      * 会员退出设备登录
      */
     @RequestMapping(value = "/doLogout", method = RequestMethod.POST)
+    @CrossOrigin
     public ResponseObject doLogout(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException{
         String usertoken = request.getHeader("token");
         String userAgentStr = request.getHeader("user-agent");

@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * 消息结构定义
- * Created by wang.yq on 2016/7/19.
+ * Created by zach on 2019/7/19.
  */
 public class Message implements Serializable{
     private static final long serialVersionUID = -7956811510222855939L;

@@ -15,12 +15,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import com.fuint.application.BaseController;
 import com.fuint.application.ResponseObject;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 import com.fuint.application.dao.entities.MtUser;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,7 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 
-/**-
+/**
  * 转赠功能controller
  * Created by zach on 2019/10/09.
  */
@@ -62,6 +59,7 @@ public class GiveController extends BaseController {
      * @param param  Request对象
      */
     @RequestMapping(value = "/doGive", method = RequestMethod.POST)
+    @CrossOrigin
     public ResponseObject doGive(HttpServletRequest request, @RequestParam Map<String, Object> param) throws BusinessCheckException {
         String token = request.getHeader("token");
 
@@ -103,6 +101,7 @@ public class GiveController extends BaseController {
      * @param request  Request对象
      */
     @RequestMapping(value = "/giveLog", method = RequestMethod.GET)
+    @CrossOrigin
     public ResponseObject giveLog(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException {
         String token = request.getHeader("token");
 
@@ -140,14 +139,14 @@ public class GiveController extends BaseController {
         PaginationResponse<GiveDto> paginationResponse = giveService.queryGiveListByPagination(paginationRequest);
 
         ResponseObject responseObject;
-        Map<String, Object> outparams = new HashMap();
-        outparams.put("dataList", paginationResponse.getContent());
-        outparams.put("pageSize", paginationResponse.getPageSize());
-        outparams.put("pageNumber", paginationResponse.getCurrentPage());
-        outparams.put("totalRow", paginationResponse.getTotalElements());
-        outparams.put("totalPage", paginationResponse.getTotalPages());
+        Map<String, Object> outParams = new HashMap();
+        outParams.put("dataList", paginationResponse.getContent());
+        outParams.put("pageSize", paginationResponse.getPageSize());
+        outParams.put("pageNumber", paginationResponse.getCurrentPage());
+        outParams.put("totalRow", paginationResponse.getTotalElements());
+        outParams.put("totalPage", paginationResponse.getTotalPages());
 
-        responseObject = getSuccessResult(outparams);
+        responseObject = getSuccessResult(outParams);
 
         return getSuccessResult(responseObject.getData());
     }

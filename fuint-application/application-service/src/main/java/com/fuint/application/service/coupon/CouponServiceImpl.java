@@ -610,7 +610,7 @@ public class CouponServiceImpl extends BaseService implements CouponService {
         //修改时间
         usercoupon.setUpdateTime(new Date());
         //操作人
-        //usercoupon.setOperator(operator);
+        usercoupon.setOperator(operator);
 
         //更新发券日志为部分作废状态
         this.sendLogRepository.updateSingleForRemove(usercoupon.getUuid(),"B");
@@ -649,7 +649,7 @@ public class CouponServiceImpl extends BaseService implements CouponService {
         //修改时间
         usercoupon.setUpdateTime(new Date());
         //操作人
-        //usercoupon.setOperator(operator);
+        usercoupon.setOperator(operator);
         userCouponRepository.save(usercoupon);
     }
 

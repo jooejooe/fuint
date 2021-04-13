@@ -15,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -48,6 +49,7 @@ public class ConfirmerController extends BaseController{
      * 核销人员信息录入
      */
     @RequestMapping(value = "/doAdd", method = RequestMethod.POST)
+    @CrossOrigin
     public ResponseObject doAddConfirmer(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException{
         String mobile = CommonUtil.replaceXSS(request.getParameter("mobile"));
         String storeID = request.getParameter("storeID");
@@ -109,8 +111,8 @@ public class ConfirmerController extends BaseController{
      * 获取店铺列表
      */
     @RequestMapping(value = "/getStoreList", method = RequestMethod.POST)
+    @CrossOrigin
     public ResponseObject getStoreList(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException{
-        String usertoken = request.getHeader("token");
         Map<String, Object> params = new HashMap<>();
         params.put("EQ_status", StatusEnum.ENABLED.getKey());
         List<MtStore> storeList = storeService.queryStoresByParams(params);

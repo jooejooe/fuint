@@ -1,13 +1,11 @@
 package com.fuint.application.dto;
 
-import com.fuint.application.dao.entities.MtCoupon;
-
 import java.io.Serializable;
 import java.util.List;
 
 /**
  * 我的卡券返回DTO
- * Created by zach on 2019/8/28.
+ * Created by zach on 2019-8-28.
  */
 public class ResMyCouponDto implements Serializable {
 

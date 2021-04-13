@@ -11,7 +11,7 @@ import java.util.Date;
  * Created by zach
  * 2019-10-11 16:09
  */
-public class ConfirmLogDto{
+public class ConfirmLogDto {
 
 /**
  * 自增ID

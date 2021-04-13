@@ -2,7 +2,7 @@ package com.fuint.application.dto;
 
 /**
  * 消息状态枚举
- * Created by wang.yq on 2016/7/25.
+ * Created by zach on 2019/7/25.
  */
 public enum MessageStatusEnum {
     SUCCESS("000000","成功"),

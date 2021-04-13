@@ -5,7 +5,7 @@ import java.util.Map;
 
 /**
  * 消息体Body信息
- * Created by wang.yq on 2016/7/19.
+ * Created by zach on 2016/7/19.
  */
 public class Body implements Serializable{
 

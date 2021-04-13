@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * 消息体分页信息
- * Created by wang.yq on 2016/7/19.
+ * Created by zach on 2016/7/19.
  */
 public class Page implements Serializable{
     private static final long serialVersionUID = -7956811510222855939L;

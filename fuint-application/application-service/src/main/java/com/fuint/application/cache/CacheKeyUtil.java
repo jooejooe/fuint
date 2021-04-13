@@ -2,7 +2,7 @@ package com.fuint.application.cache;
 
 /**
  * 缓存key的集中生成策略
- * Created by wang.yq on 2017/1/4.
+ * Created by zach on 2017/1/4.
  */
 public class CacheKeyUtil {
 

@@ -1,7 +1,7 @@
 package com.fuint.application.dto;
 
 /**
- * Created by wang.yq on 2016/7/25.
+ * Created by zach on 2016/7/25.
  */
 public class MessageUtil {
 

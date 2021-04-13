@@ -5,11 +5,8 @@ import com.fuint.base.dao.pagination.PaginationRequest;
 import com.fuint.base.dao.pagination.PaginationResponse;
 import com.fuint.exception.BusinessCheckException;
 import com.fuint.exception.BusinessRuntimeException;
-import com.fuint.util.StringUtil;
-import com.fuint.application.dao.entities.MtCoupon;
 import com.fuint.application.dao.entities.MtStore;
 import com.fuint.application.dao.entities.TAccount;
-import com.fuint.application.dao.repositories.MtCouponRepository;
 import com.fuint.application.dao.repositories.MtStoreRepository;
 import com.fuint.application.dao.repositories.TAccountRepository;
 import com.fuint.application.dto.MtStoreDto;
@@ -17,9 +14,7 @@ import com.fuint.application.enums.StatusEnum;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.beanutils.converters.DateConverter;
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,18 +22,14 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.persistence.criteria.CriteriaBuilder;
 import java.lang.reflect.InvocationTargetException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import static org.apache.commons.beanutils.ConvertUtils.*;
-
 /**
  * 店铺管理业务实现类
- * Created by zach 20190820
+ * Created by zach 2021-04-13
  */
 @Service
 public class StoreServiceImpl implements StoreService {
@@ -51,7 +42,6 @@ public class StoreServiceImpl implements StoreService {
     @Autowired
     private TAccountRepository tAccountRepository;
 
-
     /**
      * 分页查询店铺列表
      *
@@ -60,7 +50,6 @@ public class StoreServiceImpl implements StoreService {
      */
     @Override
     public PaginationResponse<MtStore> queryStoreListByPagination(PaginationRequest paginationRequest) throws BusinessCheckException {
-        //paginationRequest.getSearchParams().put("status", 1);
         PaginationResponse<MtStore> paginationResponse = storeRepository.findResultsByPagination(paginationRequest);
         return paginationResponse;
     }
@@ -76,17 +65,15 @@ public class StoreServiceImpl implements StoreService {
     public MtStore addStore(MtStoreDto mtStoreDto) throws BusinessCheckException {
         MtStore mtStore = new MtStore();
 
-        //编辑才需要
-        if(null!=mtStoreDto.getId())
-        {
+        // 编辑才需要
+        if(null != mtStoreDto.getId()) {
             mtStore.setId(mtStoreDto.getId());
         }
         mtStore.setName(mtStoreDto.getName());
         mtStore.setContact(mtStoreDto.getContact());
         mtStore.setStatus(StatusEnum.ENABLED.getKey());
         try {
-            //创建时间
-            //格式可以自己根据需要修改
+            // 创建时间
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String dt=sdf.format(new Date());
             Date addtime = sdf.parse(dt);
@@ -133,23 +120,12 @@ public class StoreServiceImpl implements StoreService {
     public MtStoreDto queryStoreByName(String storeName) throws BusinessCheckException,InvocationTargetException,IllegalAccessException  {
         MtStore mtStore = storeRepository.queryStoreByName(storeName);
         MtStoreDto mtStoreDto = null;
-        //利用 BeanUtils.copyProperties 可以将相同的属性，并且不为null的属性值copy过去。
-        // BeanUtils.copyProperties(source, target);
         if (mtStore !=null) {
             mtStoreDto=new MtStoreDto();
             ConvertUtils.register(new DateConverter(null), java.util.Date.class);
             BeanUtils.copyProperties(mtStoreDto,mtStore);
 
         }
-        /*
-        mtStoreDto.setId(mtStore.getId());
-        mtStoreDto.setName(mtStore.getName());
-        mtStoreDto.setDescription(mtStore.getDescription());
-        mtStoreDto.setPhone(mtStore.getPhone());
-        mtStoreDto.setContact(mtStore.getContact());
-        mtStoreDto.setCreateTime(mtStore.getCreateTime());
-        mtStoreDto.setUpdateTime(mtStore.getUpdateTime());
-        */
         return mtStoreDto;
     }
 
@@ -168,19 +144,8 @@ public class StoreServiceImpl implements StoreService {
             throw new BusinessCheckException("该店铺状态异常");
         }
         MtStoreDto mtStoreDto = new MtStoreDto();
-        //利用 BeanUtils.copyProperties 可以将相同的属性，并且不为null的属性值copy过去。
-        // BeanUtils.copyProperties(target,source );
-       ConvertUtils.register(new DateConverter(null), java.util.Date.class);
+        ConvertUtils.register(new DateConverter(null), java.util.Date.class);
         BeanUtils.copyProperties(mtStoreDto,mtStore);
-        /*
-        mtStoreDto.setId(mtStore.getId());
-        mtStoreDto.setName(mtStore.getName());
-        mtStoreDto.setDescription(mtStore.getDescription());
-        mtStoreDto.setPhone(mtStore.getPhone());
-        mtStoreDto.setContact(mtStore.getContact());
-        mtStoreDto.setCreateTime(mtStore.getCreateTime());
-        mtStoreDto.setUpdateTime(mtStore.getUpdateTime());
-        */
         return mtStoreDto;
     }
 
@@ -198,19 +163,13 @@ public class StoreServiceImpl implements StoreService {
         if (null == MtStore) {
             return;
         }
-       // List<MtCoupon> listMtCoupon=mtCouponRepository.queryByStoreId(id.toString());
         List<TAccount>  listTAccount=tAccountRepository.queryTAccountByStoreId(id);
-        if(listTAccount!=null && listTAccount.size()>0)
-        {
-            log.error("该店铺存在关联账号");
+        if (listTAccount != null && listTAccount.size()>0) {
             throw new BusinessCheckException("该店铺存在关联账号");
         }
 
         MtStore.setStatus(StatusEnum.DISABLE.getKey());
-        //修改时间
         MtStore.setUpdateTime(new Date());
-        //操作人
-        //MtStore.setOperator(operator);
         storeRepository.save(MtStore);
     }
 
@@ -272,12 +231,7 @@ public class StoreServiceImpl implements StoreService {
             log.error("店铺不存在.");
             throw new BusinessCheckException("店铺不存在.");
         }
-       /* List<String> codes = new ArrayList<>();
-        for (MtStore storeInfo : mtStores) {
-            storeInfo.setStatus(StatusEnum);
-        }*/
-        Integer i= storeRepository.updateStatus(ids,StatusEnum);
-        return i;
+        return storeRepository.updateStatus(ids,StatusEnum);
     }
 
     @Override

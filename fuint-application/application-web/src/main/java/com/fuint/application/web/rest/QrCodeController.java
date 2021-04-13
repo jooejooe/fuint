@@ -18,10 +18,7 @@ import org.slf4j.LoggerFactory;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.ByteArrayOutputStream;
@@ -65,6 +62,7 @@ public class QrCodeController extends BaseController {
      * @param param  Request对象
      */
     @RequestMapping(value = "/doGet", method = RequestMethod.GET)
+    @CrossOrigin
     public ResponseObject doGet(HttpServletRequest request, @RequestParam Map<String, Object> param) throws BusinessCheckException {
         String token = request.getHeader("token");
         Integer id = param.get("id") == null ? 1 : Integer.parseInt(param.get("id").toString());
