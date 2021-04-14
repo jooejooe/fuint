@@ -1,15 +1,35 @@
 # FuInt会员卡券系统介绍
 
 #### 介绍
-欢迎使用FuInt会员卡券系统。本项目包含优惠券、预存卡、集次卡、短信发送、储值卡、消费券等会员营销功能，支持批量操作。源码完整，包含前台h5、后端api、后台管理三部分。本系统适用于各类实体店铺，如酒店、汽车4S店、鲜花店、甜品店、餐饮店等，
+欢迎使用FuInt会员卡券系统。本项目包含优惠券、预存卡、集次卡、短信发送、储值卡、消费券等会员营销功能，支持批量操作。源码完整，包含前台微信小程序、h5、后端api、后台管理三部分。本系统适用于各类实体店铺，如酒店、汽车4S店、鲜花店、甜品店、餐饮店等，
 也适用于线上的电商系统，有独立的接入api，建议咨询下方的微信，以便提供更完善的功能。
-以下是h5的页面展示：
-<p><img src="screenshots/f1.png" alt="卡券h5页面"></p>
+以下是前台的页面展示：
+<p><img src="screenshots/g1.png" alt="卡券前台页面"></p>
 
 
 #### 软件架构
-JAVA（springMvc+mybatis） + MYSQL + Redis
+后端：JAVA（springMvc + mybatis） + MYSQL + Redis
+前端：采用基于Vue的uni-app，前后端分离，支持微信小程序、支付宝小程、h5等
 <p><img src="screenshots/login.png" alt="卡券登录界面"></p>
+
+
+前端使用技术
+2.1 Vue
+2.3 uniapp
+
+
+后端使用技术
+1.1 SpringMvc
+1.2 mybatis、MyBatis-Plus
+1.3 SpringSecurity
+1.5 Druid
+1.6 Slf4j
+1.7 Fastjson
+1.8 JWT
+1.9 Redis
+1.10 Quartz
+1.11 Mysql
+
 
 #### 安装步骤
 
@@ -49,5 +69,11 @@ JAVA（springMvc+mybatis） + MYSQL + Redis
 2.  微信卡券接入
 3.  会员扩展
 
-不足和待完善之处请谅解！源码仅供学习交流，如需二次开发或更多功能，可联系我们wx：fsq_better。
+不足和待完善之处请谅解！源码仅供学习交流，更多功能可加入开发交流群（备注Fuint），我们wx：fsq_better。
+喜欢这个卡券营销系统的小伙伴留下你的小星星啦,star,star哦！
 <p><img src="screenshots/qr.png" alt="卡券首页"></p>
+
+
+特别鸣谢
+mybaitsplus:https://github.com/baomidou/mybatis-plus
+vue:https://github.com/vuejs/vue
