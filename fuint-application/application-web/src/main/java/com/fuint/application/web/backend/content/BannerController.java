@@ -15,6 +15,7 @@ import com.fuint.application.util.CommonUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,6 +38,9 @@ public class BannerController {
      */
     @Autowired
     private BannerService bannerService;
+
+    @Autowired
+    private Environment env;
 
     /**
      * banner信息列表查询
@@ -69,26 +73,29 @@ public class BannerController {
             }
         }
 
+        String imagePath = env.getProperty("images.website");
+
         paginationRequest.setSearchParams(params);
         PaginationResponse<MtBanner> paginationResponse = bannerService.queryBannerListByPagination(paginationRequest);
 
         model.addAttribute("paginationResponse", paginationResponse);
         model.addAttribute("params", params);
+        model.addAttribute("imagePath", imagePath);
 
         return "banner/list";
     }
 
     /**
-     * 激活banner
+     * 更新banner
      *
      * @param request
      * @param response
      * @param model
      * @return
      */
-    @RequiresPermissions("backend/banner/active/{id}")
-    @RequestMapping(value = "/active/{id}")
-    public String activeStore(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable("id") Integer id) throws BusinessCheckException {
+    @RequiresPermissions("backend/banner/update/{id}")
+    @RequestMapping(value = "/update/{id}")
+    public String updateBanner(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable("id") Integer id) throws BusinessCheckException {
         MtBanner info = bannerService.queryBannerById(id);
         BannerDto dto = new BannerDto();
 
@@ -155,9 +162,14 @@ public class BannerController {
         String id = request.getParameter("id");
         String title = CommonUtil.replaceXSS(request.getParameter("title"));
         String description = CommonUtil.replaceXSS(request.getParameter("description"));
+        String image = CommonUtil.replaceXSS(request.getParameter("image"));
 
         info.setTitle(title);
         info.setDescription(description);
+        info.setImage(image);
+
+        String operator = ShiroUserHelper.getCurrentShiroUser().getAcctName();
+        info.setOperator(operator);
 
         try {
             if (StringUtil.isNotEmpty(id)) {
@@ -185,6 +197,9 @@ public class BannerController {
         MtBanner info = bannerService.queryBannerById(id);
         model.addAttribute("info", info);
 
-        return "editInit/edit";
+        String imagePath = env.getProperty("images.website");
+        model.addAttribute("imagePath", imagePath);
+
+        return "banner/edit";
     }
 }

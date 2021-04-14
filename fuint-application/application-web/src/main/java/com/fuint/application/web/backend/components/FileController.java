@@ -3,9 +3,7 @@ package com.fuint.application.web.backend.components;
 import com.fuint.exception.BusinessCheckException;
 import com.fuint.application.util.CommonUtil;
 import com.fuint.application.util.DateUtil;
-import com.fuint.application.util.HttpPostUploadUtil;
 import com.fuint.application.web.backend.util.JSONUtil;
-import com.fuint.application.web.backend.util.UploadResult;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +29,7 @@ import java.util.UUID;
 
 /**
  * 文件管理控制类
- * Created by zach on 2019/9/13.
+ * Created by zach on 2019-9-13.
  */
 @Controller
 @RequestMapping(value = "/backend/file")
@@ -51,8 +49,7 @@ public class FileController {
      */
     @RequestMapping(value = "/upload", produces = "text/html;charset=UTF-8")
     @ResponseBody
-    public String uploadFileLocal(HttpServletRequest
-                                          request, HttpServletResponse response) throws BusinessCheckException {
+    public String uploadFileLocal(HttpServletRequest request, HttpServletResponse response) throws BusinessCheckException {
         MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
         String sourcePic = request.getParameter("sourcePic");// 页面图片元素的id
         MultipartFile file = multipartRequest.getFile(sourcePic);
@@ -63,10 +60,7 @@ public class FileController {
             return JSONUtil.toJSonString(resultMap);
         }
 
-        String urlStr = env.getProperty("images.upload.url");
         String maxSizeStr = env.getProperty("images.upload.maxSize");
-        int connectTimeout = Integer.parseInt(env.getProperty("images.upload.connectTimeout"));
-        int readTimeout = Integer.parseInt(env.getProperty("images.upload.readTimeout"));
 
         //默认限制5M
         float maxSize = 5;
