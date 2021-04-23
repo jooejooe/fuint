@@ -17,6 +17,7 @@ import java.util.List;
     */ 
 @Repository 
 public interface MtUserCouponRepository extends BaseRepository<MtUserCoupon, Integer> {
+
       /**
        * 根据分组ID获取发放套数
        *
@@ -25,6 +26,15 @@ public interface MtUserCouponRepository extends BaseRepository<MtUserCoupon, Int
        */
       @Query("SELECT t.couponId,count(t.id) as num FROM MtUserCoupon t WHERE t.groupId =:groupId GROUP BY t.couponId")
       List<Object[]> getSendedNum(@Param("groupId") Integer groupId);
+
+       /**
+        * 根据卡券ID获取发放套数
+        *
+        * @param couponId
+        * @return
+        */
+       @Query("SELECT t.couponId,count(t.id) as num FROM MtUserCoupon t WHERE t.couponId =:couponId GROUP BY t.couponId")
+       List<Object[]> getPeopleNumByCouponId(@Param("couponId") Integer couponId);
 
       /**
        * 获取用户的券列表

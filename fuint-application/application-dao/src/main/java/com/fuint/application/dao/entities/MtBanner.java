@@ -13,7 +13,7 @@ import java.sql.*;
    /**
     * mt_banner 实体类
     * Created by zach
-    * Tue Apr 13 16:31:40 GMT+08:00 2021
+    * Thu Apr 22 10:35:28 GMT+08:00 2021
     */ 
 @Entity 
 @Table(name = "mt_banner")
@@ -31,6 +31,12 @@ public class MtBanner implements Serializable{
     */ 
 	@Column(name = "TITLE", length = 100)
 	private String title;
+
+   /**
+    * 链接地址 
+    */ 
+	@Column(name = "URL", length = 100)
+	private String url;
 
    /**
     * 图片地址 
@@ -79,6 +85,12 @@ public class MtBanner implements Serializable{
 	}
 	public void setTitle(String title){
 	this.title=title;
+	}
+	public String getUrl(){
+		return url;
+	}
+	public void setUrl(String url){
+	this.url=url;
 	}
 	public String getImage(){
 		return image;
