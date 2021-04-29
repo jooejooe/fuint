@@ -1,11 +1,11 @@
 package com.fuint.application.enums;
 
 /**
- * 分组类型
+ * 卡券类型
  * <p/>
  * Created by zach on 2021/1/19.
  */
-public enum GroupTypeEnum {
+public enum CouponTypeEnum {
     COUPON("C", "优惠券"),
     PRESTORE("P", "预存卡"),
     TIMER("T", "集次卡");
@@ -14,7 +14,7 @@ public enum GroupTypeEnum {
 
     private String value;
 
-    GroupTypeEnum(String key, String value) {
+    CouponTypeEnum(String key, String value) {
         this.key = key;
         this.value = value;
     }

@@ -28,15 +28,16 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-/**-
- * 卡券二维码controller
- * Created by zach on 2020.08.18.
+/**
+ * 会员卡券controller
+ * Created by zach on 2020/08/18.
+ * Updated by zach on 2021/04/29.
  */
 @RestController
-@RequestMapping(value = "/rest/qrCode")
-public class QrCodeController extends BaseController {
+@RequestMapping(value = "/rest/UserCouponApi")
+public class UserCouponApiController extends BaseController {
 
-    private static final Logger logger = LoggerFactory.getLogger(QrCodeController.class);
+    private static final Logger logger = LoggerFactory.getLogger(UserCouponApiController.class);
 
     @Autowired
     private MtUserCouponRepository userCouponRepository;
@@ -57,14 +58,14 @@ public class QrCodeController extends BaseController {
     private Environment env;
 
     /**
-     * 查询卡券二维码
+     * 查询会员卡券详情
      *
      * @param param  Request对象
      */
-    @RequestMapping(value = "/doGet", method = RequestMethod.GET)
+    @RequestMapping(value = "/detail", method = RequestMethod.GET)
     @CrossOrigin
-    public ResponseObject doGet(HttpServletRequest request, @RequestParam Map<String, Object> param) throws BusinessCheckException {
-        String token = request.getHeader("token");
+    public ResponseObject detail(HttpServletRequest request, @RequestParam Map<String, Object> param) throws BusinessCheckException {
+        String token = request.getHeader("Access-Token");
         Integer id = param.get("id") == null ? 1 : Integer.parseInt(param.get("id").toString());
         int width = param.get("width") == null ? 800 : Integer.parseInt(param.get("width").toString());
         int height = param.get("height") == null ? 800 : Integer.parseInt(param.get("height").toString());
@@ -79,7 +80,6 @@ public class QrCodeController extends BaseController {
         }
 
         MtUser mtUser = tokenService.getUserInfoByToken(token);
-
         if (null == mtUser) {
             return getFailureResult(1001);
         }
@@ -119,17 +119,15 @@ public class QrCodeController extends BaseController {
             QRCodeUtil.createQrCode(out, content, width, height, "png", "");
 
             // 对数据进行Base64编码，返回的码需加上：data:image/jpg;base64
-            String img = new String(Base64Util.baseEncode(out.toByteArray()), "UTF-8");
+            String qrCode = new String(Base64Util.baseEncode(out.toByteArray()), "UTF-8");
 
             //组织返回参数
-            Map<String, Object> outparams = new HashMap<String, Object>();
-            outparams.put("img", img);
-            outparams.put("money", couponInfo.getAmount());
-            String tips = "";
-            outparams.put("tips", tips);
-            outparams.put("name", couponInfo.getName());
+            Map<String, Object> outParams = new HashMap<String, Object>();
+            outParams.put("qrCode", qrCode);
+            outParams.put("amount", couponInfo.getAmount());
+            outParams.put("couponDetail", couponInfo);
 
-            responseObject = getSuccessResult(outparams);
+            responseObject = getSuccessResult(outParams);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             responseObject = getCustomrResult(500, "生成二维码异常", "");
