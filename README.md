@@ -6,6 +6,7 @@
 以下是前台的页面展示：
 <p><img src="screenshots/g1.png" alt="卡券前台页面1"></p>
 <p><img src="screenshots/g2.png" alt="卡券前台页面2"></p>
+<p><img src="screenshots/g3.png" alt="卡券前台页面3"></p>
 
 
 
@@ -72,8 +73,8 @@
 3.  会员扩展
 
 不足和待完善之处请谅解！源码仅供学习交流，更多功能可加入开发交流群（备注Fuint），我们wx：fsq_better。<br>
-喜欢这个卡券营销系统的小伙伴留下你的小星星啦,star,star哦！<br>
-<p><img src="screenshots/qr.png" alt="卡券首页"></p>
+开源不易，进群麻烦自觉star，给我们一点鼓励。<br>
+<p><img src="screenshots/qr.png" alt="二维码"></p>
 
 
 特别鸣谢<br>
