@@ -5,9 +5,9 @@ import java.math.BigDecimal;
 
 /**
  * 我的卡券DTO
- * Created by zach on 2020/8/28.
+ * Created by zach on 2021/04/29.
  */
-public class MyCouponDto implements Serializable {
+public class UserCouponDto implements Serializable {
 
     /**
      * 自增ID
@@ -40,14 +40,24 @@ public class MyCouponDto implements Serializable {
     private String useRule;
 
     /**
-     * 图片
+     * 编码
      * */
-    private String image;
+    private String code;
+
+    /**
+     * 二维码
+     * */
+    private String qrCode;
 
     /**
      * 面额
      * */
     private BigDecimal amount;
+
+    /**
+     * 余额
+     * */
+    private BigDecimal balance;
 
     /**
      * 是否可以使用(过期、状态等)
@@ -63,6 +73,11 @@ public class MyCouponDto implements Serializable {
      * 小提示
      * */
     private String tips;
+
+    /**
+     * 描述信息
+     * */
+    private String description;
 
     public Integer getId() {
         return id;
@@ -108,11 +123,18 @@ public class MyCouponDto implements Serializable {
         this.useRule = useRule;
     }
 
-    public String getImage() {
-        return image;
+    public String getCode() {
+        return code;
     }
-    public void setImage(String image) {
-        this.image = image;
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getQrCode() {
+        return qrCode;
+    }
+    public void setQrCode(String qrCode) {
+        this.qrCode = qrCode;
     }
 
     public BigDecimal getAmount() {
@@ -120,6 +142,13 @@ public class MyCouponDto implements Serializable {
     }
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
+    }
+
+    public BigDecimal getBalance() {
+        return balance;
+    }
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
     }
 
     public boolean getCanUse() {
@@ -141,5 +170,12 @@ public class MyCouponDto implements Serializable {
     }
     public void setTips(String tips) {
         this.tips = tips;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

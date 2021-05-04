@@ -39,13 +39,20 @@ public interface MemberService {
     MtUser updateMember(MtUser reqUserDto) throws BusinessCheckException;
 
     /**
-     * 根据会员用户ID获取会员用户信息
+     * 根据会员用户ID获取会员信息
      *
      * @param id 会员用户ID
      * @throws BusinessCheckException
      */
     MtUser queryMemberById(Integer id) throws BusinessCheckException;
 
+    /**
+     * 根据会员组ID获取会员组信息
+     *
+     * @param id 会员组ID
+     * @throws BusinessCheckException
+     */
+    MtUserGroup queryMemberGroupByGroupId(Integer id) throws BusinessCheckException;
 
     /**
      * 根据会员用户手机获取会员用户信息

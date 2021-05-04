@@ -59,11 +59,11 @@ public class ConfirmController extends BaseController {
     @RequestMapping(value = "/doConfirm", method = RequestMethod.POST)
     @CrossOrigin
     public ResponseObject doConfirm(HttpServletRequest request, @RequestParam Map<String, Object> param) throws BusinessCheckException {
-        String token = request.getHeader("token");
+        String token = request.getHeader("Access-Token");
         String code = request.getParameter("code") == null ? "" : request.getParameter("code");
 
         if (StringUtils.isEmpty(token)) {
-            return getFailureResult(1001);
+            return getFailureResult(401);
         }
 
         MtUser mtUser = tokenService.getUserInfoByToken(token);
@@ -127,18 +127,15 @@ public class ConfirmController extends BaseController {
             return getFailureResult(1003, e.getMessage());
         }
 
-        //组织返回参数
-        ResponseObject responseObject;
-        Map<String, Object> outparams = new HashMap<String, Object>();
-        outparams.put("result", true);
-        outparams.put("money", couponInfo.getAmount());
+        // 组织返回参数
+        Map<String, Object> result = new HashMap<String, Object>();
+        result.put("result", true);
+        result.put("money", couponInfo.getAmount());
         String tips = "";
-        outparams.put("tips", tips);
-        outparams.put("name", couponInfo.getName());
-        outparams.put("code", cCode);
+        result.put("tips", tips);
+        result.put("name", couponInfo.getName());
+        result.put("code", cCode);
 
-        responseObject = getSuccessResult(outparams);
-
-        return getSuccessResult(responseObject.getData());
+        return getSuccessResult(result);
     }
 }

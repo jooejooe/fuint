@@ -2,7 +2,6 @@ package com.fuint.application.web.rest;
 
 import com.alibaba.fastjson.JSONObject;
 import com.fuint.exception.BusinessCheckException;
-import com.fuint.exception.BusinessRuntimeException;
 import com.fuint.application.ResponseObject;
 import com.fuint.application.BaseController;
 import com.fuint.application.dao.entities.MtUser;
@@ -19,27 +18,26 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 登录类controller
- * Created by zach on 2019/7/16.
+ * Created by zach on 2019/07/16.
+ * Updated by zach on 2021/04/25.
  */
 @RestController
 @RequestMapping(value = "/rest/sign")
-public class SignController extends BaseController{
+public class SignController extends BaseController {
 
     private static final Logger logger = LoggerFactory.getLogger(SignController.class);
 
     /**
-     * 会员用户信息管理服务接口
+     * 会员服务接口
      */
     @Autowired
     private MemberService memberService;
@@ -56,18 +54,18 @@ public class SignController extends BaseController{
     /**
      * 会员验证码登录接口
      */
-    @RequestMapping(value = "/doSign", method = RequestMethod.POST)
+    @RequestMapping(value = "/signIn", method = RequestMethod.POST)
     @CrossOrigin
-    public ResponseObject doLogin(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException{
-        String mobile = request.getParameter("mobile");
-        String verifyCode = request.getParameter("verifyCode");
-        String usertoken = request.getHeader("token");
+    public ResponseObject signIn(HttpServletRequest request, @RequestBody Map<String, Object> param, Model model) throws BusinessCheckException{
+        String mobile = param.get("mobile").toString();
+        String verifyCode = param.get("verifyCode").toString();
+        String userToken = request.getHeader("Access-Token");
 
         TokenDto dto = new TokenDto();
         // 如果已经登录，免输入验证码
-        if (tokenService.checkTokenLogin(usertoken)) {
+        if (tokenService.checkTokenLogin(userToken) && StringUtils.isNotEmpty(userToken)) {
             dto.setIsLogin("true");
-            dto.setToken(usertoken);
+            dto.setToken(userToken);
             return getSuccessResult(JSONObject.toJSONString(dto));
         } else if (StringUtils.isEmpty(mobile)) {
             return getFailureResult(1002,"手机号码不能为空");
@@ -75,14 +73,15 @@ public class SignController extends BaseController{
             return getFailureResult(1002, "手机号码格式不正确");
         }
 
-        MtUser mtUser=memberService.queryMemberByMobile(mobile);
-        // 1,验证码验证
-        MtVerifyCode mtVerifyCode= verifyCodeService.checkVerifyCode(mobile,verifyCode);
+        MtUser mtUser = memberService.queryMemberByMobile(mobile);
 
-        // 2,写入token redis session
-        if (mtUser != null && mtVerifyCode!=null) {
-            if(!mtUser.getStatus().equals(StatusEnum.ENABLED.getKey())) {
-                return getFailureResult(1002, mobile+"账号异常!");
+        // 1、验证码验证
+        MtVerifyCode mtVerifyCode = verifyCodeService.checkVerifyCode(mobile,verifyCode);
+
+        // 2、写入token redis session
+        if (mtUser != null && mtVerifyCode != null) {
+            if (!mtUser.getStatus().equals(StatusEnum.ENABLED.getKey())) {
+                return getFailureResult(1002, "账号异常，登录失败");
             }
 
             // 更新验证码
@@ -96,46 +95,53 @@ public class SignController extends BaseController{
             dto.setTokenCreatedTime(System.currentTimeMillis());
         } else {
             dto.setIsLogin("false");
-            return getFailureResult(1002, "验证码错误，登录失败!");
+            return getFailureResult(1002, "验证码错误，登录失败");
         }
 
-        return getSuccessResult(dto);
+
+        Map<String, Object> outParams = new HashMap<String, Object>();
+
+        outParams.put("token", dto.getToken());
+        outParams.put("userId", mtUser.getId());
+        outParams.put("userName", mtUser.getRealName());
+
+        return getSuccessResult("登录成功", outParams);
     }
 
     /**
-     * 会员token获取会员信息
+     * 获取会员信息
      */
     @RequestMapping(value = "/doGetUserInfo", method = RequestMethod.POST)
     @CrossOrigin
     public ResponseObject doGetUserInfo(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException{
-        String usertoken = request.getHeader("token");
-        MtUser mtUser=tokenService.getUserInfoByToken(usertoken);
+        String userToken = request.getHeader("Access-Token");
+        MtUser mtUser = tokenService.getUserInfoByToken(userToken);
         if (mtUser==null) {
             return getFailureResult(1001, "用户没登录!");
         }
+
         return getSuccessResult(mtUser);
     }
 
-
     /**
-     * 会员退出设备登录
+     * 会员退出登录
      */
-    @RequestMapping(value = "/doLogout", method = RequestMethod.POST)
+    @RequestMapping(value = "/signOut", method = RequestMethod.POST)
     @CrossOrigin
     public ResponseObject doLogout(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException{
-        String usertoken = request.getHeader("token");
+        String userToken = request.getHeader("Access-Token");
         String userAgentStr = request.getHeader("user-agent");
         UserAgent userAgent = UserAgent.parseUserAgentString(userAgentStr);
         String direct;
 
         if (userAgent.getOperatingSystem().isMobileDevice()) {
-            direct="MOBILE";
+            direct = "MOBILE";
         } else {
-            direct="PC";
+            direct = "PC";
         }
 
-        Boolean flag=tokenService.removeTokenLikeMobile(usertoken,direct);
-        if (Boolean.FALSE==flag) {
+        Boolean flag = tokenService.removeTokenLikeMobile(userToken, direct);
+        if (Boolean.FALSE == flag) {
             return getFailureResult(1001, "退出错误!");
         } else {
             return getSuccessResult("退出成功！");

@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * 我的卡券返回DTO
- * Created by zach on 2019-8-28.
+ * Created by zach on 2019/8/28.
  */
 public class ResMyCouponDto implements Serializable {
 
@@ -32,7 +32,7 @@ public class ResMyCouponDto implements Serializable {
     /**
      * 数据列表
      * */
-    private List<MyCouponDto> dataList;
+    private List<MyCouponDto> content;
 
     public Integer getPageNumber() {
         return pageNumber;
@@ -66,11 +66,11 @@ public class ResMyCouponDto implements Serializable {
         this.totalPage = totalPage;
     }
 
-    public List<MyCouponDto> getDataList() {
-        return dataList;
+    public List<MyCouponDto> getContent() {
+        return content;
     }
 
-    public void setDataList(List<MyCouponDto> dataList) {
-        this.dataList = dataList;
+    public void setContent(List<MyCouponDto> content) {
+        this.content = content;
     }
 }

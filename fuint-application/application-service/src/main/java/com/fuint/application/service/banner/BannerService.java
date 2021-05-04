@@ -10,7 +10,7 @@ import java.util.Map;
 
 /**
  * banner业务接口
- * Created by zach 2021.4.13
+ * Created by zach 2021/4/13
  */
 public interface BannerService {
     /**

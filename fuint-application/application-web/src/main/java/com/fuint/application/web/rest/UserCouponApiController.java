@@ -1,5 +1,7 @@
 package com.fuint.application.web.rest;
 
+import com.fuint.application.dto.UserCouponDto;
+import com.fuint.application.util.DateUtil;
 import com.fuint.exception.BusinessCheckException;
 import com.fuint.application.dao.entities.MtCoupon;
 import com.fuint.application.dao.entities.MtUserCoupon;
@@ -25,7 +27,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -34,7 +35,7 @@ import java.util.Map;
  * Updated by zach on 2021/04/29.
  */
 @RestController
-@RequestMapping(value = "/rest/UserCouponApi")
+@RequestMapping(value = "/rest/userCouponApi")
 public class UserCouponApiController extends BaseController {
 
     private static final Logger logger = LoggerFactory.getLogger(UserCouponApiController.class);
@@ -66,12 +67,12 @@ public class UserCouponApiController extends BaseController {
     @CrossOrigin
     public ResponseObject detail(HttpServletRequest request, @RequestParam Map<String, Object> param) throws BusinessCheckException {
         String token = request.getHeader("Access-Token");
-        Integer id = param.get("id") == null ? 1 : Integer.parseInt(param.get("id").toString());
+        Integer userCouponId = param.get("userCouponId") == null ? 0 : Integer.parseInt(param.get("userCouponId").toString());
         int width = param.get("width") == null ? 800 : Integer.parseInt(param.get("width").toString());
         int height = param.get("height") == null ? 800 : Integer.parseInt(param.get("height").toString());
 
         // 参数有误
-        if (id <= 0) {
+        if (userCouponId <= 0) {
             return getFailureResult(1002);
         }
 
@@ -84,7 +85,7 @@ public class UserCouponApiController extends BaseController {
             return getFailureResult(1001);
         }
 
-        MtUserCoupon userCoupon = userCouponRepository.findOne(id);
+        MtUserCoupon userCoupon = userCouponRepository.findOne(userCouponId);
         if (!mtUser.getId().equals(userCoupon.getUserId())) {
             return getFailureResult(1004);
         }
@@ -95,11 +96,11 @@ public class UserCouponApiController extends BaseController {
         }
 
         ByteArrayOutputStream out = null;
-        ResponseObject responseObject = null;
+        ResponseObject responseObject;
         try {
             // 如果超过两小时，重新生成code
-            String rcode = userCoupon.getCode();
-            if (couponService.codeExpired(rcode) && userCoupon.getStatus().equals("A")) {
+            String rCode = userCoupon.getCode();
+            if (couponService.codeExpired(rCode) && userCoupon.getStatus().equals("A")) {
                 StringBuffer code = new StringBuffer();
                 code.append(new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date()));
                 code.append(SeqUtil.getRandomNumber(15));
@@ -108,11 +109,11 @@ public class UserCouponApiController extends BaseController {
                 userCoupon.setUpdateTime(new Date());
                 userCouponRepository.save(userCoupon);
 
-                rcode = code.toString();
+                rCode = code.toString();
             }
 
             String website = env.getProperty("website.url");
-            String content  = website + "/index.html#/result?code=" + rcode +"&time=" + new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date());
+            String content  = website + "/index.html#/result?code=" + rCode +"&time=" + new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date());
 
             // 生成并输出二维码
             out = new ByteArrayOutputStream();
@@ -120,14 +121,23 @@ public class UserCouponApiController extends BaseController {
 
             // 对数据进行Base64编码，返回的码需加上：data:image/jpg;base64
             String qrCode = new String(Base64Util.baseEncode(out.toByteArray()), "UTF-8");
+            qrCode = "data:image/jpg;base64," + qrCode;
 
-            //组织返回参数
-            Map<String, Object> outParams = new HashMap<String, Object>();
-            outParams.put("qrCode", qrCode);
-            outParams.put("amount", couponInfo.getAmount());
-            outParams.put("couponDetail", couponInfo);
+            UserCouponDto result = new UserCouponDto();
+            result.setName(couponInfo.getName());
+            result.setQrCode(qrCode);
+            result.setId(userCouponId);
+            result.setDescription(couponInfo.getDescription());
+            result.setCouponId(couponInfo.getId());
 
-            responseObject = getSuccessResult(outParams);
+            String effectiveDate = DateUtil.formatDate(couponInfo.getBeginTime(), "yyyy.MM.dd") + " - " + DateUtil.formatDate(couponInfo.getEndTime(), "yyyy.MM.dd");
+
+            result.setEffectiveDate(effectiveDate);
+            result.setCode(userCoupon.getCode());
+            result.setAmount(userCoupon.getAmount());
+            result.setBalance(userCoupon.getBalance());
+
+            responseObject = getSuccessResult(result);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             responseObject = getCustomrResult(500, "生成二维码异常", "");

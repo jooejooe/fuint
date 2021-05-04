@@ -13,6 +13,7 @@ import org.apache.commons.collections.MapUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,7 @@ import java.util.*;
 
 /**
  * banner管理业务实现类
- * Created by zach 2021-04-13
+ * Created by zach 2021/04/13
  */
 @Service
 public class BannerServiceImpl implements BannerService {
@@ -32,6 +33,9 @@ public class BannerServiceImpl implements BannerService {
 
     @Autowired
     private MtBannerRepository bannerRepository;
+
+    @Autowired
+    private Environment env;
 
     /**
      * 分页查询Banner列表
@@ -52,7 +56,7 @@ public class BannerServiceImpl implements BannerService {
      * @throws BusinessCheckException
      */
     @Override
-    @OperationServiceLog(description = "添加Banner信息")
+    @OperationServiceLog(description = "添加Banner")
     public MtBanner addBanner(BannerDto bannerDto) throws BusinessCheckException {
         MtBanner mtBanner = new MtBanner();
         if (null != bannerDto.getId()) {
@@ -60,6 +64,10 @@ public class BannerServiceImpl implements BannerService {
         }
         mtBanner.setTitle(bannerDto.getTitle());
         mtBanner.setStatus(StatusEnum.ENABLED.getKey());
+        mtBanner.setImage(bannerDto.getImage());
+        mtBanner.setDescription(bannerDto.getDescription());
+        mtBanner.setOperator(bannerDto.getOperator());
+
         try {
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String dt = format.format(new Date());
@@ -69,7 +77,6 @@ public class BannerServiceImpl implements BannerService {
         } catch (ParseException e) {
             throw new BusinessRuntimeException("日期转换异常 " + e.getMessage());
         }
-        mtBanner.setDescription(bannerDto.getDescription());
 
         return bannerRepository.save(mtBanner);
     }
@@ -93,7 +100,7 @@ public class BannerServiceImpl implements BannerService {
      * @throws BusinessCheckException
      */
     @Override
-    @OperationServiceLog(description = "删除店铺")
+    @OperationServiceLog(description = "删除Banner")
     public void deleteBanner(Integer id, String operator) throws BusinessCheckException {
         MtBanner MtBanner = this.queryBannerById(id);
         if (null == MtBanner) {
@@ -123,6 +130,7 @@ public class BannerServiceImpl implements BannerService {
         }
 
         MtBanner.setId(bannerDto.getId());
+        MtBanner.setImage(bannerDto.getImage());
         MtBanner.setTitle(bannerDto.getTitle());
         MtBanner.setDescription(bannerDto.getDescription());
         MtBanner.setUpdateTime(new Date());
@@ -134,13 +142,18 @@ public class BannerServiceImpl implements BannerService {
 
     @Override
     public List<MtBanner> queryBannerListByParams(Map<String, Object> params) throws BusinessCheckException {
-        if (MapUtils.isEmpty(params)) {
-            params = new HashMap<>();
-        }
+        Map<String, Object> param = new HashMap<>();
 
-        Specification<MtBanner> specification = bannerRepository.buildSpecification(params);
+        Specification<MtBanner> specification = bannerRepository.buildSpecification(param);
         Sort sort = new Sort(Sort.Direction.DESC, "createTime");
         List<MtBanner> result = bannerRepository.findAll(specification, sort);
+        String baseImage = env.getProperty("images.website");
+
+        if (result.size() > 0) {
+            for (MtBanner banner : result) {
+                banner.setImage(baseImage + banner.getImage());
+            }
+        }
 
         return result;
     }

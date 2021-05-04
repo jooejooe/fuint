@@ -22,11 +22,15 @@ public class BaseController {
         return new ResponseObject(FrameworkConstants.HTTP_RESPONSE_CODE_SUCCESS, "请求成功", data);
     }
 
-    public ResponseObject getSuccessResultList(List data) {
-        if (CollectionUtils.isEmpty(data)) {
-            return new ResponseObject(FrameworkConstants.HTTP_RESPONSE_CODE_SUCCESS, "请求成功", Collections.emptyList());
-        }
-        return new ResponseObject(FrameworkConstants.HTTP_RESPONSE_CODE_SUCCESS, "请求成功", data);
+    /**
+     * 获取成功返回结果
+     *
+     * @param message
+     * @param data
+     * @return
+     */
+    public ResponseObject getSuccessResult(String message, Object data) {
+        return new ResponseObject(FrameworkConstants.HTTP_RESPONSE_CODE_SUCCESS, message, data);
     }
 
     /**

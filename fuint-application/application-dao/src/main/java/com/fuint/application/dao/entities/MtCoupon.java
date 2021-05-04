@@ -69,10 +69,16 @@ public class MtCoupon implements Serializable{
     private String sendWay;
 
    /**
-    * 数量 
+    * 每次发放数量
     */ 
     @Column(name = "SEND_NUM", length = 10)
     private Integer sendNum;
+
+   /**
+    * 数量限制
+    */
+   @Column(name = "LIMIT_NUM", length = 10)
+   private Integer limitNum;
 
    /**
     * 例外日期，逗号隔开。周末：weekend；其他：2021-01-02~2021-02-09
@@ -194,6 +200,12 @@ public class MtCoupon implements Serializable{
     public void setSendNum(Integer sendNum){
     this.sendNum=sendNum;
     }
+    public Integer getLimitNum(){
+       return limitNum;
+   }
+    public void setLimitNum(Integer limitNum){
+           this.limitNum=limitNum;
+       }
     public String getExceptTime(){
         return exceptTime;
     }

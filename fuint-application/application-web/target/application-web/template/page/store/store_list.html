@@ -50,7 +50,7 @@
             </tr>
             </thead>
             <tbody>
-            <#if paginationResponse?has_content && paginationResponse.content?exists>
+            <#if paginationResponse?has_content && paginationResponse.content?exists && paginationResponse.content?size gt 0>
                 <#list paginationResponse.content as ct>
                     <tr>
                         <td>${ct.id}</td>
@@ -72,6 +72,10 @@
                         </td>
                     </tr>
                 </#list>
+            <#else>
+            <tr class="gradeA even" role="row">
+                <td colspan="12" class="text-center">没有符合条件的数据！</td>
+            </tr>
             </#if>
         </table>
     </div>

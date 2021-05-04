@@ -42,8 +42,17 @@ public interface MtUserCouponRepository extends BaseRepository<MtUserCoupon, Int
        * @param userId
        * @return
        * */
-      @Query("SELECT t FROM MtUserCoupon t WHERE t.userId =:userId AND t.status='A' ORDER BY id DESC")
-      List<MtUserCoupon> getUserCouponList(@Param("userId") Integer userId);
+      @Query("SELECT t FROM MtUserCoupon t WHERE t.userId =:userId AND t.status IN (:status) ORDER BY id DESC")
+      List<MtUserCoupon> getUserCouponList(@Param("userId") Integer userId, @Param("status") List<String> status);
+
+      /**
+       * 获取用户的券列表
+       *
+       * @param userId
+       * @return
+       * */
+      @Query("SELECT t FROM MtUserCoupon t WHERE t.userId =:userId AND t.couponId =:couponId AND t.status IN (:status) ORDER BY id DESC")
+      List<MtUserCoupon> getUserCouponListByCouponId(@Param("userId") Integer userId, @Param("couponId") Integer couponId ,@Param("status") List<String> status);
 
       /**
        * 通过code获取

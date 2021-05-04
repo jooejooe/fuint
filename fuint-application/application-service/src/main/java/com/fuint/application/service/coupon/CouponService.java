@@ -13,6 +13,7 @@ import java.util.Map;
 /**
  * 卡券业务接口
  * Created by zach on 2021/3/17.
+ * Updated by zach on 2021/4/23.
  */
 public interface CouponService {
 
@@ -65,6 +66,13 @@ public interface CouponService {
     ResponseObject findMyCouponList(Map<String, Object> paramMap) throws BusinessCheckException;
 
     /**
+     * 获取卡券列表
+     * @param paramMap 查询参数
+     * @throws BusinessCheckException
+     * */
+    ResponseObject findCouponList(Map<String, Object> paramMap) throws BusinessCheckException;
+
+    /**
      * 发放卡券
      *
      * @param groupId 券ID
@@ -91,13 +99,6 @@ public interface CouponService {
     String useCoupon(Long userCouponId, Integer userId, Integer storeId) throws BusinessCheckException;
 
     /**
-     * 把ID转换成名称
-     * @param contentIds， 如1,2,3
-     * @throws BusinessCheckException
-     * */
-    String getConetntByIds(String contentIds) throws BusinessCheckException;
-
-    /**
      * 根据券ID 删除个人卡券 zach 20190912 add
      *
      * @param id       券ID
@@ -105,15 +106,6 @@ public interface CouponService {
      * @throws BusinessCheckException
      */
     void deleteUserCoupon(Integer id, String operator) throws BusinessCheckException;
-
-    /**
-     * 根据券ID 撤销个人已使用的卡券
-     *
-     * @param id       券ID
-     * @param operator 操作人
-     * @throws BusinessCheckException
-     */
-    void rollbackUserCoupon(Integer id, String operator) throws BusinessCheckException;
 
     /**
      * 根据券ID 撤销个人卡券消费流水 zach 20191012 add
@@ -146,4 +138,11 @@ public interface CouponService {
      * @param code 券码
      * */
     boolean codeExpired(String code);
+
+    /**
+     * 判断卡券是否有效
+     * @param coupon
+     * @return
+     * */
+    boolean isCouponEffective(MtCoupon coupon);
 }

@@ -3,7 +3,7 @@ package com.fuint.application.enums;
 /**
  * 用户卡券状态 状态：A：未使用；B：已使用；C：已过期; D：已作废
  * <p/>
- * Created by zach on 2021-03-17.
+ * Created by zach on 2021/03/17.
  */
 public enum UserCouponStatusEnum {
     UNUSED("A", "未使用"),
@@ -39,7 +39,6 @@ public enum UserCouponStatusEnum {
 
     // 普通方法，通过key获取value
     public static String getValue(String k) {
-       // for (StatusEnum se : sees)
         for (UserCouponStatusEnum c : UserCouponStatusEnum.values()) {
             if (c.getKey().equals(k)) {
                 return c.getValue();

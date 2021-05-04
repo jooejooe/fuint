@@ -61,7 +61,7 @@ public class GiveController extends BaseController {
     @RequestMapping(value = "/doGive", method = RequestMethod.POST)
     @CrossOrigin
     public ResponseObject doGive(HttpServletRequest request, @RequestParam Map<String, Object> param) throws BusinessCheckException {
-        String token = request.getHeader("token");
+        String token = request.getHeader("Access-Token");
 
         if (StringUtils.isEmpty(token)) {
             return getFailureResult(1001);
@@ -103,7 +103,7 @@ public class GiveController extends BaseController {
     @RequestMapping(value = "/giveLog", method = RequestMethod.GET)
     @CrossOrigin
     public ResponseObject giveLog(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException {
-        String token = request.getHeader("token");
+        String token = request.getHeader("Access-Token");
 
         if (StringUtils.isEmpty(token)) {
             return getFailureResult(1001);

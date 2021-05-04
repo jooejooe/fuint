@@ -1,16 +1,17 @@
 package com.fuint.application.enums;
 
 /**
- * 活动状态枚举
+ * 状态枚举
  * <p/>
- * Created by zach on 2019-09-05.
+ * Created by zach on 2019/09/05.
  */
 public enum StatusEnum {
 
-    ENABLED("A", "有效/启用"),
-    DISABLE("D", "无效"),
+    ENABLED("A", "启用"),
+    EXPIRED("C", "过期"),
+    DISABLE("D", "删除"),
     FORBIDDEN("N", "禁用"),
-    UnAudited("U", "未审核");
+    UnAudited("U", "待审核");
 
     private String key;
 

@@ -12,6 +12,7 @@ import com.fuint.application.dao.entities.*;
 import com.fuint.application.dto.ReqResult;
 import com.fuint.application.service.banner.BannerService;
 import com.fuint.application.util.CommonUtil;
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 /**
@@ -93,16 +95,27 @@ public class BannerController {
      * @param model
      * @return
      */
-    @RequiresPermissions("backend/banner/update/{id}")
-    @RequestMapping(value = "/update/{id}")
-    public String updateBanner(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable("id") Integer id) throws BusinessCheckException {
-        MtBanner info = bannerService.queryBannerById(id);
-        BannerDto dto = new BannerDto();
+    @RequiresPermissions("backend/banner/update")
+    @RequestMapping(value = "/update")
+    public String updateBanner(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException, InvocationTargetException, IllegalAccessException {
+        String id = (request.getParameter("id") != null) ? request.getParameter("id") : "0";
+        String title = CommonUtil.replaceXSS(request.getParameter("title"));
+        String description = CommonUtil.replaceXSS(request.getParameter("description"));
+        String image = CommonUtil.replaceXSS(request.getParameter("image"));
+        String status = CommonUtil.replaceXSS(request.getParameter("status"));
 
-        bannerService.updateBanner(dto);
-        ReqResult reqResult = new ReqResult();
+        MtBanner info = bannerService.queryBannerById(Integer.parseInt(id));
 
-        reqResult.setResult(true);
+        if (null != info) {
+            BannerDto dto = new BannerDto();
+            dto.setTitle(title);
+            dto.setDescription(description);
+            dto.setImage(image);
+            dto.setStatus(status);
+            bannerService.updateBanner(dto);
+            ReqResult reqResult = new ReqResult();
+            reqResult.setResult(true);
+        }
 
         return "redirect:/backend/banner/queryList";
     }

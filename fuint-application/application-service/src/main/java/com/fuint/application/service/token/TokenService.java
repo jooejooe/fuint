@@ -1,12 +1,8 @@
 package com.fuint.application.service.token;
 
-
-import com.alibaba.fastjson.JSONObject;
 import com.fuint.cache.redis.RedisTemplate;
 import com.fuint.exception.BusinessCheckException;
-import com.fuint.exception.BusinessRuntimeException;
 import nl.bitwalker.useragentutils.UserAgent;
-import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.fuint.application.dao.entities.MtUser;
 import org.springframework.stereotype.Service;
@@ -20,14 +16,9 @@ public class TokenService {
     @Autowired
     private RedisTemplate redisTemplate;
 
-
-
-    //生成token(格式为token:设备-加密的手机号-时间-六位随机数)
+    // 生成token(格式为token:设备-加密的手机号-时间-六位随机数)
     public String generateToken(String userAgent, String mobile) {
         StringBuilder token = new StringBuilder();
-        //加token:
-        //token.append("token:");
-        //加设备
         UserAgent userAgent1 = UserAgent.parseUserAgentString(userAgent);
         if (userAgent1.getOperatingSystem().isMobileDevice()) {
             token.append("MOBILE_");
@@ -56,7 +47,6 @@ public class TokenService {
             redisTemplate.set(token, mtUser, 2 * 60 * 60);
         } else {
             //redisUtil.set(token, JSONObject.toJSONString(user));
-
             //先删除redis key，再保存新key
             redisTemplate.removeLike("MOBILE_"+mtUser.getMobile());
            // 如果是MOBILE,那么token保存48个小时；
@@ -77,21 +67,17 @@ public class TokenService {
 
     }
 
-    //检查token存在,则获取用户登录信息0904
+    // 检查token存在,则获取用户登录信息
     public MtUser getUserInfoByToken(String token) throws BusinessCheckException {
-        MtUser mtUser=null;
+        MtUser mtUser = null;
         try {
             if (this.redisTemplate.exists(token)) {
-                //token超时检查?? 后续再加\
                 mtUser = this.redisTemplate.get(token,MtUser.class);
-                //String s = this.redisTemplate.get(token,String.class);
             }
-           // return  mtUser;
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             throw new BusinessCheckException("连接redis出错");
         }
+
         return mtUser;
     }
 

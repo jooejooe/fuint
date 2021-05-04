@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 /**
  * 卡券DTO
  * Created by zach on 2021/4/22.
+ * Updated by zach on 2021/5/1.
  */
 public class CouponDto implements Serializable {
 
@@ -60,9 +61,24 @@ public class CouponDto implements Serializable {
     private Integer gotNum;
 
     /**
+     * 限制数量
+     * */
+    private Integer limitNum;
+
+    /**
      * 是否领取
      * */
     private boolean isReceive;
+
+    /**
+     * 有效期
+     * */
+    private String effectiveDate;
+
+    /**
+     * 卡券说明
+     * */
+    private String description;
 
     public Integer getId() {
         return id;
@@ -128,6 +144,13 @@ public class CouponDto implements Serializable {
         this.sellingPoint = sellingPoint;
     }
 
+    public Integer getLimitNum() {
+        return limitNum;
+    }
+    public void setLimitNum(Integer limitNum) {
+        this.limitNum = limitNum;
+    }
+
     public Integer getGotNum() {
         return gotNum;
     }
@@ -140,5 +163,19 @@ public class CouponDto implements Serializable {
     }
     public void setIsReceive(boolean isReceive) {
         this.isReceive = isReceive;
+    }
+
+    public String getEffectiveDate() {
+        return effectiveDate;
+    }
+    public void setEffectiveDate(String effectiveDate) {
+        this.effectiveDate = effectiveDate;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

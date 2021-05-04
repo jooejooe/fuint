@@ -15,11 +15,14 @@ import com.fuint.application.dao.entities.MtUser;
 import com.fuint.application.enums.UserCouponStatusEnum;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
 import java.util.Map;
 
 /**-
  * 我的卡券controller
- * Created by zach on 2019/8/26.
+ * Created by zach on 2019/08/26.
+ * Updated by zach on 2021/04/23.
  */
 @RestController
 @RequestMapping(value = "/rest/myCoupon")
@@ -42,24 +45,29 @@ public class MyCouponController extends BaseController {
     /**
      * 查询我的卡券
      *
-     * @param param  Request对象
+     * @param request  Request对象
      */
-    @RequestMapping(value = "/doQuery", method = RequestMethod.GET)
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
     @CrossOrigin
-    public ResponseObject doQuery(HttpServletRequest request, @RequestParam Map<String, Object> param) throws BusinessCheckException {
-        String token = request.getHeader("token");
+    public ResponseObject list(HttpServletRequest request, HttpServletResponse response) throws BusinessCheckException {
+        String token = request.getHeader("Access-Token");
+        String status = request.getParameter("status") == null ? "" : request.getParameter("status").toString();
+        String type = request.getParameter("type") == null ? "" : request.getParameter("type").toString();
 
         if (StringUtils.isEmpty(token)) {
             return getFailureResult(1001);
         }
 
         MtUser mtUser = tokenService.getUserInfoByToken(token);
-
         if (null == mtUser) {
             return getFailureResult(1001);
         }
 
+        Map<String, Object> param = new HashMap<>();
+
         param.put("userId", mtUser.getId());
+        param.put("status", status);
+        param.put("type", type);
 
         ResponseObject result = couponService.findMyCouponList(param);
 
@@ -74,7 +82,7 @@ public class MyCouponController extends BaseController {
     @RequestMapping(value = "/isUsed", method = RequestMethod.GET)
     @CrossOrigin
     public ResponseObject isUsed(HttpServletRequest request, @RequestParam Map<String, Object> param) throws BusinessCheckException {
-        String token = request.getHeader("token");
+        String token = request.getHeader("Access-Token");
         Integer userCouponId = param.get("id") == null ? 0 : Integer.parseInt(param.get("id").toString());
 
         if (StringUtils.isEmpty(token)) {

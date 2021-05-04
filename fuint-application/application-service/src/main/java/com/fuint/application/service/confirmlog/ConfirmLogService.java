@@ -11,7 +11,7 @@ import java.util.Map;
 
 /**
  * 会员用户业务接口
- * Created by zach 20190820
+ * Created by zach 2019/08/20
  */
 public interface ConfirmLogService {
 
@@ -23,19 +23,23 @@ public interface ConfirmLogService {
      */
     PaginationResponse<ConfirmLogDto> queryConfirmLogListByPagination(PaginationRequest paginationRequest) throws BusinessCheckException;
 
-
     /**
      * 查询会员卡券核销列表
      * */
-    public List<ConfirmLogDto> queryConfirmLogListByParams(Map<String, Object> params) throws BusinessCheckException;
-
+    List<ConfirmLogDto> queryConfirmLogListByParams(Map<String, Object> params) throws BusinessCheckException;
 
     /**
-     * 根据ID获取用户卡券信息
+     * 根据ID获取用户卡券核销信息
      *
-     * @param id 用户卡券id
+     * @param id
      * @throws BusinessCheckException
      */
     ConfirmLogDto queryConfirmLogById(Integer id) throws BusinessCheckException;
 
+    /**
+     * 获取卡券核销次数
+     * @param userCouponId
+     * @return
+     * */
+    Integer getConfirmNum(Integer userCouponId) throws BusinessCheckException;
 }

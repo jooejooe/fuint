@@ -120,12 +120,13 @@ public class StoreServiceImpl implements StoreService {
     public MtStoreDto queryStoreByName(String storeName) throws BusinessCheckException,InvocationTargetException,IllegalAccessException  {
         MtStore mtStore = storeRepository.queryStoreByName(storeName);
         MtStoreDto mtStoreDto = null;
-        if (mtStore !=null) {
+
+        if (mtStore != null) {
             mtStoreDto=new MtStoreDto();
             ConvertUtils.register(new DateConverter(null), java.util.Date.class);
             BeanUtils.copyProperties(mtStoreDto,mtStore);
-
         }
+
         return mtStoreDto;
     }
 
@@ -145,7 +146,7 @@ public class StoreServiceImpl implements StoreService {
         }
         MtStoreDto mtStoreDto = new MtStoreDto();
         ConvertUtils.register(new DateConverter(null), java.util.Date.class);
-        BeanUtils.copyProperties(mtStoreDto,mtStore);
+        BeanUtils.copyProperties(mtStoreDto, mtStore);
         return mtStoreDto;
     }
 

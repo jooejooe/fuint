@@ -5,19 +5,14 @@ import com.fuint.base.dao.pagination.PaginationResponse;
 import com.fuint.exception.BusinessCheckException;
 import com.fuint.util.DateUtil;
 import com.fuint.application.dao.entities.UvCouponInfo;
-import com.fuint.application.dao.repositories.MtConfirmLogRepository;
-import com.fuint.application.dao.repositories.MtCouponInfoRepository;
 import com.fuint.application.dto.ConfirmLogDto;
-import com.fuint.application.enums.StatusEnum;
 import com.fuint.application.enums.UserCouponStatusEnum;
-import com.fuint.application.service.member.UvCouponInfoService;
 import com.fuint.application.util.CommonUtil;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -30,22 +25,20 @@ import java.math.BigDecimal;
 import java.util.*;
 
 /**
- * 核销卡券视图
- * Created by zach 20191012
+ * 核销卡券服务
+ * Created by zach on 2019/10/12
+ * Updated by zach on 2021/05/04.
  */
 @Service
-public class ConfirmLogServiceImpl implements ConfirmLogService{
+public class ConfirmLogServiceImpl implements ConfirmLogService {
 
     private static final Logger log = LoggerFactory.getLogger(ConfirmLogServiceImpl.class);
-
-    @Autowired
-    private MtConfirmLogRepository mtConfirmLogRepository;
 
     @PersistenceContext(unitName = "defaultPersistenceUnit")
     private EntityManager entityManager;
 
     /**
-     * 分页查询会员卡券消费列表 SQL
+     * 分页查询会员卡券消费列表
      *
      * @param paginationRequest
      * @return
@@ -66,7 +59,6 @@ public class ConfirmLogServiceImpl implements ConfirmLogService{
         return pageResponse;
     }
 
-
     /**
      *根据间参数查询会创建时员用户信息
      *
@@ -83,9 +75,8 @@ public class ConfirmLogServiceImpl implements ConfirmLogService{
         return result;
     }
 
-
     /**
-     * 根据ID获取用户卡券信息
+     * 根据ID获取用户卡券核销信息
      *
      * @param id 用户卡券id
      * @return
@@ -93,7 +84,7 @@ public class ConfirmLogServiceImpl implements ConfirmLogService{
      */
     @Override
     public ConfirmLogDto queryConfirmLogById(Integer id) throws BusinessCheckException {
-        Map<String, Object> params=new HashMap<>();
+        Map<String, Object> params = new HashMap<>();
         params.put("EQ_Id",id);
         Query query = getQueryByParams(params);
         List<ConfirmLogDto> result = convertConfirmLog(query);
@@ -101,6 +92,19 @@ public class ConfirmLogServiceImpl implements ConfirmLogService{
         return ConfirmLogDto;
     }
 
+    /**
+     * 获取卡券核销次数
+     * @param userCouponId
+     * @return
+     * */
+    @Override
+    public Integer getConfirmNum(Integer userCouponId) throws BusinessCheckException {
+        Map<String, Object> params = new HashMap<>();
+        params.put("EQ_UserCouponId", userCouponId);
+        Long num = getTotal(params);
+
+        return num.intValue();
+    }
 
     /**
      * 根据参数获取查询Query对象
@@ -162,13 +166,14 @@ public class ConfirmLogServiceImpl implements ConfirmLogService{
         if (params.get("GTE_usedTime") != null && StringUtils.isNotEmpty(params.get("GTE_usedTime").toString())) {
             queryStr.append(" and `mt_confirm_log`.`CREATE_TIME` >= '" + CommonUtil.filter(params.get("GTE_usedTime").toString().trim()) + "' ");
         }
+
         if (params.get("LTE_usedTime") != null && StringUtils.isNotEmpty(params.get("LTE_usedTime").toString())) {
             queryStr.append(" and `mt_confirm_log`.`CREATE_TIME` <= '" + CommonUtil.filter(params.get("LTE_usedTime").toString().trim()) + "' ");
         }
+
         if (params.get("EQ_couponInfoStatus") != null && StringUtils.isNotEmpty(params.get("EQ_couponInfoStatus").toString())) {
             String eq_couponInfoStatus = CommonUtil.filter(params.get("EQ_couponInfoStatus").toString());
             String now = DateUtil.format(new Date(), DateUtil.newFormat);
-            //1、未开始 2进行中、3、已过期
             if (eq_couponInfoStatus.equals(UserCouponStatusEnum.EXPIRE.getKey())) {
                 queryStr.append(" and (now()> `mt_coupon`.`END_TIME`)");
             } else {
@@ -190,9 +195,7 @@ public class ConfirmLogServiceImpl implements ConfirmLogService{
 
         if (params.get("sort_type_custom") != null && StringUtils.isNotEmpty(params.get("sort_type_custom").toString())) {
             queryStr.append(" order by "+ CommonUtil.filter(params.get("sort_type_custom").toString().trim()));
-        }
-        else
-        {
+        } else {
             queryStr.append(" order by `mt_confirm_log`.`ID` desc");
         }
 
@@ -203,10 +206,8 @@ public class ConfirmLogServiceImpl implements ConfirmLogService{
         return entityManager.createNativeQuery(queryStr.toString());
     }
 
-
-
     /**
-     * 根据参数获取查询Query对象
+     * 根据参数查询数量
      *
      * @param params
      * @return
@@ -228,24 +229,26 @@ public class ConfirmLogServiceImpl implements ConfirmLogService{
         if (params.get("LIKE_mobile") != null && StringUtils.isNotEmpty(params.get("LIKE_mobile").toString())) {
             queryStr.append(" and  `mt_user`.MOBILE like '%" +CommonUtil.filter( params.get("LIKE_mobile").toString().trim()) + "%' ");
         }
+
         if (params.get("LIKE_couponGroupName") != null && StringUtils.isNotEmpty(params.get("LIKE_couponGroupName").toString())) {
-            queryStr.append(" and `mt_coupon_group`.`NAME_BACKEND` like '%" + CommonUtil.filter(params.get("LIKE_couponGroupName").toString().trim()) + "%' ");
+            queryStr.append(" and `mt_coupon_group`.`NAME` like '%" + CommonUtil.filter(params.get("LIKE_couponGroupName").toString().trim()) + "%' ");
         }
+
         if (params.get("LIKE_couponName") != null && StringUtils.isNotEmpty(params.get("LIKE_couponName").toString())) {
-            queryStr.append(" and  `mt_coupon`.`BACKEND_NAME` like '%" + CommonUtil.filter(params.get("LIKE_couponName").toString().trim()) + "%' ");
+            queryStr.append(" and  `mt_coupon`.`NAME` like '%" + CommonUtil.filter(params.get("LIKE_couponName").toString().trim()) + "%' ");
         }
 
         if (params.get("GTE_usedTime") != null && StringUtils.isNotEmpty(params.get("GTE_usedTime").toString())) {
             queryStr.append(" and `mt_confirm_log`.`CREATE_TIME` >= '" +CommonUtil.filter(params.get("GTE_usedTime").toString().trim()) + "' ");
         }
+
         if (params.get("LTE_usedTime") != null && StringUtils.isNotEmpty(params.get("LTE_usedTime").toString())) {
-            queryStr.append(" and  `mt_confirm_log`.`CREATE_TIME` <= '" + CommonUtil.filter(params.get("LTE_usedTime").toString().trim()) + "' ");
+            queryStr.append(" and  `mt_confirm_log`.`CREATE_TIME` <= '" + CommonUtil.filter(params.get("LTE_usedTime").toString().trim()) + "'");
         }
 
         if (params.get("EQ_couponInfoStatus") != null && StringUtils.isNotEmpty(params.get("EQ_couponInfoStatus").toString())) {
             String eq_couponInfoStatus = CommonUtil.filter(params.get("EQ_couponInfoStatus").toString());
-            String now = DateUtil.format(new Date(), DateUtil.newFormat);
-            //1、未开始 2进行中、3、已过期
+            // 1、未开始 2进行中、3、已过期
             if (eq_couponInfoStatus.equals(UserCouponStatusEnum.EXPIRE.getKey())) {
                 queryStr.append(" and (now()> `mt_coupon`.`END_TIME`)");
             } else {
@@ -253,28 +256,30 @@ public class ConfirmLogServiceImpl implements ConfirmLogService{
             }
         }
 
+        if (params.get("EQ_UserCouponId") != null && StringUtils.isNotEmpty(params.get("EQ_UserCouponId").toString())) {
+            queryStr.append(" and `mt_user_coupon`.`ID` =  '" + CommonUtil.filter(params.get("EQ_UserCouponId").toString().trim()) + "'");
+        }
+
         if (params.get("EQ_groupId") != null && StringUtils.isNotEmpty(params.get("EQ_groupId").toString())) {
-            queryStr.append(" and `mt_coupon`.`GROUP_ID` =  '" + CommonUtil.filter(params.get("EQ_groupId").toString().trim()) + "' ");
+            queryStr.append(" and `mt_coupon`.`GROUP_ID` =  '" + CommonUtil.filter(params.get("EQ_groupId").toString().trim()) + "'");
         }
 
         if (params.get("EQ_couponId") != null && StringUtils.isNotEmpty(params.get("EQ_couponId").toString())) {
-            queryStr.append(" and `mt_user_coupon`.`COUPON_ID` =  '" + CommonUtil.filter(params.get("EQ_couponId").toString().trim()) + "' ");
+            queryStr.append(" and `mt_user_coupon`.`COUPON_ID` =  '" + CommonUtil.filter(params.get("EQ_couponId").toString().trim()) + "'");
         }
 
         if (params.get("EQ_storeId") != null && StringUtils.isNotEmpty(params.get("EQ_storeId").toString())) {
             queryStr.append(" and `mt_confirm_log`.`STORE_ID` =  '" + CommonUtil.filter(params.get("EQ_storeId").toString().trim()) + "' ");
         }
 
-
         Query query = entityManager.createNativeQuery(queryStr.toString());
         Object object = query.getSingleResult();
         if (null != object) {
             return new Long(object.toString());
         }
+
         return 0L;
     }
-
-
 
     /**
      * 根据Query设置的参数查询并封装成实体核销卡券流水对象
@@ -318,7 +323,7 @@ public class ConfirmLogServiceImpl implements ConfirmLogService{
                 content.add(ConfirmLogDto);
             }
         }
+
         return content;
     }
-
 }

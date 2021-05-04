@@ -7,7 +7,7 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 /**
- * Created by zach on 19/8/19.
+ * Created by zach on 2019/8/19.
  */
 public class PropertiesUtil {
 

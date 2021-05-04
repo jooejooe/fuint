@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
    /**
@@ -30,6 +31,12 @@ public class MtUserCoupon implements Serializable{
      */
     @Column(name = "CODE", nullable = false, length = 20)
     private String code;
+
+   /**
+    * 类型
+    */
+   @Column(name = "TYPE", nullable = false, length = 1)
+   private String type;
 
    /**
     * 效果图
@@ -68,6 +75,17 @@ public class MtUserCoupon implements Serializable{
     private Integer storeId;
 
    /**
+    * 面额
+    */
+    @Column(name = "AMOUNT")
+    private BigDecimal amount;
+
+   /**
+    * 余额
+    * */
+    private BigDecimal balance;
+
+   /**
     * 状态：1：未领取；2：已领取;3：已使用 
     */ 
     @Column(name = "STATUS", nullable = false, length = 1)
@@ -103,6 +121,12 @@ public class MtUserCoupon implements Serializable{
    @Column(name = "OPERATOR", length = 30)
    private String operator;
 
+   /**
+    * 订单ID
+    */
+    @Column(name = "ORDER_ID", length = 10)
+    private Integer orderId;
+
     public Integer getId(){
         return id;
     }
@@ -114,6 +138,12 @@ public class MtUserCoupon implements Serializable{
        }
     public void setCode(String code){
            this.code=code;
+       }
+    public String getType(){
+           return type;
+       }
+    public void setType(String type){
+           this.type=type;
        }
     public String getImage(){
            return image;
@@ -151,6 +181,18 @@ public class MtUserCoupon implements Serializable{
     public void setStoreId(Integer storeId){
     this.storeId=storeId;
     }
+    public BigDecimal getAmount(){
+           return amount;
+       }
+    public void setAmount(BigDecimal amount){
+           this.amount=amount;
+       }
+    public BigDecimal getBalance() {
+           return balance;
+       }
+    public void setBalance(BigDecimal balance) {
+           this.balance = balance;
+       }
     public String getStatus(){
         return status;
     }
@@ -186,6 +228,12 @@ public class MtUserCoupon implements Serializable{
        }
     public void setOperator(String operator){
            this.operator=operator;
+       }
+    public Integer getOrderId(){
+           return orderId;
+       }
+    public void setOrderId(Integer orderId){
+           this.orderId=orderId;
        }
 }
 

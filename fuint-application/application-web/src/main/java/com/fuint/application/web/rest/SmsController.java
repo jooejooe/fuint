@@ -13,14 +13,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.fuint.application.BaseController;
 import com.fuint.application.ResponseObject;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.*;
 import com.fuint.application.util.PhoneFormatCheckUtils;
@@ -36,13 +34,13 @@ public class SmsController extends BaseController{
     private static final Logger logger = LoggerFactory.getLogger(SmsController.class);
 
     /**
-     * 会员用户信息管理服务接口
+     * 会员服务接口
      */
     @Autowired
     private MemberService memberService;
 
     /**
-     * 验证码信息管理接口
+     * 验证码服务接口
      */
     @Autowired
     private VerifyCodeService verifyCodeService;
@@ -60,12 +58,11 @@ public class SmsController extends BaseController{
      * 发送验证码短信
      *
      * @param request  HttpServletRequest对象
-     * @param response HttpServletResponse对象
      * @param model    SpringFramework Model对象
      */
-    @RequestMapping(value = "/doSendVeryfiCode", method = RequestMethod.POST)
+    @RequestMapping(value = "/sendVerifyCode", method = RequestMethod.POST)
     @CrossOrigin
-    public ResponseObject doSendVeryfiCode(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
+    public ResponseObject sendVerifyCode(HttpServletRequest request, @RequestBody Map<String, Object> param, Model model) throws Exception {
 
         String second = env.getProperty("SMS.PERIOD");
 
@@ -74,7 +71,7 @@ public class SmsController extends BaseController{
             Integer.parseInt(second);
         }
 
-        String mobile = request.getParameter("mobile");
+        String mobile = param.get("mobile") == null ? "" : param.get("mobile").toString();
         if (StringUtils.isEmpty(mobile)) {
             return getFailureResult(1002,"手机号码不能为空");
         } else {
@@ -82,6 +79,7 @@ public class SmsController extends BaseController{
                 return getFailureResult(1002,"手机号码格式不正确");
             }
         }
+
         // 检验手机号是否是会员
         MtUser tempUser = memberService.queryMemberByMobile(mobile);
         if (null == tempUser) {
@@ -96,7 +94,7 @@ public class SmsController extends BaseController{
         MtVerifyCode mtVerifyCode=verifyCodeService.addVerifyCode(mobile,verifyCode,60);
         if (null == mtVerifyCode) {
             return getFailureResult(1002,"验证码发送失败");
-        } else if(mtVerifyCode.getValidflag().equals("1") && mtVerifyCode.getId()==null){
+        } else if(mtVerifyCode.getValidflag().equals("1") && mtVerifyCode.getId() == null){
             return getFailureResult(1002,"验证码发送间隔太短,请稍后再试！");
         }
 

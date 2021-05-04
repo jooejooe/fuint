@@ -1,18 +1,19 @@
 package com.fuint.application.service.coupon;
 
+import com.fuint.application.dto.CouponDto;
+import com.fuint.application.service.confirmlog.ConfirmLogService;
 import com.fuint.base.annoation.OperationServiceLog;
 import com.fuint.base.dao.pagination.PaginationRequest;
 import com.fuint.base.dao.pagination.PaginationResponse;
 import com.fuint.base.shiro.ShiroUser;
 import com.fuint.base.shiro.util.ShiroUserHelper;
-import com.fuint.application.enums.GroupTypeEnum;
+import com.fuint.application.enums.CouponTypeEnum;
 import com.fuint.exception.BusinessCheckException;
 import com.fuint.application.dao.entities.*;
 import com.fuint.application.dao.repositories.*;
 import com.fuint.application.dto.MyCouponDto;
 import com.fuint.application.dto.ReqCouponDto;
 import com.fuint.application.config.Constants;
-import com.fuint.application.enums.CouponContentEnum;
 import com.fuint.application.enums.StatusEnum;
 import com.fuint.application.enums.UserCouponStatusEnum;
 import com.fuint.application.enums.SendWayEnum;
@@ -29,7 +30,11 @@ import com.fuint.application.BaseService;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.fuint.application.dto.ResMyCouponDto;
@@ -42,7 +47,8 @@ import java.util.*;
 
 /**
  * 卡券业务实现类
- * Created by zach on 2019/08/06.
+ * Created by zach on 2020/08/06.
+ * Updated by zach on 2021/04/23.
  */
 @Service
 public class CouponServiceImpl extends BaseService implements CouponService {
@@ -61,6 +67,12 @@ public class CouponServiceImpl extends BaseService implements CouponService {
     private SendLogService sendLogService;
 
     @Autowired
+    private ConfirmLogService confirmLogService;
+
+    @Autowired
+    private SendSmsInterface sendSmsService;
+
+    @Autowired
     private MtUserCouponRepository userCouponRepository;
 
     @Autowired
@@ -68,17 +80,9 @@ public class CouponServiceImpl extends BaseService implements CouponService {
 
     @Autowired
     private MtSendLogRepository sendLogRepository;
+
     @Autowired
     private MtStoreRepository mtStoreRepository;
-
-    /**
-     * 短信发送接口
-     */
-    @Autowired
-    private SendSmsInterface sendSmsService;
-
-    @Autowired
-    private Environment env;
 
     /**
      * 分页查询券列表
@@ -151,8 +155,8 @@ public class CouponServiceImpl extends BaseService implements CouponService {
 
         MtCoupon couponInfo = couponRepository.save(coupon);
 
-        // 如果是卡券，并且是线下发放，生成卡券
-        if (coupon.getType().equals(GroupTypeEnum.COUPON.getKey()) && coupon.getSendWay().equals(SendWayEnum.OFFLINE.getKey())) {
+        // 如果是优惠券，并且是线下发放，生成卡券
+        if (coupon.getType().equals(CouponTypeEnum.COUPON.getKey()) && coupon.getSendWay().equals(SendWayEnum.OFFLINE.getKey())) {
             MtCouponGroup groupInfo = couponGroupService.queryCouponGroupById(coupon.getGroupId().longValue());
 
             Integer total = groupInfo.getTotal() * coupon.getSendNum();
@@ -269,14 +273,16 @@ public class CouponServiceImpl extends BaseService implements CouponService {
         Integer pageSize = paramMap.get("pageSize") == null ? Constants.PAGE_SIZE : Integer.parseInt(paramMap.get("pageSize").toString());
         String userId = paramMap.get("userId") == null ? "0" : paramMap.get("userId").toString();
         String status =  paramMap.get("status") == null ? "A": paramMap.get("status").toString();
+        String type =  paramMap.get("type") == null ? "": paramMap.get("type").toString();
 
         // 处理已过期，置为过期
         if (pageNumber <= 1) {
-            List<MtUserCoupon> ulist = userCouponRepository.getUserCouponList(Integer.parseInt(userId));
-            for (MtUserCoupon uc : ulist) {
+            List<String> statusList = Arrays.asList("A");
+            List<MtUserCoupon> data = userCouponRepository.getUserCouponList(Integer.parseInt(userId), statusList);
+            for (MtUserCoupon uc : data) {
                 MtCoupon coupon = this.queryCouponById(uc.getCouponId().longValue());
                 if (coupon.getEndTime().before(new Date())) {
-                    uc.setStatus("C");
+                    uc.setStatus(StatusEnum.EXPIRED.getKey());
                     uc.setUpdateTime(new Date());
                     userCouponRepository.save(uc);
                 }
@@ -288,16 +294,18 @@ public class CouponServiceImpl extends BaseService implements CouponService {
         paginationRequest.setPageSize(pageSize);
 
         Map<String, Object> searchParams = new HashedMap();
-
         searchParams.put("EQ_status", status);
         searchParams.put("EQ_userId", userId);
+        if (StringUtils.isNotEmpty(type)) {
+            searchParams.put("EQ_type", type);
+        }
+
         paginationRequest.setSearchParams(searchParams);
         paginationRequest.setSortColumn(new String[]{"id desc", "groupId desc"});
 
         PaginationResponse<MtUserCoupon> paginationResponse = userCouponRepository.findResultsByPagination(paginationRequest);
 
         List<MyCouponDto> dataList = new ArrayList<>();
-        String baseImage = env.getProperty("images.website");
 
         if (paginationResponse.getContent().size() > 0) {
             for (MtUserCoupon userCouponDto : paginationResponse.getContent()) {
@@ -314,11 +322,42 @@ public class CouponServiceImpl extends BaseService implements CouponService {
                     image = "/static/default-coupon.jpg";
                  }
 
-                 dto.setImage(baseImage + image);
+                 dto.setImage(image);
                  dto.setStatus(userCouponDto.getStatus());
-                 dto.setMoney(couponInfo.getAmount());
+                 dto.setAmount(couponInfo.getAmount());
+                 dto.setType(couponInfo.getType());
 
-                 dataList.add(dto);
+                 boolean canUse = this.isCouponEffective(couponInfo);
+                 dto.setCanUse(canUse);
+
+                 String effectiveDate = DateUtil.formatDate(couponInfo.getBeginTime(), "yyyy.MM.dd") + "-" + DateUtil.formatDate(couponInfo.getEndTime(), "yyyy.MM.dd");
+                 dto.setEffectiveDate(effectiveDate);
+
+                 String tips = "";
+
+                 // 优惠券tips
+                 if (couponInfo.getType().equals(CouponTypeEnum.COUPON.getKey())) {
+                    if (Integer.parseInt(couponInfo.getOutRule()) > 0) {
+                        tips = "满" + couponInfo.getOutRule() + "可用";
+                    } else {
+                        tips = "无门槛券";
+                    }
+                 }
+
+                 // 预存券tips
+                 if (couponInfo.getType().equals(CouponTypeEnum.PRESTORE.getKey())) {
+                     tips = "￥" + userCouponDto .getAmount() + "，余额￥" + userCouponDto.getBalance();
+                 }
+
+                  // 集次卡tips
+                  if (couponInfo.getType().equals(CouponTypeEnum.TIMER.getKey())) {
+                      Integer confirmNum = confirmLogService.getConfirmNum(userCouponDto.getId());
+                      tips = "已集"+ confirmNum +"次，需集满" + couponInfo.getOutRule() + "次";
+                  }
+
+                  dto.setTips(tips);
+
+                  dataList.add(dto);
             }
         }
 
@@ -327,9 +366,99 @@ public class CouponServiceImpl extends BaseService implements CouponService {
         myCouponResponse.setPageSize(pageSize);
         myCouponResponse.getTotalRow(paginationResponse.getTotalElements());
         myCouponResponse.setTotalPage(paginationResponse.getTotalPages());
-        myCouponResponse.setDataList(dataList);
+        myCouponResponse.setContent(dataList);
 
         return getSuccessResult(myCouponResponse);
+    }
+
+    /**
+     * 获取卡券列表
+     * @param paramMap
+     * */
+    @Override
+    @Transactional
+    public ResponseObject findCouponList(Map<String, Object> paramMap) {
+        Integer pageNumber = paramMap.get("pageNumber") == null ? Constants.PAGE_NUMBER : Integer.parseInt(paramMap.get("pageNumber").toString());
+        Integer pageSize = paramMap.get("pageSize") == null ? Constants.PAGE_SIZE : Integer.parseInt(paramMap.get("pageSize").toString());
+        String status =  paramMap.get("status") == null ? StatusEnum.ENABLED.getKey(): paramMap.get("status").toString();
+        String type =  paramMap.get("type") == null ? "" : paramMap.get("type").toString();
+        Integer userId =  paramMap.get("userId") == null ? 0 : Integer.parseInt(paramMap.get("userId").toString());
+
+        PaginationRequest paginationRequest = new PaginationRequest();
+        paginationRequest.setCurrentPage(pageNumber);
+        paginationRequest.setPageSize(pageSize);
+        Map<String, Object> searchParams = new HashedMap();
+
+        searchParams.put("EQ_status", status);
+        if (StringUtils.isNotEmpty(type)) {
+            searchParams.put("EQ_type", type);
+        }
+        paginationRequest.setSearchParams(searchParams);
+        paginationRequest.setSortColumn(new String[]{"id desc", "groupId desc"});
+
+        PaginationResponse<MtCoupon> paginationResponse = couponRepository.findResultsByPagination(paginationRequest);
+
+        List<MtCoupon> dataList = paginationResponse.getContent();
+        List<CouponDto> content = new ArrayList<>();
+        for (int i = 0; i < dataList.size(); i++) {
+            CouponDto item = new CouponDto();
+            BeanUtils.copyProperties(dataList.get(i), item);
+
+            // 是否领取，且领取量大于限制数
+            List<String> statusList = Arrays.asList("A", "B", "C");
+            List<MtUserCoupon> userCoupon = userCouponRepository.getUserCouponListByCouponId(userId, item.getId(), statusList);
+            if (userCoupon.size() >= dataList.get(i).getLimitNum()) {
+                item.setIsReceive(true);
+            }
+
+            List<Object[]> numData = userCouponRepository.getPeopleNumByCouponId(item.getId());
+            Long num;
+            if (null == numData || numData.size() < 1) {
+                num = 0l;
+            } else {
+                Object[] obj = numData.get(0);
+                num = (Long) obj[1];
+            }
+            item.setGotNum(num.intValue());
+
+            String sellingPoint = "";
+
+            // 优惠券卖点
+            if (item.getType().equals(CouponTypeEnum.COUPON.getKey())) {
+                if (Integer.parseInt(item.getOutRule()) > 0) {
+                    sellingPoint = "满" + item.getOutRule() + "可用";
+                } else {
+                    sellingPoint = "无门槛券";
+                }
+            }
+
+            // 预存券卖点
+            if (item.getType().equals(CouponTypeEnum.PRESTORE.getKey())) {
+                String inRuleArr[] = item.getInRule().split(",");
+                if (inRuleArr.length > 0) {
+                    for (int n = 0; n < inRuleArr.length; n++) {
+                        String store[] = inRuleArr[n].split("_");
+                        sellingPoint = "预存" + store[0] + "赠" + store[1];
+                    }
+                }
+            }
+
+            // 集次卡卖点
+            if (item.getType().equals(CouponTypeEnum.TIMER.getKey())) {
+                sellingPoint = "集满" + item.getOutRule() + "次即可";
+            }
+
+            item.setSellingPoint(sellingPoint);
+
+            content.add(item);
+        }
+
+        PageRequest pageRequest = new PageRequest(paginationRequest.getCurrentPage(), paginationRequest.getPageSize());
+        Page page = new PageImpl(content, pageRequest, paginationResponse.getTotalElements());
+        PaginationResponse<CouponDto> result = new PaginationResponse(page, CouponDto.class);
+        result.setContent(content);
+
+        return getSuccessResult(result);
     }
 
     /**
@@ -431,8 +560,7 @@ public class CouponServiceImpl extends BaseService implements CouponService {
             throw new BusinessCheckException("该卡券状态有误，可能已使用或过期");
         }
 
-        //20191012 wangshude add check store status
-        MtStore mtStore =mtStoreRepository.findOne(storeId);
+        MtStore mtStore = mtStoreRepository.findOne(storeId);
         if (null == mtStore) {
             throw new BusinessCheckException("该店铺不存在！");
         } else if (!mtStore.getStatus().equals(StatusEnum.ENABLED.getKey())) {
@@ -507,7 +635,7 @@ public class CouponServiceImpl extends BaseService implements CouponService {
         confirmLog.setUserId(userCoupon.getUserId());
         confirmLog.setOperatorUserId(userId);
         confirmLog.setStoreId(storeId);
-        confirmLog.setStatus("A");
+        confirmLog.setStatus(StatusEnum.ENABLED.getKey());
 
         //判断是否是后台更新 20191012 add
         ShiroUser shiroUser = ShiroUserHelper.getCurrentShiroUser(); //当前登录账号
@@ -532,63 +660,7 @@ public class CouponServiceImpl extends BaseService implements CouponService {
     }
 
     /**
-     * 发放卡券
-     *
-     * @param contentIds 用户券ID
-     * @throws BusinessCheckException
-     */
-    @Override
-    @Transactional
-    public String getConetntByIds(String contentIds) throws BusinessCheckException {
-        if (StringUtils.isEmpty(contentIds)) {
-            return "";
-        }
-
-        String[] list = contentIds.split(",");
-
-        String text = "";
-
-        if (list.length > 0) {
-            for (String id : list) {
-                 if (id.equals(CouponContentEnum.ROOM.getKey())) {
-                     if (StringUtils.isNotEmpty(text)) {
-                         text = text + "," + CouponContentEnum.ROOM.getValue();
-                     } else {
-                         text = text + CouponContentEnum.ROOM.getValue();
-                     }
-                 } else if (id.equals(CouponContentEnum.ROOM_BTEAKFAST.getKey())) {
-                    if (StringUtils.isNotEmpty(text)) {
-                        text = text + "," + CouponContentEnum.ROOM_BTEAKFAST.getValue();
-                    } else {
-                        text = text + CouponContentEnum.ROOM_BTEAKFAST.getValue();
-                    }
-                 } else if (id.equals(CouponContentEnum.MEALS.getKey())) {
-                     if (StringUtils.isNotEmpty(text)) {
-                         text = text + "," + CouponContentEnum.MEALS.getValue();
-                     } else {
-                         text = text + CouponContentEnum.MEALS.getValue();
-                     }
-                 } else if (id.equals(CouponContentEnum.WASH.getKey())) {
-                     if (StringUtils.isNotEmpty(text)) {
-                         text = text + "," + CouponContentEnum.WASH.getValue();
-                     } else {
-                         text = text + CouponContentEnum.WASH.getValue();
-                     }
-                 } else if (id.equals(CouponContentEnum.HEALTH.getKey())) {
-                     if (StringUtils.isNotEmpty(text)) {
-                         text = text + "," + CouponContentEnum.HEALTH.getValue();
-                     } else {
-                         text = text + CouponContentEnum.HEALTH.getValue();
-                     }
-                 }
-            }
-        }
-
-        return text;
-    }
-
-    /**
-     * 根据券ID 删除个人卡券zach 20190912 add
+     * 根据券ID 删除个人卡券
      *
      * @param id       券ID
      * @param operator 操作人
@@ -601,58 +673,24 @@ public class CouponServiceImpl extends BaseService implements CouponService {
         if (null == usercoupon) {
             return;
         }
-        //未使用状态才能作废删除
-        if(!usercoupon.getStatus().equals(UserCouponStatusEnum.UNUSED.getKey()))
-        {
+
+        // 未使用状态才能作废删除
+        if(!usercoupon.getStatus().equals(UserCouponStatusEnum.UNUSED.getKey())) {
             throw new BusinessCheckException("不能作废，该劵状态异常");
         }
         usercoupon.setStatus("D");
+
         //修改时间
         usercoupon.setUpdateTime(new Date());
+
         //操作人
         usercoupon.setOperator(operator);
 
         //更新发券日志为部分作废状态
         this.sendLogRepository.updateSingleForRemove(usercoupon.getUuid(),"B");
+
         userCouponRepository.save(usercoupon);
     }
-
-
-    /**
-     * 根据券ID 撤销个人已使用的卡券 zach 20190912 add  :::已不用，用其他函数代替
-     *
-     * @param id       券ID
-     * @param operator 操作人
-     * @throws BusinessCheckException
-     */
-    @Override
-    @OperationServiceLog(description = "撤销个人已使用的卡券")
-    public void rollbackUserCoupon(Integer id, String operator) throws BusinessCheckException {
-        MtUserCoupon usercoupon = this.userCouponRepository.findOne(id);
-        if (null == usercoupon) {
-            return;
-        }
-        MtCoupon mtCoupon=couponRepository.findOne(usercoupon.getCouponId());
-        //卡券未过期才能撤销,当前时间小于过期日期才能删除
-        if(mtCoupon.getEndTime().before(new Date()))
-        {
-            throw new BusinessCheckException("卡券未过期才能撤销");
-        }
-        //卡券只有是使用状态才能撤销
-        if(!usercoupon.getStatus().equals(UserCouponStatusEnum.USED.getKey()))
-        {
-            throw new BusinessCheckException("该劵状态异常，请稍后重试！");
-        }
-        usercoupon.setStatus("A");
-        usercoupon.setStoreId(null);
-        usercoupon.setUsedTime(null);
-        //修改时间
-        usercoupon.setUpdateTime(new Date());
-        //操作人
-        usercoupon.setOperator(operator);
-        userCouponRepository.save(usercoupon);
-    }
-
 
     /**
      * 根据券ID 撤销个人卡券消费流水 zach 20191012 add
@@ -778,7 +816,7 @@ public class CouponServiceImpl extends BaseService implements CouponService {
 
     /**
      * 判断卡券码是否过期
-     * @param code 券码
+     * @param code 12位券码
      * @throws BusinessCheckException
      * */
     @Override
@@ -794,8 +832,8 @@ public class CouponServiceImpl extends BaseService implements CouponService {
             Long nowTime = System.currentTimeMillis();
 
             Long seconds = (nowTime - time) / 1000;
-            // 超过2小时
-            if (seconds > 7200) {
+            // 超过1小时
+            if (seconds > 3600) {
                 return true;
             }
         } catch (Exception e) {
@@ -803,5 +841,35 @@ public class CouponServiceImpl extends BaseService implements CouponService {
         }
 
         return false;
+    }
+
+    /**
+     * 判断卡券是否过期
+     * @param coupon
+     * @return
+     * */
+    @Override
+    @OperationServiceLog(description = "判断卡券是否有效")
+    public boolean isCouponEffective(MtCoupon coupon) {
+        Date begin = coupon.getBeginTime();
+        Date end = coupon.getEndTime();
+        Date now = new Date();
+
+        // 已过期
+        if (now.before(begin)) {
+            return false;
+        }
+
+        // 未生效
+        if (end.before(now)) {
+            return false;
+        }
+
+        // 状态异常
+        if (!coupon.getStatus().equals(StatusEnum.ENABLED.getKey())) {
+            return false;
+        }
+
+        return true;
     }
 }

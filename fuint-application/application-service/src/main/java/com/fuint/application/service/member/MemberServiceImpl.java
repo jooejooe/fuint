@@ -143,6 +143,18 @@ public class MemberServiceImpl implements MemberService {
     }
 
     /**
+     * 根据会员组ID获取会员组信息
+     *
+     * @param id 会员组ID
+     * @throws BusinessCheckException
+     */
+    @Override
+    public MtUserGroup queryMemberGroupByGroupId(Integer id) throws BusinessCheckException {
+        MtUserGroup groupInfo = userGroupRepository.findOne(id);
+        return groupInfo;
+    }
+
+    /**
      * 修改会员用户
      *
      * @param mtUser
@@ -171,7 +183,8 @@ public class MemberServiceImpl implements MemberService {
             return 0;
         }
 
-        List<MtUserCoupon> listMtUserCoupon = mtUserCouponRepository.getUserCouponList(id);
+        List<String> statusList = Arrays.asList("A");
+        List<MtUserCoupon> listMtUserCoupon = mtUserCouponRepository.getUserCouponList(id, statusList);
         if (listMtUserCoupon!=null && listMtUserCoupon.size()>0 ) {
             log.error(id.toString()+"该会员用户有未使用的卡券，不能被删除!");
             throw new BusinessCheckException("该会员用户有未使用的卡券，不能被删除!");
