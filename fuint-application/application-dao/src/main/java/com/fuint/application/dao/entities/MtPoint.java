@@ -12,7 +12,7 @@ import java.util.Date;
    /**
     * mt_point 实体类
     * Created by zach
-    * Mon Mar 15 16:31:03 GMT+08:00 2021
+    * Tue May 18 23:09:52 GMT+08:00 2021
     */ 
 @Entity 
 @Table(name = "mt_point")
@@ -32,16 +32,10 @@ public class MtPoint implements Serializable{
 	private Integer userId;
 
    /**
-    * 积分数量 
+    * 积分变化数量 
     */ 
 	@Column(name = "AMOUNT", nullable = false, length = 10)
 	private Integer amount;
-
-   /**
-    * 是否处理 
-    */ 
-	@Column(name = "IS_DEAL", length = 1)
-	private Byte isDeal;
 
    /**
     * 创建时间 
@@ -50,13 +44,19 @@ public class MtPoint implements Serializable{
 	private Date createTime;
 
    /**
+    * 更新时间 
+    */ 
+	@Column(name = "UPDATE_TIME")
+	private Date updateTime;
+
+   /**
     * 备注说明 
     */ 
 	@Column(name = "DESCRIPTION", length = 200)
 	private String description;
 
    /**
-    * 状态 
+    * 状态，A正常；D作废 
     */ 
 	@Column(name = "STATUS", length = 1)
 	private String status;
@@ -79,17 +79,17 @@ public class MtPoint implements Serializable{
 	public void setAmount(Integer amount){
 	this.amount=amount;
 	}
-	public Byte getIsDeal(){
-		return isDeal;
-	}
-	public void setIsDeal(Byte isDeal){
-	this.isDeal=isDeal;
-	}
 	public Date getCreateTime(){
 		return createTime;
 	}
 	public void setCreateTime(Date createTime){
 	this.createTime=createTime;
+	}
+	public Date getUpdateTime(){
+		return updateTime;
+	}
+	public void setUpdateTime(Date updateTime){
+	this.updateTime=updateTime;
 	}
 	public String getDescription(){
 		return description;

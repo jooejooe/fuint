@@ -10,440 +10,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4b27bcc8-4886-42e3-a845-a0a0b8629056" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_liyiorg_weixin_popular_2_8_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_wxpay_wxpay_sdk_0_0_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_sun_xml_bind_jaxb_impl_2_1_12.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_vdurmont_emoji_java_3_1_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpmime_4_3_6.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_json_json_20140107.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_ow2_asm_asm_6_0_ALPHA.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/entities/MtOrder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/dto/OrderDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/dto/OrderGoodsDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/dto/ResUserOrderDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/dto/UserOrderDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/enums/OrderStatusEnum.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/enums/OrderTypeEnum.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/enums/PointSettingEnum.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/enums/SettingTypeEnum.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/enums/UserGradeCatchTypeEnum.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/order/OrderService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/order/OrderServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/setting/SettingService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/setting/SettingServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/usergrade/UserGradeService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/usergrade/UserGradeServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/weixin/WeixinService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/weixin/WeixinServiceimpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/backend/orderManager/OrderManagerController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/backend/point/PointController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/backend/userGrade/UserGradeController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/rest/PayController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/rest/PointsController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application-web/src/main/webapp/template/page/order/list.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application-web/src/main/webapp/template/page/point/list.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application-web/src/main/webapp/template/page/point/setting.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application-web/src/main/webapp/template/page/userGrade/add.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application-web/src/main/webapp/template/page/userGrade/edit.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application-web/src/main/webapp/template/page/userGrade/list.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../fuint-root/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../fuint-root/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../fuint-uniapp/api/settlement.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../fuint-uniapp/components/page/coupon/index.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../fuint-uniapp/components/prestore-popup/index.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../fuint-uniapp/components/prestore-popup/number-box/index.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../fuint-uniapp/pages/coupon/list.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../fuint-uniapp/pages/prestore/buy.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../fuint-uniapp/pages/prestore/buy.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../fuint-uniapp/pages/prestore/components/Popup.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../fuint-uniapp/pages/prestore/components/Service.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../fuint-uniapp/pages/prestore/components/SlideImage.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../fuint-uniapp/pages/settlement/index.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../fuint-uniapp/pages/settlement/style.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../fuint-uniapp/pages/user/setting.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/application_web_war.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/application_web_war.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/application_web_war_exploded.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/application_web_war_exploded.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/coupon_web_war.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/coupon_web_war_exploded.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__antlr_antlr_2_7_7.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__antlr_antlr_2_7_7.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__aopalliance_aopalliance_1_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__aopalliance_aopalliance_1_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__c3p0_c3p0_0_9_1_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__c3p0_c3p0_0_9_1_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__cglib_cglib_3_2_4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__cglib_cglib_3_2_4.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__ch_qos_logback_logback_classic_1_1_3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__ch_qos_logback_logback_classic_1_1_3.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__ch_qos_logback_logback_core_1_1_3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__ch_qos_logback_logback_core_1_1_3.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_alibaba_druid_1_0_15.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_alibaba_druid_1_0_15.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_alibaba_fastjson_1_2_17.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_alibaba_fastjson_1_2_17.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_alibaba_rocketmq_rocketmq_client_3_5_8.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_alibaba_rocketmq_rocketmq_client_3_5_8.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_aliyun_aliyun_java_sdk_core_4_4_6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_aliyun_aliyun_java_sdk_core_4_4_6.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_beust_jcommander_1_48.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_beust_jcommander_1_48.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_annotations_2_7_5.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_annotations_2_7_5.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_core_2_7_5.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_core_2_7_5.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_databind_2_7_5.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_databind_2_7_5.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_dataformat_jackson_dataformat_xml_2_7_5.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_dataformat_jackson_dataformat_xml_2_7_5.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_dataformat_jackson_dataformat_yaml_2_7_6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_dataformat_jackson_dataformat_yaml_2_7_6.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_module_jackson_module_jaxb_annotations_2_7_5.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_module_jackson_module_jaxb_annotations_2_7_5.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fuint_fuint_base_0_0_1_SNAPSHOT.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fuint_fuint_base_0_0_1_SNAPSHOT.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fuint_fuint_cache_0_0_1_SNAPSHOT.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fuint_fuint_cache_0_0_1_SNAPSHOT.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fuint_fuint_component_0_0_1_SNAPSHOT.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fuint_fuint_component_0_0_1_SNAPSHOT.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fuint_fuint_core_0_0_1_SNAPSHOT.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fuint_fuint_core_0_0_1_SNAPSHOT.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fuint_fuint_util_0_0_1_SNAPSHOT.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fuint_fuint_util_0_0_1_SNAPSHOT.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_axet_kaptcha_0_0_9.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_axet_kaptcha_0_0_9.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_jai_imageio_jai_imageio_core_1_3_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_jai_imageio_jai_imageio_core_1_3_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_virtuald_curvesapi_1_03.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_virtuald_curvesapi_1_03.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_code_gson_gson_2_8_5.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_code_gson_gson_2_8_5.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_zxing_core_3_3_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_zxing_core_3_3_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_zxing_javase_3_3_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_zxing_javase_3_3_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_jhlabs_filters_2_0_235.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_jhlabs_filters_2_0_235.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__commons_beanutils_commons_beanutils_1_8_3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_beanutils_commons_beanutils_1_8_3.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__commons_codec_commons_codec_1_10.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_codec_commons_codec_1_10.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__commons_collections_commons_collections_3_2_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_collections_commons_collections_3_2_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__commons_fileupload_commons_fileupload_1_3_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_fileupload_commons_fileupload_1_3_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__commons_io_commons_io_1_3_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_io_commons_io_1_3_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__commons_lang_commons_lang_2_5.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_lang_commons_lang_2_5.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__commons_logging_commons_logging_1_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_logging_commons_logging_1_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__dom4j_dom4j_1_6_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__dom4j_dom4j_1_6_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_netty_netty_buffer_4_0_42_Final.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_netty_netty_buffer_4_0_42_Final.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_netty_netty_codec_4_0_42_Final.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_netty_netty_codec_4_0_42_Final.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_netty_netty_common_4_0_42_Final.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_netty_netty_common_4_0_42_Final.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_netty_netty_handler_4_0_42_Final.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_netty_netty_handler_4_0_42_Final.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_netty_netty_transport_4_0_42_Final.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_netty_netty_transport_4_0_42_Final.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_projectreactor_reactor_core_2_0_8_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_projectreactor_reactor_core_2_0_8_RELEASE.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_projectreactor_reactor_stream_2_0_8_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_projectreactor_reactor_stream_2_0_8_RELEASE.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__javax_activation_javax_activation_api_1_2_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_activation_javax_activation_api_1_2_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__javax_cache_cache_api_1_0_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_cache_cache_api_1_0_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__javax_servlet_javax_servlet_api_3_1_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_servlet_javax_servlet_api_3_1_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__javax_xml_bind_jaxb_api_2_3_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_xml_bind_jaxb_api_2_3_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__junit_junit_3_8_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__junit_junit_3_8_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__mysql_mysql_connector_java_5_1_29.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__mysql_mysql_connector_java_5_1_29.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__net_bytebuddy_byte_buddy_1_4_26.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__net_bytebuddy_byte_buddy_1_4_26.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__net_openhft_zero_allocation_hashing_0_5.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__net_openhft_zero_allocation_hashing_0_5.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__net_sf_ehcache_ehcache_2_10_4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__net_sf_ehcache_ehcache_2_10_4.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__net_sf_ehcache_ehcache_core_2_5_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__net_sf_ehcache_ehcache_core_2_5_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__net_sf_ezmorph_ezmorph_1_0_6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__net_sf_ezmorph_ezmorph_1_0_6.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__net_sf_json_lib_json_lib_jdk15_2_4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__net_sf_json_lib_json_lib_jdk15_2_4.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__nl_bitwalker_UserAgentUtils_1_2_4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__nl_bitwalker_UserAgentUtils_1_2_4.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_ant_ant_1_9_6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_ant_ant_1_9_6.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_ant_ant_launcher_1_9_6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_ant_ant_launcher_1_9_6.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_lang3_3_3_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_lang3_3_3_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_pool2_2_4_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_pool2_2_4_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_geronimo_specs_geronimo_jta_1_1_spec_1_1_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_geronimo_specs_geronimo_jta_1_1_spec_1_1_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpclient_4_5_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpclient_4_5_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpcore_4_4_12.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpcore_4_4_12.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_maven_artifact_2_0_6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_maven_artifact_2_0_6.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_maven_artifact_manager_2_0_6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_maven_artifact_manager_2_0_6.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_maven_core_2_0_6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_maven_core_2_0_6.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_maven_error_diagnostics_2_0_6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_maven_error_diagnostics_2_0_6.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_maven_model_2_0_6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_maven_model_2_0_6.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_maven_monitor_2_0_6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_maven_monitor_2_0_6.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_maven_plugin_api_2_0_6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_maven_plugin_api_2_0_6.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_maven_plugin_descriptor_2_0_6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_maven_plugin_descriptor_2_0_6.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_maven_plugin_parameter_documenter_2_0_6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_maven_plugin_parameter_documenter_2_0_6.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_maven_plugin_registry_2_0_6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_maven_plugin_registry_2_0_6.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_maven_profile_2_0_6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_maven_profile_2_0_6.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_maven_project_2_0_6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_maven_project_2_0_6.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_maven_repository_metadata_2_0_6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_maven_repository_metadata_2_0_6.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_maven_settings_2_0_6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_maven_settings_2_0_6.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_maven_toolchain_1_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_maven_toolchain_1_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_plugins_maven_compiler_plugin_2_3_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_plugins_maven_compiler_plugin_2_3_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_wagon_wagon_provider_api_1_0_beta_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_wagon_wagon_provider_api_1_0_beta_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_poi_poi_3_14.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_poi_poi_3_14.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_poi_poi_ooxml_3_14.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_poi_poi_ooxml_3_14.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_poi_poi_ooxml_schemas_3_14.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_poi_poi_ooxml_schemas_3_14.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_shiro_shiro_core_1_2_3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_shiro_shiro_core_1_2_3.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_shiro_shiro_ehcache_1_2_3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_shiro_shiro_ehcache_1_2_3.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_shiro_shiro_quartz_1_2_3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_shiro_shiro_quartz_1_2_3.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_shiro_shiro_spring_1_2_3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_shiro_shiro_spring_1_2_3.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_shiro_shiro_web_1_2_3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_shiro_shiro_web_1_2_3.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_xmlbeans_xmlbeans_2_6_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_xmlbeans_xmlbeans_2_6_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_aspectj_aspectjrt_1_8_6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_aspectj_aspectjrt_1_8_6.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_aspectj_aspectjweaver_1_8_9.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_aspectj_aspectjweaver_1_8_9.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_codehaus_plexus_plexus_compiler_api_1_8_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_codehaus_plexus_plexus_compiler_api_1_8_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_codehaus_plexus_plexus_compiler_javac_1_8_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_codehaus_plexus_plexus_compiler_javac_1_8_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_codehaus_plexus_plexus_compiler_manager_1_8_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_codehaus_plexus_plexus_compiler_manager_1_8_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_codehaus_plexus_plexus_utils_2_0_5.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_codehaus_plexus_plexus_utils_2_0_5.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_codehaus_woodstox_stax2_api_3_1_4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_codehaus_woodstox_stax2_api_3_1_4.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_freemarker_freemarker_2_3_23.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_freemarker_freemarker_2_3_23.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_common_hibernate_commons_annotations_5_0_1_Final.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_common_hibernate_commons_annotations_5_0_1_Final.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_hibernate_core_5_0_9_Final.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_hibernate_core_5_0_9_Final.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_hibernate_entitymanager_5_0_9_Final.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_hibernate_entitymanager_5_0_9_Final.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_javax_persistence_hibernate_jpa_2_1_api_1_0_0_Final.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_javax_persistence_hibernate_jpa_2_1_api_1_0_0_Final.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_ini4j_ini4j_0_5_4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_ini4j_ini4j_0_5_4.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_jacoco_org_jacoco_agent_runtime_0_8_3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jacoco_org_jacoco_agent_runtime_0_8_3.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_javassist_javassist_3_18_1_GA.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_javassist_javassist_3_18_1_GA.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_jboss_jandex_2_0_0_Final.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jboss_jandex_2_0_0_Final.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_jboss_logging_jboss_logging_3_2_1_Final.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jboss_logging_jboss_logging_3_2_1_Final.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_jmockit_jmockit_1_30.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jmockit_jmockit_1_30.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_jodd_jodd_bean_3_7_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jodd_jodd_bean_3_7_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_jodd_jodd_core_3_7_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jodd_jodd_core_3_7_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_logback_extensions_logback_ext_spring_0_1_4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_logback_extensions_logback_ext_spring_0_1_4.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_opensymphony_quartz_quartz_1_6_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_opensymphony_quartz_quartz_1_6_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_ow2_asm_asm_5_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_quartz_scheduler_quartz_2_2_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_quartz_scheduler_quartz_2_2_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_quartz_scheduler_quartz_jobs_2_2_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_quartz_scheduler_quartz_jobs_2_2_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_reactivestreams_reactive_streams_1_0_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_reactivestreams_reactive_streams_1_0_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_redisson_redisson_3_1_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_redisson_redisson_3_1_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_jcl_over_slf4j_1_7_18.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_jcl_over_slf4j_1_7_18.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_18.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_18.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_data_spring_data_commons_1_9_3_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_data_spring_data_commons_1_9_3_RELEASE.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_data_spring_data_jpa_1_7_3_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_data_spring_data_jpa_1_7_3_RELEASE.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_aop_4_2_6_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_aop_4_2_6_RELEASE.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_aspects_4_2_6_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_aspects_4_2_6_RELEASE.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_beans_4_2_6_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_beans_4_2_6_RELEASE.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_4_2_6_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_4_2_6_RELEASE.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_support_4_2_6_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_support_4_2_6_RELEASE.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_core_4_2_6_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_core_4_2_6_RELEASE.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_expression_4_2_6_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_expression_4_2_6_RELEASE.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_jdbc_4_2_6_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_jdbc_4_2_6_RELEASE.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_orm_4_2_6_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_orm_4_2_6_RELEASE.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_test_4_2_6_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_test_4_2_6_RELEASE.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_tx_4_2_6_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_tx_4_2_6_RELEASE.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_web_4_2_6_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_web_4_2_6_RELEASE.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_webmvc_4_2_6_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_webmvc_4_2_6_RELEASE.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_yaml_snakeyaml_1_15.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_yaml_snakeyaml_1_15.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__redis_clients_jedis_2_9_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__redis_clients_jedis_2_9_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__stax_stax_api_1_0_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__stax_stax_api_1_0_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__xml_apis_xml_apis_1_0_b2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__xml_apis_xml_apis_1_0_b2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/entities/MtUserGrade.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/repositories/MtUserGradeRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application-web/target/classes/applicationContext.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application-web/target/classes/config/application.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application-web/target/classes/international/message_en_US.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application-web/target/classes/international/message_zh_CN.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application-web/target/classes/template/couponCode.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application-web/target/classes/template/couponCodeList.ftl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application-web/target/classes/template/importRuleTemplate.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application-web/target/classes/template/importTemplate.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application-web/target/classes/template/privilegeCodeList.ftl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-core/application-core.iml" beforeDir="false" afterPath="$PROJECT_DIR$/application-core/application-core.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-core/src/main/java/com/fuint/application/BaseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/application-core/src/main/java/com/fuint/application/BaseService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-dao/application-dao.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-dao/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/App.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/generator/GenEntityMysql.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/repositories/MtBannerRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/repositories/MtConfirmLogRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/repositories/MtConfirmerRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/repositories/MtCouponGroupRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/repositories/MtCouponInfoRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/repositories/MtCouponRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/repositories/MtGiveItemRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/repositories/MtGiveRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/repositories/MtPointRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/repositories/MtSendLogRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/repositories/MtSmsSendedLogRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/repositories/MtSmsTemplateRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/repositories/MtStoreRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/repositories/MtUserCouponRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/repositories/MtUserGroupRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/repositories/MtUserRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/repositories/MtVerifyCodeRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/repositories/TAccountRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dto/GiveDto.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dto/GiveItemDto.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dto/MtSmsTemplateDto.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dto/MtStoreDto.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/util/Constant.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/util/JsonDateDeserializer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-service/application-service.iml" beforeDir="false" afterPath="$PROJECT_DIR$/application-service/application-service.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/application-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/config/EhcacaheConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/config/EhcacaheConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/config/RedisCacheConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/config/RedisCacheConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/banner/BannerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/banner/BannerService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/confirmer/ConfirmerServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/confirmer/ConfirmerServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/coupon/CouponServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/coupon/CouponServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/member/MemberService.java" beforeDir="false" afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/member/MemberService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/member/MemberServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/member/MemberServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/point/PointService.java" beforeDir="false" afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/point/PointService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/point/PointServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/point/PointServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/sms/MessageResInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/sms/MessageResInfo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/store/StoreServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/store/StoreServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/token/TokenService.java" beforeDir="false" afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/token/TokenService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/usercoupon/UserCouponServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/usercoupon/UserCouponServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/verifycode/VerifyCodeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/verifycode/VerifyCodeService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/verifycode/VerifyCodeServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/verifycode/VerifyCodeServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/util/CommonUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/util/CommonUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/util/PhoneFormatCheckUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/util/PhoneFormatCheckUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-web/application-web.iml" beforeDir="false" afterPath="$PROJECT_DIR$/application-web/application-web.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/backend/account/AccountDefineController.java" beforeDir="false" afterPath="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/backend/account/AccountDefineController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/backend/config/ApplicationConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/backend/config/ApplicationConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/backend/confirmer/confirmerManagerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/backend/confirmer/confirmerManagerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/backend/couponGroup/couponGroupController.java" beforeDir="false" afterPath="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/backend/couponGroup/couponGroupController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/backend/member/MemberController.java" beforeDir="false" afterPath="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/backend/member/MemberController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/rest/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/rest/OrderController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/rest/SettlementController.java" beforeDir="false" afterPath="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/rest/SettlementController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/rest/SignController.java" beforeDir="false" afterPath="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/rest/SignController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/rest/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/rest/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-web/src/main/webapp/template/page/couponGroup/add.html" beforeDir="false" afterPath="$PROJECT_DIR$/application-web/src/main/webapp/template/page/couponGroup/add.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-web/src/main/webapp/template/page/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/application-web/src/main/webapp/template/page/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-web/src/main/webapp/template/page/member/member_add.html" beforeDir="false" afterPath="$PROJECT_DIR$/application-web/src/main/webapp/template/page/member/member_add.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-web/src/main/webapp/template/page/member/member_edit.html" beforeDir="false" afterPath="$PROJECT_DIR$/application-web/src/main/webapp/template/page/member/member_edit.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-web/src/main/webapp/template/page/member/member_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/application-web/src/main/webapp/template/page/member/member_list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-web/src/main/webapp/template/page/store/store_add.html" beforeDir="false" afterPath="$PROJECT_DIR$/application-web/src/main/webapp/template/page/store/store_add.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-web/target/application-web/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/application-web/target/application-web/META-INF/MANIFEST.MF" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-web/target/application-web/WEB-INF/classes/com/fuint/application/web/backend/account/AccountDefineController.class" beforeDir="false" afterPath="$PROJECT_DIR$/application-web/target/application-web/WEB-INF/classes/com/fuint/application/web/backend/account/AccountDefineController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-web/target/application-web/WEB-INF/classes/com/fuint/application/web/backend/member/MemberController.class" beforeDir="false" afterPath="$PROJECT_DIR$/application-web/target/application-web/WEB-INF/classes/com/fuint/application/web/backend/member/MemberController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-web/target/application-web/WEB-INF/classes/com/fuint/application/web/rest/SignController.class" beforeDir="false" afterPath="$PROJECT_DIR$/application-web/target/application-web/WEB-INF/classes/com/fuint/application/web/rest/SignController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-dao/application-dao.iml" beforeDir="false" afterPath="$PROJECT_DIR$/application-dao/application-dao.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/entities/MtUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/entities/MtUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/generator/GenEntityMysql.java" beforeDir="false" afterPath="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/generator/GenEntityMysql.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/repositories/MtSettingRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/repositories/MtSettingRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application-web/target/application-web/WEB-INF/lib/application-core-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/application-web/target/application-web/WEB-INF/lib/application-core-1.0-SNAPSHOT.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application-web/target/application-web/WEB-INF/lib/application-dao-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/application-web/target/application-web/WEB-INF/lib/application-dao-1.0-SNAPSHOT.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application-web/target/application-web/WEB-INF/lib/application-service-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/application-web/target/application-web/WEB-INF/lib/application-service-1.0-SNAPSHOT.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-web/target/application-web/WEB-INF/lib/asm-5.1.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-web/target/application-web/template/page/couponGroup/add.html" beforeDir="false" afterPath="$PROJECT_DIR$/application-web/target/application-web/template/page/couponGroup/add.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-web/target/application-web/template/page/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/application-web/target/application-web/template/page/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-web/target/application-web/template/page/member/member_add.html" beforeDir="false" afterPath="$PROJECT_DIR$/application-web/target/application-web/template/page/member/member_add.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-web/target/application-web/template/page/member/member_edit.html" beforeDir="false" afterPath="$PROJECT_DIR$/application-web/target/application-web/template/page/member/member_edit.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-web/target/application-web/template/page/member/member_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/application-web/target/application-web/template/page/member/member_list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application-web/target/application-web/template/page/store/store_add.html" beforeDir="false" afterPath="$PROJECT_DIR$/application-web/target/application-web/template/page/store/store_add.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fuint-application.iml" beforeDir="false" afterPath="$PROJECT_DIR$/fuint-application.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-framework/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__antlr_antlr_2_7_7.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__aopalliance_aopalliance_1_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__cglib_cglib_3_2_4.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__ch_qos_logback_logback_classic_1_1_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__ch_qos_logback_logback_core_1_1_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__com_alibaba_druid_1_0_15.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__com_alibaba_fastjson_1_2_17.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_annotations_2_7_5.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_core_2_7_5.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_databind_2_7_5.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__com_fasterxml_jackson_dataformat_jackson_dataformat_xml_2_7_5.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__com_fasterxml_jackson_dataformat_jackson_dataformat_yaml_2_7_6.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__com_fasterxml_jackson_module_jackson_module_jaxb_annotations_2_7_5.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__com_github_axet_kaptcha_0_0_9.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__com_jhlabs_filters_2_0_235.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__commons_beanutils_commons_beanutils_1_8_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__commons_codec_commons_codec_1_10.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__commons_collections_commons_collections_3_2_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__commons_fileupload_commons_fileupload_1_3_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__commons_io_commons_io_1_3_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__commons_lang_commons_lang_2_5.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__commons_logging_commons_logging_1_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__dom4j_dom4j_1_6_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__io_netty_netty_buffer_4_0_42_Final.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__io_netty_netty_codec_4_0_42_Final.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__io_netty_netty_common_4_0_42_Final.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__io_netty_netty_handler_4_0_42_Final.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__io_netty_netty_transport_4_0_42_Final.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__io_projectreactor_reactor_core_2_0_8_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__io_projectreactor_reactor_stream_2_0_8_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__javax_cache_cache_api_1_0_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__javax_servlet_javax_servlet_api_3_1_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__junit_junit_4_12.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__mysql_mysql_connector_java_5_1_29.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__net_bytebuddy_byte_buddy_1_4_26.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__net_openhft_zero_allocation_hashing_0_5.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__net_sf_ehcache_ehcache_core_2_5_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__net_sf_ezmorph_ezmorph_1_0_6.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__net_sf_json_lib_json_lib_jdk15_2_4.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_apache_ant_ant_1_9_6.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_apache_ant_ant_launcher_1_9_6.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_apache_commons_commons_lang3_3_3_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_apache_commons_commons_pool2_2_4_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_apache_geronimo_specs_geronimo_jta_1_1_spec_1_1_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_apache_maven_maven_artifact_2_0_6.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_apache_maven_maven_artifact_manager_2_0_6.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_apache_maven_maven_core_2_0_6.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_apache_maven_maven_error_diagnostics_2_0_6.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_apache_maven_maven_model_2_0_6.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_apache_maven_maven_monitor_2_0_6.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_apache_maven_maven_plugin_api_2_0_6.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_apache_maven_maven_plugin_descriptor_2_0_6.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_apache_maven_maven_plugin_parameter_documenter_2_0_6.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_apache_maven_maven_plugin_registry_2_0_6.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_apache_maven_maven_profile_2_0_6.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_apache_maven_maven_project_2_0_6.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_apache_maven_maven_repository_metadata_2_0_6.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_apache_maven_maven_settings_2_0_6.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_apache_maven_maven_toolchain_1_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_apache_maven_plugins_maven_compiler_plugin_2_3_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_apache_maven_wagon_wagon_provider_api_1_0_beta_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_apache_shiro_shiro_core_1_2_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_apache_shiro_shiro_ehcache_1_2_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_apache_shiro_shiro_quartz_1_2_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_apache_shiro_shiro_spring_1_2_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_apache_shiro_shiro_web_1_2_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_aspectj_aspectjrt_1_8_6.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_aspectj_aspectjweaver_1_8_9.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_codehaus_plexus_plexus_compiler_api_1_8_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_codehaus_plexus_plexus_compiler_javac_1_8_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_codehaus_plexus_plexus_compiler_manager_1_8_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_codehaus_plexus_plexus_utils_2_0_5.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_codehaus_woodstox_stax2_api_3_1_4.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_freemarker_freemarker_2_3_23.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_hamcrest_hamcrest_core_1_3.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_hibernate_common_hibernate_commons_annotations_5_0_1_Final.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_hibernate_hibernate_core_5_0_9_Final.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_hibernate_hibernate_entitymanager_5_0_9_Final.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_hibernate_javax_persistence_hibernate_jpa_2_1_api_1_0_0_Final.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_javassist_javassist_3_18_1_GA.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_jboss_jandex_2_0_0_Final.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_jboss_logging_jboss_logging_3_2_1_Final.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_jodd_jodd_bean_3_7_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_jodd_jodd_core_3_7_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_logback_extensions_logback_ext_spring_0_1_4.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_opensymphony_quartz_quartz_1_6_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_ow2_asm_asm_5_1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_reactivestreams_reactive_streams_1_0_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_redisson_redisson_3_1_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_slf4j_jcl_over_slf4j_1_7_18.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_18.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_springframework_data_spring_data_commons_1_9_3_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_springframework_data_spring_data_jpa_1_7_3_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_springframework_spring_aop_4_2_6_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_springframework_spring_aspects_4_2_6_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_springframework_spring_beans_4_2_6_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_springframework_spring_context_4_2_6_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_springframework_spring_context_support_4_2_6_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_springframework_spring_core_4_2_6_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_springframework_spring_expression_4_2_6_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_springframework_spring_jdbc_4_2_6_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_springframework_spring_orm_4_2_6_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_springframework_spring_tx_4_2_6_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_springframework_spring_web_4_2_6_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_springframework_spring_webmvc_4_2_6_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_yaml_snakeyaml_1_15.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__redis_clients_jedis_2_9_0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__xml_apis_xml_apis_1_0_b2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-framework/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/fuint-base/fuint-base.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-framework/fuint-base/fuint-base.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/fuint-cache/fuint-cache.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-framework/fuint-cache/fuint-cache.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/fuint-component/fuint-component.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-framework/fuint-component/fuint-component.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/fuint-core/fuint-core.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-framework/fuint-core/fuint-core.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/fuint-framework.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-framework/fuint-framework.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/fuint-parent/fuint-parent.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-framework/fuint-parent/fuint-parent.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/fuint-security/fuint-security.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-framework/fuint-security/fuint-security.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-framework/fuint-util/fuint-util.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-framework/fuint-util/fuint-util.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-root/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-root/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-root/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-root/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/api/checkout.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/api/coupon.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-uniapp/api/coupon.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/api/login/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-uniapp/api/login/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/api/myCoupon.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-uniapp/api/myCoupon.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/api/order.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-uniapp/api/order.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/api/order/comment.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/api/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-uniapp/api/page.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/api/points/log.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-uniapp/api/points/log.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/api/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-uniapp/api/user.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/common/constant/paginate.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-uniapp/common/constant/paginate.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/components/page/banner/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-uniapp/components/page/banner/index.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-uniapp/config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-uniapp/manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/pages.json" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-uniapp/pages.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/pages/cart/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-uniapp/pages/cart/index.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/pages/checkout/index.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/pages/checkout/style.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/pages/coupon/detail.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-uniapp/pages/coupon/detail.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/pages/coupon/index.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/pages/index/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-uniapp/pages/index/index.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/pages/login/components/main.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-uniapp/pages/login/components/main.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/pages/login/components/mp-weixin.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-uniapp/pages/login/components/mp-weixin.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/pages/my-coupon/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-uniapp/pages/my-coupon/index.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/pages/order/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-uniapp/pages/order/index.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/pages/points/log.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-uniapp/pages/points/detail.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/pages/prestore/detail.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-uniapp/pages/prestore/detail.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/pages/timer/detail.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-uniapp/pages/timer/detail.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/pages/user/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-uniapp/pages/user/index.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/static/background/user-header.png" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-uniapp/static/background/user-header.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/static/tabbar/home-active.png" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-uniapp/static/tabbar/home-active.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/static/tabbar/user-active.png" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-uniapp/static/tabbar/user-active.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/store/modules/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-uniapp/store/modules/user.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/utils/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-uniapp/utils/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/utils/request/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-uniapp/utils/request/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -469,20 +54,26 @@
     </option>
   </component>
   <component name="ProjectId" id="1siEenCaCfE726se1AZ3dDiw9DD" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../mianshui365/hotelCoupon-center/pom.xml" />
+    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.proportion" value="0.12360942" />
+    <property name="project.structure.side.proportion" value="0.37346712" />
     <property name="settings.editor.selected.configurable" value="MavenSettings" />
   </component>
-  <component name="RunManager" selected="Application.GenEntityMysql">
+  <component name="RunManager" selected="Tomcat Server.fuint-application">
     <configuration name="GenEntityMysql" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.fuint.application.dao.generator.GenEntityMysql" />
       <module name="application-dao" />
@@ -508,18 +99,18 @@
       </method>
     </configuration>
     <configuration name="fuint-application" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 7.0.90" ALTERNATIVE_JRE_ENABLED="false">
-      <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8082/fuint-application/" />
+      <option name="OPEN_IN_BROWSER" value="false" />
       <option name="COMMON_VM_ARGUMENTS" value="-Denv.level=dev -Denv.properties.path=/code/fuint/opt" />
       <option name="UPDATING_POLICY" value="restart-server" />
       <deployment>
         <artifact name="application-web:war exploded">
           <settings>
-            <option name="CONTEXT_PATH" value="/application_web_war_exploded" />
+            <option name="CONTEXT_PATH" value="/fuint-application" />
           </settings>
         </artifact>
       </deployment>
       <server-settings>
-        <option name="BASE_DIRECTORY_NAME" value="ec0fc99e-8718-4342-988c-268abcb82184" />
+        <option name="BASE_DIRECTORY_NAME" value="ee6daefb-389a-4bbd-b7c2-e5c3f286923f" />
         <option name="HTTP_PORT" value="8082" />
       </server-settings>
       <predefined_log_file enabled="true" id="Tomcat" />
@@ -528,7 +119,7 @@
       <predefined_log_file id="Tomcat Host Manager" />
       <predefined_log_file id="Tomcat Localhost Access" />
       <RunnerSettings RunnerId="Debug">
-        <option name="DEBUG_PORT" value="4575" />
+        <option name="DEBUG_PORT" value="5830" />
       </RunnerSettings>
       <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
         <option name="USE_ENV_VARIABLES" value="true" />
@@ -598,8 +189,8 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Tomcat Server.fuint-application" />
       <item itemvalue="Application.GenEntityMysql" />
+      <item itemvalue="Tomcat Server.fuint-application" />
     </list>
     <recent_temporary>
       <list>
@@ -615,11 +206,14 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1621347112406</updated>
-      <workItem from="1621347113650" duration="1180000" />
+      <workItem from="1621347113650" duration="3448000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
 </project>

@@ -7,7 +7,7 @@ import com.fuint.application.dao.entities.MtPoint;
    /**
     * mt_point Repository
     * Created by zach
-    * Mon Mar 15 16:31:03 GMT+08:00 2021
+    * Tue May 18 23:09:52 GMT+08:00 2021
     */ 
 @Repository 
 public interface MtPointRepository extends BaseRepository<MtPoint, Integer> {

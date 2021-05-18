@@ -44,10 +44,10 @@ public class MtUser implements Serializable{
 	private String idcard;
 
    /**
-    * 分组 
+    * 等级
     */ 
-	@Column(name = "GROUP_ID", length = 10)
-	private String groupId;
+	@Column(name = "GRADE_ID", length = 10)
+	private String gradeId;
 
    /**
     * 性别 0男；1女 
@@ -151,11 +151,11 @@ public class MtUser implements Serializable{
 	public void setIdcard(String idcard){
 	this.idcard=idcard;
 	}
-	public String getGroupId(){
-		return groupId;
+	public String getGradeId(){
+		return gradeId;
 	}
-	public void setGroupId(String groupId){
-	this.groupId=groupId;
+	public void setGradeId(String gradeId){
+	this.gradeId=gradeId;
 	}
 	public Integer getSex(){
 		return sex;
