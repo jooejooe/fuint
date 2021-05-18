@@ -94,7 +94,7 @@ public class confirmerManagerController {
         paginationRequest.setSearchParams(params);
         PaginationResponse<MtConfirmer> paginationResponse = confirmerService.queryConfirmerListByPagination(paginationRequest);
         for (MtConfirmer m:paginationResponse.getContent()) {
-            MtStore tempStore=storeService.queryStoreById(m.getStoreId());
+            MtStore tempStore = storeService.queryStoreById(m.getStoreId());
             m.setStoreName(tempStore.getName());
         }
 

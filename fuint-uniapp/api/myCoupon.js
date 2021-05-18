@@ -3,10 +3,10 @@ import request from '@/utils/request'
 // api地址
 const api = {
   list: 'myCoupon/list',
-  receive: 'myCoupon/receive'
+  detail: 'userCouponApi/detail'
 }
 
-// 我的优惠券列表
+// 我的卡券列表
 export const list = (param, option) => {
   const options = {
     isPrompt: true, //（默认 true 说明：本接口抛出的错误是否提示）
@@ -16,7 +16,7 @@ export const list = (param, option) => {
   return request.get(api.list, param, options)
 }
 
-// 领取优惠券
-export const receive = (couponId, data) => {
-  return request.post(api.receive, { couponId, ...couponId, data })
+// 我的卡券详情
+export function detail(userCouponId) {
+  return request.get(api.detail, { userCouponId })
 }

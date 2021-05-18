@@ -87,9 +87,7 @@
   import { checkLogin, setCartTotalNum, setCartTabBadge } from '@/utils/app'
   import * as CartApi from '@/api/cart'
   import Empty from '@/components/empty'
-
   const CartIdsIndex = 'CartIds'
-
   export default {
     components: {
       Empty
@@ -141,7 +139,6 @@
     },
 
     methods: {
-
       // 计算合计金额 (根据选中的卡券)
       onCalcTotalPrice() {
         const app = this
@@ -163,8 +160,6 @@
         app.isLoading = true
 		app.list = {}
 		app.total = 6
-		
-		/*
         CartApi.list()
           .then(result => {
             app.list = result.data.list
@@ -172,7 +167,7 @@
             // 清除checkedIds中无效的ID
             app.onClearInvalidId()
           })
-          .finally(() => app.isLoading = false)*/
+          .finally(() => app.isLoading = false)
       },
 
       // 清除checkedIds中无效的ID

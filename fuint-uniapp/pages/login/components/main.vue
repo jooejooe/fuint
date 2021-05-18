@@ -20,7 +20,7 @@
         <input class="form-item--input" type="text" v-model="captchaCode" maxlength="5" placeholder="请输入图形验证码" />
         <view class="form-item--parts">
           <view class="captcha" @click="getCaptcha()">
-            <image class="image" :src="captcha.base64"></image>
+            <image class="image" :src="captcha"></image>
           </view>
         </view>
       </view>
@@ -73,7 +73,7 @@
         // 正在加载
         isLoading: false,
         // 图形验证码信息
-        captcha: {},
+        captcha: "",
         // 短信验证码发送状态
         smsState: false,
         // 倒计时
@@ -100,7 +100,9 @@
       getCaptcha() {
         const app = this
         LoginApi.captcha()
-          .then(result => app.captcha = result.data)
+          .then(result => {
+			  app.captcha = result.data.captcha
+		  })
       },
 
       // 点击发送短信验证码
@@ -166,11 +168,9 @@
         const app = this
         app.isLoading = true
         LoginApi.sendSmsCaptcha({
-            form: {
               captchaKey: app.captcha.key,
               captchaCode: app.captchaCode,
               mobile: app.mobile
-            }
           })
           .then(result => {
             // 显示发送成功
@@ -208,18 +208,20 @@
         const app = this
         app.isLoading = true
         store.dispatch('Login', {
-            smsCode: app.smsCode,
+            verifyCode: app.smsCode,
             mobile: app.mobile,
             isParty: app.isParty,
             partyData: app.partyData
           })
           .then(result => {
-            // 显示登录成功
+            // 显示登录信息
             app.$toast(result.message)
-            // 跳转回原页面
-            setTimeout(() => {
-              app.onNavigateBack(1)
-            }, 2000)
+			if (result.code === 200) {
+				// 登录成功跳转回原页面
+				setTimeout(() => {
+				  app.onNavigateBack(1)
+				}, 2000)
+			}
           })
           .finally(() => app.isLoading = false)
       },

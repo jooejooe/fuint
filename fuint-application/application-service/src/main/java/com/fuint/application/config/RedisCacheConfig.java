@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * 缓存配置类
- * Created by hanxiaoqiang on 2017/3/12.
+ * Created by zach on 2017/3/12.
  */
 @Configuration
 public class RedisCacheConfig {

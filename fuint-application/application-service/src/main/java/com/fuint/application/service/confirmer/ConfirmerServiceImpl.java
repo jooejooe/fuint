@@ -78,13 +78,12 @@ public class ConfirmerServiceImpl implements ConfirmerService {
         MtConfirmer mtConfirmer = new MtConfirmer();
         Boolean smsFlag = Boolean.FALSE;
         try {
-            //创建时间
-
-            //格式可以自己根据需要修改
+            // 格式可以自己根据需要修改
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String dt=sdf.format(new Date());
             Date addtime = sdf.parse(dt);
             reqConfirmerDto.setUpdateTime(addtime);
+
             //编辑不需要重新写创建时间
             if(null==reqConfirmerDto.getId()) {
                 reqConfirmerDto.setCreateTime(addtime);
@@ -98,23 +97,25 @@ public class ConfirmerServiceImpl implements ConfirmerService {
                     throw new BusinessCheckException("核销人员信息异常.");
                 }
 
-                //关联userid
+                // 关联userid
                 MtUser tmemberInfo = new MtUser();
                 tmemberInfo.setMobile(reqConfirmerDto.getMobile());
                 tmemberInfo.setRealName(reqConfirmerDto.getRealName());
                 MtUser mtUser_1=memberService.queryMemberByMobile(reqConfirmerDto.getMobile());
+
                 if (mtUser_1 == null) {
                     mtUser_1=memberService.addMember(tmemberInfo);
                     smsFlag = Boolean.TRUE;
                 }
-                //关联核销人员账户id
+
+                // 关联核销人员账户id
                 reqConfirmerDto.setUserId(mtUser_1.getId());
                 reqConfirmerDto.setUpdateTime(new Date());
                 if(!mtConfirmer_temp.getAuditedStatus().equals(StatusEnum.ENABLED.getKey())) {
                     reqConfirmerDto.setAuditedTime(new Date());
                 }
 
-                //发送短信通知
+                // 发送短信通知
                 if (smsFlag.equals(Boolean.TRUE)) {
                     MtStore mtStore = storeService.queryStoreById(reqConfirmerDto.getStoreId());
                     mtConfirmer.setStoreName(mtStore.getName());
@@ -133,9 +134,8 @@ public class ConfirmerServiceImpl implements ConfirmerService {
         } catch (ParseException e) {
             throw new BusinessRuntimeException("日期转换异常" + e.getMessage());
         }
-        mtConfirmer=confirmerRepository.save(reqConfirmerDto);
 
-        return mtConfirmer;
+        return confirmerRepository.save(reqConfirmerDto);
     }
 
     /**
@@ -146,7 +146,7 @@ public class ConfirmerServiceImpl implements ConfirmerService {
      */
     @Override
     public MtConfirmer updateStore(MtConfirmer reqConfirmerDto) throws BusinessCheckException{
-        MtConfirmer mtConfirmer=addConfirmer(reqConfirmerDto);
+        MtConfirmer mtConfirmer = addConfirmer(reqConfirmerDto);
         return  mtConfirmer;
     }
 
@@ -172,7 +172,7 @@ public class ConfirmerServiceImpl implements ConfirmerService {
     @OperationServiceLog(description = "核销人员审核更改状态")
     public Integer updateAuditedStatus(List<Integer> ids, String statusEnum) throws BusinessCheckException {
         Integer i = 0;
-        Boolean flag = Boolean.FALSE;
+        Boolean flag = false;
         StatusEnum[] sees = StatusEnum.values();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String dt=sdf.format(new Date());
@@ -182,10 +182,10 @@ public class ConfirmerServiceImpl implements ConfirmerService {
         } catch (ParseException e) {
             throw new BusinessCheckException("日期转换错误!");
         }
-        //遍历枚举key ,如果枚举合法,返回成功
+        // 遍历枚举key ,如果枚举合法,返回成功
         for (StatusEnum se : sees) {
             if (se.getKey().equals(statusEnum)) {
-                flag=Boolean.TRUE;
+                flag = true;
                 i = confirmerRepository.updateStatus(ids,statusEnum,currentDT);
                 if (StatusEnum.ENABLED.getKey().equals(statusEnum)) {
                     // 审核通过,转移到普通会员表
@@ -228,14 +228,16 @@ public class ConfirmerServiceImpl implements ConfirmerService {
                 }
             }
         }
+
         if (Boolean.FALSE.equals(flag)) {
             throw new BusinessCheckException("枚举值不存在.");
         }
+
         return i;
     }
 
     /**
-     * 根据条件搜索审核人员
+     * 根据条件搜索核销人员
      * */
     @Override
     public List<MtConfirmer> queryConfirmerByParams(Map<String, Object> params) throws BusinessCheckException {
@@ -250,7 +252,7 @@ public class ConfirmerServiceImpl implements ConfirmerService {
     }
 
     /**
-     * 根据手机号获取会员用户信息信息
+     * 根据手机号获取核销人员
      *
      * @param mobile 手机号
      * @throws BusinessCheckException

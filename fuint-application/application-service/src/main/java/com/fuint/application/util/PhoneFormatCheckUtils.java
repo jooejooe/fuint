@@ -8,7 +8,6 @@ import java.util.regex.PatternSyntaxException;
  * @Description:手机号码验证工具类
  *
  * @date: 2017/7/3
- * @Copyright:the Corporation of mianshui365
  */
 public class PhoneFormatCheckUtils {
     /**

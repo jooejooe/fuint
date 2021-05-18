@@ -1,6 +1,6 @@
 package com.fuint.application.web.backend.member;
 
-import com.fuint.application.dao.entities.MtUserGroup;
+import com.fuint.application.dao.entities.MtUserGrade;
 import com.fuint.base.dao.pagination.PaginationRequest;
 import com.fuint.base.dao.pagination.PaginationResponse;
 import com.fuint.base.util.RequestHandler;
@@ -11,14 +11,10 @@ import com.fuint.application.dao.entities.MtUser;
 import com.fuint.application.dto.ReqResult;
 import com.fuint.application.enums.StatusEnum;
 import com.fuint.application.service.member.MemberService;
-import com.fuint.application.service.sms.SendSmsInterface;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,7 +22,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.text.ParseException;
@@ -35,7 +30,7 @@ import java.util.*;
 
 /**
  * 会员信息管理类controller
- * Created by zach on 2019-07-19
+ * Created by zach on 2019/07/19
  */
 @Controller
 @RequestMapping(value = "/backend/member")
@@ -44,16 +39,10 @@ public class MemberController {
     private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 
     /**
-     * 会员用户信息管理服务接口
+     * 会员服务接口
      */
     @Autowired
     private MemberService memberService;
-
-    /**
-     * 短信发送接口
-     */
-    @Autowired
-    private SendSmsInterface sendSmsService;
 
     /**
      * 会员列表查询
@@ -86,10 +75,10 @@ public class MemberController {
         PaginationResponse<MtUser> paginationResponse = memberService.queryMemberListByPagination(paginationRequest);
 
         Map<String, Object> param = new HashMap<>();
-        List<MtUserGroup> userGroupMap = memberService.queryMemberGroupByParams(param);
+        List<MtUserGrade> userGradeMap = memberService.queryMemberGradeByParams(param);
 
         model.addAttribute("paginationResponse", paginationResponse);
-        model.addAttribute("userGroupMap", userGroupMap);
+        model.addAttribute("userGradeMap", userGradeMap);
         model.addAttribute("LIKE_mobile", mobile);
         model.addAttribute("LIKE_realName", realName);
         model.addAttribute("LIKE_birthday", birthday);
@@ -98,7 +87,7 @@ public class MemberController {
     }
 
     /**
-     * 删除会员用户
+     * 删除会员
      *
      * @param request
      * @param response
@@ -108,7 +97,7 @@ public class MemberController {
     @RequiresPermissions("backend/member/delete/{id}")
     @RequestMapping(value = "/delete/{id}")
     public String delete(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable("id") Long id) throws BusinessCheckException {
-        List<Long> ids = new ArrayList<Long>();
+        List<Long> ids = new ArrayList<>();
         ids.add(id);
         Integer i = memberService.deleteMember(id.intValue(), "删除会员");
         ReqResult reqResult = new ReqResult();
@@ -118,7 +107,7 @@ public class MemberController {
     }
 
     /**
-     * 激活会员用户
+     * 激活会员
      *
      * @param request
      * @param response
@@ -128,13 +117,13 @@ public class MemberController {
     @RequiresPermissions("backend/member/active/{id}")
     @RequestMapping(value = "/active/{id}")
     public String userActive(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable("id") Long id) throws BusinessCheckException {
-        List<Integer> ids = new ArrayList<Integer>();
+        List<Integer> ids = new ArrayList<>();
         ids.add(id.intValue());
         return "redirect:/backend/member/queryList";
     }
 
     /**
-     * 批量删除会员用户
+     * 批量删除会员
      *
      * @param request
      * @param response
@@ -162,7 +151,7 @@ public class MemberController {
     }
 
     /**
-     * 添加优惠分组初始化页面
+     * 添加初始化页面
      *
      * @param request
      * @param response
@@ -173,14 +162,14 @@ public class MemberController {
     @RequestMapping(value = "/add")
     public String add(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException {
         Map<String, Object> param = new HashMap<>();
-        List<MtUserGroup> userGroupMap = memberService.queryMemberGroupByParams(param);
+        List<MtUserGrade> userGroupMap = memberService.queryMemberGradeByParams(param);
 
         model.addAttribute("userGroupMap", userGroupMap);
         return "member/member_add";
     }
 
     /**
-     * 新增活动页面
+     * 提交新增
      *
      * @param request  HttpServletRequest对象
      * @param response HttpServletResponse对象
@@ -214,6 +203,7 @@ public class MemberController {
                 throw new BusinessCheckException("该会员手机号码已经存在!");
             }
         }
+
         memberService.addMember(memberInfo);
 
         return "redirect:/backend/member/queryList";
@@ -231,8 +221,9 @@ public class MemberController {
     @RequestMapping(value = "/memberEditInit/{id}")
     public String userEditInit(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable("id") Integer id) throws BusinessCheckException {
         MtUser mtUserInfo = memberService.queryMemberById(id);
+
         Map<String, Object> param = new HashMap<>();
-        List<MtUserGroup> userGroupMap = memberService.queryMemberGroupByParams(param);
+        List<MtUserGrade> userGroupMap = memberService.queryMemberGradeByParams(param);
 
         model.addAttribute("userGroupMap", userGroupMap);
         model.addAttribute("member", mtUserInfo);

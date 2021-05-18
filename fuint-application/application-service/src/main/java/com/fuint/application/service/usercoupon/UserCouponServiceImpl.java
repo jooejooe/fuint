@@ -135,7 +135,7 @@ public class UserCouponServiceImpl extends BaseService implements UserCouponServ
         String selectNum = paramMap.get("selectNum") == null ? "" : paramMap.get("selectNum").toString();
         Integer orderId = paramMap.get("orderId") == null ? 0 : Integer.parseInt(paramMap.get("orderId").toString());
 
-        if (StringUtils.isEmpty(selectNum)) {
+        if (StringUtils.isEmpty(selectNum) || couponId <= 0 || userId <= 0) {
             throw new BusinessCheckException(Message.PARAM_ERROR);
         }
 

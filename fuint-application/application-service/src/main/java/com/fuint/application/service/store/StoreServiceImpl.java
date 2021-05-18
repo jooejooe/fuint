@@ -110,6 +110,7 @@ public class StoreServiceImpl implements StoreService {
     public List<MtStore> queryStoresByIds(List<Integer> ids) throws BusinessCheckException {
         return storeRepository.findStoresByIds(ids);
     }
+
     /**
      * 根据店铺名称获取店铺信息信息
      *
@@ -122,9 +123,9 @@ public class StoreServiceImpl implements StoreService {
         MtStoreDto mtStoreDto = null;
 
         if (mtStore != null) {
-            mtStoreDto=new MtStoreDto();
+            mtStoreDto = new MtStoreDto();
             ConvertUtils.register(new DateConverter(null), java.util.Date.class);
-            BeanUtils.copyProperties(mtStoreDto,mtStore);
+            BeanUtils.copyProperties(mtStoreDto, mtStore);
         }
 
         return mtStoreDto;
@@ -203,7 +204,6 @@ public class StoreServiceImpl implements StoreService {
         return MtStore;
     }
 
-
     @Override
     public List<MtStore> queryEffectiveStoreRange(Map<String, Object> params) throws BusinessCheckException {
         log.info("############ 根据创建时间参数查询店铺信息 #################.");
@@ -216,7 +216,6 @@ public class StoreServiceImpl implements StoreService {
         List<MtStore> result = storeRepository.queryEffectiveStoreRange(beginTime,endTime);
         return result;
     }
-
 
     /**
      * 更改状态(禁用)

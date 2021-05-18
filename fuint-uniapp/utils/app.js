@@ -205,7 +205,7 @@ export const getEmptyPaginateObj = () => {
  */
 export const getMoreListData = (resList, oldList, pageNo) => {
   // 如果是第一页需手动制空列表
-  if (pageNo == 1) oldList.data = []
+  if (pageNo == 1) oldList.content = []
   // 合并新数据
-  return oldList.data.concat(resList.data)
+  return oldList.content.concat(resList.content)
 }

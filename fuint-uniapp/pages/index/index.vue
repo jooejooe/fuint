@@ -1,22 +1,22 @@
 <template>
   <view class="container">
 	  <block>
-	    <Search :itemStyle="search.style" :params="search.params" />
+	      <Search :itemStyle="options.searchStyle" :params="options.searchParam" />
 	  </block>
 	  <block>
-	      <Banner :itemStyle="banner.style" :params="banner.params" :dataList="banner.data" />
+	      <Banner :itemStyle="options.bannerStyle" :params="options.bannerParam" :dataList="banner" />
 	  </block>
 	  <block>
-	      <Blank :itemStyle="{'height':'5', 'background':'#ffffff'}" />
+	      <Blank :itemStyle="options.blankStyle" />
 	  </block>
 	  <block>
-	      <NavBar :itemStyle="navBar.style" :params="navBar.params" :dataList="navBar.data" />
+	      <NavBar :itemStyle="options.navStyle" :params="{}" :dataList="options.navBar" />
 	  </block>
 	  <block>
-	      <Blank :itemStyle="{'height':'5', 'background':'#ffffff'}" />
+	      <Blank :itemStyle="options.blankStyle" />
 	  </block>
 	  <block>
-	    <Goods :itemStyle="goods.style" :params="goods.params" :dataList="goods.data" />
+	      <Coupon :itemStyle="options.goodsStyle" :params="options.goodsParams" :dataList="coupon" />
 	  </block>
   </view>
 </template>
@@ -27,158 +27,120 @@
   import Banner from '@/components/page/banner'
   import NavBar from '@/components/page/navBar'
   import Blank from '@/components/page/blank'
-  import Goods from '@/components/page/goods'
+  import Coupon from '@/components/page/coupon'
+  import * as Api from '@/api/page'
 
   const App = getApp()
   
   export default {
-	  components: {
-		Search,
-	    Banner,
-		NavBar,
-		Blank,
-		Goods
+	components: {
+	   Search,
+	   Banner,
+	   NavBar,
+	   Blank,
+	   Coupon
 	},
     data() {
       return {
-        // 页面参数
-        options: {},
-        banner: {
-				"style": {
-					"btnColor": "#ffffff",
-					"btnShape": "round"
-				},
-				"params": {
-					"interval": 2800
-				},
-				"data": [{
-					"imgUrl": "/static/banner/2.png",
-					"linkUrl": "pages\/goods\/detail?goods_id=10002",
-					"imgName": "1000.png"
-				}, {
-					"imgUrl": "/static/banner/1.png",
-					"linkUrl": "pages\/goods\/detail?goods_id=10003",
-					"imgName": "2000.png"
-				}]
+        options: {
+			"searchStyle": {
+				"textAlign": "left",
+				"searchStyle": "radius",
 			},
-			navBar: {
-				"style": {
-					"background": "#ffffff",
-					"rowsNum": "3"
-				},
-				"data": [{
-					"imgUrl": "/static/nav/1.png",
-					"imgName": "icon-1.png",
-					"linkUrl": "pages\/goods\/list?type=C",
-					"text": "优惠券",
-					"color": "#666666"
-				}, {
-					"imgUrl": "/static/nav/3.png",
-					"imgName": "icon-1.png",
-					"linkUrl": "pages\/goods\/list?type=P",
-					"text": "预存卡",
-					"color": "#666666"
-				}, {
-					"imgUrl": "/static/nav/2.png",
-					"imgName": "icon-1.png",
-					"linkUrl": "pages\/goods\/list?type=T",
-					"text": "集次卡",
-					"color": "#666666"
-				}]
+			"searchParam": {
+				"placeholder": "搜索卡券",
 			},
-			search: {
-				"params": {
-					"placeholder": "搜索卡券"
-				},
-				"style": {
-					"textAlign": "left",
-					"searchStyle": "radius"
+			"blankStyle": {
+				"height": "5",
+				"background": "#ffffff",
+			},
+			"navBar": [{
+						"imgUrl": "/static/nav/1.png",
+						"imgName": "icon-1.png",
+						"linkUrl": "pages\/coupon\/list?type=C",
+						"text": "优惠券",
+						"color": "#666666"
+					}, {
+						"imgUrl": "/static/nav/3.png",
+						"imgName": "icon-1.png",
+						"linkUrl": "pages\/coupon\/list?type=P",
+						"text": "预存卡",
+						"color": "#666666"
+					}, {
+						"imgUrl": "/static/nav/2.png",
+						"imgName": "icon-1.png",
+						"linkUrl": "pages\/coupon\/list?type=T",
+						"text": "集次卡",
+						"color": "#666666"}],
+			"goodsStyle": {
+				"background": "#F6F6F6",
+				"display": "list",
+				"column": 1,
+				"show": ["goodsName", "goodsPrice", "linePrice", "sellingPoint", "goodsSales"]
+			},
+			"goodsParams": {
+				"source": "auto",
+				"auto": {
+					"category": 0,
+					"goodsSort": "all",
+					"showNum": 40
 				}
 			},
-			goods: {
-				"params": {
-					"source": "auto",
-					"auto": {
-						"category": 0,
-						"goodsSort": "all",
-						"showNum": 40
-					}
-				},
-				"style": {
-					"background": "#F6F6F6",
-					"display": "list",
-					"column": 1,
-					"show": ["goodsName", "goodsPrice", "linePrice", "sellingPoint", "goodsSales"]
-				},
-				"data": [{
-					"goods_id": 10020,
-					"goods_name": "五一20元优惠券",
-					"selling_point": "",
-					"type":"C",
-					"goods_image": "/static/coupon/3.png",
-					"goods_price_min": "5.00",
-					"goods_price_max": "100.00",
-					"line_price_min": "200.00",
-					"line_price_max": "200.00",
-					"goods_sales": 1050
-				}, {
-					"goods_id": 10021,
-					"goods_name": "五一美食5元无门槛券",
-					"selling_point": "",
-					"type":"P",
-					"goods_image": "/static/coupon/3.png",
-					"goods_price_min": "10.00",
-					"goods_price_max": "80.00",
-					"line_price_min": "80.00",
-					"line_price_max": "80.00",
-					"goods_sales": 1223
-				},{
-					"goods_id": 10019,
-					"goods_name": "龙湖汽车美容店5月份洗车集次卡",
-					"selling_point": "",
-					"type":"T",
-					"goods_image": "/static/coupon/3.png",
-					"goods_price_min": "20",
-					"goods_price_max": "1000",
-					"line_price_min": "0.00",
-					"line_price_max": "0.00",
-					"goods_sales": 1720
-				}]
+			"bannerStyle": {
+				"btnColor": "#ffffff",
+				"btnShape": "round",
+			},
+			"bannerParam": {
+				"interval": 2800
+			},
+			"navStyle": {
+				"background": "#ffffff",
+				"rowsNum": "3",
 			}
+		},
+        banner: [],
+		coupon: []
 		}
 	},
 
     /**
      * 生命周期函数--监听页面加载
      */
-    onLoad(options) {
-      // 当前页面参数
-      this.options = options
+    onLoad() {
+      this.getPageData();
     },
 
     /**
      * 生命周期函数--监听页面显示
      */
     onShow() {
-      // 更新购物车角标
-      setCartTabBadge()
+      // empty
     },
 
     methods: {
-      /**
-       * 设置顶部导航栏
-       */
-      setPageBar() {
-        // 设置页面标题
-        uni.setNavigationBarTitle({
-          title: "fuint首页"
-        });
-        // 设置navbar标题、颜色
-        uni.setNavigationBarColor({
-          frontColor: '#ffffff',
-          backgroundColor: "#41d684"
-        })
-      },
+		/**
+		 * 加载页面数据
+		 * @param {Object} callback
+		 */
+		getPageData(callback) {
+		  const app = this
+		  Api.home()
+		    .then(result => {
+		      app.banner = result.data.banner
+			  app.coupon = result.data.coupon.content
+		    })
+		    .finally(() => callback && callback())
+		},
+		
+		/**
+		 * 下拉刷新
+		 */
+		onPullDownRefresh() {
+		  // 获取数据
+		  this.getPageData(() => {
+		     uni.stopPullDownRefresh()
+		  })
+		}
     },
 
     /**
@@ -187,8 +149,8 @@
     onShareAppMessage() {
       const app = this
       return {
-        title: "首页",
-        path: "/pages/index/index?" + app.$getShareUrlParams()
+         title: "FuInt会员卡券",
+         path: "/pages/index/index?" + app.$getShareUrlParams()
       }
     },
 

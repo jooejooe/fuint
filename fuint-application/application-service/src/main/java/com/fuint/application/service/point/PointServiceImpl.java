@@ -6,22 +6,14 @@ import com.fuint.base.annoation.OperationServiceLog;
 import com.fuint.base.dao.pagination.PaginationRequest;
 import com.fuint.base.dao.pagination.PaginationResponse;
 import com.fuint.exception.BusinessCheckException;
-import com.fuint.exception.BusinessRuntimeException;
-import com.fuint.application.dao.entities.MtStore;
-import com.fuint.application.dao.repositories.MtStoreRepository;
-import com.fuint.application.dto.MtStoreDto;
-import com.fuint.application.enums.StatusEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
 
 /**
  * 积分管理业务实现类
- * Created by zach 2021.3.15
+ * Created by zach 2021/3/15
  */
 @Service
 public class PointServiceImpl implements PointService {
@@ -52,6 +44,6 @@ public class PointServiceImpl implements PointService {
     @Override
     @OperationServiceLog(description = "添加积分记录")
     public MtPoint addPoint(MtPoint mtPoint) throws BusinessCheckException {
-        return null;
+        return pointRepository.save(mtPoint);
     }
 }

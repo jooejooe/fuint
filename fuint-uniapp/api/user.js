@@ -3,7 +3,7 @@ import request from '@/utils/request'
 // api地址
 const api = {
   userInfo: 'user/info',
-  assets: 'user/assets'
+  assets: 'user/asset'
 }
 
 // 当前登录的用户信息

@@ -9,78 +9,71 @@
 
       <!-- 订单列表 -->
       <view class="order-list">
-        <view class="order-item" v-for="(item, index) in list.data" :key="index">
+        <view class="order-item" v-for="(item, index) in list.content" :key="index">
           <view class="item-top">
             <view class="item-top-left">
-              <text class="order-time">{{ item.create_time }}</text>
+              <text class="order-time">{{ item.createTime }}</text>
             </view>
             <view class="item-top-right">
-              <text class="state-text">{{ item.state_text }}</text>
+              <text :class="item.status">{{ item.statusText }}</text>
             </view>
           </view>
           <!-- 商品列表 -->
-          <view class="goods-list" @click="handleTargetDetail(item.order_id)">
+          <view class="goods-list" @click="handleTargetDetail(item.id)">
             <view class="goods-item" v-for="(goods, idx) in item.goods" :key="idx">
               <!-- 商品图片 -->
               <view class="goods-image">
-                <image class="image" :src="goods.goods_image" mode="widthFix"></image>
+                <image class="image" src="http://localhost:8082/fuint-application/static/defaultImage/3.png" mode="widthFix"></image>
               </view>
               <!-- 商品信息 -->
               <view class="goods-content">
-                <view class="goods-title twolist-hidden"><text>{{ goods.goods_name }}</text></view>
+                <view class="goods-title twolist-hidden"><text>{{ goods.name }}</text></view>
                 <view class="goods-props clearfix">
-                  <view class="goods-props-item" v-for="(props, idx) in goods.goods_props" :key="idx">
-                    <text>{{ props.value.name }}</text>
+                  <view class="goods-props-item">
+                    <text>五一</text>
                   </view>
+				  <view class="goods-props-item">
+				    <text>特惠</text>
+				  </view>
                 </view>
               </view>
               <!-- 交易信息 -->
               <view class="goods-trade">
                 <view class="goods-price">
                   <text class="unit">￥</text>
-                  <text class="value">{{ goods.goods_price }}</text>
+                  <text class="value">{{ goods.price }}</text>
                 </view>
                 <view class="goods-num">
-                  <text>×{{ goods.total_num }}</text>
+                  <text>×{{ goods.num }}</text>
                 </view>
               </view>
             </view>
           </view>
           <!-- 订单合计 -->
           <view class="order-total">
-            <text>共{{ item.total_num }}件商品，总金额</text>
+            <text>总金额</text>
             <text class="unit">￥</text>
-            <text class="money">{{ item.pay_price }}</text>
+            <text class="money">{{ item.amount }}</text>
           </view>
           <!-- 订单操作 -->
-          <view v-if="item.order_status != 20" class="order-handle">
+          <view v-if="item.status == 'A'" class="order-handle">
             <view class="btn-group clearfix">
               <!-- 未支付取消订单 -->
-              <view v-if="item.pay_status.value == 10">
-                <view class="btn-item" @click="onCancel(item.order_id)">取消</view>
+              <view v-if="item.status == 'A'">
+                <view class="btn-item" @click="onCancel(item.id)">取消</view>
               </view>
-              <!-- 已支付取消订单 -->
-              <block v-if="item.order_status != OrderStatusEnum.APPLY_CANCEL.value">
-                <view v-if="item.pay_status == PayStatusEnum.SUCCESS.value && item.delivery_status == DeliveryStatusEnum.NOT_DELIVERED.value">
-                  <view class="btn-item" @click="onCancel(item.order_id)">申请取消</view>
-                </view>
-              </block>
-              <view v-else class="f-28 col-8">取消申请中</view>
               <!-- 订单支付 -->
-              <view v-if="item.pay_status == 10">
-                <view class="btn-item active" @click="onPay(item.order_id)">去支付</view>
-              </view>
-              <!-- 确认收货 -->
-              <view v-if="item.delivery_status == DeliveryStatusEnum.DELIVERED.value && item.receipt_status == ReceiptStatusEnum.NOT_RECEIVED.value">
-                <view class="btn-item active" @click="onReceipt(item.order_id)">确认收货</view>
-              </view>
-              <!-- 订单评价 -->
-              <view v-if="item.order_status == OrderStatusEnum.COMPLETED.value && item.is_comment == 0">
-                <view class="btn-item" @click="handleTargetComment(item.order_id)">评价</view>
+              <view v-if="item.status == 'A'">
+                <view class="btn-item active" @click="onPay(item.id)">去支付</view>
               </view>
             </view>
           </view>
         </view>
+		<empty v-if="!list.content.length" :isLoading="isLoading" :custom-style="{ padding: '180rpx 50rpx' }" tips="当前没有订单, 快去逛逛吧">
+		  <view slot="slot" class="empty-ipt" @click="onTargetIndex">
+		    <text>去逛逛</text>
+		  </view>
+		</empty>
 
       </view>
 
@@ -92,7 +85,6 @@
         <view class="title">请选择支付方式</view>
         <view class="pop-content">
           <!-- 微信支付 -->
-          <!-- #ifdef MP-WEIXIN -->
           <view class="pay-item dis-flex flex-x-between" @click="onSelectPayType(PayTypeEnum.WECHAT.value)">
             <view class="item-left dis-flex flex-y-center">
               <view class="item-left_icon wechat">
@@ -103,7 +95,6 @@
               </view>
             </view>
           </view>
-          <!-- #endif -->
           <!-- 余额支付 -->
           <view class="pay-item dis-flex flex-x-between" @click="onSelectPayType(PayTypeEnum.BALANCE.value)">
             <view class="item-left dis-flex flex-y-center">
@@ -137,6 +128,7 @@
   import { getEmptyPaginateObj, getMoreListData } from '@/utils/app'
   import * as OrderApi from '@/api/order'
   import { wxPayment } from '@/utils/app'
+  import Empty from '@/components/empty'
 
   // 每页记录数量
   const pageSize = 15
@@ -147,21 +139,16 @@
     value: 'all'
   }, {
     name: `待支付`,
-    value: 'payment'
+    value: 'pay'
   }, {
-    name: `待发货`,
-    value: 'delivery'
-  }, {
-    name: `待收货`,
-    value: 'received'
-  }, {
-    name: `待评价`,
-    value: 'comment'
+    name: `已完成`,
+    value: 'completed'
   }]
 
   export default {
     components: {
-      MescrollBody
+      MescrollBody,
+	  Empty
     },
     mixins: [MescrollMixin],
     data() {
@@ -182,7 +169,8 @@
         curTab: 0,
         // 订单列表数据
         list: getEmptyPaginateObj(),
-
+		// 正在加载
+		isLoading: false,
         // 上拉加载配置
         upOption: {
           // 首次自动执行
@@ -199,7 +187,8 @@
         // 控制首次触发onShow事件时不刷新列表
         canReset: false,
         // 支付方式弹窗
-        showPayPopup: false
+        showPayPopup: false,
+		statusText: "payStatus"
       }
     },
 
@@ -254,23 +243,17 @@
           OrderApi.list({ dataType: app.getTabValue(), page: pageNo }, { load: false })
             .then(result => {
               // 合并新数据
-              const newList = app.initList(result.data.list)
-              app.list.data = getMoreListData(newList, app.list, pageNo)
+              const newList = result.data
+              app.list.content = getMoreListData(newList, app.list, pageNo)
               resolve(newList)
             })
         })
       },
-
-      // 初始化订单列表数据
-      initList(newList) {
-        newList.data.forEach(item => {
-          item.total_num = 0
-          item.goods.forEach(goods => {
-            item.total_num += goods.total_num
-          })
-        })
-        return newList
-      },
+	  
+	  // 点击跳转到首页
+	  onTargetIndex() {
+	    this.$navTo('pages/index/index')
+	  },
 
       // 获取当前标签项的值
       getTabValue() {
@@ -303,26 +286,6 @@
           success(o) {
             if (o.confirm) {
               OrderApi.cancel(orderId)
-                .then(result => {
-                  // 显示成功信息
-                  app.$success(result.message)
-                  // 刷新订单列表
-                  app.onRefreshList()
-                })
-            }
-          }
-        });
-      },
-
-      // 确认收货
-      onReceipt(orderId) {
-        const app = this
-        uni.showModal({
-          title: '友情提示',
-          content: '确认收到商品了吗？',
-          success(o) {
-            if (o.confirm) {
-              OrderApi.receipt(orderId)
                 .then(result => {
                   // 显示成功信息
                   app.$success(result.message)
@@ -384,11 +347,6 @@
       // 跳转到订单详情页
       handleTargetDetail(orderId) {
         this.$navTo('pages/order/detail', { orderId })
-      },
-
-      // 跳转到订单评价页
-      handleTargetComment(orderId) {
-        this.$navTo('pages/order/comment/index', { orderId })
       }
 
     },
@@ -405,6 +363,24 @@
     box-shadow: 0 1rpx 5rpx 0px rgba(0, 0, 0, 0.05);
     border-radius: 16rpx;
     background: #fff;
+	.A{
+		color:$uni-text-color-active;
+	}
+	.B{
+		color:$uni-text-color;
+	}
+  }
+  // 空数据按钮
+  .empty-ipt {
+    width: 220rpx;
+    margin: 10rpx auto;
+    font-size: 28rpx;
+    height: 64rpx;
+    line-height: 64rpx;
+    text-align: center;
+    color: #fff;
+    border-radius: 50rpx;
+    background: linear-gradient(to right, #00acac, #00acac);
   }
 
   // 项目顶部
@@ -528,7 +504,8 @@
         float: right;
         color: #383838;
         border: 1rpx solid #a8a8a8;
-
+		margin-left: 25rpx;
+     
         &.active {
           color: $uni-text-color-active;
           border: 1rpx solid $uni-text-color-active;

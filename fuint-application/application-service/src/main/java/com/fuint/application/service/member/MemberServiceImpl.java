@@ -1,7 +1,7 @@
 package com.fuint.application.service.member;
 
-import com.fuint.application.dao.entities.MtUserGroup;
-import com.fuint.application.dao.repositories.MtUserGroupRepository;
+import com.fuint.application.dao.entities.MtUserGrade;
+import com.fuint.application.dao.repositories.MtUserGradeRepository;
 import com.fuint.base.annoation.OperationServiceLog;
 import com.fuint.base.dao.pagination.PaginationRequest;
 import com.fuint.base.dao.pagination.PaginationResponse;
@@ -27,8 +27,8 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
- * 会员管理业务实现类
- * Created by zach 2021.3.15
+ * 会员业务接口实现类
+ * Created by zach 2021/3/15
  */
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -39,7 +39,7 @@ public class MemberServiceImpl implements MemberService {
     private MtUserRepository userRepository;
 
     @Autowired
-    private MtUserGroupRepository userGroupRepository;
+    private MtUserGradeRepository userGradeRepository;
 
     @Autowired
     private TokenService tokenService;
@@ -149,9 +149,9 @@ public class MemberServiceImpl implements MemberService {
      * @throws BusinessCheckException
      */
     @Override
-    public MtUserGroup queryMemberGroupByGroupId(Integer id) throws BusinessCheckException {
-        MtUserGroup groupInfo = userGroupRepository.findOne(id);
-        return groupInfo;
+    public MtUserGrade queryMemberGradeByGradeId(Integer id) throws BusinessCheckException {
+        MtUserGrade gradeInfo = userGradeRepository.findOne(id);
+        return gradeInfo;
     }
 
     /**
@@ -262,14 +262,14 @@ public class MemberServiceImpl implements MemberService {
      * 根据条件搜索会员分组
      * */
     @Override
-    public List<MtUserGroup> queryMemberGroupByParams(Map<String, Object> params) throws BusinessCheckException {
+    public List<MtUserGrade> queryMemberGradeByParams(Map<String, Object> params) throws BusinessCheckException {
         if (MapUtils.isEmpty(params)) {
             params = new HashMap<>();
         }
 
-        Specification<MtUserGroup> specification = userGroupRepository.buildSpecification(params);
+        Specification<MtUserGrade> specification = userGradeRepository.buildSpecification(params);
         Sort sort = new Sort(Sort.Direction.ASC, "id");
-        List<MtUserGroup> result = userGroupRepository.findAll(specification, sort);
+        List<MtUserGrade> result = userGradeRepository.findAll(specification, sort);
 
         return result;
     }

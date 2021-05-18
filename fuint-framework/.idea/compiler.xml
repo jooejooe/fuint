@@ -6,29 +6,29 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="mahua-component" />
+        <module name="fuint-core" />
         <module name="fuint-base" />
+        <module name="mahua-util" />
+        <module name="mahua-cache" />
         <module name="fuint-cache" />
         <module name="fuint-component" />
-        <module name="fuint-core" />
-        <module name="fuint-security" />
+        <module name="mahua-core" />
         <module name="fuint-util" />
         <module name="mahua-base" />
-        <module name="mahua-cache" />
-        <module name="mahua-component" />
-        <module name="mahua-core" />
+        <module name="fuint-security" />
         <module name="mahua-security" />
-        <module name="mahua-util" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="fuint-base" target="1.8" />
-      <module name="fuint-cache" target="1.8" />
-      <module name="fuint-component" target="1.8" />
-      <module name="fuint-core" target="1.8" />
-      <module name="fuint-framework" target="1.8" />
-      <module name="fuint-parent" target="1.8" />
-      <module name="fuint-security" target="1.8" />
-      <module name="fuint-util" target="1.8" />
+      <module name="fuint-base" target="1.5" />
+      <module name="fuint-cache" target="1.5" />
+      <module name="fuint-component" target="1.5" />
+      <module name="fuint-core" target="1.5" />
+      <module name="fuint-framework" target="1.5" />
+      <module name="fuint-parent" target="1.5" />
+      <module name="fuint-security" target="1.5" />
+      <module name="fuint-util" target="1.5" />
       <module name="mahua-base" target="1.8" />
       <module name="mahua-cache" target="1.8" />
       <module name="mahua-component" target="1.8" />

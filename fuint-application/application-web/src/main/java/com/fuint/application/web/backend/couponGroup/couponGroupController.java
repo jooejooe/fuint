@@ -124,7 +124,7 @@ public class couponGroupController {
 
         // 计算券种类，总价值
         if (paginationResponse.getContent().size() > 0) {
-            for (int i=0; i < paginationResponse.getContent().size(); i++) {
+            for (int i = 0; i < paginationResponse.getContent().size(); i++) {
                 MtCouponGroup object = paginationResponse.getContent().get(i);
                 object.setMoney(couponGroupService.getCouponMoney(object.getId().longValue()));
                 object.setNum(couponGroupService.getCouponNum(object.getId()));

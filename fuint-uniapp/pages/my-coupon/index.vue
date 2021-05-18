@@ -6,58 +6,54 @@
       <!-- tab栏 -->
       <u-tabs :list="tabs" :is-scroll="false" :current="curTab" active-color="#FA2209" :duration="0.2" @change="onChangeTab" />
 
-      <!-- 优惠券列表 -->
+      <!-- 卡券列表 -->
 	  <view class="goods-list">
-		  <view class="goods-item" v-for="(dataItem, index) in list.data" :key="index">
+		  <view class="goods-item" v-for="(item, index) in list.content" :key="index">
 			<!-- 单列卡券 -->
-			<block>
-			  <view class="dis-flex">
-				<!-- 商品图片 -->
-				<view class="goods-item_left">
-				  <image class="image" :src="dataItem.goods_image"></image>
-				</view>
-				<view class="goods-item_right">
-				  <!-- 卡券名称 -->
-				  <view class="goods-name twolist-hidden">
-					<text>{{ dataItem.goods_name }}</text>
-				  </view>
-				  <view class="goods-item_desc">
-					<!-- 卡券卖点 -->
-					<view class="desc-selling_point dis-flex">
-					  <text class="onelist-hidden">{{ dataItem.selling_point }}</text>
-					</view>
-				  <view class="coupon-attr">
-					  <view class="attr-l">
-						  <!-- 卡券销量 -->
-						  <view class="desc-goods_sales dis-flex">
-							<text>已领取{{ dataItem.goods_sales }}张</text>
-						  </view>
-						  <!-- 卡券价格 -->
-						  <view class="desc_footer">
-							<text class="price_x">¥{{ dataItem.goods_price_min }}</text>
-							<text class="price_y col-9">¥{{ dataItem.line_price_min }}</text>
-						  </view>
-					  </view>
-					  <view class="attr-r">
-						  <!--领券按钮-->
-						  <view class="receive" v-if="dataItem.type === 'C'" @click="onDetail(dataItem.goods_id, dataItem.type)">
-							<text>立即使用</text>
-						  </view>
-						  <view v-else-if="dataItem.type === 'P'" class="receive" @click="onDetail(dataItem.goods_id, dataItem.type)">
-							<text>立即使用</text>
-						  </view>
-						  <view v-else-if="dataItem.type === 'T'" class="receive state" @click="onDetail(dataItem.goods_id, dataItem.type)">
-							<text>已使用</text>
-						  </view>
-					  </view>
-				  </view>
-				  </view>
-				</view>
+			<view class="dis-flex">
+			    <!-- 卡券图片 -->
+			    <view class="goods-item_left">
+			      <image class="image" :src="item.image"></image>
+			    </view>
+			    <view class="goods-item_right">
+			      <!-- 卡券名称 -->
+			      <view class="goods-name twolist-hidden">
+			        <text>{{ item.name }}</text>
+			      </view>
+			      <view class="goods-item_desc">
+			        <!-- 卡券卖点 -->
+			        <view class="desc-selling_point dis-flex">
+			          <text class="onelist-hidden">{{ item.tips }}</text>
+			        </view>
+			        <view class="coupon-attr">
+							  <view class="attr-l">
+								  <view class="desc-goods_sales dis-flex">
+								    <text>{{ item.effectiveDate }}</text>
+								  </view>
+								  <view v-if="item.amount > 0" class="desc_footer">
+								    <text class="price_x">¥{{ item.amount }}</text>
+								  </view>
+							  </view>
+							  <view class="attr-r">
+								  <!--领券按钮-->
+								  <view v-if="item.canUse" class="receive" @click="onDetail(item.id, item.type)">
+									<text>立即使用</text>
+								  </view>
+								  <view v-if="!item.canUse" class="receive state">
+								  	<text>不可使用</text>
+								  </view>
+							  </view>
+			        </view>
+			      </view>
+			    </view>
 			  </view>
-			</block>
-		  </view>
+          </view>
+		  <empty v-if="!list.content.length" :isLoading="isLoading" :custom-style="{ padding: '180rpx 50rpx' }" tips="当前没有卡券, 快去逛逛吧">
+		    <view slot="slot" class="empty-ipt" @click="onTargetIndex">
+		      <text>去逛逛</text>
+		    </view>
+		  </empty>
 	  </view>
-
     </mescroll-body>
   </view>
 </template>
@@ -68,23 +64,25 @@
   import { getEmptyPaginateObj, getMoreListData } from '@/utils/app'
   import * as MyCouponApi from '@/api/myCoupon'
   import { CouponTypeEnum } from '@/common/enum/coupon'
+  import Empty from '@/components/empty'
 
   const color = ['red', 'blue', 'violet', 'yellow']
   const pageSize = 15
   const tabs = [{
     name: `未使用`,
-    value: 'isUsable'
+    value: 'A'
   }, {
     name: `已使用`,
-    value: 'isUse'
+    value: 'B'
   }, {
     name: `已过期`,
-    value: 'isExpire'
+    value: 'C'
   }]
 
   export default {
     components: {
-      MescrollBody
+      MescrollBody,
+	  Empty
     },
     mixins: [MescrollMixin],
     data() {
@@ -97,8 +95,12 @@
         tabs,
         // 当前标签索引
         curTab: 0,
+		// 卡券类型
+		type: "",
         // 优惠券列表数据
         list: getEmptyPaginateObj(),
+		// 正在加载
+		isLoading: false,
         // 上拉加载配置
         upOption: {
           // 首次自动执行
@@ -109,7 +111,7 @@
           noMoreSize: 4,
           // 空布局
           empty: {
-            tip: '亲，暂无相关优惠券'
+            tip: '亲，暂无相关卡券'
           }
         }
       }
@@ -120,18 +122,14 @@
      */
     onLoad(options) {
 	   let type = options.type
+	   this.type = type;
        uni.setNavigationBarTitle({
          title: "我的" + CouponTypeEnum[type].name
        })
     },
 
     methods: {
-
-      /**
-       * 上拉加载的回调 (页面初始化时也会执行一次)
-       * 其中page.num:当前页 从1开始, page.size:每页数据条数,默认10
-       * @param {Object} page
-       */
+		
       upCallback(page) {
         const app = this
         // 设置列表数据
@@ -143,72 +141,40 @@
           })
           .catch(() => app.mescroll.endErr())
       },
+	  
+	  // 点击跳转到首页
+	  onTargetIndex() {
+	    this.$navTo('pages/index/index')
+	  },
+	  
 	  // 卡券详情
-	  onDetail(goodsId, type) {
+	  onDetail(id, type) {
 		  if (type === 'C') {
-			  this.$navTo(`pages/coupon/detail`, { goodsId })
+			  this.$navTo(`pages/coupon/detail`, { id })
 		  } else if(type === 'T'){
-		      this.$navTo(`pages/timer/detail`, { goodsId })
-		  } else {
-			  this.$navTo(`pages/prestore/detail`, { goodsId })
+		      this.$navTo(`pages/timer/detail`, { id })
+		  } else if(type === 'P') {
+			  this.$navTo(`pages/prestore/detail`, { id })
 		  }
 	  },
+	  
       /**
-       * 获取优惠券列表
+       * 获取卡券列表
        */
       getCouponList(pageNo = 1) {
         const app = this
-		const data = [{
-					"goods_id": 10020,
-					"goods_name": "五一20元优惠券",
-					"selling_point": "",
-					"type":"C",
-					"goods_image": "/static/coupon/3.png",
-					"goods_price_min": "5.00",
-					"goods_price_max": "100.00",
-					"line_price_min": "200.00",
-					"line_price_max": "200.00",
-					"goods_sales": 1050
-				}, {
-					"goods_id": 10021,
-					"goods_name": "五一美食5元无门槛券",
-					"selling_point": "",
-					"type":"P",
-					"goods_image": "/static/coupon/3.png",
-					"goods_price_min": "10.00",
-					"goods_price_max": "80.00",
-					"line_price_min": "80.00",
-					"line_price_max": "80.00",
-					"goods_sales": 1223
-				},{
-					"goods_id": 10019,
-					"goods_name": "龙湖汽车美容店5月份洗车集次卡",
-					"selling_point": "",
-					"type":"T",
-					"goods_image": "/static/coupon/3.png",
-					"goods_price_min": "20",
-					"goods_price_max": "1000",
-					"line_price_min": "0.00",
-					"line_price_max": "0.00",
-					"goods_sales": 1720
-				}]
-		let result = {"data":{"list":{"total":2, "per_page":15, "current_page":1, "last_page":1,
-		           "data":data}}}
-		const newList = result.data.list
-		
-		app.list.data = getMoreListData(newList, app.list, pageNo)
-        /*return new Promise((resolve, reject) => {
-          MyCouponApi.list({ dataType: app.getTabValue(), page: pageNo }, { load: false })
+        return new Promise((resolve, reject) => {
+          MyCouponApi.list({ type: app.type, status: app.getTabValue(), page: pageNo }, { load: false })
             .then(result => {
               // 合并新数据
-              const newList = result.data.list
-              app.list.data = getMoreListData(newList, app.list, pageNo)
+              const newList = result.data
+              app.list.content = getMoreListData(newList, app.list, pageNo)
               resolve(newList)
             })
-        })*/
+        })
       },
 
-      // 评分类型
+      // 类型
       getTabValue() {
         return this.tabs[this.curTab].value
       },
@@ -275,7 +241,7 @@
     .coupon-attr {
   	 .attr-l {
   		 float:left;
-  		 width: 60%;
+  		 width: 68%;
   	 }
   	 .attr-r {
   		 margin-top:20rpx;
@@ -324,6 +290,18 @@
       text-decoration: line-through;
     }
   }
-  }
  }
+ // 空数据按钮
+ .empty-ipt {
+   width: 220rpx;
+   margin: 10rpx auto;
+   font-size: 28rpx;
+   height: 64rpx;
+   line-height: 64rpx;
+   text-align: center;
+   color: #fff;
+   border-radius: 50rpx;
+   background: linear-gradient(to right, #00acac, #00acac);
+ }
+}
 </style>

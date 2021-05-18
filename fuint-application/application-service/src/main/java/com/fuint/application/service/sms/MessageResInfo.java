@@ -2,16 +2,13 @@ package com.fuint.application.service.sms;
 
 /**
  * @Description:
- * @Author: chenggang
+ * @Author: zach
  * @date: 2017/8/23
- * @Copyright:the Corporation of mianshui365
  */
 public class MessageResInfo {
     private String[] sendIds;
     private Boolean result;
     private String[] smsId;
-
-
 
     public Boolean getResult() {
         return result;

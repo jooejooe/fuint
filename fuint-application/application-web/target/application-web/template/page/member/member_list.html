@@ -42,10 +42,11 @@
             <thead>
             <tr>
                 <th>会员ID</th>
-                <th>分组</th>
+                <th>等级</th>
                 <th>手机号</th>
                 <th>姓名</th>
                 <th>生日</th>
+                <th>余额</th>
                 <th>积分</th>
                 <th>状态</th>
                 <th>创建时间</th>
@@ -59,15 +60,16 @@
                     <tr>
                         <td>${ct.id}</td>
                         <td>
-                            <#list userGroupMap as group>
-                            <#if group.id == ct.groupId >
-                            ${group.name}
+                            <#list userGradeMap as grade>
+                            <#if grade.id == ct.gradeId >
+                            ${grade.name}
                             </#if>
                             </#list>
                         </td>
                         <td>${ct.mobile}</td>
                         <td>${ct.realName}</td>
                         <td>${ct.birthday}</td>
+                        <td>${ct.balance}</td>
                         <td>${ct.point}</td>
                         <td>
                         <#if ct.status == "A">

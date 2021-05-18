@@ -1,22 +1,13 @@
 package com.fuint.application.service.verifycode;
 
-import com.fuint.base.dao.pagination.PaginationRequest;
-import com.fuint.base.dao.pagination.PaginationResponse;
 import com.fuint.exception.BusinessCheckException;
 import com.fuint.application.dao.entities.MtVerifyCode;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
 /**
- * 店铺业务接口
- * Created by zach 20190820
+ * 验证码接口
+ * Created by zach 2019/08/20
  */
 public interface VerifyCodeService {
-
-
     /**
      * 添加验证码
      *
@@ -25,9 +16,7 @@ public interface VerifyCodeService {
      * @param expireSecond 间隔秒数
      * @throws BusinessCheckException
      */
-    public MtVerifyCode addVerifyCode(String mobile, String verifycode,Integer expireSecond) throws BusinessCheckException;
-
-
+    MtVerifyCode addVerifyCode(String mobile, String verifycode,Integer expireSecond) throws BusinessCheckException;
 
     /**
      * 根据手机号,验证码，查询时间
@@ -36,8 +25,7 @@ public interface VerifyCodeService {
      * @param verifycode 验证码
      * @throws BusinessCheckException
      */
-    public MtVerifyCode checkVerifyCode(String mobile, String verifycode) throws BusinessCheckException;
-
+    MtVerifyCode checkVerifyCode(String mobile, String verifycode) throws BusinessCheckException;
 
     /**
      * 更改验证码状态
@@ -45,6 +33,5 @@ public interface VerifyCodeService {
      * @param id
      * @throws BusinessCheckException
      */
-    public MtVerifyCode updateValidFlag(Long id, String validFlag) throws BusinessCheckException;
-
+    MtVerifyCode updateValidFlag(Long id, String validFlag) throws BusinessCheckException;
    }

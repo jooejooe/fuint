@@ -34,7 +34,7 @@
 
     created() {
       // 获取code
-      // this.getCode()
+      this.getCode()
     },
 
     methods: {

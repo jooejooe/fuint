@@ -2,10 +2,10 @@ import request from '@/utils/request'
 
 // api地址
 const api = {
-  login: 'passport/login',
-  mpWxLogin: 'passport/mpWxLogin',
-  captcha: 'passport/captcha',
-  sendSmsCaptcha: 'passport/sendSmsCaptcha'
+  login: 'sign/signIn',
+  mpWxLogin: 'sign/mpWxLogin',
+  captcha: 'captcha/getCode',
+  sendSmsCaptcha: 'sms/sendVerifyCode'
 }
 
 // 用户登录

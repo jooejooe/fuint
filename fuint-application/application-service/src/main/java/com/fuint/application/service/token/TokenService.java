@@ -72,7 +72,7 @@ public class TokenService {
         MtUser mtUser = null;
         try {
             if (this.redisTemplate.exists(token)) {
-                mtUser = this.redisTemplate.get(token,MtUser.class);
+                mtUser = this.redisTemplate.get(token, MtUser.class);
             }
         } catch (Exception e) {
             throw new BusinessCheckException("连接redis出错");

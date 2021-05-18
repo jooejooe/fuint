@@ -52,7 +52,28 @@ public class SignController extends BaseController {
     private VerifyCodeService verifyCodeService;
 
     /**
-     * 会员验证码登录接口
+     * 微信授权登录
+     * */
+    @RequestMapping(value = "/mpWxLogin", method = RequestMethod.POST)
+    @CrossOrigin
+    public ResponseObject mpWxLogin(HttpServletRequest request, @RequestBody Map<String, Object> param, Model model) throws BusinessCheckException{
+        Map<String, Object> outParams = new HashMap<String, Object>();
+
+        MtUser mtUser = memberService.queryMemberById(1);
+
+        String userAgent = request.getHeader("user-agent");
+        String token = tokenService.generateToken(userAgent, mtUser.getMobile());
+        tokenService.saveToken(token, mtUser);
+
+        outParams.put("token", token);
+        outParams.put("userId", mtUser.getId());
+        outParams.put("userName", mtUser.getRealName());
+
+        return getSuccessResult("登录成功", outParams);
+    }
+
+    /**
+     * 短信验证码登录
      */
     @RequestMapping(value = "/signIn", method = RequestMethod.POST)
     @CrossOrigin
@@ -116,7 +137,8 @@ public class SignController extends BaseController {
     public ResponseObject doGetUserInfo(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException{
         String userToken = request.getHeader("Access-Token");
         MtUser mtUser = tokenService.getUserInfoByToken(userToken);
-        if (mtUser==null) {
+
+        if (mtUser == null) {
             return getFailureResult(1001, "用户没登录!");
         }
 

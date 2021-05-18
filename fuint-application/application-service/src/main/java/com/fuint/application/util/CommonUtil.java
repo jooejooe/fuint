@@ -24,6 +24,37 @@ import java.util.regex.Pattern;
 public class CommonUtil {
 
     /**
+     * 生成随机订单号
+     * @param userId
+     * */
+    public static String createOrderSN(String userId) {
+        // 时间是17位
+        String date = DateUtil.formatDate(Calendar.getInstance().getTime(), "yyyyMMddHHmmssSSS");
+        StringBuilder sb = new StringBuilder();
+        sb.append(date);
+
+        // 目前长益的会员id为9位，不确定后面会不会变更
+        if (userId.length() > 9) {
+            sb.append(userId.substring(userId.length() - 9, 9));
+        }
+
+        if (userId.length() == 9) {
+            sb.append(userId);
+        }
+
+        // 如果小于9位补位
+        if (userId.length() < 9) {
+            for (int i = 0; i < userId.length() - 9; i++) {
+                sb.append("0");
+            }
+        }
+
+        // 加上4位随机数
+        sb.append(SeqUtil.getRandomNumber(4));
+        return sb.toString();
+    }
+
+    /**
      * 获取系统当前时间戳(精确到秒)
      *
      * @return

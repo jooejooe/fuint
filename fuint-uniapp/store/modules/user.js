@@ -35,19 +35,17 @@ const user = {
 
     // 用户登录
     Login({ commit }, data) {
-		let response = {"status":"200", "message": "success", "data":{"token":"fushengqian", "userId":"1001"}}
-		const result = response.data
-		loginSuccess(commit, result)
-	  
-      /*return new Promise((resolve, reject) => {
-        LoginApi.login({ form: data })
+      return new Promise((resolve, reject) => {
+        LoginApi.login(data)
           .then(response => {
-            const result = response.data
-            loginSuccess(commit, result)
-            resolve(response)
+			if (response.code === 200) {
+				const result = response.data
+				loginSuccess(commit, result)
+			}
+			resolve(response)
           })
           .catch(reject)
-      })*/
+      })
     },
 
     // 微信小程序快捷登录

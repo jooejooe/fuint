@@ -122,16 +122,10 @@ $http.dataFactory = async res => {
   }
 
   /*********以下只是模板(及共参考)，需要开发者根据各自的接口返回类型修改*********/
-
   // 判断数据是否请求成功
-  // result.status [ 200正常 500有错误 401未登录 403没有权限访问 ]
-  if (httpData.status == 200) {
-    // 返回正确的结果(then接受数据)
-    return Promise.resolve(httpData)
-  }
-
+  // result.code [ 200正常 5000有错误 1001未登录 4003没有权限访问 ]
   // 判断是否需要登录
-  if (httpData.status == 401) {
+  if (httpData.code == 1001) {
     // 401也有可能是后端登录态到期, 所以要清空本地的登录状态
     store.dispatch('Logout')
     // 弹窗告诉用户去登录
@@ -159,9 +153,8 @@ $http.dataFactory = async res => {
       result: httpData
     })
   }
-
   // 其他错误提示
-  if (httpData.status == 500) {
+  else if (httpData.status == 5000) {
     if (res.isPrompt) {
       setTimeout(() => {
         uni.showToast({
@@ -177,6 +170,9 @@ $http.dataFactory = async res => {
       errMsg: httpData.message,
       result: httpData
     })
+  } else {
+    // 返回正确的结果(then接受数据)
+    return Promise.resolve(httpData)
   }
 
   /*********以上只是模板(及共参考)，需要开发者根据各自的接口返回类型修改*********/

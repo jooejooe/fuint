@@ -1,7 +1,7 @@
 package com.fuint.application.web.rest;
 
 import com.fuint.application.dao.entities.MtUserCoupon;
-import com.fuint.application.dao.entities.MtUserGroup;
+import com.fuint.application.dao.entities.MtUserGrade;
 import com.fuint.application.dto.AssetDto;
 import com.fuint.application.enums.CouponTypeEnum;
 import com.fuint.application.service.coupon.CouponService;
@@ -11,7 +11,6 @@ import com.fuint.exception.BusinessCheckException;
 import com.fuint.application.ResponseObject;
 import com.fuint.application.BaseController;
 import com.fuint.application.dao.entities.MtUser;
-import com.fuint.application.dao.entities.MtCoupon;
 import com.fuint.application.service.token.TokenService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,9 +43,6 @@ public class UserController extends BaseController {
     @Autowired
     private UserCouponService userCouponService;
 
-    @Autowired
-    private CouponService couponService;
-
     /**
      * 获取会员信息
      */
@@ -56,15 +52,21 @@ public class UserController extends BaseController {
         String userToken = request.getHeader("Access-Token");
         MtUser userInfo = tokenService.getUserInfoByToken(userToken);
 
-        if (userInfo == null) {
+        if (null == userInfo) {
             return getFailureResult(1001, "用户未登录");
         }
 
-        MtUserGroup groupInfo = memberService.queryMemberGroupByGroupId(Integer.parseInt(userInfo.getGroupId()));
+        userInfo = memberService.queryMemberById(userInfo.getId());
 
-        Map<String, Object> outParams = new HashMap<String, Object>();
+        if (null == userInfo.getGradeId()) {
+            userInfo.setGradeId("0");
+        }
+
+        MtUserGrade gradeInfo = memberService.queryMemberGradeByGradeId(Integer.parseInt(userInfo.getGradeId()));
+
+        Map<String, Object> outParams = new HashMap<>();
         outParams.put("userInfo", userInfo);
-        outParams.put("groupInfo", groupInfo);
+        outParams.put("gradeInfo", gradeInfo);
 
         return getSuccessResult(outParams);
     }

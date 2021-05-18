@@ -4,7 +4,7 @@
     <swiper :autoplay="autoplay" class="swiper-box" :duration="duration" :circular="true" :interval="itemStyle.interval * 1000"
       @change="_bindChange">
       <swiper-item v-for="(dataItem, index) in dataList" :key="index">
-        <image mode="widthFix" class="slide-image" :src="dataItem.imgUrl" @click="onLink(dataItem.linkUrl)"
+        <image mode="widthFix" class="slide-image" :src="dataItem.image" @click="onLink(dataItem.url)"
           @load="_imagesHeight" />
       </swiper-item>
     </swiper>

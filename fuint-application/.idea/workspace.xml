@@ -5,192 +5,453 @@
       <artifact name="application-web:war exploded" />
     </artifacts-to-build>
   </component>
-  <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/coupon/CouponService.java" description="PaginationResponse&lt;MtCoupon&gt; queryCouponListByPagi..." line="24" />
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c80f41ba-e787-458f-8eff-4e91aaee4ff1" name="Default" comment="" />
-    <ignored path="$PROJECT_DIR$/application-web/target/" />
-    <ignored path="$PROJECT_DIR$/target/" />
-    <ignored path="$PROJECT_DIR$/application-dao/target/" />
-    <ignored path="$PROJECT_DIR$/application-core/target/" />
-    <ignored path="$PROJECT_DIR$/application-service/target/" />
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
-    <option name="TRACKING_ENABLED" value="true" />
+    <list default="true" id="4b27bcc8-4886-42e3-a845-a0a0b8629056" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_liyiorg_weixin_popular_2_8_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_wxpay_wxpay_sdk_0_0_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_sun_xml_bind_jaxb_impl_2_1_12.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_vdurmont_emoji_java_3_1_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpmime_4_3_6.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_json_json_20140107.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_ow2_asm_asm_6_0_ALPHA.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/entities/MtOrder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/dto/OrderDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/dto/OrderGoodsDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/dto/ResUserOrderDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/dto/UserOrderDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/enums/OrderStatusEnum.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/enums/OrderTypeEnum.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/enums/PointSettingEnum.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/enums/SettingTypeEnum.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/enums/UserGradeCatchTypeEnum.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/order/OrderService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/order/OrderServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/setting/SettingService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/setting/SettingServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/usergrade/UserGradeService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/usergrade/UserGradeServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/weixin/WeixinService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/weixin/WeixinServiceimpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/backend/orderManager/OrderManagerController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/backend/point/PointController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/backend/userGrade/UserGradeController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/rest/PayController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/rest/PointsController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application-web/src/main/webapp/template/page/order/list.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application-web/src/main/webapp/template/page/point/list.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application-web/src/main/webapp/template/page/point/setting.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application-web/src/main/webapp/template/page/userGrade/add.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application-web/src/main/webapp/template/page/userGrade/edit.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application-web/src/main/webapp/template/page/userGrade/list.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../fuint-root/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../fuint-root/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../fuint-uniapp/api/settlement.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../fuint-uniapp/components/page/coupon/index.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../fuint-uniapp/components/prestore-popup/index.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../fuint-uniapp/components/prestore-popup/number-box/index.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../fuint-uniapp/pages/coupon/list.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../fuint-uniapp/pages/prestore/buy.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../fuint-uniapp/pages/prestore/buy.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../fuint-uniapp/pages/prestore/components/Popup.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../fuint-uniapp/pages/prestore/components/Service.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../fuint-uniapp/pages/prestore/components/SlideImage.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../fuint-uniapp/pages/settlement/index.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../fuint-uniapp/pages/settlement/style.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../fuint-uniapp/pages/user/setting.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/application_web_war.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/application_web_war.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/application_web_war_exploded.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/application_web_war_exploded.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/coupon_web_war.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/coupon_web_war_exploded.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__antlr_antlr_2_7_7.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__antlr_antlr_2_7_7.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__aopalliance_aopalliance_1_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__aopalliance_aopalliance_1_0.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__c3p0_c3p0_0_9_1_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__c3p0_c3p0_0_9_1_1.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__cglib_cglib_3_2_4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__cglib_cglib_3_2_4.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__ch_qos_logback_logback_classic_1_1_3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__ch_qos_logback_logback_classic_1_1_3.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__ch_qos_logback_logback_core_1_1_3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__ch_qos_logback_logback_core_1_1_3.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_alibaba_druid_1_0_15.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_alibaba_druid_1_0_15.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_alibaba_fastjson_1_2_17.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_alibaba_fastjson_1_2_17.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_alibaba_rocketmq_rocketmq_client_3_5_8.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_alibaba_rocketmq_rocketmq_client_3_5_8.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_aliyun_aliyun_java_sdk_core_4_4_6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_aliyun_aliyun_java_sdk_core_4_4_6.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_beust_jcommander_1_48.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_beust_jcommander_1_48.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_annotations_2_7_5.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_annotations_2_7_5.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_core_2_7_5.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_core_2_7_5.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_databind_2_7_5.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_databind_2_7_5.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_dataformat_jackson_dataformat_xml_2_7_5.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_dataformat_jackson_dataformat_xml_2_7_5.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_dataformat_jackson_dataformat_yaml_2_7_6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_dataformat_jackson_dataformat_yaml_2_7_6.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_module_jackson_module_jaxb_annotations_2_7_5.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_module_jackson_module_jaxb_annotations_2_7_5.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fuint_fuint_base_0_0_1_SNAPSHOT.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fuint_fuint_base_0_0_1_SNAPSHOT.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fuint_fuint_cache_0_0_1_SNAPSHOT.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fuint_fuint_cache_0_0_1_SNAPSHOT.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fuint_fuint_component_0_0_1_SNAPSHOT.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fuint_fuint_component_0_0_1_SNAPSHOT.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fuint_fuint_core_0_0_1_SNAPSHOT.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fuint_fuint_core_0_0_1_SNAPSHOT.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fuint_fuint_util_0_0_1_SNAPSHOT.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fuint_fuint_util_0_0_1_SNAPSHOT.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_axet_kaptcha_0_0_9.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_axet_kaptcha_0_0_9.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_jai_imageio_jai_imageio_core_1_3_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_jai_imageio_jai_imageio_core_1_3_1.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_virtuald_curvesapi_1_03.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_virtuald_curvesapi_1_03.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_code_gson_gson_2_8_5.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_code_gson_gson_2_8_5.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_zxing_core_3_3_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_zxing_core_3_3_0.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_zxing_javase_3_3_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_zxing_javase_3_3_0.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_jhlabs_filters_2_0_235.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_jhlabs_filters_2_0_235.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__commons_beanutils_commons_beanutils_1_8_3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_beanutils_commons_beanutils_1_8_3.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__commons_codec_commons_codec_1_10.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_codec_commons_codec_1_10.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__commons_collections_commons_collections_3_2_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_collections_commons_collections_3_2_1.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__commons_fileupload_commons_fileupload_1_3_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_fileupload_commons_fileupload_1_3_1.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__commons_io_commons_io_1_3_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_io_commons_io_1_3_2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__commons_lang_commons_lang_2_5.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_lang_commons_lang_2_5.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__commons_logging_commons_logging_1_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_logging_commons_logging_1_2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__dom4j_dom4j_1_6_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__dom4j_dom4j_1_6_1.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_netty_netty_buffer_4_0_42_Final.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_netty_netty_buffer_4_0_42_Final.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_netty_netty_codec_4_0_42_Final.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_netty_netty_codec_4_0_42_Final.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_netty_netty_common_4_0_42_Final.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_netty_netty_common_4_0_42_Final.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_netty_netty_handler_4_0_42_Final.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_netty_netty_handler_4_0_42_Final.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_netty_netty_transport_4_0_42_Final.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_netty_netty_transport_4_0_42_Final.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_projectreactor_reactor_core_2_0_8_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_projectreactor_reactor_core_2_0_8_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__io_projectreactor_reactor_stream_2_0_8_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_projectreactor_reactor_stream_2_0_8_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__javax_activation_javax_activation_api_1_2_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_activation_javax_activation_api_1_2_0.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__javax_cache_cache_api_1_0_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_cache_cache_api_1_0_0.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__javax_servlet_javax_servlet_api_3_1_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_servlet_javax_servlet_api_3_1_0.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__javax_xml_bind_jaxb_api_2_3_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_xml_bind_jaxb_api_2_3_1.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__junit_junit_3_8_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__junit_junit_3_8_1.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__mysql_mysql_connector_java_5_1_29.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__mysql_mysql_connector_java_5_1_29.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__net_bytebuddy_byte_buddy_1_4_26.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__net_bytebuddy_byte_buddy_1_4_26.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__net_openhft_zero_allocation_hashing_0_5.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__net_openhft_zero_allocation_hashing_0_5.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__net_sf_ehcache_ehcache_2_10_4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__net_sf_ehcache_ehcache_2_10_4.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__net_sf_ehcache_ehcache_core_2_5_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__net_sf_ehcache_ehcache_core_2_5_0.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__net_sf_ezmorph_ezmorph_1_0_6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__net_sf_ezmorph_ezmorph_1_0_6.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__net_sf_json_lib_json_lib_jdk15_2_4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__net_sf_json_lib_json_lib_jdk15_2_4.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__nl_bitwalker_UserAgentUtils_1_2_4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__nl_bitwalker_UserAgentUtils_1_2_4.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_ant_ant_1_9_6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_ant_ant_1_9_6.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_ant_ant_launcher_1_9_6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_ant_ant_launcher_1_9_6.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_lang3_3_3_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_lang3_3_3_2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_pool2_2_4_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_pool2_2_4_2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_geronimo_specs_geronimo_jta_1_1_spec_1_1_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_geronimo_specs_geronimo_jta_1_1_spec_1_1_1.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpclient_4_5_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpclient_4_5_2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpcore_4_4_12.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpcore_4_4_12.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_maven_artifact_2_0_6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_maven_artifact_2_0_6.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_maven_artifact_manager_2_0_6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_maven_artifact_manager_2_0_6.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_maven_core_2_0_6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_maven_core_2_0_6.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_maven_error_diagnostics_2_0_6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_maven_error_diagnostics_2_0_6.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_maven_model_2_0_6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_maven_model_2_0_6.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_maven_monitor_2_0_6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_maven_monitor_2_0_6.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_maven_plugin_api_2_0_6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_maven_plugin_api_2_0_6.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_maven_plugin_descriptor_2_0_6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_maven_plugin_descriptor_2_0_6.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_maven_plugin_parameter_documenter_2_0_6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_maven_plugin_parameter_documenter_2_0_6.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_maven_plugin_registry_2_0_6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_maven_plugin_registry_2_0_6.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_maven_profile_2_0_6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_maven_profile_2_0_6.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_maven_project_2_0_6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_maven_project_2_0_6.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_maven_repository_metadata_2_0_6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_maven_repository_metadata_2_0_6.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_maven_settings_2_0_6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_maven_settings_2_0_6.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_maven_toolchain_1_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_maven_toolchain_1_0.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_plugins_maven_compiler_plugin_2_3_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_plugins_maven_compiler_plugin_2_3_2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_wagon_wagon_provider_api_1_0_beta_2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_maven_wagon_wagon_provider_api_1_0_beta_2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_poi_poi_3_14.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_poi_poi_3_14.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_poi_poi_ooxml_3_14.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_poi_poi_ooxml_3_14.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_poi_poi_ooxml_schemas_3_14.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_poi_poi_ooxml_schemas_3_14.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_shiro_shiro_core_1_2_3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_shiro_shiro_core_1_2_3.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_shiro_shiro_ehcache_1_2_3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_shiro_shiro_ehcache_1_2_3.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_shiro_shiro_quartz_1_2_3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_shiro_shiro_quartz_1_2_3.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_shiro_shiro_spring_1_2_3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_shiro_shiro_spring_1_2_3.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_shiro_shiro_web_1_2_3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_shiro_shiro_web_1_2_3.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_xmlbeans_xmlbeans_2_6_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_xmlbeans_xmlbeans_2_6_0.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_aspectj_aspectjrt_1_8_6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_aspectj_aspectjrt_1_8_6.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_aspectj_aspectjweaver_1_8_9.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_aspectj_aspectjweaver_1_8_9.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_codehaus_plexus_plexus_compiler_api_1_8_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_codehaus_plexus_plexus_compiler_api_1_8_1.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_codehaus_plexus_plexus_compiler_javac_1_8_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_codehaus_plexus_plexus_compiler_javac_1_8_1.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_codehaus_plexus_plexus_compiler_manager_1_8_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_codehaus_plexus_plexus_compiler_manager_1_8_1.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_codehaus_plexus_plexus_utils_2_0_5.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_codehaus_plexus_plexus_utils_2_0_5.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_codehaus_woodstox_stax2_api_3_1_4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_codehaus_woodstox_stax2_api_3_1_4.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_freemarker_freemarker_2_3_23.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_freemarker_freemarker_2_3_23.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_common_hibernate_commons_annotations_5_0_1_Final.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_common_hibernate_commons_annotations_5_0_1_Final.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_hibernate_core_5_0_9_Final.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_hibernate_core_5_0_9_Final.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_hibernate_entitymanager_5_0_9_Final.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_hibernate_entitymanager_5_0_9_Final.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_javax_persistence_hibernate_jpa_2_1_api_1_0_0_Final.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_javax_persistence_hibernate_jpa_2_1_api_1_0_0_Final.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_ini4j_ini4j_0_5_4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_ini4j_ini4j_0_5_4.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_jacoco_org_jacoco_agent_runtime_0_8_3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jacoco_org_jacoco_agent_runtime_0_8_3.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_javassist_javassist_3_18_1_GA.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_javassist_javassist_3_18_1_GA.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_jboss_jandex_2_0_0_Final.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jboss_jandex_2_0_0_Final.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_jboss_logging_jboss_logging_3_2_1_Final.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jboss_logging_jboss_logging_3_2_1_Final.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_jmockit_jmockit_1_30.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jmockit_jmockit_1_30.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_jodd_jodd_bean_3_7_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jodd_jodd_bean_3_7_1.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_jodd_jodd_core_3_7_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jodd_jodd_core_3_7_1.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_logback_extensions_logback_ext_spring_0_1_4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_logback_extensions_logback_ext_spring_0_1_4.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_opensymphony_quartz_quartz_1_6_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_opensymphony_quartz_quartz_1_6_1.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_ow2_asm_asm_5_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_quartz_scheduler_quartz_2_2_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_quartz_scheduler_quartz_2_2_1.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_quartz_scheduler_quartz_jobs_2_2_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_quartz_scheduler_quartz_jobs_2_2_1.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_reactivestreams_reactive_streams_1_0_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_reactivestreams_reactive_streams_1_0_0.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_redisson_redisson_3_1_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_redisson_redisson_3_1_0.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_jcl_over_slf4j_1_7_18.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_jcl_over_slf4j_1_7_18.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_18.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_18.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_data_spring_data_commons_1_9_3_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_data_spring_data_commons_1_9_3_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_data_spring_data_jpa_1_7_3_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_data_spring_data_jpa_1_7_3_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_aop_4_2_6_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_aop_4_2_6_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_aspects_4_2_6_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_aspects_4_2_6_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_beans_4_2_6_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_beans_4_2_6_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_4_2_6_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_4_2_6_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_support_4_2_6_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_support_4_2_6_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_core_4_2_6_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_core_4_2_6_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_expression_4_2_6_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_expression_4_2_6_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_jdbc_4_2_6_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_jdbc_4_2_6_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_orm_4_2_6_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_orm_4_2_6_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_test_4_2_6_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_test_4_2_6_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_tx_4_2_6_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_tx_4_2_6_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_web_4_2_6_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_web_4_2_6_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_webmvc_4_2_6_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_webmvc_4_2_6_RELEASE.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_yaml_snakeyaml_1_15.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_yaml_snakeyaml_1_15.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__redis_clients_jedis_2_9_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__redis_clients_jedis_2_9_0.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__stax_stax_api_1_0_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__stax_stax_api_1_0_1.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__xml_apis_xml_apis_1_0_b2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__xml_apis_xml_apis_1_0_b2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-core/application-core.iml" beforeDir="false" afterPath="$PROJECT_DIR$/application-core/application-core.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-core/src/main/java/com/fuint/application/BaseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/application-core/src/main/java/com/fuint/application/BaseService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-dao/application-dao.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-dao/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/App.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/generator/GenEntityMysql.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/repositories/MtBannerRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/repositories/MtConfirmLogRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/repositories/MtConfirmerRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/repositories/MtCouponGroupRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/repositories/MtCouponInfoRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/repositories/MtCouponRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/repositories/MtGiveItemRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/repositories/MtGiveRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/repositories/MtPointRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/repositories/MtSendLogRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/repositories/MtSmsSendedLogRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/repositories/MtSmsTemplateRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/repositories/MtStoreRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/repositories/MtUserCouponRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/repositories/MtUserGroupRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/repositories/MtUserRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/repositories/MtVerifyCodeRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/repositories/TAccountRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dto/GiveDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dto/GiveItemDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dto/MtSmsTemplateDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dto/MtStoreDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/util/Constant.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/util/JsonDateDeserializer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-service/application-service.iml" beforeDir="false" afterPath="$PROJECT_DIR$/application-service/application-service.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/application-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/config/EhcacaheConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/config/EhcacaheConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/config/RedisCacheConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/config/RedisCacheConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/banner/BannerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/banner/BannerService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/confirmer/ConfirmerServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/confirmer/ConfirmerServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/coupon/CouponServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/coupon/CouponServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/member/MemberService.java" beforeDir="false" afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/member/MemberService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/member/MemberServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/member/MemberServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/point/PointService.java" beforeDir="false" afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/point/PointService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/point/PointServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/point/PointServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/sms/MessageResInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/sms/MessageResInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/store/StoreServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/store/StoreServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/token/TokenService.java" beforeDir="false" afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/token/TokenService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/usercoupon/UserCouponServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/usercoupon/UserCouponServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/verifycode/VerifyCodeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/verifycode/VerifyCodeService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/verifycode/VerifyCodeServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/verifycode/VerifyCodeServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/util/CommonUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/util/CommonUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/util/PhoneFormatCheckUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/util/PhoneFormatCheckUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-web/application-web.iml" beforeDir="false" afterPath="$PROJECT_DIR$/application-web/application-web.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/backend/account/AccountDefineController.java" beforeDir="false" afterPath="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/backend/account/AccountDefineController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/backend/config/ApplicationConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/backend/config/ApplicationConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/backend/confirmer/confirmerManagerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/backend/confirmer/confirmerManagerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/backend/couponGroup/couponGroupController.java" beforeDir="false" afterPath="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/backend/couponGroup/couponGroupController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/backend/member/MemberController.java" beforeDir="false" afterPath="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/backend/member/MemberController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/rest/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/rest/OrderController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/rest/SettlementController.java" beforeDir="false" afterPath="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/rest/SettlementController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/rest/SignController.java" beforeDir="false" afterPath="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/rest/SignController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/rest/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/rest/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-web/src/main/webapp/template/page/couponGroup/add.html" beforeDir="false" afterPath="$PROJECT_DIR$/application-web/src/main/webapp/template/page/couponGroup/add.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-web/src/main/webapp/template/page/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/application-web/src/main/webapp/template/page/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-web/src/main/webapp/template/page/member/member_add.html" beforeDir="false" afterPath="$PROJECT_DIR$/application-web/src/main/webapp/template/page/member/member_add.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-web/src/main/webapp/template/page/member/member_edit.html" beforeDir="false" afterPath="$PROJECT_DIR$/application-web/src/main/webapp/template/page/member/member_edit.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-web/src/main/webapp/template/page/member/member_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/application-web/src/main/webapp/template/page/member/member_list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-web/src/main/webapp/template/page/store/store_add.html" beforeDir="false" afterPath="$PROJECT_DIR$/application-web/src/main/webapp/template/page/store/store_add.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-web/target/application-web/META-INF/MANIFEST.MF" beforeDir="false" afterPath="$PROJECT_DIR$/application-web/target/application-web/META-INF/MANIFEST.MF" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-web/target/application-web/WEB-INF/classes/com/fuint/application/web/backend/account/AccountDefineController.class" beforeDir="false" afterPath="$PROJECT_DIR$/application-web/target/application-web/WEB-INF/classes/com/fuint/application/web/backend/account/AccountDefineController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-web/target/application-web/WEB-INF/classes/com/fuint/application/web/backend/member/MemberController.class" beforeDir="false" afterPath="$PROJECT_DIR$/application-web/target/application-web/WEB-INF/classes/com/fuint/application/web/backend/member/MemberController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-web/target/application-web/WEB-INF/classes/com/fuint/application/web/rest/SignController.class" beforeDir="false" afterPath="$PROJECT_DIR$/application-web/target/application-web/WEB-INF/classes/com/fuint/application/web/rest/SignController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-web/target/application-web/WEB-INF/lib/application-core-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/application-web/target/application-web/WEB-INF/lib/application-core-1.0-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-web/target/application-web/WEB-INF/lib/application-dao-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/application-web/target/application-web/WEB-INF/lib/application-dao-1.0-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-web/target/application-web/WEB-INF/lib/application-service-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/application-web/target/application-web/WEB-INF/lib/application-service-1.0-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-web/target/application-web/WEB-INF/lib/asm-5.1.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-web/target/application-web/template/page/couponGroup/add.html" beforeDir="false" afterPath="$PROJECT_DIR$/application-web/target/application-web/template/page/couponGroup/add.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-web/target/application-web/template/page/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/application-web/target/application-web/template/page/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-web/target/application-web/template/page/member/member_add.html" beforeDir="false" afterPath="$PROJECT_DIR$/application-web/target/application-web/template/page/member/member_add.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-web/target/application-web/template/page/member/member_edit.html" beforeDir="false" afterPath="$PROJECT_DIR$/application-web/target/application-web/template/page/member/member_edit.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-web/target/application-web/template/page/member/member_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/application-web/target/application-web/template/page/member/member_list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application-web/target/application-web/template/page/store/store_add.html" beforeDir="false" afterPath="$PROJECT_DIR$/application-web/target/application-web/template/page/store/store_add.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fuint-application.iml" beforeDir="false" afterPath="$PROJECT_DIR$/fuint-application.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-framework/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__antlr_antlr_2_7_7.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__aopalliance_aopalliance_1_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__cglib_cglib_3_2_4.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__ch_qos_logback_logback_classic_1_1_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__ch_qos_logback_logback_core_1_1_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__com_alibaba_druid_1_0_15.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__com_alibaba_fastjson_1_2_17.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_annotations_2_7_5.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_core_2_7_5.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_databind_2_7_5.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__com_fasterxml_jackson_dataformat_jackson_dataformat_xml_2_7_5.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__com_fasterxml_jackson_dataformat_jackson_dataformat_yaml_2_7_6.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__com_fasterxml_jackson_module_jackson_module_jaxb_annotations_2_7_5.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__com_github_axet_kaptcha_0_0_9.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__com_jhlabs_filters_2_0_235.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__commons_beanutils_commons_beanutils_1_8_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__commons_codec_commons_codec_1_10.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__commons_collections_commons_collections_3_2_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__commons_fileupload_commons_fileupload_1_3_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__commons_io_commons_io_1_3_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__commons_lang_commons_lang_2_5.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__commons_logging_commons_logging_1_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__dom4j_dom4j_1_6_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__io_netty_netty_buffer_4_0_42_Final.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__io_netty_netty_codec_4_0_42_Final.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__io_netty_netty_common_4_0_42_Final.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__io_netty_netty_handler_4_0_42_Final.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__io_netty_netty_transport_4_0_42_Final.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__io_projectreactor_reactor_core_2_0_8_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__io_projectreactor_reactor_stream_2_0_8_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__javax_cache_cache_api_1_0_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__javax_servlet_javax_servlet_api_3_1_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__junit_junit_4_12.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__mysql_mysql_connector_java_5_1_29.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__net_bytebuddy_byte_buddy_1_4_26.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__net_openhft_zero_allocation_hashing_0_5.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__net_sf_ehcache_ehcache_core_2_5_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__net_sf_ezmorph_ezmorph_1_0_6.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__net_sf_json_lib_json_lib_jdk15_2_4.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_apache_ant_ant_1_9_6.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_apache_ant_ant_launcher_1_9_6.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_apache_commons_commons_lang3_3_3_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_apache_commons_commons_pool2_2_4_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_apache_geronimo_specs_geronimo_jta_1_1_spec_1_1_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_apache_maven_maven_artifact_2_0_6.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_apache_maven_maven_artifact_manager_2_0_6.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_apache_maven_maven_core_2_0_6.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_apache_maven_maven_error_diagnostics_2_0_6.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_apache_maven_maven_model_2_0_6.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_apache_maven_maven_monitor_2_0_6.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_apache_maven_maven_plugin_api_2_0_6.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_apache_maven_maven_plugin_descriptor_2_0_6.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_apache_maven_maven_plugin_parameter_documenter_2_0_6.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_apache_maven_maven_plugin_registry_2_0_6.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_apache_maven_maven_profile_2_0_6.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_apache_maven_maven_project_2_0_6.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_apache_maven_maven_repository_metadata_2_0_6.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_apache_maven_maven_settings_2_0_6.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_apache_maven_maven_toolchain_1_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_apache_maven_plugins_maven_compiler_plugin_2_3_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_apache_maven_wagon_wagon_provider_api_1_0_beta_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_apache_shiro_shiro_core_1_2_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_apache_shiro_shiro_ehcache_1_2_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_apache_shiro_shiro_quartz_1_2_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_apache_shiro_shiro_spring_1_2_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_apache_shiro_shiro_web_1_2_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_aspectj_aspectjrt_1_8_6.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_aspectj_aspectjweaver_1_8_9.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_codehaus_plexus_plexus_compiler_api_1_8_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_codehaus_plexus_plexus_compiler_javac_1_8_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_codehaus_plexus_plexus_compiler_manager_1_8_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_codehaus_plexus_plexus_utils_2_0_5.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_codehaus_woodstox_stax2_api_3_1_4.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_freemarker_freemarker_2_3_23.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_hamcrest_hamcrest_core_1_3.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_hibernate_common_hibernate_commons_annotations_5_0_1_Final.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_hibernate_hibernate_core_5_0_9_Final.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_hibernate_hibernate_entitymanager_5_0_9_Final.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_hibernate_javax_persistence_hibernate_jpa_2_1_api_1_0_0_Final.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_javassist_javassist_3_18_1_GA.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_jboss_jandex_2_0_0_Final.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_jboss_logging_jboss_logging_3_2_1_Final.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_jodd_jodd_bean_3_7_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_jodd_jodd_core_3_7_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_logback_extensions_logback_ext_spring_0_1_4.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_opensymphony_quartz_quartz_1_6_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_ow2_asm_asm_5_1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_reactivestreams_reactive_streams_1_0_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_redisson_redisson_3_1_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_slf4j_jcl_over_slf4j_1_7_18.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_18.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_springframework_data_spring_data_commons_1_9_3_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_springframework_data_spring_data_jpa_1_7_3_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_springframework_spring_aop_4_2_6_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_springframework_spring_aspects_4_2_6_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_springframework_spring_beans_4_2_6_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_springframework_spring_context_4_2_6_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_springframework_spring_context_support_4_2_6_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_springframework_spring_core_4_2_6_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_springframework_spring_expression_4_2_6_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_springframework_spring_jdbc_4_2_6_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_springframework_spring_orm_4_2_6_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_springframework_spring_tx_4_2_6_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_springframework_spring_web_4_2_6_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_springframework_spring_webmvc_4_2_6_RELEASE.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__org_yaml_snakeyaml_1_15.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__redis_clients_jedis_2_9_0.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/libraries/Maven__xml_apis_xml_apis_1_0_b2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-framework/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/fuint-base/fuint-base.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-framework/fuint-base/fuint-base.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/fuint-cache/fuint-cache.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-framework/fuint-cache/fuint-cache.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/fuint-component/fuint-component.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-framework/fuint-component/fuint-component.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/fuint-core/fuint-core.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-framework/fuint-core/fuint-core.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/fuint-framework.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-framework/fuint-framework.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/fuint-parent/fuint-parent.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-framework/fuint-parent/fuint-parent.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/fuint-security/fuint-security.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-framework/fuint-security/fuint-security.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-framework/fuint-util/fuint-util.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-framework/fuint-util/fuint-util.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-root/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-root/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-root/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-root/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/api/checkout.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/api/coupon.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-uniapp/api/coupon.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/api/login/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-uniapp/api/login/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/api/myCoupon.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-uniapp/api/myCoupon.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/api/order.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-uniapp/api/order.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/api/order/comment.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/api/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-uniapp/api/page.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/api/points/log.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-uniapp/api/points/log.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/api/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-uniapp/api/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/common/constant/paginate.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-uniapp/common/constant/paginate.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/components/page/banner/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-uniapp/components/page/banner/index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-uniapp/config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-uniapp/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/pages.json" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-uniapp/pages.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/pages/cart/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-uniapp/pages/cart/index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/pages/checkout/index.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/pages/checkout/style.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/pages/coupon/detail.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-uniapp/pages/coupon/detail.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/pages/coupon/index.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/pages/index/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-uniapp/pages/index/index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/pages/login/components/main.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-uniapp/pages/login/components/main.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/pages/login/components/mp-weixin.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-uniapp/pages/login/components/mp-weixin.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/pages/my-coupon/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-uniapp/pages/my-coupon/index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/pages/order/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-uniapp/pages/order/index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/pages/points/log.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-uniapp/pages/points/detail.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/pages/prestore/detail.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-uniapp/pages/prestore/detail.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/pages/timer/detail.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-uniapp/pages/timer/detail.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/pages/user/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-uniapp/pages/user/index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/static/background/user-header.png" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-uniapp/static/background/user-header.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/static/tabbar/home-active.png" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-uniapp/static/tabbar/home-active.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/static/tabbar/user-active.png" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-uniapp/static/tabbar/user-active.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/store/modules/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-uniapp/store/modules/user.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/utils/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-uniapp/utils/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../fuint-uniapp/utils/request/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../fuint-uniapp/utils/request/index.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="BannerController.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/backend/content/BannerController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="558">
-              <caret line="164" column="13" lean-forward="true" selection-start-line="164" selection-start-column="13" selection-end-line="164" selection-end-column="13" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BannerService.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/banner/BannerService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="282">
-              <caret line="29" column="13" lean-forward="false" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BannerServiceImpl.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/banner/BannerServiceImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="282">
-              <caret line="55" column="20" lean-forward="false" selection-start-line="55" selection-start-column="20" selection-end-line="55" selection-end-column="20" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="list.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application-web/src/main/webapp/template/page/banner/list.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1598">
-              <caret line="71" column="16" lean-forward="true" selection-start-line="71" selection-start-column="16" selection-end-line="71" selection-end-column="16" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="add.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application-web/src/main/webapp/template/page/banner/add.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="372">
-              <caret line="17" column="65" lean-forward="true" selection-start-line="17" selection-start-column="65" selection-end-line="17" selection-end-column="65" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
-  </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>EQ_status</find>
-      <find>searchParams</find>
-      <find>EQ_groupId</find>
-      <find>queryMembersByParams</find>
-      <find>storeService</find>
-      <find>queryMemberByMobile</find>
-      <find>parent</find>
-      <find>selectedButton</find>
-      <find>getDataByParams</find>
-      <find>http://img.mianshui365.com</find>
-      <find>@mh.images</find>
-      <find>coupon</find>
-      <find>未使用</find>
-      <find>CouponCodeStatusEnum</find>
-      <find>com.fuint.application.enums</find>
-      <find>sendCoupon</find>
-      <find>MtUserCoupon</find>
-      <find>MtCouponGroup groupInfo</find>
-      <find>不允许再新增卡券</find>
-      <find>queryCouponGroupById</find>
-      <find>couponInfoStatusDesc</find>
-      <find>优惠券</find>
-      <find>ct.type</find>
-      <find>ACCESSKRYID</find>
-      <find>images.website</find>
-      <find>mh.static</find>
-      <find>跨域</find>
-      <find>new ArrayList</find>
-      <find>wang.yq</find>
-      <find>store</find>
-    </findStrings>
-    <replaceStrings>
-      <replace>com.fuint.application</replace>
-      <replace>适用店铺</replace>
-      <replace>table table-striped table-bordered</replace>
-      <replace>卡券</replace>
-      <replace />
-      <replace>zach</replace>
-    </replaceStrings>
-  </component>
-  <component name="GradleLocalSettings">
-    <option name="externalProjectsViewState">
-      <projects_view />
-    </option>
-  </component>
-  <component name="IdeDocumentHistory">
-    <option name="CHANGED_PATHS">
-      <list>
-        <option value="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/dto/ReqCouponDto.java" />
-        <option value="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/entities/MtCoupon.java" />
-        <option value="$PROJECT_DIR$/application-web/src/main/webapp/template/page/coupon/edit.html" />
-        <option value="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/coupon/CouponService.java" />
-        <option value="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/enums/CouponCodeStatusEnum.java" />
-        <option value="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/enums/UserCouponStatusEnum.java" />
-        <option value="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/enums/SendWayEnum.java" />
-        <option value="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/backend/member/CouponinfoController.java" />
-        <option value="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/dto/ReqResult.java" />
-        <option value="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/backend/userCoupon/userCouponController.java" />
-        <option value="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/backend/confirmer/confirmerManagerController.java" />
-        <option value="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/enums/GroupTypeEnum.java" />
-        <option value="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/backend/give/giveLogController.java" />
-        <option value="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/coupongroup/CouponGroupServiceImpl.java" />
-        <option value="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/util/ImageQrUtil.java" />
-        <option value="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/entities/UvCouponInfo.java" />
-        <option value="$PROJECT_DIR$/application-web/src/main/webapp/template/page/coupon/userCoupon.html" />
-        <option value="$PROJECT_DIR$/application-web/src/main/webapp/static/css/style.css" />
-        <option value="$PROJECT_DIR$/application-web/src/main/webapp/template/page/index.html" />
-        <option value="$PROJECT_DIR$/application-web/src/main/webapp/template/page/coupon/list.html" />
-        <option value="$PROJECT_DIR$/application-web/src/main/webapp/template/page/coupon/add.html" />
-        <option value="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/member/UvCouponInfoServiceImpl.java" />
-        <option value="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/util/QRCodeUtil.java" />
-        <option value="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/backend/coupon/couponController.java" />
-        <option value="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/entities/MtUserCoupon.java" />
-        <option value="$PROJECT_DIR$/application-core/src/main/java/com/fuint/application/BaseController.java" />
-        <option value="$PROJECT_DIR$/application-web/src/main/webapp/WEB-INF/web.xml" />
-        <option value="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/rest/ConfirmController.java" />
-        <option value="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/rest/GiveController.java" />
-        <option value="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/rest/MyCouponController.java" />
-        <option value="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/rest/QrCodeController.java" />
-        <option value="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/rest/SignController.java" />
-        <option value="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/rest/SmsController.java" />
-        <option value="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/rest/ConfirmerController.java" />
-        <option value="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/rest/PageController.java" />
-        <option value="$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/generator/GenEntityMysql.java" />
-        <option value="$PROJECT_DIR$/application-web/src/main/webapp/template/page/banner/edit.html" />
-        <option value="$PROJECT_DIR$/application-web/src/main/webapp/template/page/banner/list.html" />
-        <option value="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/store/StoreServiceImpl.java" />
-        <option value="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/dto/ResMyCouponDto.java" />
-        <option value="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/dto/Message.java" />
-        <option value="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/dto/MessageStatusEnum.java" />
-        <option value="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/dto/Head.java" />
-        <option value="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/dto/ConfirmLogDto.java" />
-        <option value="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/dto/Banner.java" />
-        <option value="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/dto/BannerDto.java" />
-        <option value="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/coupon/CouponServiceImpl.java" />
-        <option value="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/banner/BannerServiceImpl.java" />
-        <option value="$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/banner/BannerService.java" />
-        <option value="$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/backend/content/BannerController.java" />
-        <option value="$PROJECT_DIR$/application-web/src/main/webapp/template/page/banner/add.html" />
-      </list>
-    </option>
-  </component>
-  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsGulpfileManager">
-    <detection-done>true</detection-done>
-    <sorting>DEFINITION_ORDER</sorting>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="LogFilters">
     <option name="FILTER_ERRORS" value="false" />
@@ -203,336 +464,71 @@
     <option name="generalSettings">
       <MavenGeneralSettings>
         <option name="localRepository" value="D:\Users\user\.m2\repository" />
-        <option name="mavenHome" value="C:/Program Files (x86)/apache-maven-3.5.3" />
         <option name="userSettingsFile" value="D:\Users\user\.m2\settings.xml" />
       </MavenGeneralSettings>
     </option>
-    <option name="importingSettings">
-      <MavenImportingSettings>
-        <option name="importAutomatically" value="true" />
-      </MavenImportingSettings>
-    </option>
   </component>
-  <component name="MavenProjectNavigator">
-    <treeState>
-      <expand>
-        <path>
-          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
-          <item name="fuint-application" type="9519ce18:MavenProjectsStructure$ProjectNode" />
-        </path>
-        <path>
-          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
-          <item name="fuint-application" type="9519ce18:MavenProjectsStructure$ProjectNode" />
-          <item name="Lifecycle" type="58874e2:MavenProjectsStructure$LifecycleNode" />
-        </path>
-      </expand>
-      <select />
-    </treeState>
-  </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="33" />
-    <option name="y" value="147" />
-    <option name="width" value="1934" />
-    <option name="height" value="1038" />
-  </component>
-  <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1">
-      <flattenPackages />
-      <showMembers />
-      <showModules />
-      <showLibraryContents />
-      <hideEmptyPackages />
-      <abbreviatePackageNames />
-      <autoscrollToSource />
-      <autoscrollFromSource />
-      <sortByType />
-      <manualOrder />
-      <foldersAlwaysOnTop value="true" />
-    </navigator>
-    <panes>
-      <pane id="Scope" />
-      <pane id="Scratches" />
-      <pane id="AndroidView" />
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="fuint-application" type="b2602c69:ProjectViewProjectNode" />
-              <item name="fuint-application" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="fuint-application" type="b2602c69:ProjectViewProjectNode" />
-              <item name="fuint-application" type="462c0819:PsiDirectoryNode" />
-              <item name="application-web" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="fuint-application" type="b2602c69:ProjectViewProjectNode" />
-              <item name="fuint-application" type="462c0819:PsiDirectoryNode" />
-              <item name="application-web" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="fuint-application" type="b2602c69:ProjectViewProjectNode" />
-              <item name="fuint-application" type="462c0819:PsiDirectoryNode" />
-              <item name="application-web" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="fuint-application" type="b2602c69:ProjectViewProjectNode" />
-              <item name="fuint-application" type="462c0819:PsiDirectoryNode" />
-              <item name="application-web" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="webapp" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="fuint-application" type="b2602c69:ProjectViewProjectNode" />
-              <item name="fuint-application" type="462c0819:PsiDirectoryNode" />
-              <item name="application-web" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="webapp" type="462c0819:PsiDirectoryNode" />
-              <item name="template" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="fuint-application" type="b2602c69:ProjectViewProjectNode" />
-              <item name="fuint-application" type="462c0819:PsiDirectoryNode" />
-              <item name="application-web" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="webapp" type="462c0819:PsiDirectoryNode" />
-              <item name="template" type="462c0819:PsiDirectoryNode" />
-              <item name="page" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="fuint-application" type="b2602c69:ProjectViewProjectNode" />
-              <item name="fuint-application" type="462c0819:PsiDirectoryNode" />
-              <item name="application-web" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="webapp" type="462c0819:PsiDirectoryNode" />
-              <item name="template" type="462c0819:PsiDirectoryNode" />
-              <item name="page" type="462c0819:PsiDirectoryNode" />
-              <item name="banner" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="PackagesPane" />
-    </panes>
+  <component name="ProjectId" id="1siEenCaCfE726se1AZ3dDiw9DD" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
-    <property name="settings.editor.selected.configurable" value="configurable.group.editor" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../learnJava/fushop" />
-    <property name="project.structure.last.edited" value="Modules" />
-    <property name="project.structure.proportion" value="0.0" />
-    <property name="project.structure.side.proportion" value="0.0" />
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../mianshui365/hotelCoupon-center/pom.xml" />
+    <property name="settings.editor.selected.configurable" value="MavenSettings" />
   </component>
   <component name="RunManager" selected="Application.GenEntityMysql">
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <module />
-    </configuration>
-    <configuration name="ErWeiMa" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="com.fuint.application.util.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="MAIN_CLASS_NAME" value="com.fuint.application.util.ErWeiMa" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="application-service" />
-      <envs />
-    </configuration>
     <configuration name="GenEntityMysql" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+      <option name="MAIN_CLASS_NAME" value="com.fuint.application.dao.generator.GenEntityMysql" />
+      <module name="application-dao" />
+      <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.fuint.application.dao.generator.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="MAIN_CLASS_NAME" value="com.fuint.application.dao.generator.GenEntityMysql" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="application-dao" />
-      <envs />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
-    <configuration name="ImageQrUtil" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="com.fuint.application.util.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="MAIN_CLASS_NAME" value="com.fuint.application.util.ImageQrUtil" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="application-service" />
-      <envs />
-    </configuration>
-    <configuration name="QRCodeUtil" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="com.fuint.application.util.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="MAIN_CLASS_NAME" value="com.fuint.application.util.QRCodeUtil" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="application-service" />
-      <envs />
-    </configuration>
-    <configuration default="true" type="Application" factoryName="Application">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="" />
-      <envs />
-    </configuration>
-    <configuration default="true" type="JUnit" factoryName="JUnit">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
       <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
-    </configuration>
-    <configuration default="true" type="JetRunConfigurationType" factoryName="Kotlin">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="coupon-web" />
-      <envs />
-    </configuration>
-    <configuration default="true" type="Remote" factoryName="Remote">
-      <option name="USE_SOCKET_TRANSPORT" value="true" />
-      <option name="SERVER_MODE" value="false" />
-      <option name="SHMEM_ADDRESS" value="javadebug" />
-      <option name="HOST" value="localhost" />
-      <option name="PORT" value="5005" />
-    </configuration>
-    <configuration default="true" type="TestNG" factoryName="TestNG">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="SUITE_NAME" />
-      <option name="PACKAGE_NAME" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="GROUP_NAME" />
-      <option name="TEST_OBJECT" value="CLASS" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
-      <option name="OUTPUT_DIRECTORY" />
-      <option name="ANNOTATION_TYPE" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <option name="USE_DEFAULT_REPORTERS" value="false" />
-      <option name="PROPERTIES_FILE" />
-      <envs />
-      <properties />
-      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
     <configuration name="fuint-application" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 7.0.90" ALTERNATIVE_JRE_ENABLED="false">
-      <option name="OPEN_IN_BROWSER" value="false" />
       <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8082/fuint-application/" />
       <option name="COMMON_VM_ARGUMENTS" value="-Denv.level=dev -Denv.properties.path=/code/fuint/opt" />
       <option name="UPDATING_POLICY" value="restart-server" />
       <deployment>
         <artifact name="application-web:war exploded">
           <settings>
-            <option name="CONTEXT_PATH" value="/fuint-application" />
+            <option name="CONTEXT_PATH" value="/application_web_war_exploded" />
           </settings>
         </artifact>
       </deployment>
       <server-settings>
-        <option name="BASE_DIRECTORY_NAME" value="Unnamed_fuint-application" />
+        <option name="BASE_DIRECTORY_NAME" value="ec0fc99e-8718-4342-988c-268abcb82184" />
         <option name="HTTP_PORT" value="8082" />
       </server-settings>
-      <predefined_log_file id="Tomcat" enabled="true" />
-      <predefined_log_file id="Tomcat Catalina" enabled="true" />
-      <predefined_log_file id="Tomcat Manager" enabled="false" />
-      <predefined_log_file id="Tomcat Host Manager" enabled="false" />
-      <predefined_log_file id="Tomcat Localhost Access" enabled="false" />
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <predefined_log_file enabled="true" id="Tomcat" />
+      <predefined_log_file enabled="true" id="Tomcat Catalina" />
+      <predefined_log_file id="Tomcat Manager" />
+      <predefined_log_file id="Tomcat Host Manager" />
+      <predefined_log_file id="Tomcat Localhost Access" />
       <RunnerSettings RunnerId="Debug">
-        <option name="DEBUG_PORT" value="4531" />
+        <option name="DEBUG_PORT" value="4575" />
       </RunnerSettings>
       <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
         <option name="USE_ENV_VARIABLES" value="true" />
@@ -564,6 +560,21 @@
           <option name="PROGRAM_PARAMETERS" value="" />
         </SHUTDOWN>
       </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Profile">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
       <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
         <option name="USE_ENV_VARIABLES" value="true" />
         <STARTUP>
@@ -579,645 +590,36 @@
           <option name="PROGRAM_PARAMETERS" value="" />
         </SHUTDOWN>
       </ConfigurationWrapper>
-      <method>
+      <method v="2">
+        <option name="Make" enabled="true" />
         <option name="BuildArtifacts" enabled="true">
           <artifact name="application-web:war exploded" />
         </option>
       </method>
     </configuration>
-    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
-      <module name="" />
-      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
-      <option name="PROGRAM_PARAMETERS" />
-      <predefined_log_file id="idea.log" enabled="true" />
-    </configuration>
-    <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="Tomcat Server.fuint-application" />
-      <item index="1" class="java.lang.String" itemvalue="Application.GenEntityMysql" />
-      <item index="2" class="java.lang.String" itemvalue="Application.QRCodeUtil" />
-      <item index="3" class="java.lang.String" itemvalue="Application.ErWeiMa" />
-      <item index="4" class="java.lang.String" itemvalue="Application.ImageQrUtil" />
+    <list>
+      <item itemvalue="Tomcat Server.fuint-application" />
+      <item itemvalue="Application.GenEntityMysql" />
     </list>
     <recent_temporary>
-      <list size="4">
-        <item index="0" class="java.lang.String" itemvalue="Application.GenEntityMysql" />
-        <item index="1" class="java.lang.String" itemvalue="Application.QRCodeUtil" />
-        <item index="2" class="java.lang.String" itemvalue="Application.ImageQrUtil" />
-        <item index="3" class="java.lang.String" itemvalue="Application.ErWeiMa" />
+      <list>
+        <item itemvalue="Application.GenEntityMysql" />
       </list>
     </recent_temporary>
   </component>
-  <component name="ShelveChangesManager" show_recycled="false">
-    <option name="remove_strategy" value="false" />
-  </component>
-  <component name="SvnConfiguration">
-    <configuration />
-  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="c80f41ba-e787-458f-8eff-4e91aaee4ff1" name="Default" comment="" />
-      <created>1597729935953</created>
+      <changelist id="4b27bcc8-4886-42e3-a845-a0a0b8629056" name="Default Changelist" comment="" />
+      <created>1621347112406</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1597729935953</updated>
-      <workItem from="1597729937279" duration="7475000" />
-      <workItem from="1597798038862" duration="1498000" />
-      <workItem from="1597885331560" duration="6052000" />
-      <workItem from="1599187385256" duration="9935000" />
-      <workItem from="1603336189468" duration="1623000" />
-      <workItem from="1610586840809" duration="959000" />
-      <workItem from="1611022617504" duration="71293000" />
-      <workItem from="1615791290756" duration="9515000" />
-      <workItem from="1615857970458" duration="16251000" />
-      <workItem from="1615942476034" duration="20805000" />
-      <workItem from="1616028670054" duration="15416000" />
-      <workItem from="1616115589502" duration="12945000" />
-      <workItem from="1616374920200" duration="9779000" />
-      <workItem from="1616393153314" duration="6178000" />
-      <workItem from="1616633380084" duration="16783000" />
-      <workItem from="1616737219358" duration="1224000" />
-      <workItem from="1617065340363" duration="212000" />
-      <workItem from="1617683515533" duration="592000" />
-      <workItem from="1617761035389" duration="514000" />
-      <workItem from="1617778661157" duration="7362000" />
-      <workItem from="1618207710681" duration="6939000" />
-      <workItem from="1618300501370" duration="5028000" />
+      <updated>1621347112406</updated>
+      <workItem from="1621347113650" duration="1180000" />
     </task>
     <servers />
   </component>
-  <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="228378000" />
-  </component>
-  <component name="ToolWindowManager">
-    <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
-    <editor active="true" />
-    <layout>
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32964602" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20600858" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.53097343" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32964602" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4568584" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32964602" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23122318" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-    </layout>
-  </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
-  </component>
-  <component name="VcsContentAnnotationSettings">
-    <option name="myLimit" value="2678400000" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/backend/content/BannerController.java</url>
-          <line>161</line>
-          <properties />
-          <option name="timeStamp" value="22" />
-        </line-breakpoint>
-      </breakpoints>
-      <option name="time" value="23" />
-    </breakpoint-manager>
-    <watches-manager />
-  </component>
-  <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/application-web/src/main/webapp/static/js/custom/custom.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="411">
-          <caret line="570" column="0" lean-forward="true" selection-start-line="570" selection-start-column="0" selection-end-line="570" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-web/src/main/webapp/template/page/coupon/add.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="14" column="45" lean-forward="false" selection-start-line="14" selection-start-column="42" selection-end-line="14" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-web/src/main/webapp/template/page/coupon/edit.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="780">
-          <caret line="26" column="17" lean-forward="false" selection-start-line="26" selection-start-column="17" selection-end-line="26" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-web/src/main/webapp/template/page/coupon/list.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1110">
-          <caret line="37" column="40" lean-forward="false" selection-start-line="37" selection-start-column="40" selection-end-line="37" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/util/QRCodeUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="492">
-          <caret line="61" column="21" lean-forward="true" selection-start-line="61" selection-start-column="21" selection-end-line="61" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/member/UvCouponInfoServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3458">
-          <caret line="302" column="119" lean-forward="true" selection-start-line="302" selection-start-column="119" selection-end-line="302" selection-end-column="119" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/backend/member/CouponinfoController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1470">
-          <caret line="407" column="87" lean-forward="false" selection-start-line="407" selection-start-column="87" selection-end-line="407" selection-end-column="87" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/backend/coupon/couponController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="359" column="0" lean-forward="false" selection-start-line="359" selection-start-column="0" selection-end-line="359" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-web/src/main/webapp/WEB-INF/web.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="9" column="20" lean-forward="true" selection-start-line="9" selection-start-column="20" selection-end-line="9" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/rest/ConfirmerController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="921">
-          <caret line="114" column="140" lean-forward="false" selection-start-line="114" selection-start-column="140" selection-end-line="114" selection-end-column="140" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/rest/GiveController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2310">
-          <caret line="27" column="3" lean-forward="true" selection-start-line="27" selection-start-column="3" selection-end-line="27" selection-end-column="3" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-core/src/main/java/com/fuint/application/BaseController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2250">
-          <caret line="77" column="1" lean-forward="true" selection-start-line="77" selection-start-column="1" selection-end-line="77" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/rest/ConfirmController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1178">
-          <caret line="137" column="37" lean-forward="true" selection-start-line="137" selection-start-column="37" selection-end-line="137" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/rest/SignController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="123" column="16" lean-forward="false" selection-start-line="123" selection-start-column="16" selection-end-line="123" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/rest/QrCodeController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1852">
-          <caret line="64" column="16" lean-forward="false" selection-start-line="64" selection-start-column="16" selection-end-line="64" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/entities/MtUserCoupon.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="18" column="13" lean-forward="false" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/rest/MyCouponController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="89" column="12" lean-forward="false" selection-start-line="89" selection-start-column="12" selection-end-line="89" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/rest/SmsController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1127">
-          <caret line="94" column="60" lean-forward="false" selection-start-line="94" selection-start-column="60" selection-end-line="94" selection-end-column="60" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/repositories/MtBannerRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="12" column="17" lean-forward="false" selection-start-line="12" selection-start-column="17" selection-end-line="12" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/rest/PageController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="34" column="7" lean-forward="false" selection-start-line="34" selection-start-column="7" selection-end-line="34" selection-end-column="7" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-web/src/main/webapp/template/page/banner/edit.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="17" column="18" lean-forward="false" selection-start-line="17" selection-start-column="18" selection-end-line="17" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/store/StoreServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1070">
-          <caret line="233" column="14" lean-forward="false" selection-start-line="233" selection-start-column="14" selection-end-line="233" selection-end-column="14" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/store/StoreService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="16" column="17" lean-forward="false" selection-start-line="16" selection-start-column="17" selection-end-line="16" selection-end-column="17" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dto/MtActivityRuleRelation.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dto/MTCouponLinkDto.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="291">
-          <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dto/MtPrivilegeRuleDto.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="291">
-          <caret line="15" column="13" lean-forward="false" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dto/PrivilegeCodeDto.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="291">
-          <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dto/ActivityDto.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="600">
-          <caret line="21" column="7" lean-forward="true" selection-start-line="21" selection-start-column="7" selection-end-line="21" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/dto/ResMyCouponDto.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-172">
-          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/dto/ReqCouponDto.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3060">
-          <caret line="41" column="7" lean-forward="true" selection-start-line="41" selection-start-column="7" selection-end-line="41" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/coupon/CouponService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2100">
-          <caret line="32" column="29" lean-forward="true" selection-start-line="32" selection-start-column="29" selection-end-line="32" selection-end-column="29" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/dto/Message.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-262">
-          <caret line="6" column="26" lean-forward="false" selection-start-line="6" selection-start-column="26" selection-end-line="6" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/dto/MessageStatusEnum.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="4" column="26" lean-forward="false" selection-start-line="4" selection-start-column="26" selection-end-line="4" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/dto/Head.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-202">
-          <caret line="18" column="30" lean-forward="true" selection-start-line="18" selection-start-column="30" selection-end-line="18" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/dto/GroupDataListDto.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dto/MtSmsTemplateDto.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="17" column="24" lean-forward="true" selection-start-line="17" selection-start-column="24" selection-end-line="17" selection-end-column="24" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dto/MtStoreDto.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/generator/GenEntityMysql.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="45" column="42" lean-forward="true" selection-start-line="45" selection-start-column="42" selection-end-line="45" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-dao/src/main/java/com/fuint/application/dao/entities/MtBanner.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="282">
-          <caret line="79" column="16" lean-forward="false" selection-start-line="79" selection-start-column="16" selection-end-line="79" selection-end-column="16" />
-          <folding>
-            <element signature="e#1462#1463#0" expanded="false" />
-            <element signature="e#1484#1485#0" expanded="false" />
-            <element signature="e#1960#1961#0" expanded="false" />
-            <element signature="e#1992#1993#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/dto/Body.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/dto/Banner.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="14" column="47" lean-forward="false" selection-start-line="14" selection-start-column="47" selection-end-line="14" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/dto/ConfirmLogDto.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="13" column="13" lean-forward="false" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/dto/BannerDto.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="9" column="3" lean-forward="true" selection-start-line="9" selection-start-column="3" selection-end-line="9" selection-end-column="3" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/coupon/CouponServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4030">
-          <caret line="651" column="8" lean-forward="false" selection-start-line="651" selection-start-column="8" selection-end-line="651" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/coupongroup/CouponGroupServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1530">
-          <caret line="54" column="13" lean-forward="false" selection-start-line="54" selection-start-column="13" selection-end-line="54" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-web/src/main/webapp/template/page/banner/add.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="372">
-          <caret line="17" column="65" lean-forward="true" selection-start-line="17" selection-start-column="65" selection-end-line="17" selection-end-column="65" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-web/src/main/webapp/template/page/banner/list.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1598">
-          <caret line="71" column="16" lean-forward="true" selection-start-line="71" selection-start-column="16" selection-end-line="71" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/banner/BannerServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="282">
-          <caret line="55" column="20" lean-forward="false" selection-start-line="55" selection-start-column="20" selection-end-line="55" selection-end-column="20" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-service/src/main/java/com/fuint/application/service/banner/BannerService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="282">
-          <caret line="29" column="13" lean-forward="false" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application-web/src/main/java/com/fuint/application/web/backend/content/BannerController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="558">
-          <caret line="164" column="13" lean-forward="true" selection-start-line="164" selection-start-column="13" selection-end-line="164" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-  </component>
-  <component name="masterDetails">
-    <states>
-      <state key="ArtifactsStructureConfigurable.UI">
-        <settings>
-          <artifact-editor />
-          <last-edited>application-web:war</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-                <option value="0.5" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="FacetStructureConfigurable.UI">
-        <settings>
-          <last-edited>Spring</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="GlobalLibrariesConfigurable.UI">
-        <settings>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="JdkListConfigurable.UI">
-        <settings>
-          <last-edited>1.8</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ModuleStructureConfigurable.UI">
-        <settings>
-          <last-edited>fuint-application</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ProjectJDKs.UI">
-        <settings>
-          <last-edited>1.8</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ProjectLibrariesConfigurable.UI">
-        <settings>
-          <last-edited>Maven: antlr:antlr:2.7.7</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-    </states>
+    <option name="version" value="3" />
   </component>
 </project>

@@ -74,29 +74,16 @@
                 storeName: {
                     byteRangeLength: [4, 30]
                 }
-               /* ,
-                ContactPhone : {
-                    required : true,
-                    minlength : 11,
-                    isMobile : true
-                }*/
              },
             messages: {
                 storeName: {
                     rangelength: "长度为4-30"
                 }
-               /* ,ContactPhone : {
-                    required : "请输入手机号",
-                    minlength : "不能小于11个字符",
-                    isMobile : "请正确填写手机号码"
-                }*/
             },
             errorPlacement: function (error, element) {
                 error.appendTo(element.parent());
             },
             submitHandler: function () {
-                //var selectNode = $.selectedTreeNode();
-               // alert("test");
                 postDataByFormParams('${rc.contextPath}/backend/store/create', 'displayArea', 'storeForm');
             }
         })

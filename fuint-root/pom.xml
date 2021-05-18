@@ -44,7 +44,7 @@
 
   <dependencyManagement>
     <dependencies>
-      	<!-- spring需要的jar包 -->  
+      	<!-- spring需要的jar包 -->
         <dependency>  
             <groupId>org.springframework</groupId>  
             <artifactId>spring-context</artifactId>  

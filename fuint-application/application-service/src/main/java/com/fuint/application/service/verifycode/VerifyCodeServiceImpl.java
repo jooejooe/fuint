@@ -1,8 +1,6 @@
 package com.fuint.application.service.verifycode;
 
 import com.fuint.base.annoation.OperationServiceLog;
-import com.fuint.base.dao.pagination.PaginationRequest;
-import com.fuint.base.dao.pagination.PaginationResponse;
 import com.fuint.exception.BusinessCheckException;
 import com.fuint.exception.BusinessRuntimeException;
 import com.fuint.application.dao.entities.MtVerifyCode;
@@ -14,21 +12,15 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.lang.reflect.InvocationTargetException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 验证码业务实现类
- * Created by zach 20190820
+ * Created by zach 2019/08/20
  */
 @Service
 public class VerifyCodeServiceImpl implements VerifyCodeService {
@@ -77,20 +69,11 @@ public class VerifyCodeServiceImpl implements VerifyCodeService {
             throw new BusinessRuntimeException("日期转换异常" + e.getMessage());
         }
 
-        //1,同一个手机号码先置以前的验证码过期, 0未使用 1已使用 2过期
-       /* List<MtVerifyCode> verifyCodelist=verifyCodeRepository.queryVerifyCodeListByMobile(mobile,queryTime);
-        for(MtVerifyCode m:verifyCodelist)
-        {
-            m.setValidflag("2");
-            verifyCodeRepository.save(m);
-        }*/
-
-       //发送验证码2分钟后才能继续发送,取最后一条
+        // 发送验证码2分钟后才能继续发送,取最后一条
         Pageable pageable = new PageRequest(0, 1, Sort.Direction.DESC, "addtime");
         Page<MtVerifyCode> verifyCodesPage = verifyCodeRepository.queryVerifyCodeLastRecord(pageable,mobile);
         List<MtVerifyCode> verifyCodesPageList = verifyCodesPage.getContent();
-        if(null == verifyCodesPageList||verifyCodesPageList.size()==0)
-        {
+        if (null == verifyCodesPageList||verifyCodesPageList.size()==0) {
            //没发过短信
             nMtVerifyCode=verifyCodeRepository.save(reqVerifyCodeDto);
             return nMtVerifyCode;
@@ -99,9 +82,7 @@ public class VerifyCodeServiceImpl implements VerifyCodeService {
         Long curInt=reqVerifyCodeDto.getAddtime().getTime(); //时间毫秒,长整型
         Long lastInt=verifyCodeLastRecord.getAddtime().getTime();
         Integer diffSecond = (int)((curInt-lastInt) / 1000); //间隔秒数
-        if(diffSecond<expireSecond)
-        {
-            //throw new BusinessCheckException("验证码发送间隔太短,请稍后再试！");
+        if (diffSecond<expireSecond) {
             reqVerifyCodeDto.setValidflag("1");
             return reqVerifyCodeDto;
         }
@@ -109,9 +90,7 @@ public class VerifyCodeServiceImpl implements VerifyCodeService {
         //2,同一个手机号码新的验证码插入
         nMtVerifyCode=verifyCodeRepository.save(reqVerifyCodeDto);
         return nMtVerifyCode;
-    };
-
-
+    }
 
     /**
      * 更改验证码状态
@@ -129,10 +108,7 @@ public class VerifyCodeServiceImpl implements VerifyCodeService {
             log.error("验证码不存在.");
             throw new BusinessCheckException("验证码不存在.");
         }
-       /* List<String> codes = new ArrayList<>();
-        for (MtVerifyCode storeInfo : MtVerifyCodes) {
-            storeInfo.setStatus(StatusEnum);
-        }*/
+
         MtVerifyCode reVerifyCode=null;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String dt=sdf.format(new Date());
@@ -171,5 +147,4 @@ public class VerifyCodeServiceImpl implements VerifyCodeService {
         reVerifyCode = verifyCodeRepository.queryByMobileVerifyCode(mobile, verifycode, queryTime);
         return reVerifyCode;
     }
-
 }

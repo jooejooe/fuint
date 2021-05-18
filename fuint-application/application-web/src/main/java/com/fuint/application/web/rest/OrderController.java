@@ -1,5 +1,7 @@
 package com.fuint.application.web.rest;
 
+import com.fuint.application.dao.entities.MtOrder;
+import com.fuint.application.service.order.OrderService;
 import com.fuint.exception.BusinessCheckException;
 import com.fuint.application.ResponseObject;
 import com.fuint.application.BaseController;
@@ -12,7 +14,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -29,11 +33,17 @@ public class OrderController extends BaseController {
     private TokenService tokenService;
 
     /**
+     * 订单服务接口
+     * */
+    @Autowired
+    private OrderService orderService;
+
+    /**
      * 获取订单列表
      */
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @CrossOrigin
-    public ResponseObject list(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException{
+    public ResponseObject list(HttpServletRequest request, @RequestParam Map<String, Object> param) throws BusinessCheckException{
         String userToken = request.getHeader("Access-Token");
         MtUser userInfo = tokenService.getUserInfoByToken(userToken);
 
@@ -41,9 +51,9 @@ public class OrderController extends BaseController {
             return getFailureResult(1001, "用户未登录");
         }
 
-        Map<String, Object> outParams = new HashMap<String, Object>();
-
-        return getSuccessResult(outParams);
+        param.put("userId", userInfo.getId());
+        ResponseObject orderData = orderService.getUserOrderList(param);
+        return getSuccessResult(orderData.getData());
     }
 
     /**
@@ -59,6 +69,32 @@ public class OrderController extends BaseController {
             return getFailureResult(1001, "用户未登录");
         }
 
-        return getSuccessResult(null);
+        MtOrder orderInfo = orderService.getOrderById(1);
+
+        return getSuccessResult(orderInfo);
+    }
+
+    /**
+     * 获取待办订单
+     */
+    @RequestMapping(value = "/todoCounts", method = RequestMethod.GET)
+    @CrossOrigin
+    public ResponseObject todoCounts(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException{
+        String userToken = request.getHeader("Access-Token");
+        MtUser mtUser = tokenService.getUserInfoByToken(userToken);
+
+        if (mtUser == null) {
+            return getFailureResult(1001, "用户未登录");
+        }
+
+        Map<String, Object> param = new HashMap<>();
+        param.put("EQ_status", "A");
+        param.put("EQ_userId", mtUser.getId()+"");
+        List<MtOrder> data = orderService.getOrderListByParams(param);
+
+        Map<String, Object> result = new HashMap<>();
+        result.put("payment", data.size());
+
+        return getSuccessResult(result);
     }
 }

@@ -7,7 +7,7 @@ import com.fuint.exception.BusinessCheckException;
 
 /**
  * 积分业务接口
- * Created by zach 2021.3.15
+ * Created by zach 2021/3/15
  */
 public interface PointService {
 

@@ -6,14 +6,10 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="application-core" />
-        <module name="application-dao" />
-        <module name="application-service" />
         <module name="application-web" />
-        <module name="coupon-core" />
-        <module name="coupon-dao" />
-        <module name="coupon-service" />
-        <module name="coupon-web" />
+        <module name="application-service" />
+        <module name="application-dao" />
+        <module name="application-core" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -21,11 +17,15 @@
       <module name="application-dao" target="1.8" />
       <module name="application-service" target="1.8" />
       <module name="application-web" target="1.8" />
-      <module name="coupon-core" target="1.5" />
-      <module name="coupon-dao" target="1.5" />
-      <module name="coupon-service" target="1.5" />
-      <module name="coupon-web" target="1.5" />
       <module name="fuint-application" target="1.8" />
     </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="application-core" options="-verbose -bootclasspath &quot;C:/Program Files/Java/jdk1.8.0_161/jre/lib/rt.jar&quot;" />
+      <module name="application-dao" options="-verbose -bootclasspath &quot;C:/Program Files/Java/jdk1.8.0_161/jre/lib/rt.jar&quot;" />
+      <module name="application-service" options="-verbose -bootclasspath &quot;C:/Program Files/Java/jdk1.8.0_161/jre/lib/rt.jar&quot;" />
+      <module name="application-web" options="-verbose -bootclasspath &quot;C:/Program Files/Java/jdk1.8.0_161/jre/lib/rt.jar&quot;" />
+    </option>
   </component>
 </project>

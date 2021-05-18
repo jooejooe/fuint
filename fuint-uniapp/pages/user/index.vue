@@ -1,34 +1,33 @@
 <template>
   <view v-if="!isLoading" class="container">
     <!-- 页面头部 -->
-    <view class="main-header" :style="{ height: $platform == 'H5' ? '240rpx' : '320rpx', paddingTop: $platform == 'H5' ? '0' : '50rpx' }">
+    <view class="main-header" :style="{ paddingTop: $platform == 'H5' ? '0' : '50rpx' }">
+	  <div class="user-qrcode"><image class="image" src="/static/user/qr.png"></image></div>
       <image class="bg-image" src="/static/background/user-header.png" mode="scaleToFill"></image>
       <!-- 用户信息 -->
       <view v-if="isLogin" class="user-info">
-        <view class="user-avatar">
-          <image class="image" :src="userInfo.avatar_url ? userInfo.avatar_url : '/static/default-avatar.png'"></image>
-        </view>
         <view class="user-content">
-          <!-- 会员昵称 -->
-          <view class="nick-name">{{ userInfo.nick_name }}</view>
+	      <!-- 会员昵称 -->
+          <view class="nick-name">{{ userInfo.realName }}</view>
           <!-- 会员等级 -->
-          <view v-if="userInfo.grade_id > 0 && userInfo.grade" class="user-grade">
+          <view v-if="userInfo.gradeId > 0 && gradeInfo" class="user-grade">
             <view class="user-grade_icon">
               <image class="image" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAA0lBMVEUAAAD/tjL/tzH/uDP/uC7/tjH/tzH/tzL/tTH+tTL+tjP/tDD/tTD+tzD/tjL/szD/uDH/tjL/tjL+tjD/tjT/szb/tzL/tTL+uTH+tjL/tjL/tjL/tTT/tjL/tjL+tjH/uTL/vDD/tjL/tjH/tzL9uS//tTL/nBr/sS7/tjH/ujL/szD/uTv+rzf/tzL+tzH+vDP+uzL+tjP+ry7+tDL9ki/7szf/sEX/tTL/tjL+tjL/tTH/tTT/tzH/tzL/tjP/sTX/uTP/wzX+rTn/vDX9vC8m8ckhAAAAOXRSTlMAlnAMB/vjxKWGMh0S6drMiVxPRkEY9PLy0ru0sKagmo5+dGtgVCMgBP716eXWyMGxqJGRe2o5KSmFNjaYAAABP0lEQVQ4y8XS13KDMBAF0AWDDe4t7r3ETu9lVxJgJ/n/X8rKAzHG5TE+Twz3zki7I/g/KXdghIbGJewrU4yzn08Ebgl6TuZzzuOC6W5es3HX6qsSz3NFShRU0MpucytDmOSpu3yULx3CA9RD1HjVedc0jSjqm6ZzhUjDsFDQhSp/OKj5GQvg0+ZCOixsbtDLAeTTOm/yGi8GyIphIVsgH737FEDV44LJa88IRKK/SetrwT9G/GUIr6vXjoy4GXn7+RboVXnghuSjaoGecwQxL2su3CwAKlO+QFoqxI4FMctHQhQd2OhxTu184jWUlI+rMTBTn1/IQcJHQ6GQdZ7pWiDaNdhTt330efISeiqYwQEzQpTlsURJLhzkEmpCPsERfeIUVyXr6MNuIyp5uziW6xURtt7hhGwzmMNJExfO4Bd9X0ZPqAxdNwAAAABJRU5ErkJggg=="></image>
             </view>
             <view class="user-grade_name">
-              <text>{{ userInfo.grade.name }}</text>
+              <text>{{ gradeInfo.name }}</text>
             </view>
           </view>
           <!-- 会员无等级时显示手机号 -->
           <view v-else class="mobile">{{ userInfo.mobile }}</view>
         </view>
+		<view class="amount-info">
+			<view class="card-recharge">余额 ￥{{ userInfo.balance }}</view>
+			<view class="card-point">积分 {{ userInfo.point }}</view>
+		</view>
       </view>
       <!-- 未登录 -->
       <view v-else class="user-info" @click="handleLogin">
-        <view class="user-avatar">
-          <image class="image" src="/static/default-avatar.png"></image>
-        </view>
         <view class="user-content">
           <view class="nick-name">未登录</view>
           <view class="login-tips">点击登录账号</view>
@@ -36,7 +35,7 @@
       </view>
     </view>
 
-    <!-- 我的钱包 -->
+    <!-- 我的资产 -->
     <view class="my-asset">
       <view class="asset-left flex-box dis-flex flex-x-center">
         <view class="asset-left-item" @click="onTargetMyCoupon('C')">
@@ -104,7 +103,6 @@
 </template>
 
 <script>
-  import { setCartTabBadge } from '@/utils/app'
   import SettingKeyEnum from '@/common/enum/setting/Key'
   import SettingModel from '@/common/model/Setting'
   import * as UserApi from '@/api/user'
@@ -114,8 +112,8 @@
   // 订单操作
   const orderNavbar = [
     { id: 'all', name: '全部订单', icon: 'qpdingdan' },
-    { id: 'payment', name: '待支付', icon: 'daifukuan', count: 1 },
-    { id: 'received', name: '已完成', icon: 'daishouhuo', count: 8 },
+    { id: 'payment', name: '待支付', icon: 'daifukuan', count: 0 },
+    { id: 'completed', name: '已完成', icon: 'daishouhuo', count: 0 },
   ]
 
   /**
@@ -124,12 +122,13 @@
    */
   const service = [
 	{ id: 'myCoupon', name: '我的卡券', icon: 'youhuiquan', type: 'link', url: 'pages/my-coupon/index' },
-    { id: 'coupon', name: '卡券转赠', icon: 'lingquan', type: 'link', url: 'pages/coupon/index' },
-	{ id: 'points', name: '我的积分', icon: 'jifen', type: 'link', url: 'pages/points/log' },
+    { id: 'coupon', name: '卡券转赠', icon: 'lingquan', type: 'link', url: 'pages/give/index' },
+	{ id: 'points', name: '我的积分', icon: 'jifen', type: 'link', url: 'pages/points/detail' },
     { id: 'help', name: '我的帮助', icon: 'bangzhu', type: 'link', url: 'pages/help/index' },
     { id: 'contact', name: '在线客服', icon: 'kefu', type: 'button', openType: 'contact' },
 	{ id: 'address', name: '联系地址', icon: 'shouhuodizhi', type: 'link', url: 'pages/address/index' },
     { id: 'refund', name: '售后服务', icon: 'shouhou', type: 'link', url: 'pages/refund/index' },
+	{ id: 'setting', name: '个人信息', icon: 'shezhi1', type: 'link', url: 'pages/user/setting' },
   ]
 
   export default {
@@ -147,6 +146,7 @@
         setting: {},
         // 当前用户信息
         userInfo: {},
+		gradeInfo: {},
         // 账户资产
         assets: { prestore: '--', timer: '--', coupon: '--' },
         // 我的服务
@@ -154,7 +154,7 @@
         // 订单操作
         orderNavbar,
         // 当前用户待处理的订单数量
-        todoCounts: { payment: 0, deliver: 0, received: 0 }
+        todoCounts: { payment: 0 }
       }
     },
 
@@ -162,8 +162,6 @@
      * 生命周期函数--监听页面显示
      */
     onShow(options) {
-      // 更新购物车角标
-      setCartTabBadge()
       // 判断是否已登录
       this.isLogin = checkLogin()
       // 获取页面数据
@@ -197,7 +195,7 @@
         const newService = []
         service.forEach(item => {
           if (item.id === 'points') {
-            item.name = '我的' + app.setting[SettingKeyEnum.POINTS.value].points_name
+            item.name = '我的积分'
           }
           newService.push(item)
         })
@@ -217,7 +215,7 @@
         app.orderNavbar = newOrderNavbar
       },
 
-      // 获取商城设置
+      // 获取设置
       getSetting() {
         const app = this
         app.setting = {}
@@ -226,13 +224,13 @@
       // 获取当前用户信息
       getUserInfo() {
         const app = this
-		app.userInfo = {"nick_name":"zach", "grade_id":"1", "grade":{"name":"金牌会员"}}
-		/*
         return new Promise((resolve, reject) => {
           !app.isLogin ? resolve(null) : UserApi.info()
             .then(result => {
               app.userInfo = result.data.userInfo
+			  app.gradeInfo = result.data.gradeInfo
               resolve(app.userInfo)
+			  resolve(app.gradeInfo)
             })
             .catch(err => {
               if (err.result && err.result.status == 401) {
@@ -242,18 +240,16 @@
                 reject(err)
               }
             })
-        })*/
+        })
       },
 
       // 获取账户资产
       getUserAssets() {
         const app = this
-		app.assets = { timer: '3', prestore: '3', coupon: '12' }
-		/*
         return new Promise((resolve, reject) => {
           !app.isLogin ? resolve(null) : UserApi.assets()
             .then(result => {
-              app.assets = result.data.assets
+              app.assets = result.data.asset
               resolve(app.assets)
             })
             .catch(err => {
@@ -264,29 +260,19 @@
                 reject(err)
               }
             })
-        })*/
+        })
       },
 
-      // 获取当前用户待处理的订单数量
+      // 获取当前用户待处理的事项数量
       getTodoCounts() {
         const app = this
-		app.todoCounts = {}
-		/*
         return new Promise((resolve, reject) => {
           !app.isLogin ? resolve(null) : OrderApi.todoCounts()
             .then(result => {
-              app.todoCounts = result.data.counts
+              app.todoCounts = result.data
               resolve(app.todoCounts)
             })
-            .catch(err => {
-              if (err.result && err.result.status == 401) {
-                app.isLogin = false
-                resolve(null)
-              } else {
-                reject(err)
-              }
-            })
-        })*/
+        })
       },
 
       // 跳转到登录页
@@ -324,9 +310,7 @@
       this.getPageData(() => {
         uni.stopPullDownRefresh()
       })
-    },
-
-
+    }
   }
 </script>
 
@@ -334,16 +318,15 @@
   // 页面头部
   .main-header {
     background-color: #fff;
-    // background-image: url('/static/background/user-header.png');
     position: relative;
-    width: 100%;
-    height: 280rpx;
+    height: 380rpx;
     background-size: 100% 100%;
     overflow: hidden;
     display: flex;
     align-items: center;
-    // padding-top: 40rpx;
     padding-left: 30rpx;
+	margin:25rpx;
+	border-radius: 10rpx;
 
     .bg-image {
       position: absolute;
@@ -353,26 +336,32 @@
       height: 100%;
       z-index: 0;
     }
+	.user-qrcode {
+		display: block;
+		z-index: 999;
+		position: absolute;
+		top: 20rpx;
+		right: 20rpx;
+		cursor: pointer;
+		.image {
+		  width: 35rpx;
+		  height: 35rpx;
+		  border: solid 5rpx #ccc;
+		}
+	}
 
     .user-info {
       display: flex;
       height: 100rpx;
       z-index: 1;
-
-      .user-avatar .image {
-        display: block;
-        width: 100rpx;
-        height: 100rpx;
-        border-radius: 50%;
-      }
-
+	  
       .user-content {
-        display: flex;
+        display: block;
         flex-direction: column;
         justify-content: center;
         margin-left: 30rpx;
         color: #ffffff;
-
+		
         .nick-name {
           font-size: 32rpx;
           font-weight: bold;
@@ -409,12 +398,20 @@
           margin-top: 12rpx;
           font-size: 28rpx;
         }
-
       }
+	  .amount-info {
+		  margin-top: 38rpx;
+		  margin-left: 60rpx;
+		  color: #fff;
+		  display: block;
+		  .card-point {
+			  margin-top:10rpx;
+		  }
+	  }
     }
   }
 
-  // 我的钱包
+  // 我的资产
   .my-asset {
     display: flex;
     background: #fff;
@@ -430,7 +427,7 @@
       color: #545454;
 
       .item-icon {
-        font-size: 40rpx;
+        font-size: 60rpx;
       }
 
       .item-name {
@@ -449,7 +446,7 @@
       padding: 0 72rpx;
 
       .item-value {
-        font-size: 32rpx;
+        font-size: 40rpx;
         color: red;
       }
 
@@ -458,7 +455,7 @@
       }
 
       .item-name {
-        font-size: 25rpx;
+        font-size: 28rpx;
       }
     }
 

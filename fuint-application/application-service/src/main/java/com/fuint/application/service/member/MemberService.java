@@ -1,6 +1,6 @@
 package com.fuint.application.service.member;
 
-import com.fuint.application.dao.entities.MtUserGroup;
+import com.fuint.application.dao.entities.MtUserGrade;
 import com.fuint.base.dao.pagination.PaginationRequest;
 import com.fuint.base.dao.pagination.PaginationResponse;
 import com.fuint.exception.BusinessCheckException;
@@ -9,8 +9,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 会员用户业务接口
- * Created by zach 2021.3.15
+ * 会员业务接口
+ * Created by zach 2021/3/15
  */
 public interface MemberService {
 
@@ -52,7 +52,7 @@ public interface MemberService {
      * @param id 会员组ID
      * @throws BusinessCheckException
      */
-    MtUserGroup queryMemberGroupByGroupId(Integer id) throws BusinessCheckException;
+    MtUserGrade queryMemberGradeByGradeId(Integer id) throws BusinessCheckException;
 
     /**
      * 根据会员用户手机获取会员用户信息
@@ -95,5 +95,5 @@ public interface MemberService {
     /**
      * 根据条件搜索会员分组
      * */
-    List<MtUserGroup> queryMemberGroupByParams(Map<String, Object> params) throws BusinessCheckException;
+    List<MtUserGrade> queryMemberGradeByParams(Map<String, Object> params) throws BusinessCheckException;
 }

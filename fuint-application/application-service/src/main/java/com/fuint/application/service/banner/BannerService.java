@@ -30,7 +30,7 @@ public interface BannerService {
     MtBanner addBanner(BannerDto reqBannerDto) throws BusinessCheckException;
 
     /**
-     * 根据店铺ID获取店铺信息
+     * 根据ID获取Banner信息
      *
      * @param id Banner ID
      * @throws BusinessCheckException
@@ -47,14 +47,14 @@ public interface BannerService {
     void deleteBanner(Integer id, String operator) throws BusinessCheckException;
 
     /**
-     * 更新banner
+     * 更新Banner
      * @param bannerDto
      * @throws BusinessCheckException
      * */
     MtBanner updateBanner(BannerDto bannerDto) throws BusinessCheckException;
 
     /**
-     * 根据条件搜索店铺
+     * 根据条件搜索Banner
      * */
     List<MtBanner> queryBannerListByParams(Map<String, Object> params) throws BusinessCheckException;
 }
