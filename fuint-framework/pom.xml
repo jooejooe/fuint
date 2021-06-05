@@ -6,28 +6,15 @@
     <parent>
         <groupId>com.fuint</groupId>
         <artifactId>fuint-root</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>0.0.2-SNAPSHOT</version>
     </parent>
     <artifactId>fuint-framework</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <properties>
-        <fuintframework.version>0.0.1-SNAPSHOT</fuintframework.version>
+        <fuintframework.version>0.0.2-SNAPSHOT</fuintframework.version>
     </properties>
-
-   <!-- <distributionManagement>
-        <repository>
-            <id>nexus</id>
-            <name>corp nexus-releases</name>
-            <url>http://10.70.71.156:8081/nexus/content/groups/public/</url>
-        </repository>
-        <snapshotRepository>
-            <id>snapshots</id>
-            <name>corp nexus-snapshot</name>
-            <url>http://10.70.71.156:8081/nexus/content/repositories/snapshots/</url>
-        </snapshotRepository>
-    </distributionManagement>-->
 
     <dependencyManagement>
         <dependencies>
