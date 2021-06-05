@@ -4,20 +4,20 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.fuint</groupId>
   <artifactId>fuint-root</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.0.2-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <properties>
       <project.artifactId>market</project.artifactId>
       <project.encoding>UTF-8</project.encoding>
       <jdk.version>1.8</jdk.version>
-      <repositoryAddr>10.70.71.156:8081</repositoryAddr>
+      <repositoryAddr>127.0.0.1:8081</repositoryAddr>
       <spring.version>4.2.6.RELEASE</spring.version>
-      <spring.security.version>4.0.4.RELEASE</spring.security.version>
-      <mysqlconnector.version>5.1.29</mysqlconnector.version>
-      <druid.version>1.0.15</druid.version>
+      <spring.security.version>4.2.8.RELEASE</spring.security.version>
+      <mysqlconnector.version>8.0.11</mysqlconnector.version>
+      <druid.version>1.1.21</druid.version>
       <commonslang.version>3.3.2</commonslang.version>
-      <shiro.version>1.2.3</shiro.version>
+      <shiro.version>1.6.0</shiro.version>
       <httpclient.version>4.5.2</httpclient.version>
       <servlet.version>3.1.0</servlet.version>
       <slf4j.version>1.7.18</slf4j.version>
