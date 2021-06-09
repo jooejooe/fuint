@@ -9,7 +9,6 @@ import com.fuint.base.dao.pagination.PaginationResponse;
 import com.fuint.exception.BusinessCheckException;
 import com.fuint.exception.BusinessRuntimeException;
 import com.fuint.application.enums.StatusEnum;
-import org.apache.commons.collections.MapUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -141,7 +140,7 @@ public class BannerServiceImpl implements BannerService {
     }
 
     @Override
-    public List<MtBanner> queryBannerListByParams(Map<String, Object> params) throws BusinessCheckException {
+    public List<MtBanner> queryBannerListByParams(Map<String, Object> params) {
         Map<String, Object> param = new HashMap<>();
 
         Specification<MtBanner> specification = bannerRepository.buildSpecification(param);

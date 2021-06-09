@@ -51,7 +51,7 @@ public interface MtUserCouponRepository extends BaseRepository<MtUserCoupon, Int
        * @param userId
        * @return
        * */
-      @Query("SELECT t FROM MtUserCoupon t WHERE t.userId =:userId AND t.couponId =:couponId AND t.status IN (:status) ORDER BY id DESC")
+      @Query("SELECT t FROM MtUserCoupon t WHERE t.userId =:userId AND t.couponId =:couponId AND t.status IN (:status) ORDER BY t.id DESC")
       List<MtUserCoupon> getUserCouponListByCouponId(@Param("userId") Integer userId, @Param("couponId") Integer couponId ,@Param("status") List<String> status);
 
       /**

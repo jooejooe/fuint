@@ -13,8 +13,8 @@
                 <label class="col-md-3 control-label">等级：</label>
                 <div class="col-md-9">
                     <select class="form-control" id="groupId" name="groupId">
-                        <#list userGroupMap as group>
-                        <option <#if group.id == member.groupId>selected</#if> value="${group.id}">${group.name}</option>
+                        <#list userGradeMap as grade>
+                        <option <#if grade.id == member.gradeId>selected</#if> value="${grade.id}">${grade.name}</option>
                         </#list>
                     </select>
                 </div>
@@ -29,7 +29,7 @@
             <div class="form-group">
                 <label class="col-md-3 control-label">姓名：</label>
                 <div class="col-md-9">
-                    <input type="text" id="realName" class="form-control" name="realName" placeholder="姓名，最长20位" maxlength="20" value="${member.realName}" >
+                    <input type="text" id="name" class="form-control" name="name" placeholder="用户名最长20位" maxlength="20" value="${member.name}" >
                 </div>
             </div>
             <div class="form-group">
@@ -69,8 +69,7 @@
             <div class="form-group">
                 <label class="col-md-3 control-label">备注信息：</label>
                 <div class="col-md-9">
-                    <textarea rows="5" class="form-control" id="description" name="description"
-                              maxlength="500" placeholder="备注信息">${member.description}</textarea>
+                    <textarea rows="5" class="form-control" id="description" name="description" maxlength="500" placeholder="备注信息">${member.description}</textarea>
                 </div>
             </div>
             <div class="form-group">

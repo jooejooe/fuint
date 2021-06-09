@@ -51,4 +51,11 @@ public interface UserGradeService {
      * @throws BusinessCheckException
      */
     Integer deleteUserGrade(Integer id, String operator) throws BusinessCheckException;
+
+    /**
+     * 获取默认的会员等级
+     *
+     * @throws BusinessCheckException
+     */
+    MtUserGrade getInitUserGrade() throws BusinessCheckException;
 }

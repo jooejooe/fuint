@@ -7,7 +7,6 @@ import com.fuint.application.dao.entities.MtCouponGroup;
 import com.fuint.application.dto.GroupDataDto;
 import com.fuint.application.dto.ReqCouponGroupDto;
 import org.springframework.web.multipart.MultipartFile;
-
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.ui.Model;
 import java.math.BigDecimal;

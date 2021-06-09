@@ -93,9 +93,9 @@ public class UserCouponServiceImpl extends BaseService implements UserCouponServ
         }
 
         // 是否已经领取
-        List<String> statusList = Arrays.asList("A", "B", "C");
+        List<String> statusList = Arrays.asList(UserCouponStatusEnum.UNUSED.getKey(), UserCouponStatusEnum.USED.getKey(), UserCouponStatusEnum.EXPIRE.getKey());
         List<MtUserCoupon> userCouponData = userCouponRepository.getUserCouponListByCouponId(userId, couponId, statusList);
-        if (userCouponData.size() >= couponInfo.getLimitNum()) {
+        if ((userCouponData.size() >= couponInfo.getLimitNum()) && (couponInfo.getLimitNum() > 0)) {
             throw new BusinessCheckException(Message.MAX_COUPON_LIMIT);
         }
 

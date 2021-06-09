@@ -13,13 +13,13 @@
             <thead>
             <tr>
                 <th >卡券ID</th>
-                <th >效果图</th>
+                <th >图标</th>
                 <th >分组</th>
                 <th >类型</th>
                 <th >卡券名称</th>
                 <th >有效期</th>
                 <th >适用店铺</th>
-                <th >发行张数</th>
+                <th >发行数量（张）</th>
                 <th >创建时间</th>
                 <th >操作</th>
             </tr>
@@ -63,11 +63,7 @@
                                 </#if>
                             </td>
                             <td>
-                                <#list groupMap as total>
-                                <#if total.id == ct.groupId >
-                                     ${ct.sendNum*total.total}
-                                </#if>
-                                </#list>
+                                ${ct.total}
                             </td>
                             <td>
                                 ${ct.createTime}
@@ -82,6 +78,7 @@
                                     <#else>
                                         <a class="label label-success small-btn" href="javascript:void(0)" onclick="javascript:getData('${rc.contextPath}/backend/coupon/couponEditInit/${ct.id}','displayArea')"><i class="fa fa-eye" title="查看"></i>详情</a>
                                     </#if>
+                                        <a class="label label-success small-btn" href="javascript:sendCoupon('${ct.id}');" title="发券"><i class="fa fa-plus"></i>发券</a>
                                         <a class="label label-success small-btn" href="javascript:void(0)" onclick="javascript:getData('${rc.contextPath}/backend/member/CouponinfoList/?EQ_couponId=${ct.id}','displayArea')"><i class="fa fa-list" title="明细"></i>明细</a>
                                 </#if>
                             </td>

@@ -1,6 +1,11 @@
 package com.fuint.application.web.rest;
 
+import com.fuint.application.dao.entities.MtConfirmer;
 import com.fuint.application.dto.UserCouponDto;
+import com.fuint.application.enums.CouponTypeEnum;
+import com.fuint.application.enums.UserCouponStatusEnum;
+import com.fuint.application.service.confirmer.ConfirmerService;
+import com.fuint.application.service.confirmlog.ConfirmLogService;
 import com.fuint.application.util.DateUtil;
 import com.fuint.exception.BusinessCheckException;
 import com.fuint.application.dao.entities.MtCoupon;
@@ -49,11 +54,17 @@ public class UserCouponApiController extends BaseController {
     @Autowired
     private CouponService couponService;
 
+    @Autowired
+    private ConfirmLogService confirmLogService;
+
     /**
      * Token服务接口
      */
     @Autowired
     private TokenService tokenService;
+
+    @Autowired
+    private ConfirmerService confirmerService;
 
     @Autowired
     private Environment env;
@@ -87,7 +98,10 @@ public class UserCouponApiController extends BaseController {
 
         MtUserCoupon userCoupon = userCouponRepository.findOne(userCouponId);
         if (!mtUser.getId().equals(userCoupon.getUserId())) {
-            return getFailureResult(1004);
+            MtConfirmer confirmInfo = confirmerService.queryConfirmerByUserId(mtUser.getId());
+            if (null == confirmInfo) {
+                return getFailureResult(1004);
+            }
         }
 
         MtCoupon couponInfo = couponService.queryCouponById(userCoupon.getCouponId().longValue());
@@ -100,20 +114,17 @@ public class UserCouponApiController extends BaseController {
         try {
             // 如果超过两小时，重新生成code
             String rCode = userCoupon.getCode();
-            if (couponService.codeExpired(rCode) && userCoupon.getStatus().equals("A")) {
+            if (couponService.codeExpired(rCode) && userCoupon.getStatus().equals(UserCouponStatusEnum.UNUSED.getKey())) {
                 StringBuffer code = new StringBuffer();
-                code.append(new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date()));
-                code.append(SeqUtil.getRandomNumber(15));
-
+                code.append(new SimpleDateFormat("yyMMddHHmmss").format(new Date()));
+                code.append(SeqUtil.getRandomNumber(6));
                 userCoupon.setCode(code.toString());
                 userCoupon.setUpdateTime(new Date());
                 userCouponRepository.save(userCoupon);
-
-                rCode = code.toString();
             }
 
             String website = env.getProperty("website.url");
-            String content  = website + "/index.html#/result?code=" + rCode +"&time=" + new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date());
+            String content  = website + "/#/pages/confirm/doConfirm?id=" + userCoupon.getId() +"&time=" + new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date());
 
             // 生成并输出二维码
             out = new ByteArrayOutputStream();
@@ -126,16 +137,27 @@ public class UserCouponApiController extends BaseController {
             UserCouponDto result = new UserCouponDto();
             result.setName(couponInfo.getName());
             result.setQrCode(qrCode);
+
+            String baseImage = env.getProperty("images.website");
+            result.setImage(baseImage + couponInfo.getImage());
+
             result.setId(userCouponId);
             result.setDescription(couponInfo.getDescription());
             result.setCouponId(couponInfo.getId());
-
+            result.setType(couponInfo.getType());
+            result.setUseRule(couponInfo.getOutRule());
             String effectiveDate = DateUtil.formatDate(couponInfo.getBeginTime(), "yyyy.MM.dd") + " - " + DateUtil.formatDate(couponInfo.getEndTime(), "yyyy.MM.dd");
-
             result.setEffectiveDate(effectiveDate);
             result.setCode(userCoupon.getCode());
             result.setAmount(userCoupon.getAmount());
             result.setBalance(userCoupon.getBalance());
+            result.setStatus(userCoupon.getStatus());
+
+            // 如果是集次卡，获取核销次数
+            if (couponInfo.getType().equals(CouponTypeEnum.TIMER.getKey())) {
+                Integer confirmCount = confirmLogService.getConfirmNum(userCouponId);
+                result.setConfirmCount(confirmCount);
+            }
 
             responseObject = getSuccessResult(result);
         } catch (Exception e) {

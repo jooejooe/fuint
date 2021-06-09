@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.fuint.application</groupId>
         <artifactId>fuint-application</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>0.0.2-SNAPSHOT</version>
     </parent>
     <groupId>com.fuint.application</groupId>
     <artifactId>application-service</artifactId>
@@ -44,7 +44,7 @@
         <dependency>
             <groupId>com.fuint</groupId>
             <artifactId>fuint-cache</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>0.0.2-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.alibaba.rocketmq</groupId>

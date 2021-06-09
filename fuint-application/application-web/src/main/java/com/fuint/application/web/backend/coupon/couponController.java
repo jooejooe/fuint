@@ -1,5 +1,9 @@
 package com.fuint.application.web.backend.coupon;
 
+import com.fuint.application.enums.CouponTypeEnum;
+import com.fuint.application.enums.OrderTypeEnum;
+import com.fuint.application.enums.UserCouponStatusEnum;
+import com.fuint.application.service.usergrade.UserGradeService;
 import com.fuint.base.shiro.ShiroUser;
 import com.fuint.base.shiro.util.ShiroUserHelper;
 import com.fuint.application.dao.repositories.MtCouponGroupRepository;
@@ -15,6 +19,7 @@ import com.fuint.application.service.coupon.CouponService;
 import com.fuint.application.service.coupongroup.CouponGroupService;
 import com.fuint.application.service.store.StoreService;
 import com.fuint.application.service.sendlog.SendLogService;
+import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
@@ -79,6 +84,9 @@ public class couponController extends BaseController {
     private SendLogService sendLogService;
 
     @Autowired
+    private UserGradeService userGradeService;
+
+    @Autowired
     private MtCouponGroupRepository couponGroupRepository;
 
     @Autowired
@@ -125,6 +133,9 @@ public class couponController extends BaseController {
         } else {
             model.addAttribute("canCreate", "Y");
         }
+
+        CouponTypeEnum[] typeList = CouponTypeEnum.values();
+        model.addAttribute("typeList", typeList);
 
         return "coupon/index";
     }
@@ -230,7 +241,7 @@ public class couponController extends BaseController {
     }
 
     /**
-     * 删除
+     * 删除卡券
      *
      * @param request
      * @param response
@@ -266,6 +277,7 @@ public class couponController extends BaseController {
         String groupId = request.getParameter("groupId");
         model.addAttribute("groupId", groupId);
 
+        // 分组
         if (StringUtils.isNotEmpty(groupId)) {
             MtCouponGroup mtCouponInfo = couponGroupService.queryCouponGroupById(Long.parseLong(groupId));
             model.addAttribute("groupInfo", mtCouponInfo);
@@ -293,17 +305,6 @@ public class couponController extends BaseController {
         PaginationResponse<MtCoupon> dataName = couponService.queryCouponListByPagination(requestName);
         if (dataName.getContent().size() > 0) {
             throw new BusinessCheckException("券名称已存在，请修改");
-        }
-
-        // 分组已发放，不允许再增加
-        PaginationRequest paginationRequest = RequestHandler.buildPaginationRequest(request, model);
-        paginationRequest.setCurrentPage(1);
-        paginationRequest.setPageSize(1);
-        paginationRequest.getSearchParams().put("EQ_groupId", reqCouponDto.getGroupId().toString());
-        paginationRequest.getSearchParams().put("EQ_status", "B");
-        PaginationResponse<MtUserCoupon> paginationResponse = userCouponRepository.findResultsByPagination(paginationRequest);
-        if (paginationResponse.getContent().size() > 0) {
-            throw new BusinessCheckException("该分组已开始使用，不允许再新增卡券");
         }
 
         MtCoupon coupon = couponService.addCoupon(reqCouponDto);
@@ -350,12 +351,12 @@ public class couponController extends BaseController {
      */
     @RequiresPermissions("backend/coupon/couponEditInit")
     @RequestMapping(value = "/couponEditInit/{id}")
-    public String couponGroupEditInit(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable("id") Long id) throws BusinessCheckException {
+    public String couponEditInit(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable("id") Long id) throws BusinessCheckException {
         MtCoupon mtCouponInfo = couponService.queryCouponById(id);
 
-        String baseImage = env.getProperty("website.url");
-
+        String baseImage = env.getProperty("images.website");
         model.addAttribute("baseImage", baseImage);
+
         model.addAttribute("couponInfo", mtCouponInfo);
 
         MtCouponGroup mtGroupInfo = couponGroupService.queryCouponGroupById(mtCouponInfo.getGroupId().longValue());

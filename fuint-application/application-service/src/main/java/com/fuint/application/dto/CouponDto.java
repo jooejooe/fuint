@@ -61,6 +61,11 @@ public class CouponDto implements Serializable {
     private Integer gotNum;
 
     /**
+     * 剩余张数
+     * */
+    private Integer leftNum;
+
+    /**
      * 限制数量
      * */
     private Integer limitNum;
@@ -156,6 +161,13 @@ public class CouponDto implements Serializable {
     }
     public void setGotNum(Integer gotNum) {
         this.gotNum = gotNum;
+    }
+
+    public Integer getLeftNum() {
+        return leftNum;
+    }
+    public void setLeftNum(Integer leftNum) {
+        this.leftNum = leftNum;
     }
 
     public boolean getIsReceive() {

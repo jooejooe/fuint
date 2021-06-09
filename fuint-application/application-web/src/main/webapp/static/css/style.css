@@ -15,10 +15,9 @@ body {
     float: right
 }
 .coupon-preview{
-    width: 150px;
-    height: 83px;
-    border: solid #ccc 1px;
-    border-radius: 3px;
+    width: 80px;
+    height: 63px;
+    border-radius: 5px;
 }
 .coupon-preview-small{
     width: 80px;

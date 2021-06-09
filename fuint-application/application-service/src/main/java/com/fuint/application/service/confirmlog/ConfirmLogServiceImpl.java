@@ -130,7 +130,7 @@ public class ConfirmLogServiceImpl implements ConfirmLogService {
                 "\t`mt_user_coupon`.`UPDATE_TIME` AS `UPDATE_TIME`,\n" +
                 "  `mt_user_coupon`.`UUID` AS `UUID`,\n" +
                 "  `mt_user`.MOBILE,\n" +
-                "\t`mt_user`.`REAL_NAME` AS `REAL_NAME`,\n" +
+                "\t`mt_user`.`NAME` AS `NAME`,\n" +
                 "  CONCAT(',',`mt_coupon`.STORE_IDS,',') AS SUIT_STORE_IDS,\n" +
                 "\t`mt_coupon`.`NAME` AS `coupon_name`,\n" +
                 "\t`mt_coupon`.`AMOUNT` AS `MONEY`,\n" +
@@ -308,7 +308,7 @@ public class ConfirmLogServiceImpl implements ConfirmLogService {
                 ConfirmLogDto.setUpdateTime(null != objArray[12] ? (Date) objArray[12] : null);
                 ConfirmLogDto.setUuid(null != objArray[13] ? objArray[13].toString() : "");
                 ConfirmLogDto.setMobile(null != objArray[14] ? objArray[14].toString() : "");
-                ConfirmLogDto.setRealName(null != objArray[15] ? objArray[15].toString() : "");
+                ConfirmLogDto.setName(null != objArray[15] ? objArray[15].toString() : "");
                 ConfirmLogDto.setSuitStoreIds(null != objArray[16] ? objArray[16].toString() : "");
                 ConfirmLogDto.setCouponName(null != objArray[17] ? objArray[17].toString() : "");
                 ConfirmLogDto.setMoney(null != objArray[18] ? new BigDecimal(objArray[18].toString()) : null);

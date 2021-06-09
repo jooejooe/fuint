@@ -72,12 +72,11 @@
         <table class="table table-striped table-bordered">
             <thead>
             <tr>
-                <th>消费记录号</th>
-                <th>用户手机号</th>
-                <th>消费分组ID</th>
-                <th>消费分组名称</th>
-                <th>消费券ID</th>
-                <th>消费券名称</th>
+                <th>记录号</th>
+                <th>手机号</th>
+                <th>分组名称</th>
+                <th>卡券ID</th>
+                <th>卡券名称</th>
                 <th>金额</th>
                 <th>使用店铺</th>
                 <th>消费时间</th>
@@ -91,7 +90,6 @@
                     <tr>
                         <td>${ct.code}</td>
                         <td>${ct.mobile}</td>
-                        <td>${ct.groupId}</td>
                         <td>${ct.couponGroupName}</td>
                         <td>${ct.couponId}</td>
                         <td>${ct.couponName}</td>
@@ -108,7 +106,7 @@
                         <td>
                             <!--过期时间大于当前时间显示撤销按钮-->
                             <#if ct.couponInfoStatus == "B" && ct.confirmStatus == "A" && ct.endCancelTime gt .now?datetime>
-                            <a href="javascript:getConfirmData('确定撤销${ct.mobile}的${ct.couponName}券的使用？撤销后该券可重新使用','${rc.contextPath}/backend/coupon/rollbackUserCoupon/${ct.id}?userCouponId=${ct.userCouponId}','displayArea')">撤销</a>
+                            <a class="label label-success small-btn" href="javascript:void(0)" onclick="javascript:getConfirmData('确定撤销${ct.mobile}的${ct.couponName}券的使用？撤销后该券可重新使用','${rc.contextPath}/backend/coupon/rollbackUserCoupon/${ct.id}?userCouponId=${ct.userCouponId}','displayArea')"><i class="fa fa-remove" title="编辑"></i>撤销</a>
                         </#if>
                         </td>
                     </tr>

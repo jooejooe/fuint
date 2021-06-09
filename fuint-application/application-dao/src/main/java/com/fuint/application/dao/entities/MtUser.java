@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -26,10 +27,10 @@ public class MtUser implements Serializable{
 	private Integer id;
 
    /**
-    * 姓名 
+    * 称呼
     */ 
-	@Column(name = "REAL_NAME", length = 30)
-	private String realName;
+	@Column(name = "NAME", length = 30)
+	private String name;
 
    /**
     * 手机号码 
@@ -85,6 +86,12 @@ public class MtUser implements Serializable{
 	@Column(name = "ADDRESS", length = 100)
 	private String address;
 
+	/**
+	 * 余额
+	 * */
+	@Column(name = "BALANCE", length = 10)
+	private BigDecimal balance;
+
    /**
     * 积分 
     */ 
@@ -110,12 +117,6 @@ public class MtUser implements Serializable{
 	private String status;
 
    /**
-    * 是否处理 
-    */ 
-	@Column(name = "IS_DEAL", length = 1)
-	private Byte isDeal;
-
-   /**
     * 备注信息 
     */ 
 	@Column(name = "DESCRIPTION", length = 255)
@@ -133,11 +134,11 @@ public class MtUser implements Serializable{
 	public void setId(Integer id){
 	this.id=id;
 	}
-	public String getRealName(){
-		return realName;
+	public String getName(){
+		return name;
 	}
-	public void setRealName(String realName){
-	this.realName=realName;
+	public void setName(String name){
+	this.name=name;
 	}
 	public String getMobile(){
 		return mobile;
@@ -193,6 +194,12 @@ public class MtUser implements Serializable{
 	public void setAddress(String address){
 	this.address=address;
 	}
+	public BigDecimal getBalance(){
+		return balance;
+	}
+	public void setBalance(BigDecimal balance){
+		this.balance=balance;
+	}
 	public Integer getPoint(){
 		return point;
 	}
@@ -216,12 +223,6 @@ public class MtUser implements Serializable{
 	}
 	public void setStatus(String status){
 	this.status=status;
-	}
-	public Byte getIsDeal(){
-		return isDeal;
-	}
-	public void setIsDeal(Byte isDeal){
-	this.isDeal=isDeal;
 	}
 	public String getDescription(){
 		return description;

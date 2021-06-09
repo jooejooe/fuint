@@ -27,7 +27,7 @@
             <div class="form-group">
                 <label class="col-md-3 control-label">姓名：</label>
                 <div class="col-md-9">
-                    <input type="text" id="realName" class="form-control" name="realName" placeholder="姓名 最长20位" maxlength="20" >
+                    <input type="text" id="name" class="form-control" name="name" placeholder="用户名最长20位" maxlength="20" >
                 </div>
             </div>
             <div class="form-group">
@@ -112,8 +112,6 @@
                 error.appendTo(element.parent());
             },
             submitHandler: function () {
-                //var selectNode = $.selectedTreeNode();
-               // alert("test");
                 postDataByFormParams('${rc.contextPath}/backend/member/create', 'displayArea', 'memberForm');
             }
         })

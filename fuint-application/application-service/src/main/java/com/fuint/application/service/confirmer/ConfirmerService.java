@@ -4,14 +4,12 @@ import com.fuint.base.dao.pagination.PaginationRequest;
 import com.fuint.base.dao.pagination.PaginationResponse;
 import com.fuint.exception.BusinessCheckException;
 import com.fuint.application.dao.entities.MtConfirmer;
-
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
 
 /**
  * 核销人员管理接口
- * Created by zach 20190909
+ * Created by zach 2019/09/09
  */
 public interface ConfirmerService {
 
@@ -62,14 +60,21 @@ public interface ConfirmerService {
     /**
      * 根据条件搜索审核人员
      * */
-    public List<MtConfirmer> queryConfirmerByParams(Map<String, Object> params) throws BusinessCheckException;
+    List<MtConfirmer> queryConfirmerByParams(Map<String, Object> params) throws BusinessCheckException;
 
     /**
-     * 根据会员用户手机获取会员用户信息
+     * 根据手机号获取核销员信息
      *
-     * @param mobile 会员用户手机
+     * @param mobile 手机
      * @throws BusinessCheckException
      */
     MtConfirmer queryConfirmerByMobile(String mobile) throws BusinessCheckException;
 
+    /**
+     * 根据用户ID获取核销员信息
+     *
+     * @param userId 用户ID
+     * @throws BusinessCheckException
+     */
+    MtConfirmer queryConfirmerByUserId(Integer userId) throws BusinessCheckException;
 }

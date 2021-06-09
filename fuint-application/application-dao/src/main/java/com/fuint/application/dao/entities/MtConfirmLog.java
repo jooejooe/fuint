@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
    /**
@@ -30,6 +31,12 @@ public class MtConfirmLog implements Serializable{
     */ 
     @Column(name = "CODE", nullable = false, length = 32)
     private String code;
+
+   /**
+    * 核销金额
+    */
+    @Column(name = "AMOUNT", nullable = false, length = 32)
+    private BigDecimal amount;
 
    /**
     * 用户券ID 
@@ -91,6 +98,12 @@ public class MtConfirmLog implements Serializable{
     @Column(name = "OPERATOR_FROM", length = 30)
     private String operatorFrom;
 
+   /**
+    * 核销备注
+    */
+    @Column(name = "REMARK", length = 500)
+    private String remark;
+
     public Integer getId(){
         return id;
     }
@@ -103,6 +116,12 @@ public class MtConfirmLog implements Serializable{
     public void setCode(String code){
     this.code=code;
     }
+    public BigDecimal getAmount(){
+           return amount;
+       }
+    public void setAmount(BigDecimal amount){
+           this.amount=amount;
+       }
     public Integer getUserCouponId(){
         return userCouponId;
     }
@@ -163,5 +182,11 @@ public class MtConfirmLog implements Serializable{
     public void setOperatorFrom(String operatorFrom){
     this.operatorFrom=operatorFrom;
     }
+    public String getRemark(){
+           return remark;
+       }
+    public void setRemark(String remark){
+           this.remark=remark;
+       }
 }
 

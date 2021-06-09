@@ -7,6 +7,7 @@ import com.fuint.application.dao.entities.MtCoupon;
 import com.fuint.application.dao.entities.MtUserCoupon;
 import com.fuint.application.dto.ReqCouponDto;
 import com.fuint.application.ResponseObject;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -94,12 +95,14 @@ public interface CouponService {
      * @param userCouponId 用户券ID
      * @param userId       核销用户ID
      * @param storeId      店铺ID
+     * @param amount 核销金额
+     * @param remark 核销备注
      * @throws BusinessCheckException
      * */
-    String useCoupon(Long userCouponId, Integer userId, Integer storeId) throws BusinessCheckException;
+    String useCoupon(Long userCouponId, Integer userId, Integer storeId, BigDecimal amount, String remark) throws BusinessCheckException;
 
     /**
-     * 根据券ID 删除个人卡券 zach 20190912 add
+     * 根据券ID删除个人卡券
      *
      * @param id       券ID
      * @param operator 操作人
@@ -108,7 +111,7 @@ public interface CouponService {
     void deleteUserCoupon(Integer id, String operator) throws BusinessCheckException;
 
     /**
-     * 根据券ID 撤销个人卡券消费流水 zach 20191012 add
+     * 根据券ID 撤销个人卡券消费流水
      *
      * @param id       消费流水ID
      * @param userCouponId       用户卡券ID

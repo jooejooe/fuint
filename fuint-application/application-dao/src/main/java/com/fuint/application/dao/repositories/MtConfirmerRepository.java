@@ -12,10 +12,10 @@ import java.util.Date;
 import java.util.List;
 
 /**
-    * mt_confirmer_personel Repository
-    * Created by zach
-    * Tue Sep 10 16:40:57 CST 2019
-    */ 
+ * mt_confirmer_personel Repository
+ * Created by zach
+ * Tue Sep 10 16:40:57 CST 2019
+ */
 @Repository 
 public interface MtConfirmerRepository extends BaseRepository<MtConfirmer, Integer> {
 
@@ -30,12 +30,19 @@ public interface MtConfirmerRepository extends BaseRepository<MtConfirmer, Integ
       int updateStatus(@Param("ids") List<Integer> ids, @Param("statusenum") String statusenum,@Param("currentDT") Date currentDT );
 
       /**
-       * 根据名称查找核销人员
+       * 根据手机号查找核销人员
        *
        * @return
        */
       @Query("select t from MtConfirmer t where t.mobile = :mobile")
       MtConfirmer queryConfirmerByMobile(@Param("mobile") String mobile);
 
+      /**
+       * 根据用户ID查找核销人员
+       *
+       * @return
+       */
+      @Query("select t from MtConfirmer t where t.userId = :userId")
+      MtConfirmer queryConfirmerByUserId(@Param("userId") Integer userId);
 }
 

@@ -2,7 +2,7 @@ package com.fuint.application.enums;
 
 /**
  * 订单类型
- * <p/>
+ *
  * Created by zach on 2021/5/05.
  */
 public enum OrderTypeEnum {

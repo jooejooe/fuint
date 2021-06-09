@@ -35,6 +35,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -101,8 +102,7 @@ public class CouponinfoController {
                 params.put("LTE_usedTime", LTE_usedTime+" 23:59:59");
             }
         }
-        catch (Exception e)
-        {
+        catch (Exception e) {
             throw new BusinessRuntimeException("日期转换异常" + e.getMessage());
         }
         if (params == null || params.size()==0) {
@@ -525,7 +525,7 @@ public class CouponinfoController {
             return "redirect:/login";
         }
 
-        couponService.useCoupon(Long.parseLong(id),shiroUser.getId().intValue(),Integer.parseInt(storeId));
+        couponService.useCoupon(Long.parseLong(id),shiroUser.getId().intValue(),Integer.parseInt(storeId), new BigDecimal(mtUserCoupon.getBalance()+""), "");
 
         return "redirect:/backend/member/CouponinfoList";
     }

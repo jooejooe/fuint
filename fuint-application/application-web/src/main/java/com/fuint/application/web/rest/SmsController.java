@@ -1,12 +1,10 @@
 package com.fuint.application.web.rest;
 
-import com.fuint.application.dao.entities.MtUser;
 import com.fuint.application.dao.entities.MtVerifyCode;
-import com.fuint.application.enums.StatusEnum;
-import com.fuint.application.service.member.MemberService;
 import com.fuint.application.service.sms.SendSmsInterface;
 import com.fuint.application.service.verifycode.VerifyCodeService;
 import com.fuint.application.util.BizCodeGenerator;
+import com.fuint.captcha.service.CaptchaService;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,11 +13,12 @@ import org.springframework.core.env.Environment;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import com.fuint.application.BaseController;
 import com.fuint.application.ResponseObject;
-
 import java.util.*;
 import com.fuint.application.util.PhoneFormatCheckUtils;
 
@@ -34,12 +33,6 @@ public class SmsController extends BaseController{
     private static final Logger logger = LoggerFactory.getLogger(SmsController.class);
 
     /**
-     * 会员服务接口
-     */
-    @Autowired
-    private MemberService memberService;
-
-    /**
      * 验证码服务接口
      */
     @Autowired
@@ -50,6 +43,9 @@ public class SmsController extends BaseController{
      */
     @Autowired
     private SendSmsInterface sendSmsService;
+
+    @Autowired
+    private CaptchaService captchaService;
 
     @Autowired
     private Environment env;
@@ -63,10 +59,18 @@ public class SmsController extends BaseController{
     @RequestMapping(value = "/sendVerifyCode", method = RequestMethod.POST)
     @CrossOrigin
     public ResponseObject sendVerifyCode(HttpServletRequest request, @RequestBody Map<String, Object> param, Model model) throws Exception {
-
-        String second = env.getProperty("SMS.PERIOD");
+        String captchaCode = param.get("captchaCode") == null ? "" : param.get("captchaCode").toString();
+        if (StringUtils.isEmpty(captchaCode)) {
+            return getFailureResult(1002,"图形验证码不能为空");
+        }
+        HttpSession session = request.getSession();
+        boolean captchaVerify = captchaService.checkCode(captchaCode, session);
+        if (!captchaVerify) {
+            return getFailureResult(1002,"图形验证码有误");
+        }
 
         // 验证码时间间隔
+        String second = env.getProperty("SMS.PERIOD");
         if (null != second && second.length() > 0) {
             Integer.parseInt(second);
         }
@@ -80,18 +84,9 @@ public class SmsController extends BaseController{
             }
         }
 
-        // 检验手机号是否是会员
-        MtUser tempUser = memberService.queryMemberByMobile(mobile);
-        if (null == tempUser) {
-            return getFailureResult(1002,"该手机号码不是会员");
-        }
-        if (!tempUser.getStatus().equals(StatusEnum.ENABLED.getKey())) {
-            return getFailureResult(1002,"该会员手机号码已经注销");
-        }
-
         // 插入验证码表
         String verifyCode= BizCodeGenerator.getVerifyCode();
-        MtVerifyCode mtVerifyCode=verifyCodeService.addVerifyCode(mobile,verifyCode,60);
+        MtVerifyCode mtVerifyCode=verifyCodeService.addVerifyCode(mobile, verifyCode,60);
         if (null == mtVerifyCode) {
             return getFailureResult(1002,"验证码发送失败");
         } else if(mtVerifyCode.getValidflag().equals("1") && mtVerifyCode.getId() == null){

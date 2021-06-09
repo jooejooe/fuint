@@ -45,6 +45,11 @@ public class CaptchaApiController extends BaseController {
             e.printStackTrace();
         }
 
+        response.setDateHeader("Expires", 0);
+        response.setHeader("Pragma", "No-cache");
+        response.setHeader("Cache-Control", "no-cache");
+        response.addHeader("Cache-Control", "no-cache");
+
         Map<String, Object> outParams = new HashMap<String, Object>();
         outParams.put("captcha", "data:image/jpg;base64,"+captcha);
 

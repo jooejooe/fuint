@@ -36,6 +36,11 @@ public class UserOrderDto implements Serializable {
 	private BigDecimal amount;
 
 	/**
+	 * 优惠金额
+	 * */
+	private BigDecimal discount;
+
+	/**
 	 * 订单参数
 	 */
 	private String param;
@@ -75,6 +80,11 @@ public class UserOrderDto implements Serializable {
 	 * */
 	private List<OrderGoodsDto> goods;
 
+	/**
+	 * 下单用户信息
+	 * */
+	private OrderUserDto userInfo;
+
 	public Integer getId(){
 		return id;
 	}
@@ -104,6 +114,12 @@ public class UserOrderDto implements Serializable {
 	}
 	public void setAmount(BigDecimal amount){
 		this.amount=amount;
+	}
+	public BigDecimal getDiscount(){
+		return discount;
+	}
+	public void setDiscount(BigDecimal discount){
+		this.discount=discount;
 	}
 	public String getParam(){
 		return param;
@@ -152,6 +168,12 @@ public class UserOrderDto implements Serializable {
 	}
 	public void setGoods(List<OrderGoodsDto> goods){
 		this.goods=goods;
+	}
+	public OrderUserDto getUserInfo(){
+		return userInfo;
+	}
+	public void setUserInfo(OrderUserDto userInfo){
+		this.userInfo=userInfo;
 	}
 }
 

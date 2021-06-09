@@ -10,11 +10,11 @@ import java.io.Serializable;
 import java.util.Date;
 import java.math.BigDecimal;
 
-   /**
-    * mt_order 实体类
-    * Created by zach
-    * Wed May 05 22:00:40 GMT+08:00 2021
-    */ 
+/**
+* mt_order 实体类
+* Created by zach
+* Wed May 05 22:00:40 GMT+08:00 2021
+*/
 @Entity 
 @Table(name = "mt_order")
 public class MtOrder implements Serializable{
@@ -31,6 +31,12 @@ public class MtOrder implements Serializable{
     */ 
 	@Column(name = "TYPE", length = 30)
 	private String type;
+
+	/**
+	 * 订单类型名称
+	 * */
+	@Column(name = "TYPE_NAME", length = 30)
+	private String typeName;
 
    /**
     * 订单号 
@@ -57,10 +63,22 @@ public class MtOrder implements Serializable{
 	private BigDecimal amount;
 
    /**
+	* 优惠金额
+	*/
+    @Column(name = "DISCOUNT")
+    private BigDecimal discount;
+
+   /**
     * 订单参数 
     */ 
 	@Column(name = "PARAM", length = 500)
 	private String param;
+
+	/**
+	 * 用户信息
+	 */
+	@Column(name = "USER_INFO", length = 500)
+	private String userInfo;
 
    /**
     * 用户备注 
@@ -104,6 +122,12 @@ public class MtOrder implements Serializable{
 	public void setType(String type){
 	this.type=type;
 	}
+	public String getTypeName() {
+		return typeName;
+	}
+	public void setTypeName(String typeName) {
+		this.typeName=typeName;
+	}
 	public String getOrderSn(){
 		return orderSn;
 	}
@@ -128,11 +152,23 @@ public class MtOrder implements Serializable{
 	public void setAmount(BigDecimal amount){
 	this.amount=amount;
 	}
+    public BigDecimal getDiscount(){
+	   return discount;
+   }
+    public void setDiscount(BigDecimal discount){
+		   this.discount=discount;
+	   }
 	public String getParam(){
 		return param;
 	}
 	public void setParam(String param){
 	this.param=param;
+	}
+	public String getUserInfo(){
+		return userInfo;
+	}
+	public void setUserInfo(String userInfo){
+		this.userInfo=userInfo;
 	}
 	public String getRemark(){
 		return remark;

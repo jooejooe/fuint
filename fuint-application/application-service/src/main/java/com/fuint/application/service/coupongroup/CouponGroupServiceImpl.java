@@ -178,8 +178,8 @@ public class CouponGroupServiceImpl implements CouponGroupService {
 
         MtCouponGroup couponGroup = this.queryCouponGroupById(reqcouponGroupDto.getId());
         if (null == couponGroup || StatusEnum.DISABLE.getKey().equalsIgnoreCase(couponGroup.getStatus())) {
-            log.error("该优惠分组不存在或已被删除");
-            throw new BusinessCheckException("该优惠分组不存在或已被删除");
+            log.error("该分组不存在或已被删除");
+            throw new BusinessCheckException("该分组不存在或已被删除");
         }
 
         if (reqcouponGroupDto.getTotal() < couponGroup.getTotal()) {
@@ -230,7 +230,7 @@ public class CouponGroupServiceImpl implements CouponGroupService {
         MtCouponGroup groupInfo = this.queryCouponGroupById(groupId);
         BigDecimal money = BigDecimal.valueOf(0);
         if (couponList.size() > 0) {
-            for (int i=0; i<couponList.size(); i++) {
+            for (int i = 0; i<couponList.size(); i++) {
                BigDecimal number = couponList.get(i).getAmount().multiply(BigDecimal.valueOf(couponList.get(i).getSendNum()));
                number = number.multiply(BigDecimal.valueOf(groupInfo.getTotal()));
                money = money.add(number);

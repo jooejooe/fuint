@@ -57,7 +57,7 @@ public class MemberController {
     public String queryList(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException {
         PaginationRequest paginationRequest = RequestHandler.buildPaginationRequest(request, model);
         String mobile = request.getParameter("LIKE_mobile");
-        String realName = request.getParameter("LIKE_realName");
+        String name = request.getParameter("LIKE_name");
         String birthday = request.getParameter("LIKE_birthday");
 
         Map<String, Object> params = paginationRequest.getSearchParams();
@@ -66,8 +66,8 @@ public class MemberController {
             if (StringUtils.isNotEmpty(mobile)) {
                 params.put("LIKE_mobile", mobile);
             }
-            if (StringUtils.isNotEmpty(realName)) {
-                params.put("LIKE_realName", realName);
+            if (StringUtils.isNotEmpty(name)) {
+                params.put("LIKE_name", name);
             }
         }
 
@@ -80,7 +80,7 @@ public class MemberController {
         model.addAttribute("paginationResponse", paginationResponse);
         model.addAttribute("userGradeMap", userGradeMap);
         model.addAttribute("LIKE_mobile", mobile);
-        model.addAttribute("LIKE_realName", realName);
+        model.addAttribute("LIKE_name", name);
         model.addAttribute("LIKE_birthday", birthday);
 
         return "member/member_list";
@@ -223,9 +223,9 @@ public class MemberController {
         MtUser mtUserInfo = memberService.queryMemberById(id);
 
         Map<String, Object> param = new HashMap<>();
-        List<MtUserGrade> userGroupMap = memberService.queryMemberGradeByParams(param);
+        List<MtUserGrade> userGradeMap = memberService.queryMemberGradeByParams(param);
 
-        model.addAttribute("userGroupMap", userGroupMap);
+        model.addAttribute("userGradeMap", userGradeMap);
         model.addAttribute("member", mtUserInfo);
 
         return "member/member_edit";

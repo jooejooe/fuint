@@ -31,6 +31,14 @@ public interface MemberService {
     MtUser addMember(MtUser reqUserDto) throws BusinessCheckException;
 
     /**
+     * 通过手机号添加会员
+     *
+     * @param mobile
+     * @throws BusinessCheckException
+     */
+    MtUser addMemberByMobile(String mobile) throws BusinessCheckException;
+
+    /**
      * 修改会员用户
      *
      * @param reqUserDto
@@ -96,4 +104,9 @@ public interface MemberService {
      * 根据条件搜索会员分组
      * */
     List<MtUserGrade> queryMemberGradeByParams(Map<String, Object> params) throws BusinessCheckException;
+
+    /**
+     * 获取会员数量
+     * */
+    Long getUserCount() throws BusinessCheckException;
 }

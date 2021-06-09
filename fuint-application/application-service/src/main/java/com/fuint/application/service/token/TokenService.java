@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.fuint.application.dao.entities.MtUser;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
@@ -67,7 +68,7 @@ public class TokenService {
 
     }
 
-    // 检查token存在,则获取用户登录信息
+    // 通过登录token获取用户登录信息
     public MtUser getUserInfoByToken(String token) throws BusinessCheckException {
         MtUser mtUser = null;
         try {

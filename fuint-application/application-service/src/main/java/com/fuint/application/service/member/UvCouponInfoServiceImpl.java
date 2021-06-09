@@ -151,7 +151,7 @@ public class UvCouponInfoServiceImpl implements UvCouponInfoService {
                 "\t`mt_user_coupon`.`UPDATE_TIME` AS `UPDATE_TIME`,\n" +
                 "  `mt_user_coupon`.`UUID` AS `UUID`,\n" +
                 "  `mt_user`.MOBILE,\n" +
-                "\t`mt_user`.`REAL_NAME` AS `REAL_NAME`,\n" +
+                "\t`mt_user`.`NAME` AS `NAME`,\n" +
                 "  CONCAT(',',`mt_coupon`.STORE_IDS,',') AS SUIT_STORE_IDS,\n" +
                 "\t`mt_coupon`.`NAME` AS `coupon_name`,\n" +
                 "\t`mt_coupon`.`IMAGE` AS `coupon_image`,\n" +
@@ -335,7 +335,7 @@ public class UvCouponInfoServiceImpl implements UvCouponInfoService {
                 uvCouponInfo.setUpdateTime(null != objArray[9] ? (Date) objArray[9] : null);
                 uvCouponInfo.setUuid(null != objArray[10] ? objArray[10].toString() : "");
                 uvCouponInfo.setMobile(null != objArray[11] ? objArray[11].toString() : "");
-                uvCouponInfo.setRealName(null != objArray[12] ? objArray[12].toString() : "");
+                uvCouponInfo.setName(null != objArray[12] ? objArray[12].toString() : "");
                 uvCouponInfo.setSuitStoreIds(null != objArray[13] ? objArray[13].toString() : "");
                 uvCouponInfo.setCouponName(null != objArray[14] ? objArray[14].toString() : "");
                 uvCouponInfo.setCouponImage(null != objArray[15] ? objArray[15].toString() : "");
@@ -346,21 +346,6 @@ public class UvCouponInfoServiceImpl implements UvCouponInfoService {
                 uvCouponInfo.setEndTime(null != objArray[20] ? (Date) objArray[20] : null);
                 uvCouponInfo.setCouponGroupName(null != objArray[21] ? objArray[21].toString() : "");
                 uvCouponInfo.setStoreName(null != objArray[22] ? objArray[22].toString() : "");
-
-                // 生成效果图 todo 多线程
-                String website = env.getProperty("website.url");
-                String code = uvCouponInfo.getCode();
-                String codeContent  = website + "/index.html#/result?code=" + code +"&time=" + new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date());
-                ByteArrayOutputStream out = new ByteArrayOutputStream();
-                String source = uvCouponInfo.getCouponImage();
-                QRCodeUtil.createQrCode(out, codeContent, 120, 120, "png", source);
-                try {
-                    String img = new String(Base64Util.baseEncode(out.toByteArray()), "UTF-8");
-                    uvCouponInfo.setCouponImage(img);
-                } catch (Exception e ) {
-                    // empty
-                }
-
                 content.add(uvCouponInfo);
             }
         }

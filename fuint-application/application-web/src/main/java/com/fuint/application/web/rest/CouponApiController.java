@@ -80,6 +80,7 @@ public class CouponApiController extends BaseController {
     public ResponseObject receive(HttpServletRequest request, @RequestBody Map<String, Object> param) throws BusinessCheckException {
         String token = request.getHeader("Access-Token");
         MtUser mtUser = tokenService.getUserInfoByToken(token);
+
         if (null != mtUser) {
             param.put("userId", mtUser.getId());
         } else {
@@ -107,7 +108,6 @@ public class CouponApiController extends BaseController {
     @RequestMapping(value = "/detail", method = RequestMethod.GET)
     @CrossOrigin
     public ResponseObject detail(HttpServletRequest request, @RequestParam Map<String, Object> param) throws BusinessCheckException, InvocationTargetException, IllegalAccessException {
-        String token = request.getHeader("Access-Token");
         Integer couponId = param.get("couponId") == null ? 0 : Integer.parseInt(param.get("couponId").toString());
 
         MtCoupon couponInfo = couponService.queryCouponById(couponId.longValue());

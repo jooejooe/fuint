@@ -1,12 +1,16 @@
 package com.fuint.application.web.rest;
 
 import com.fuint.application.dao.entities.MtOrder;
+import com.fuint.application.dto.OrderDto;
+import com.fuint.application.dto.UserOrderDto;
+import com.fuint.application.enums.OrderStatusEnum;
 import com.fuint.application.service.order.OrderService;
 import com.fuint.exception.BusinessCheckException;
 import com.fuint.application.ResponseObject;
 import com.fuint.application.BaseController;
 import com.fuint.application.dao.entities.MtUser;
 import com.fuint.application.service.token.TokenService;
+import jodd.util.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,7 +65,7 @@ public class OrderController extends BaseController {
      */
     @RequestMapping(value = "/detail", method = RequestMethod.GET)
     @CrossOrigin
-    public ResponseObject detail(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException{
+    public ResponseObject detail(HttpServletRequest request) throws BusinessCheckException{
         String userToken = request.getHeader("Access-Token");
         MtUser mtUser = tokenService.getUserInfoByToken(userToken);
 
@@ -69,7 +73,43 @@ public class OrderController extends BaseController {
             return getFailureResult(1001, "用户未登录");
         }
 
-        MtOrder orderInfo = orderService.getOrderById(1);
+        String orderId = request.getParameter("orderId");
+        if (StringUtil.isEmpty(orderId)) {
+            return getFailureResult(2000, "订单不能为空");
+        }
+
+        UserOrderDto orderInfo = orderService.getOrderById(Integer.parseInt(orderId));
+
+        return getSuccessResult(orderInfo);
+    }
+
+    /**
+     * 取消订单
+     */
+    @RequestMapping(value = "/cancel", method = RequestMethod.GET)
+    @CrossOrigin
+    public ResponseObject cancel(HttpServletRequest request) throws BusinessCheckException{
+        String userToken = request.getHeader("Access-Token");
+        MtUser mtUser = tokenService.getUserInfoByToken(userToken);
+
+        if (mtUser == null) {
+            return getFailureResult(1001, "用户未登录");
+        }
+
+        String orderId = request.getParameter("orderId");
+        if (StringUtil.isEmpty(orderId)) {
+            return getFailureResult(2000, "订单不能为空");
+        }
+
+        UserOrderDto order = orderService.getOrderById(Integer.parseInt(orderId));
+        if (!order.getUserId().equals(mtUser.getId())) {
+            return getFailureResult(2000, "订单信息有误");
+        }
+
+        OrderDto reqDto = new OrderDto();
+        reqDto.setId(Integer.parseInt(orderId));
+        reqDto.setStatus(OrderStatusEnum.CANCEL.getKey());
+        MtOrder orderInfo = orderService.updateOrder(reqDto);
 
         return getSuccessResult(orderInfo);
     }
@@ -88,7 +128,7 @@ public class OrderController extends BaseController {
         }
 
         Map<String, Object> param = new HashMap<>();
-        param.put("EQ_status", "A");
+        param.put("EQ_status", OrderStatusEnum.CREATED.getKey());
         param.put("EQ_userId", mtUser.getId()+"");
         List<MtOrder> data = orderService.getOrderListByParams(param);
 

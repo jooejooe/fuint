@@ -50,6 +50,11 @@ public class UserCouponDto implements Serializable {
     private String qrCode;
 
     /**
+     * 图片
+     * */
+    private String image;
+
+    /**
      * 面额
      * */
     private BigDecimal amount;
@@ -58,6 +63,11 @@ public class UserCouponDto implements Serializable {
      * 余额
      * */
     private BigDecimal balance;
+
+    /**
+     * 核销次数
+     * */
+    private Integer confirmCount;
 
     /**
      * 是否可以使用(过期、状态等)
@@ -137,6 +147,13 @@ public class UserCouponDto implements Serializable {
         this.qrCode = qrCode;
     }
 
+    public String getImage() {
+        return image;
+    }
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     public BigDecimal getAmount() {
         return amount;
     }
@@ -149,6 +166,13 @@ public class UserCouponDto implements Serializable {
     }
     public void setBalance(BigDecimal balance) {
         this.balance = balance;
+    }
+
+    public Integer getConfirmCount() {
+        return confirmCount;
+    }
+    public void setConfirmCount(Integer confirmCount) {
+        this.confirmCount = confirmCount;
     }
 
     public boolean getCanUse() {

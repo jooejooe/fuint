@@ -27,7 +27,7 @@ import java.util.*;
 
 /**
  * 核销人员管理接口实现类
- * Created by zach 20190909
+ * Created by zach 2019/09/09
  */
 @Service
 public class ConfirmerServiceImpl implements ConfirmerService {
@@ -100,7 +100,7 @@ public class ConfirmerServiceImpl implements ConfirmerService {
                 // 关联userid
                 MtUser tmemberInfo = new MtUser();
                 tmemberInfo.setMobile(reqConfirmerDto.getMobile());
-                tmemberInfo.setRealName(reqConfirmerDto.getRealName());
+                tmemberInfo.setName(reqConfirmerDto.getRealName());
                 MtUser mtUser_1=memberService.queryMemberByMobile(reqConfirmerDto.getMobile());
 
                 if (mtUser_1 == null) {
@@ -195,7 +195,7 @@ public class ConfirmerServiceImpl implements ConfirmerService {
                         if(mtConfirmer != null) {
                             MtUser tmemberInfo = new MtUser();
                             tmemberInfo.setMobile(mtConfirmer.getMobile());
-                            tmemberInfo.setRealName(mtConfirmer.getRealName());
+                            tmemberInfo.setName(mtConfirmer.getRealName());
                             MtUser mtUser_1=memberService.queryMemberByMobile(mtConfirmer.getMobile());
                             if (mtUser_1 == null) {
                                 mtUser_1=memberService.addMember(tmemberInfo);
@@ -260,6 +260,18 @@ public class ConfirmerServiceImpl implements ConfirmerService {
     @Override
     public MtConfirmer queryConfirmerByMobile(String mobile) throws BusinessCheckException {
         MtConfirmer mtConfirmer = confirmerRepository.queryConfirmerByMobile(mobile);
+        return mtConfirmer;
+    }
+
+    /**
+     * 根据用户ID获取核销员信息
+     *
+     * @param userId 用户ID
+     * @throws BusinessCheckException
+     */
+    @Override
+    public MtConfirmer queryConfirmerByUserId(Integer userId) throws BusinessCheckException {
+        MtConfirmer mtConfirmer = confirmerRepository.queryConfirmerByUserId(userId);
         return mtConfirmer;
     }
 }

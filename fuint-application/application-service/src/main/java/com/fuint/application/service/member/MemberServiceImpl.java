@@ -2,6 +2,7 @@ package com.fuint.application.service.member;
 
 import com.fuint.application.dao.entities.MtUserGrade;
 import com.fuint.application.dao.repositories.MtUserGradeRepository;
+import com.fuint.application.service.usergrade.UserGradeService;
 import com.fuint.base.annoation.OperationServiceLog;
 import com.fuint.base.dao.pagination.PaginationRequest;
 import com.fuint.base.dao.pagination.PaginationResponse;
@@ -22,6 +23,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -54,6 +57,12 @@ public class MemberServiceImpl implements MemberService {
     private SendSmsInterface sendSmsService;
 
     /**
+     * 会员等级接口
+     * */
+    @Autowired
+    private UserGradeService userGradeService;
+
+    /**
      * 分页查询会员用户列表
      *
      * @param paginationRequest
@@ -72,20 +81,20 @@ public class MemberServiceImpl implements MemberService {
      * @throws BusinessCheckException
      */
     @Override
-    @OperationServiceLog(description = "添加会员用户信息")
+    @OperationServiceLog(description = "添加会员信息")
     public MtUser addMember(MtUser mtUser) throws BusinessCheckException {
         Boolean newFlag = Boolean.FALSE;
         try {
             // 创建时间
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            String dt=sdf.format(new Date());
+            String dt = sdf.format(new Date());
             Date addtime = sdf.parse(dt);
             mtUser.setUpdateTime(addtime);
             // 添加的时候需要加入插入时间
             if (null == mtUser.getId()) {
-                newFlag=Boolean.TRUE;
+                newFlag = Boolean.TRUE;
                 mtUser.setCreateTime(addtime);
-                mtUser.setStatus(StatusEnum.ENABLED.getKey().toString());
+                mtUser.setStatus(StatusEnum.ENABLED.getKey());
                 MtUser mtUser_1 = userRepository.queryMemberByMobile(mtUser.getMobile());
                 if (mtUser_1 != null) {
                     throw new BusinessCheckException("手机号码已经存在");
@@ -118,15 +127,41 @@ public class MemberServiceImpl implements MemberService {
     }
 
     /**
+     * 通过手机号添加会员
+     *
+     * @param mobile
+     * @throws BusinessCheckException
+     */
+    @Override
+    @OperationServiceLog(description = "添加会员信息")
+    public MtUser addMemberByMobile(String mobile) throws BusinessCheckException {
+        MtUser mtUser = new MtUser();
+        mtUser.setName(mobile);
+        mtUser.setMobile(mobile);
+        MtUserGrade grade = userGradeService.getInitUserGrade();
+        mtUser.setGradeId(grade.getId()+"");
+        mtUser.setCreateTime(new Date());
+        mtUser.setUpdateTime(new Date());
+        mtUser.setBalance(new BigDecimal("0.00"));
+        mtUser.setPoint(0);
+        mtUser.setDescription("验证码登录自动注册");
+        mtUser.setIdcard("");
+        mtUser.setStatus(StatusEnum.ENABLED.getKey());
+
+        userRepository.save(mtUser);
+        return mtUser;
+    }
+
+    /**
      * 根据手机号获取会员用户信息信息
      *
      * @param mobile 手机号
      * @throws BusinessCheckException
      */
     @Override
-    public MtUser queryMemberByMobile(String mobile) throws BusinessCheckException {
-        MtUser MtUser = userRepository.queryMemberByMobile(mobile);
-        return MtUser;
+    public MtUser queryMemberByMobile(String mobile) {
+        MtUser mtUser = userRepository.queryMemberByMobile(mobile);
+        return mtUser;
     }
 
     /**
@@ -143,7 +178,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     /**
-     * 根据会员组ID获取会员组信息
+     * 根据等级ID获取会员等级信息
      *
      * @param id 会员组ID
      * @throws BusinessCheckException
@@ -272,5 +307,13 @@ public class MemberServiceImpl implements MemberService {
         List<MtUserGrade> result = userGradeRepository.findAll(specification, sort);
 
         return result;
+    }
+
+    /**
+     * 获取会员数量
+     * */
+    @Override
+    public Long getUserCount() throws BusinessCheckException {
+        return userRepository.getUserCount();
     }
 }

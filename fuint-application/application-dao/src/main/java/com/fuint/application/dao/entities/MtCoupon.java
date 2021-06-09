@@ -45,6 +45,24 @@ public class MtCoupon implements Serializable{
     private String name;
 
    /**
+    * 是否允许转赠
+    */
+    @Column(name = "IS_GIVE", length = 1)
+    private Integer isGive;
+
+   /**
+    * 获得卡券所消耗积分
+    */
+    @Column(name = "POINT", length = 10)
+    private Integer point;
+
+   /**
+    * 领取码
+    */
+    @Column(name = "RECEIVE_CODE", length = 32)
+    private String receiveCode;
+
+   /**
     * 开始有效期 
     */ 
     @Column(name = "BEGIN_TIME")
@@ -73,6 +91,12 @@ public class MtCoupon implements Serializable{
     */ 
     @Column(name = "SEND_NUM", length = 10)
     private Integer sendNum;
+
+   /**
+    * 发行总数量
+    */
+    @Column(name = "TOTAL", length = 10)
+    private Integer total;
 
    /**
     * 数量限制
@@ -170,6 +194,24 @@ public class MtCoupon implements Serializable{
     public void setName(String name){
     this.name=name;
     }
+    public Integer getIsGive(){
+       return isGive;
+   }
+    public void setIsGive(Integer isGive){
+       this.isGive=isGive;
+   }
+    public Integer getPoint(){
+       return point;
+   }
+    public void setPoint(Integer point){
+       this.point=point;
+   }
+    public String getReceiveCode(){
+       return receiveCode;
+   }
+    public void setReceiveCode(String receiveCode){
+           this.receiveCode=receiveCode;
+       }
     public Date getBeginTime(){
         return beginTime;
     }
@@ -200,6 +242,12 @@ public class MtCoupon implements Serializable{
     public void setSendNum(Integer sendNum){
     this.sendNum=sendNum;
     }
+    public Integer getTotal(){
+           return total;
+       }
+    public void setTotal(Integer total){
+           this.total=total;
+       }
     public Integer getLimitNum(){
        return limitNum;
    }

@@ -7,17 +7,31 @@
         <h4 class="panel-title">订单查询</h4>
     </div>
     <div class="panel-body">
-        <form id="pointForm" name="pointForm" method="post" class="form-inline">
+        <form id="orderForm" name="orderForm" method="post" class="form-inline">
             <div class="form-group m-r-10">
                 <input type="text" class="form-control" name="EQ_userId" value="${EQ_userId}"
                        placeholder="会员ID">
             </div>
             <div class="form-group m-r-10">
-                <input type="text" class="form-control" name="LIKE_description" value="${LIKE_description}"
-                       placeholder="关键字">
+                <input type="text" class="form-control" name="EQ_orderSn" value="${EQ_orderSn}"
+                       placeholder="订单号">
+            </div>
+            <div class="form-group m-r-10">
+                <select class="form-control" name="EQ_type" id="EQ_type">
+                    <option value="">类型</option>
+                    <#if typeList?has_content && typeList?exists>
+                    <#list typeList as pf>
+                    <option value="${pf.key}" <#if params.EQ_type== pf.key> selected</#if>>${pf.value}</option>
+                    </#list>
+                    </#if>
+                </select>
             </div>
             <button type="button" class="btn btn-sm btn-success"
-                    onclick="postDataByForm('backend/point/index','displayArea','pointForm')"><i class="fa fa-search"></i>查询
+                    onclick="postDataByForm('backend/order/list','displayArea','orderForm')"><i class="fa fa-search"></i>查询
+            </button>
+            <button type="reset" class="btn btn-success btn-sm">
+                <i class="fa fa-remove"></i>
+                重置
             </button>
         </form>
     </div>
@@ -35,9 +49,11 @@
                 <th>订单号</th>
                 <th>类型</th>
                 <th>金额</th>
+                <th>优惠金额</th>
                 <th>创建时间</th>
                 <th>更新时间</th>
                 <th>状态</th>
+                <th>操作</th>
             </tr>
             </thead>
             <tbody>
@@ -46,8 +62,9 @@
                     <tr>
                         <td>${ct.id}</td>
                         <td>${ct.orderSn}</td>
-                        <td>${ct.type}</td>
+                        <td>${ct.typeName}</td>
                         <td>${ct.amount}</td>
+                        <td>${ct.discount}</td>
                         <td>${ct.createTime}</td>
                         <td>${ct.updateTime}</td>
                         <td>
@@ -56,6 +73,10 @@
                         <#else>
                             无效
                         </#if>
+                        </td>
+                        <td>
+                            <a class="label label-success small-btn" href="javascript:getData('${rc.contextPath}/backend/order/detail?EQ_id=${ct.id}','displayArea');" title="详情"><i class="fa fa-eye"></i>详情</a>
+                            <a class="label label-success small-btn" href="javascript:getData('${rc.contextPath}/backend/order/update/${ct.id}','displayArea')" title="更新"><i class="fa fa-edit"></i>更新</a>
                         </td>
                     </tr>
                 </#list>
@@ -72,4 +93,4 @@
 <!-- recordBean 分页查询结果Bean
      action 分页请求URL
      formName 分页需要的查询参数的表单名称 -->
-<@sp.pagination recordBean=paginationResponse action="${rc.contextPath}/backend/point/index" formName="pointForm"/>
+<@sp.pagination recordBean=paginationResponse action="${rc.contextPath}/backend/order/list" formName="orderForm"/>

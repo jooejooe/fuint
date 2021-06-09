@@ -32,6 +32,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -82,6 +83,9 @@ public class CouponServiceImpl extends BaseService implements CouponService {
     @Autowired
     private MtStoreRepository mtStoreRepository;
 
+    @Autowired
+    private Environment env;
+
     /**
      * 分页查询券列表
      *
@@ -92,6 +96,14 @@ public class CouponServiceImpl extends BaseService implements CouponService {
     public PaginationResponse<MtCoupon> queryCouponListByPagination(PaginationRequest paginationRequest) throws BusinessCheckException {
         paginationRequest.setSortColumn(new String[]{"status asc", "id desc"});
         PaginationResponse<MtCoupon> paginationResponse = couponRepository.findResultsByPagination(paginationRequest);
+        List<MtCoupon> dataList = paginationResponse.getContent();
+        if (dataList.size() > 0) {
+            String baseImage = env.getProperty("images.website");
+            for (MtCoupon item : dataList) {
+               item.setImage(baseImage + item.getImage());
+            }
+            paginationResponse.setContent(dataList);
+        }
         return paginationResponse;
     }
 
@@ -116,12 +128,36 @@ public class CouponServiceImpl extends BaseService implements CouponService {
         coupon.setGroupId(reqCouponDto.getGroupId());
         coupon.setType(reqCouponDto.getType());
         coupon.setName(CommonUtil.replaceXSS(reqCouponDto.getName()));
+        coupon.setIsGive(reqCouponDto.getIsGive());
+        if (null == reqCouponDto.getPoint()) {
+            reqCouponDto.setPoint(0);
+        }
+        coupon.setPoint(reqCouponDto.getPoint());
+        if (null == reqCouponDto.getLimitNum()) {
+            reqCouponDto.setLimitNum(0);
+        }
+        coupon.setLimitNum(reqCouponDto.getLimitNum());
+        coupon.setReceiveCode(reqCouponDto.getReceiveCode());
+
+        if (coupon.getType().equals(CouponTypeEnum.TIMER.getKey())) {
+            coupon.setPoint(reqCouponDto.getTimerPoint());
+            coupon.setReceiveCode(reqCouponDto.getTimerReceiveCode());
+        }
+
         coupon.setStoreIds(CommonUtil.replaceXSS(reqCouponDto.getStoreIds()));
+
         if (null == reqCouponDto.getSendNum()) {
             reqCouponDto.setSendNum(1);
         }
         coupon.setSendWay(reqCouponDto.getSendWay());
+
         coupon.setSendNum(reqCouponDto.getSendNum());
+
+        if (null == reqCouponDto.getTotal()) {
+            reqCouponDto.setTotal(0);
+        }
+        coupon.setTotal(reqCouponDto.getTotal());
+
         coupon.setBeginTime(reqCouponDto.getBeginTime());
         coupon.setEndTime(reqCouponDto.getEndTime());
         coupon.setExceptTime(CommonUtil.replaceXSS(reqCouponDto.getExceptTime()));
@@ -141,7 +177,7 @@ public class CouponServiceImpl extends BaseService implements CouponService {
         coupon.setImage(image);
         coupon.setRemarks(CommonUtil.replaceXSS(reqCouponDto.getRemarks()));
 
-        coupon.setStatus("A");
+        coupon.setStatus(StatusEnum.ENABLED.getKey());
         //创建时间
         coupon.setCreateTime(new Date());
 
@@ -239,6 +275,9 @@ public class CouponServiceImpl extends BaseService implements CouponService {
 
         coupon.setGroupId(reqCouponDto.getGroupId());
         coupon.setName(CommonUtil.replaceXSS(reqCouponDto.getName()));
+        coupon.setIsGive(reqCouponDto.getIsGive());
+        coupon.setPoint(reqCouponDto.getPoint());
+        coupon.setReceiveCode(reqCouponDto.getReceiveCode());
         coupon.setAmount(reqCouponDto.getAmount());
         coupon.setSendWay(reqCouponDto.getSendWay());
         coupon.setSendNum(reqCouponDto.getSendNum());
@@ -319,13 +358,16 @@ public class CouponServiceImpl extends BaseService implements CouponService {
                  if (null == image || image.equals("")) {
                     image = "/static/default-coupon.jpg";
                  }
-
-                 dto.setImage(image);
+                 String baseImage = env.getProperty("images.website");
+                 dto.setImage(baseImage + image);
                  dto.setStatus(userCouponDto.getStatus());
                  dto.setAmount(couponInfo.getAmount());
                  dto.setType(couponInfo.getType());
 
                  boolean canUse = this.isCouponEffective(couponInfo);
+                 if (!userCouponDto.getStatus().equals(UserCouponStatusEnum.UNUSED.getKey())) {
+                     canUse = false;
+                 }
                  dto.setCanUse(canUse);
 
                  String effectiveDate = DateUtil.formatDate(couponInfo.getBeginTime(), "yyyy.MM.dd") + "-" + DateUtil.formatDate(couponInfo.getEndTime(), "yyyy.MM.dd");
@@ -354,7 +396,6 @@ public class CouponServiceImpl extends BaseService implements CouponService {
                   }
 
                   dto.setTips(tips);
-
                   dataList.add(dto);
             }
         }
@@ -398,17 +439,21 @@ public class CouponServiceImpl extends BaseService implements CouponService {
 
         List<MtCoupon> dataList = paginationResponse.getContent();
         List<CouponDto> content = new ArrayList<>();
+        String baseImage = env.getProperty("images.website");
         for (int i = 0; i < dataList.size(); i++) {
             CouponDto item = new CouponDto();
             BeanUtils.copyProperties(dataList.get(i), item);
 
+            item.setImage(baseImage + item.getImage());
+
             // 是否领取，且领取量大于限制数
-            List<String> statusList = Arrays.asList("A", "B", "C");
+            List<String> statusList = Arrays.asList(UserCouponStatusEnum.UNUSED.getKey(), UserCouponStatusEnum.USED.getKey(), UserCouponStatusEnum.EXPIRE.getKey());
             List<MtUserCoupon> userCoupon = userCouponRepository.getUserCouponListByCouponId(userId, item.getId(), statusList);
-            if (userCoupon.size() >= dataList.get(i).getLimitNum()) {
+            if ((userCoupon.size() >= dataList.get(i).getLimitNum()) && (dataList.get(i).getLimitNum() > 0)) {
                 item.setIsReceive(true);
             }
 
+            // 领取或预存数量
             List<Object[]> numData = userCouponRepository.getPeopleNumByCouponId(item.getId());
             Long num;
             if (null == numData || numData.size() < 1) {
@@ -418,6 +463,10 @@ public class CouponServiceImpl extends BaseService implements CouponService {
                 num = (Long) obj[1];
             }
             item.setGotNum(num.intValue());
+
+            // 剩余数量
+            Integer leftNum = dataList.get(i).getTotal() - item.getGotNum();
+            item.setLeftNum(leftNum >= 0 ? leftNum : 0);
 
             String sellingPoint = "";
 
@@ -541,15 +590,19 @@ public class CouponServiceImpl extends BaseService implements CouponService {
     }
 
     /**
-     * 发放卡券
+     * 核销卡券
      *
      * @param userCouponId 用户券ID
+     * @param userId  用户ID
+     * @param storeId 店铺ID
+     * @param amount 核销金额
+     * @param remark 核销备注
      * @throws BusinessCheckException
      */
     @Override
     @Transactional
     @OperationServiceLog(description = "核销卡券")
-    public String useCoupon(Long userCouponId, Integer userId, Integer storeId) throws BusinessCheckException {
+    public String useCoupon(Long userCouponId, Integer userId, Integer storeId, BigDecimal amount, String remark) throws BusinessCheckException {
         MtUserCoupon userCoupon = userCouponRepository.findOne(userCouponId.intValue());
 
         if (null == userCoupon) {
@@ -580,7 +633,7 @@ public class CouponServiceImpl extends BaseService implements CouponService {
         // 是否在例外日期
         Calendar cal = Calendar.getInstance();
         Boolean isWeekend = false;
-        if (cal.get(Calendar.DAY_OF_WEEK)==Calendar.SATURDAY || cal.get(Calendar.DAY_OF_WEEK)==Calendar.SUNDAY) {
+        if (cal.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY || cal.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
             isWeekend = true;
         }
 
@@ -612,7 +665,31 @@ public class CouponServiceImpl extends BaseService implements CouponService {
             }
         }
 
-        userCoupon.setStatus("B");
+        if (couponInfo.getType().equals(CouponTypeEnum.COUPON.getKey())) {
+            // 优惠券核销直接修改状态
+            userCoupon.setStatus(UserCouponStatusEnum.USED.getKey());
+        } else if (couponInfo.getType().equals(CouponTypeEnum.PRESTORE.getKey())) {
+            // 预存卡核销，修改余额
+            BigDecimal balance = userCoupon.getBalance();
+            BigDecimal newBalance = balance.subtract(amount);
+
+            if (newBalance.compareTo(new BigDecimal("0")) == -1) {
+                throw new BusinessCheckException("余额不足，无法核销");
+            }
+
+            if (newBalance.compareTo(new BigDecimal("0")) == 0) {
+                userCoupon.setStatus(UserCouponStatusEnum.USED.getKey());
+            }
+
+            userCoupon.setBalance(newBalance);
+        } else if (couponInfo.getType().equals(CouponTypeEnum.TIMER.getKey())) {
+            // 集次卡核销，增肌核销次数至满
+            int confirmCount = 3;
+            if (confirmCount >= Integer.parseInt(couponInfo.getOutRule())) {
+                userCoupon.setStatus(UserCouponStatusEnum.USED.getKey());
+            }
+        }
+
         userCoupon.setUpdateTime(new Date());
         userCoupon.setUsedTime(new Date());
         userCoupon.setStoreId(storeId);
@@ -634,9 +711,11 @@ public class CouponServiceImpl extends BaseService implements CouponService {
         confirmLog.setOperatorUserId(userId);
         confirmLog.setStoreId(storeId);
         confirmLog.setStatus(StatusEnum.ENABLED.getKey());
+        confirmLog.setAmount(amount);
+        confirmLog.setRemark(remark);
 
-        //判断是否是后台更新 20191012 add
-        ShiroUser shiroUser = ShiroUserHelper.getCurrentShiroUser(); //当前登录账号
+        // 判断是否是后台更新
+        ShiroUser shiroUser = ShiroUserHelper.getCurrentShiroUser();
         if (shiroUser != null) {
             confirmLog.setOperatorFrom("tAccount");
         }

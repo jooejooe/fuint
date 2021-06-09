@@ -63,5 +63,13 @@ public interface MtUserRepository extends BaseRepository<MtUser, Integer> {
    @Modifying
    @Query(value = "update MtUser p set p.status =:statusenum where p.id in (:ids)")
    int updateStatus(@Param("ids") List<Integer> ids, @Param("statusenum") String statusenum);
+
+   /**
+    * 获取会员总数
+    *
+    * @return
+    */
+   @Query("SELECT count(t.id) as num FROM MtUser t WHERE t.status = 'A'")
+   Long getUserCount();
 }
 

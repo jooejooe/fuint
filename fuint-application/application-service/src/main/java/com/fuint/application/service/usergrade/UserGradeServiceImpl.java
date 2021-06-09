@@ -1,7 +1,9 @@
 package com.fuint.application.service.usergrade;
 
+import com.fuint.application.dao.entities.MtBanner;
 import com.fuint.application.dao.entities.MtUserGrade;
 import com.fuint.application.dao.repositories.MtUserGradeRepository;
+import com.fuint.application.enums.UserGradeCatchTypeEnum;
 import com.fuint.base.annoation.OperationServiceLog;
 import com.fuint.base.dao.pagination.PaginationRequest;
 import com.fuint.base.dao.pagination.PaginationResponse;
@@ -10,8 +12,14 @@ import com.fuint.application.enums.StatusEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 会员等级业务接口实现类
@@ -101,5 +109,31 @@ public class UserGradeServiceImpl implements UserGradeService {
         userGradeRepository.save(mtUserGrade);
 
         return mtUserGrade.getId();
+    }
+
+    /**
+     * 获取默认的会员等级
+     *
+     * @throws BusinessCheckException
+     */
+    @Override
+    public MtUserGrade getInitUserGrade() {
+        Map<String, Object> param = new HashMap<>();
+        param.put("EQ_status", StatusEnum.ENABLED.getKey());
+
+        Specification<MtUserGrade> specification = userGradeRepository.buildSpecification(param);
+        Sort sort = new Sort(Sort.Direction.DESC, "id");
+        List<MtUserGrade> dataList = userGradeRepository.findAll(specification, sort);
+
+        MtUserGrade result = new MtUserGrade();
+        result.setId(0);
+
+        for (MtUserGrade grade : dataList) {
+            if (grade.getCatchType().equals(UserGradeCatchTypeEnum.INIT.getKey())) {
+                return grade;
+            }
+        }
+
+         return result;
     }
 }

@@ -114,6 +114,7 @@ public class SettlementController extends BaseController {
 
         outParams.put("isCreated", true);
         outParams.put("payType", "WECHAT");
+        outParams.put("orderInfo", orderInfo);
 
         ResponseObject responseObject = getSuccessResult(outParams);
 

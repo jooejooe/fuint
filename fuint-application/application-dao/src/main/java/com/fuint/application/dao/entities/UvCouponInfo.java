@@ -1,17 +1,16 @@
 package com.fuint.application.dao.entities;
 
 import com.alibaba.fastjson.annotation.JSONField;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.math.BigDecimal;
 
-   /**
-    * uv_coupon_info 实体类
-    * Created by zach
-    * Thu Sep 12 17:18:54 CST 2019
-    */ 
+/**
+ * uv_coupon_info 实体类
+ * Created by zach
+ * Thu Sep 12 17:18:54 CST 2019
+ */
 @Entity 
 @Table(name = "uv_coupon_info")
 public class UvCouponInfo implements Serializable{
@@ -47,9 +46,6 @@ public class UvCouponInfo implements Serializable{
     @Column(name = "COUPON_INFO_STATUS", nullable = false, length = 1)
     private String couponInfoStatus;
 
-   /**
-    *  
-    */ 
     @Column(name = "COUPON_INFO_STATUS_DESC", nullable = false)
     private String couponInfoStatusDesc;
 
@@ -95,8 +91,8 @@ public class UvCouponInfo implements Serializable{
    /**
     * 真实姓名 
     */ 
-    @Column(name = "REAL_NAME", length = 30)
-    private String realName;
+    @Column(name = "NAME", length = 30)
+    private String name;
 
    /**
     * 券名称
@@ -151,7 +147,6 @@ public class UvCouponInfo implements Serializable{
     */ 
     @Column(name = "store_Name", length = 50)
     private String storeName;
-
 
     /**
     * 发券量
@@ -253,11 +248,11 @@ public class UvCouponInfo implements Serializable{
     public void setMobile(String mobile){
     this.mobile=mobile;
     }
-    public String getRealName(){
-        return realName;
+    public String getName(){
+        return name;
     }
-    public void setRealName(String realName){
-    this.realName=realName;
+    public void setName(String name){
+    this.name=name;
     }
     public String getCouponName(){
         return couponName;

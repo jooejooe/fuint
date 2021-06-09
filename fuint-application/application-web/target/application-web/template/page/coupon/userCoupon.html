@@ -68,7 +68,7 @@
                             onclick="postDataByForm('backend/member/CouponinfoList','displayArea','memberForm')"><i class="fa fa-search"></i>查询
                     </button>
                     <button type="button" class="btn btn-sm btn-success m-r-5" onclick="exportExcel();"><i class="fa fa-sign-out"></i>导出Excel</button>
-                    <button type="button" class="btn btn-sm btn-danger m-r-5" onclick="downLoad();"><i class="fa fa-download"></i>下载打印</button>
+                    <button type="button" class="btn btn-sm btn-danger m-r-5" onclick="downLoad();"><i class="fa fa-download"></i>下载二维码</button>
                 </div>
             </div>
         </form>
@@ -87,7 +87,6 @@
             <tr>
                 <th>会员手机</th>
                 <th>卡券类型</th>
-                <th>效果图</th>
                 <th>卡券名称</th>
                 <th>状态</th>
                 <th>面额</th>
@@ -111,7 +110,6 @@
                     优惠券
                     </#if>
                 </td>
-                <td><img class="coupon-preview-small" src="data:image/jpg;base64,${ct.couponImage}"/></td>
                 <td>${ct.couponName}</td>
                 <td>${ct.couponInfoStatusDesc}</td>
                 <td>${ct.money}</td>

@@ -1,16 +1,17 @@
 package com.fuint.application.web.rest;
 
-import com.fuint.application.dao.entities.MtUserCoupon;
-import com.fuint.application.dao.entities.MtUserGrade;
+import com.fuint.application.dao.entities.*;
 import com.fuint.application.dto.AssetDto;
 import com.fuint.application.enums.CouponTypeEnum;
-import com.fuint.application.service.coupon.CouponService;
+import com.fuint.application.enums.StatusEnum;
+import com.fuint.application.enums.UserCouponStatusEnum;
+import com.fuint.application.service.confirmer.ConfirmerService;
 import com.fuint.application.service.member.MemberService;
 import com.fuint.application.service.usercoupon.UserCouponService;
+import com.fuint.application.service.coupon.CouponService;
 import com.fuint.exception.BusinessCheckException;
 import com.fuint.application.ResponseObject;
 import com.fuint.application.BaseController;
-import com.fuint.application.dao.entities.MtUser;
 import com.fuint.application.service.token.TokenService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,6 +44,12 @@ public class UserController extends BaseController {
     @Autowired
     private UserCouponService userCouponService;
 
+    @Autowired
+    private ConfirmerService confirmerService;
+
+    @Autowired
+    private CouponService couponService;
+
     /**
      * 获取会员信息
      */
@@ -68,6 +75,16 @@ public class UserController extends BaseController {
         outParams.put("userInfo", userInfo);
         outParams.put("gradeInfo", gradeInfo);
 
+        // 是否商户核销员
+        boolean isMerchant = false;
+        MtConfirmer confirmInfo = confirmerService.queryConfirmerByUserId(userInfo.getId());
+        if (null != confirmInfo) {
+            if (confirmInfo.getAuditedStatus().equals(StatusEnum.ENABLED.getKey())) {
+                isMerchant = true;
+            }
+        }
+        outParams.put("isMerchant", isMerchant);
+
         return getSuccessResult(outParams);
     }
 
@@ -88,9 +105,15 @@ public class UserController extends BaseController {
         Integer preStoreNum = 0;
         Integer timerNum = 0;
 
-        List<String> statusList = Arrays.asList("A");
+        List<String> statusList = Arrays.asList(UserCouponStatusEnum.UNUSED.getKey());
         List<MtUserCoupon> dataList = userCouponService.getUserCouponList(mtUser.getId(), statusList);
         for (int i = 0; i < dataList.size(); i++) {
+            MtCoupon couponInfo = couponService.queryCouponById(dataList.get(i).getCouponId().longValue());
+            boolean isEffective = couponService.isCouponEffective(couponInfo);
+            if (!isEffective) {
+               continue;
+            }
+            
             if (dataList.get(i).getType().equals(CouponTypeEnum.COUPON.getKey())) {
                 couponNum++;
             }
@@ -107,7 +130,7 @@ public class UserController extends BaseController {
         asset.setPrestore(preStoreNum);
         asset.setTimer(timerNum);
 
-        Map<String, Object> outParams = new HashMap<String, Object>();
+        Map<String, Object> outParams = new HashMap<>();
         outParams.put("asset", asset);
 
         return getSuccessResult(outParams);

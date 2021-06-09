@@ -3,6 +3,7 @@ package com.fuint.application.service.order;
 import com.fuint.application.ResponseObject;
 import com.fuint.application.dao.entities.MtOrder;
 import com.fuint.application.dto.OrderDto;
+import com.fuint.application.dto.UserOrderDto;
 import com.fuint.base.dao.pagination.PaginationRequest;
 import com.fuint.base.dao.pagination.PaginationResponse;
 import com.fuint.exception.BusinessCheckException;
@@ -43,7 +44,7 @@ public interface OrderService {
      * @param id Banner ID
      * @throws BusinessCheckException
      */
-    MtOrder getOrderById(Integer id) throws BusinessCheckException;
+    UserOrderDto getOrderById(Integer id) throws BusinessCheckException;
 
     /**
      * 根据ID 删除订单信息
