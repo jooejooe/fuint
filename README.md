@@ -79,7 +79,7 @@ Fuint侧重于线下实体店的私域流量的运营，帮助商户降低获客
 
 不足和待完善之处请谅解！源码仅供学习交流，更多功能可加入开发交流群（备注Fuint），我们wx：fsq_better。<br>
 开源不易，进群麻烦自觉star，给我们一点鼓励。<br>
-<p><img src="screenshots/qr.png" alt="开发者二维码"><img src="screenshots/mp.jpg" alt="公众号二维码">关注公众号，查看演示系统</p>
+<p><img src="screenshots/mp.jpg" alt="公众号二维码">关注公众号，查看演示系统</p>
 
 
 特别鸣谢<br>
