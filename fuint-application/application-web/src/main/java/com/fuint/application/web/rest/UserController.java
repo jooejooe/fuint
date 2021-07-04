@@ -9,6 +9,9 @@ import com.fuint.application.service.confirmer.ConfirmerService;
 import com.fuint.application.service.member.MemberService;
 import com.fuint.application.service.usercoupon.UserCouponService;
 import com.fuint.application.service.coupon.CouponService;
+import com.fuint.base.dao.pagination.PaginationRequest;
+import com.fuint.base.dao.pagination.PaginationResponse;
+import com.fuint.base.util.RequestHandler;
 import com.fuint.exception.BusinessCheckException;
 import com.fuint.application.ResponseObject;
 import com.fuint.application.BaseController;
@@ -107,8 +110,23 @@ public class UserController extends BaseController {
 
         List<String> statusList = Arrays.asList(UserCouponStatusEnum.UNUSED.getKey());
         List<MtUserCoupon> dataList = userCouponService.getUserCouponList(mtUser.getId(), statusList);
+
+        PaginationRequest requestName = RequestHandler.buildPaginationRequest(request, model);
+        requestName.getSearchParams().put("EQ_status", StatusEnum.ENABLED.getKey());
+        requestName.setCurrentPage(1);
+        requestName.setPageSize(10000);
+        PaginationResponse<MtCoupon> couponData = couponService.queryCouponListByPagination(requestName);
+        List<MtCoupon> couponList = couponData.getContent();
+
         for (int i = 0; i < dataList.size(); i++) {
-            MtCoupon couponInfo = couponService.queryCouponById(dataList.get(i).getCouponId().longValue());
+            MtCoupon couponInfo = new MtCoupon();
+            for (int j = 0; j < couponList.size(); j++) {
+                if (dataList.get(i).getCouponId() == couponList.get(j).getId()) {
+                    couponInfo = couponList.get(j);
+                    break;
+                }
+            }
+
             boolean isEffective = couponService.isCouponEffective(couponInfo);
             if (!isEffective) {
                continue;

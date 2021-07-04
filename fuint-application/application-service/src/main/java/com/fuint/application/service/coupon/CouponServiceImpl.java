@@ -95,16 +95,7 @@ public class CouponServiceImpl extends BaseService implements CouponService {
     @Override
     public PaginationResponse<MtCoupon> queryCouponListByPagination(PaginationRequest paginationRequest) throws BusinessCheckException {
         paginationRequest.setSortColumn(new String[]{"status asc", "id desc"});
-        PaginationResponse<MtCoupon> paginationResponse = couponRepository.findResultsByPagination(paginationRequest);
-        List<MtCoupon> dataList = paginationResponse.getContent();
-        if (dataList.size() > 0) {
-            String baseImage = env.getProperty("images.website");
-            for (MtCoupon item : dataList) {
-               item.setImage(baseImage + item.getImage());
-            }
-            paginationResponse.setContent(dataList);
-        }
-        return paginationResponse;
+        return couponRepository.findResultsByPagination(paginationRequest);
     }
 
     /**
@@ -285,7 +276,7 @@ public class CouponServiceImpl extends BaseService implements CouponService {
         coupon.setImage(reqCouponDto.getImage());
         coupon.setRemarks(CommonUtil.replaceXSS(reqCouponDto.getRemarks()));
 
-        coupon.setStatus("A");
+        coupon.setStatus(StatusEnum.ENABLED.getKey());
 
         //更新时间
         coupon.setUpdateTime(new Date());
@@ -309,12 +300,12 @@ public class CouponServiceImpl extends BaseService implements CouponService {
         Integer pageNumber = paramMap.get("pageNumber") == null ? Constants.PAGE_NUMBER : Integer.parseInt(paramMap.get("pageNumber").toString());
         Integer pageSize = paramMap.get("pageSize") == null ? Constants.PAGE_SIZE : Integer.parseInt(paramMap.get("pageSize").toString());
         String userId = paramMap.get("userId") == null ? "0" : paramMap.get("userId").toString();
-        String status =  paramMap.get("status") == null ? "A": paramMap.get("status").toString();
+        String status =  paramMap.get("status") == null ? UserCouponStatusEnum.UNUSED.getKey() : paramMap.get("status").toString();
         String type =  paramMap.get("type") == null ? "": paramMap.get("type").toString();
 
         // 处理已过期，置为过期
         if (pageNumber <= 1) {
-            List<String> statusList = Arrays.asList("A");
+            List<String> statusList = Arrays.asList(UserCouponStatusEnum.UNUSED.getKey());
             List<MtUserCoupon> data = userCouponRepository.getUserCouponList(Integer.parseInt(userId), statusList);
             for (MtUserCoupon uc : data) {
                 MtCoupon coupon = this.queryCouponById(uc.getCouponId().longValue());
@@ -355,9 +346,6 @@ public class CouponServiceImpl extends BaseService implements CouponService {
                  dto.setUseRule(couponInfo.getDescription());
 
                  String image = couponInfo.getImage();
-                 if (null == image || image.equals("")) {
-                    image = "/static/default-coupon.jpg";
-                 }
                  String baseImage = env.getProperty("images.website");
                  dto.setImage(baseImage + image);
                  dto.setStatus(userCouponDto.getStatus());
@@ -538,7 +526,7 @@ public class CouponServiceImpl extends BaseService implements CouponService {
             throw new BusinessCheckException("该分组为空，请增加卡券");
         }
 
-        if (null == mtUser || !mtUser.getStatus().equals("A")) {
+        if (null == mtUser || !mtUser.getStatus().equals(StatusEnum.ENABLED.getKey())) {
             throw new BusinessCheckException("该手机号码不存在或已禁用，请先注册会员");
         }
 
@@ -555,7 +543,7 @@ public class CouponServiceImpl extends BaseService implements CouponService {
                     MtCoupon coupon = couponList.get(i);
 
                     // 券是否有效
-                    if (!coupon.getStatus().equals("A")) {
+                    if (!coupon.getStatus().equals(StatusEnum.ENABLED.getKey())) {
                         continue;
                     }
 
@@ -565,7 +553,7 @@ public class CouponServiceImpl extends BaseService implements CouponService {
                         userCoupon.setGroupId(groupInfo.getId());
                         userCoupon.setMobile(mobile);
                         userCoupon.setUserId(mtUser.getId());
-                        userCoupon.setStatus("A");
+                        userCoupon.setStatus(UserCouponStatusEnum.UNUSED.getKey());
                         userCoupon.setCreateTime(new Date());
                         userCoupon.setUpdateTime(new Date());
 
