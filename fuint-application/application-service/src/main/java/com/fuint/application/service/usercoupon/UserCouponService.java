@@ -4,13 +4,12 @@ import com.fuint.base.dao.pagination.PaginationRequest;
 import com.fuint.base.dao.pagination.PaginationResponse;
 import com.fuint.exception.BusinessCheckException;
 import com.fuint.application.dao.entities.MtUserCoupon;
-
 import java.util.List;
 import java.util.Map;
 
 /**
  * 用户卡券业务接口
- * Created by zach on 2019/9/20
+ * Created by zach on 2021/9/20
  */
 public interface UserCouponService {
 
