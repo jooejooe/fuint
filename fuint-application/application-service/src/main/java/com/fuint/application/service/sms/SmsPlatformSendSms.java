@@ -30,7 +30,7 @@ public class SmsPlatformSendSms implements SendSmsInterface {
     @Override
     public Map<Boolean,List<String>> sendSms(String templateUname, List<String> phones, Map<String, String> contentParams) throws Exception {
         logger.info("使用短信平台发送短信.....");
-        Integer mode=Integer.parseInt(env.getProperty("ALIYUN.SMS.mode"));
+        Integer mode = Integer.parseInt(env.getProperty("ALIYUN.SMS.mode"));
         if (templateUname != null && !CollectionUtils.isEmpty(phones)) {
             Map<Boolean,List<String>> result = new HashMap<>();
             try{

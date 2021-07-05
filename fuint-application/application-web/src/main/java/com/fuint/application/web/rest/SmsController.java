@@ -86,7 +86,7 @@ public class SmsController extends BaseController{
 
         // 插入验证码表
         String verifyCode= BizCodeGenerator.getVerifyCode();
-        MtVerifyCode mtVerifyCode=verifyCodeService.addVerifyCode(mobile, verifyCode,60);
+        MtVerifyCode mtVerifyCode = verifyCodeService.addVerifyCode(mobile, verifyCode,60);
         if (null == mtVerifyCode) {
             return getFailureResult(1002,"验证码发送失败");
         } else if(mtVerifyCode.getValidflag().equals("1") && mtVerifyCode.getId() == null){

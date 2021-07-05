@@ -39,13 +39,11 @@ public class VerifyCodeServiceImpl implements VerifyCodeService {
      */
     public MtVerifyCode addVerifyCode(String mobile, String verifycode,Integer expireSecond) throws BusinessCheckException
     {
-        if(null==expireSecond || expireSecond<0)
-        {
+        if (null == expireSecond || expireSecond<0) {
             expireSecond=0;
         }
-        MtVerifyCode nMtVerifyCode=null;
+
         MtVerifyCode reqVerifyCodeDto=new MtVerifyCode();
-        Date queryTime = new Date();
         try {
             reqVerifyCodeDto.setMobile(mobile);
             reqVerifyCodeDto.setVerifycode(verifycode);
@@ -55,15 +53,13 @@ public class VerifyCodeServiceImpl implements VerifyCodeService {
             //格式可以自己根据需要修改
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String dt=sdf.format(new Date());
-            Date addtime = sdf.parse(dt);
-            queryTime=sdf.parse(dt);
+            Date addTime = sdf.parse(dt);
 
-            reqVerifyCodeDto.setAddtime(addtime);
+            reqVerifyCodeDto.setAddtime(addTime);
 
             //验证码过期时间2分钟
-            addtime.setTime(addtime.getTime()+2*60*1000);
-            Date expiretime=addtime;
-
+            addTime.setTime(addTime.getTime()+2*60*1000);
+            Date expiretime = addTime;
             reqVerifyCodeDto.setExpiretime(expiretime);
         } catch (ParseException e) {
             throw new BusinessRuntimeException("日期转换异常" + e.getMessage());
@@ -74,9 +70,8 @@ public class VerifyCodeServiceImpl implements VerifyCodeService {
         Page<MtVerifyCode> verifyCodesPage = verifyCodeRepository.queryVerifyCodeLastRecord(pageable,mobile);
         List<MtVerifyCode> verifyCodesPageList = verifyCodesPage.getContent();
         if (null == verifyCodesPageList||verifyCodesPageList.size()==0) {
-           //没发过短信
-            nMtVerifyCode=verifyCodeRepository.save(reqVerifyCodeDto);
-            return nMtVerifyCode;
+           // 没发过短信
+           return verifyCodeRepository.save(reqVerifyCodeDto);
         }
         MtVerifyCode verifyCodeLastRecord=verifyCodesPageList.get(0);
         Long curInt=reqVerifyCodeDto.getAddtime().getTime(); //时间毫秒,长整型
@@ -87,9 +82,8 @@ public class VerifyCodeServiceImpl implements VerifyCodeService {
             return reqVerifyCodeDto;
         }
 
-        //2,同一个手机号码新的验证码插入
-        nMtVerifyCode=verifyCodeRepository.save(reqVerifyCodeDto);
-        return nMtVerifyCode;
+        // 2,同一个手机号码新的验证码插入
+        return verifyCodeRepository.save(reqVerifyCodeDto);
     }
 
     /**
