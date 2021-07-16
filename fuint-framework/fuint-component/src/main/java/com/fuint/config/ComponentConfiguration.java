@@ -12,7 +12,8 @@ import java.util.Properties;
 /**
  * 组件配置
  * <p/>
- * Created by hanxiaoqiang on 16/7/4.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @Configuration
 public class ComponentConfiguration {

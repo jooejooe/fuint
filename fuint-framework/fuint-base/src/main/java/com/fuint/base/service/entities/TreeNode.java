@@ -5,7 +5,8 @@ import java.util.List;
 /**
  * 树状结构节点实体
  *
- * Created by hanxiaoqiang on 16/7/14.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public class TreeNode {
 

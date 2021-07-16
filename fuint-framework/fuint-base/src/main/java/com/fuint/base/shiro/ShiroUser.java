@@ -7,7 +7,8 @@ import java.util.*;
 /**
  * 自定义Authentication对象，使得Subject除了携带用户的登录名外还可以携带更多信息.
  * <p/>
- * Created by hanxiaoqiang on 16/7/7.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public class ShiroUser implements Serializable {
 

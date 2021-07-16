@@ -5,7 +5,8 @@ import java.lang.annotation.*;
 /**
  * service 操作日志记录注解
  * <p/>
- * Created by hanxiaoqiang on 16/9/1.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @Target({ElementType.PARAMETER, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)

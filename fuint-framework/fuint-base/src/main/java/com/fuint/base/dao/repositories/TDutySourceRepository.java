@@ -14,7 +14,8 @@ import java.util.List;
 /**
  * 角色菜单关系
  * <p/>
- * Created by hanxiaoqiang on 16/7/15.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @Repository("tDutySourceRepository")
 public interface TDutySourceRepository extends BaseRepository<TDutySource, Long> {

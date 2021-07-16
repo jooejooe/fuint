@@ -11,7 +11,8 @@ import java.util.Base64;
  * [Basic编码:适用于标准编码]
  * [URL编码:适用于URL地址编码,自动替换掉URL中不能出现的"/"等字符]
  * [MIME编码:适用于MIME编码,使用基本的字母数字产生BASE64输出,每一行输出不超过76个字符，而且每行以“\r\n”符结束]
- * Created by fsq on 2019/11/8.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public class Base64Util {
     private static final Logger logger = LoggerFactory.getLogger(Base64Util.class);

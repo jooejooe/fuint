@@ -10,7 +10,8 @@ import java.util.Set;
 /**
  * freeMarker  访问静态类静态方法
  * <p/>
- * Created by hanxiaoqiang on 16/7/13.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public class FreemarkerStaticModels extends HashMap<String, Object> {
 

@@ -9,7 +9,8 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 
 /**
- * Created by hanxiaoqiang on 16/7/19.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @Order(4)
 public class JpaInitializer implements WebApplicationInitializer {

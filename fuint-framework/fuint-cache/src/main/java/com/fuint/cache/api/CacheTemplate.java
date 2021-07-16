@@ -6,7 +6,8 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * 缓存操作接口
- * Created by fsq on 2017/1/4.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public interface CacheTemplate {
     /**

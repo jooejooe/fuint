@@ -10,7 +10,8 @@ import java.util.List;
 /**
  * 平台接口服务类
  * <p/>
- * Created by hanxiaoqiang on 16/8/1.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public interface TPlatformService {
 

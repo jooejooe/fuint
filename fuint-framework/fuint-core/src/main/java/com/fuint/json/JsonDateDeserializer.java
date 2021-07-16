@@ -14,7 +14,8 @@ import java.util.Date;
 /**
  * json反序列化日期转换
  * <p/>
- * Created by hanxiaoqiang on 16/9/13.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public class JsonDateDeserializer extends JsonDeserializer<Date> {
 

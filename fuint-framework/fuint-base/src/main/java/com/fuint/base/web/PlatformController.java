@@ -24,7 +24,8 @@ import java.util.Map;
 /**
  * 平台管理
  * <p/>
- * Created by hanxiaoqiang on 16/8/1.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @Controller
 @RequestMapping("/platform")

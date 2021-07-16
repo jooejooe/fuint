@@ -6,7 +6,8 @@ import java.io.Serializable;
 /**
  * 平台实体
  * <p/>
- * Created by hanxiaoqiang on 16/8/1.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @Entity
 @Table(name = "t_platform")

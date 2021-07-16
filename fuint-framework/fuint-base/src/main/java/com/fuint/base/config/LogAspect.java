@@ -22,8 +22,8 @@ import java.util.Date;
  * 操作日志AOP实现
  * s
  *
- * @author hanxiaoqiang
- * @version $Id: LogAspect.java, v 0.1 2015年11月24日 下午4:23:30 hanxiaoqiang Exp $
+ * @author FSQ
+ * @version $Id: LogAspect.java
  */
 @Component
 @Aspect

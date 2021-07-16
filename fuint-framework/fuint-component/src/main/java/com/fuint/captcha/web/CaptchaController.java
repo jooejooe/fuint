@@ -19,7 +19,8 @@ import java.io.IOException;
 
 /**
  * 图形验证码插件控制类
- * Created by fsq on 2019/11/13.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @Controller
 @RequestMapping("/captcha")

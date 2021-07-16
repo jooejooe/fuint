@@ -6,7 +6,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 /**
  * 设置拦截器,填充shiro user 信息
- * Created by hanxiaoqiang on 16/8/4.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @Configuration
 public class ShiroAdapter extends WebMvcConfigurerAdapter {

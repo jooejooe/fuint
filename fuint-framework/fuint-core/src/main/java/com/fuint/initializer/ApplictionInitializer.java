@@ -10,7 +10,8 @@ import javax.servlet.ServletException;
 /**
  * 相关监听配置
  * <p/>
- * Created by fsq on 19/11/29.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @Order(1)
 public class ApplictionInitializer implements WebApplicationInitializer {

@@ -7,7 +7,8 @@ import org.apache.shiro.subject.Subject;
 /**
  * 会话工具类
  * <p/>
- * Created by hanxiaoqiang on 16/7/11.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public class ShiroUserHelper {
 

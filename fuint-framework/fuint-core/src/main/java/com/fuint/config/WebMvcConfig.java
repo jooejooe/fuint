@@ -26,7 +26,8 @@ import java.util.Properties;
 /**
  * MVC 基础配置
  *
- * Created by hanxiaoqiang on 19/11/29.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @Configuration
 @EnableWebMvc

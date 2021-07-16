@@ -19,7 +19,8 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * 身份认证过滤器
  * <p/>
- * Created by hanxiaoqiang on 16/7/6.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public class AuthFilter extends FormAuthenticationFilter {
 

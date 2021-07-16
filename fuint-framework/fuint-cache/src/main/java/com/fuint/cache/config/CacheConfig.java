@@ -15,7 +15,8 @@ import java.util.List;
 
 /**
  * 缓存配置类
- * Created by hanxiaoqiang on 2017/3/12.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @Configuration
 public class CacheConfig {

@@ -17,7 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * 日志查询
  * <p/>
- * Created by hanxiaoqiang on 16/9/1.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @Controller
 @RequestMapping(value = "/log")

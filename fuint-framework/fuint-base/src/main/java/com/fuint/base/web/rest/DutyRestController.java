@@ -11,7 +11,8 @@ import java.util.List;
 /**
  * 角色 RestController
  * <p/>
- * Created by hanxiaoqiang on 16/7/18.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @RestController
 @RequestMapping("/duty")

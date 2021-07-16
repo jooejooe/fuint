@@ -9,7 +9,8 @@ import java.util.List;
 
 /**
  * JSON转换工具类[使用FastJSON实现]
- * Created by fsq on 2019/11/13.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public class JSONUtil {
 

@@ -1,14 +1,11 @@
 package com.fuint.captcha.service;
 
-
-
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.Producer;
 import com.fuint.util.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.awt.image.BufferedImage;
@@ -16,7 +13,8 @@ import java.awt.image.BufferedImage;
 
 /**
  * 图形验证码插件服务类
- * Created by fsq on 2019/11/13.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @Service
 public class CaptchaService {

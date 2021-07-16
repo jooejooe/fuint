@@ -14,7 +14,8 @@ import java.util.EnumSet;
 
 /**
  * Shiro filter initializer
- * Created by hanxiaoqiang on 16/7/11.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @Order(3)
 public class ShiroInitializer implements WebApplicationInitializer {

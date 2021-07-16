@@ -21,7 +21,8 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Redis缓存实现
- * Created by fsq on 2017/1/4.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @Component
 public class RedisTemplate implements CacheTemplate {

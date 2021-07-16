@@ -16,7 +16,8 @@ import java.util.List;
 /**
  * 平台信息接口服务类
  * <p/>
- * Created by hanxiaoqiang on 16/8/1.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @Service
 public class TPlatformServiceImpl implements TPlatformService {

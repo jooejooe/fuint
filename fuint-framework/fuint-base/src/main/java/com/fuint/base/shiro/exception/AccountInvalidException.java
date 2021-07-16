@@ -5,7 +5,8 @@ import org.apache.shiro.authc.AuthenticationException;
 /**
  * 账户无效异常
  * <p/>
- * Created by hanxiaoqiang on 16/7/12.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public class AccountInvalidException extends AuthenticationException {
 

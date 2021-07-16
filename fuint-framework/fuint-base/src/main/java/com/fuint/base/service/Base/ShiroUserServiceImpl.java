@@ -21,7 +21,8 @@ import java.util.*;
 
 /**
  * shiro user 接口
- * Created by hanxiaoqiang on 16/8/4.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @Service
 public class ShiroUserServiceImpl implements ShiroUserService {

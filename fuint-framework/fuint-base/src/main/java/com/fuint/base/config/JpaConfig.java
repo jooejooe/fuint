@@ -23,7 +23,8 @@ import java.util.Properties;
 /**
  * spring data jpa 配置
  * <p/>
- * Created by hanxiaoqiang on 19/11/29.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @Configuration
 @EnableTransactionManagement

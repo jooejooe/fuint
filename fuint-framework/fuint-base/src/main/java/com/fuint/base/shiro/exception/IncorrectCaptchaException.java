@@ -5,7 +5,8 @@ import org.apache.shiro.authc.AuthenticationException;
 /**
  * 验证码异常
  * <p/>
- * Created by hanxiaoqiang on 16/7/6.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public class IncorrectCaptchaException extends AuthenticationException {
 

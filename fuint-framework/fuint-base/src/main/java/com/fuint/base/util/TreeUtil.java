@@ -9,7 +9,8 @@ import java.util.List;
 /**
  * 树形展示工具类
  * <p/>
- * Created by hanxiaoqiang on 16/7/14.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public class TreeUtil {
 

@@ -13,8 +13,9 @@ import java.util.*;
 /**
  * 一般信息拦截器
  *
- * @author hanxiaoqiang
- * @version $Id: ShiroInterceptor.java, v 0.1 2015年11月25日 下午1:51:41 hanxiaoqiang Exp $
+ * @author FSQ
+ * Contact wx fsq_better
+ * @version $Id: ShiroInterceptor.java
  */
 public class ShiroInterceptor extends HandlerInterceptorAdapter {
     /**

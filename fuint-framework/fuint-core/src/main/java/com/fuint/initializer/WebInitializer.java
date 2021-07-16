@@ -11,7 +11,8 @@ import javax.servlet.Filter;
 /**
  * application. web.xml
  * <p/>
- * Created by fsq on 19/11/29.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @Order(2)
 public class WebInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {

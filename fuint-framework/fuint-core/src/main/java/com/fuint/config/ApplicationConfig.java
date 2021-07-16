@@ -10,7 +10,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * 设置spring配置
- * Created by fsq on 19/11/29.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @Configuration
 @ComponentScan(basePackages = {"com.*"},

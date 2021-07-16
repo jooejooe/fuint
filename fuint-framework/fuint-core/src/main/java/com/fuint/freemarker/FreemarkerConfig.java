@@ -29,7 +29,8 @@ import java.util.Properties;
 /**
  * freemarket 配置
  *
- * Created by hanxiaoqiang on 16/7/27.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @Configuration
 public class FreemarkerConfig {

@@ -5,7 +5,8 @@ import org.apache.shiro.authc.SimpleAuthenticationInfo;
 /**
  * shiro user 接口
  *
- * Created by hanxiaoqiang on 16/8/4.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public interface ShiroUserService {
 

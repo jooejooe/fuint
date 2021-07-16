@@ -13,7 +13,8 @@ import java.util.List;
 /**
  * 账户角色关联关系
  * <p/>
- * Created by hanxiaoqiang on 16/7/18.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @Repository("tAccountDutyRepository")
 public interface TAccountDutyRepository extends BaseRepository<TAccountDuty, Long> {

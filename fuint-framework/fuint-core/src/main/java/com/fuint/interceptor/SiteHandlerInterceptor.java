@@ -12,7 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * 拦截器
  * <p/>
- * Created by hanxiaoqiang on 16/7/4.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public class SiteHandlerInterceptor extends HandlerInterceptorAdapter {
 
