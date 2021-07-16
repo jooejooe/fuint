@@ -23,6 +23,7 @@ import java.util.Date;
  * s
  *
  * @author FSQ
+ * Contact wx fsq_better
  * @version $Id: LogAspect.java
  */
 @Component
