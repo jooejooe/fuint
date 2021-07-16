@@ -27,7 +27,8 @@ import java.util.Map;
 
 /**
  * 转赠功能controller
- * Created by zach on 2019/10/09.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @RestController
 @RequestMapping(value = "/rest/give")

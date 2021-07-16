@@ -4,14 +4,13 @@ import com.fuint.base.dao.pagination.PaginationRequest;
 import com.fuint.base.dao.pagination.PaginationResponse;
 import com.fuint.exception.BusinessCheckException;
 import com.fuint.application.dto.ConfirmLogDto;
-
-
 import java.util.List;
 import java.util.Map;
 
 /**
- * 会员用户业务接口
- * Created by zach 2019/08/20
+ * 核销记录业务接口
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public interface ConfirmLogService {
 
@@ -42,4 +41,9 @@ public interface ConfirmLogService {
      * @return
      * */
     Integer getConfirmNum(Integer userCouponId) throws BusinessCheckException;
+
+    /**
+     * 获取核销总数
+     * */
+    Long getConfirmCount() throws BusinessCheckException;
 }

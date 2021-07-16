@@ -10,10 +10,10 @@ import java.util.Date;
 import java.util.List;
 
 /**
-    * mt_give Repository
-    * Created by zach
-    * Sat Oct 12 15:34:19 GMT+08:00 2019
-    */ 
+ * mt_give Repository
+ * Created by FSQ
+ * Contact wx fsq_better
+ */
 @Repository 
 public interface MtGiveRepository extends BaseRepository<MtGive, Integer> {
 

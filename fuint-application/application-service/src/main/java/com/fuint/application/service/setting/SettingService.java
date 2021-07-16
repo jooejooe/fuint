@@ -6,7 +6,8 @@ import java.util.List;
 
 /**
  * 配置业务接口
- * Created by zach 2021/5/16
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public interface SettingService {
     /**

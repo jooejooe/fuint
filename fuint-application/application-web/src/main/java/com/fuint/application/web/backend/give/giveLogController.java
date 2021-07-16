@@ -40,7 +40,8 @@ import static com.fuint.application.util.XlsUtil.objectConvertToString;
 
 /**
  * 转赠管理类controller
- * Created by zach on 2019/10/14.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @Controller
 @RequestMapping(value = "/backend/give")

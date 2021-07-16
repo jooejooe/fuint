@@ -1,14 +1,12 @@
 package com.fuint.application;
 
-import org.springframework.util.CollectionUtils;
 import javax.servlet.http.HttpServletRequest;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
- * Created by zach on 2020/8/19.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public class BaseController {
 

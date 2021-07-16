@@ -5,7 +5,8 @@ import java.io.Serializable;
 /**
  * 请求结果bean
  *
- * Created by zach on 2021/3/18.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public class ReqResult implements Serializable {
 

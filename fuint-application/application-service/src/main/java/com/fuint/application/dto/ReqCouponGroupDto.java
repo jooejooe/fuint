@@ -5,7 +5,8 @@ import java.math.BigDecimal;
 
 /**
  * 优惠分组请求DTO
- * Created by zach on 2019/7/20.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public class ReqCouponGroupDto implements Serializable {
     /**

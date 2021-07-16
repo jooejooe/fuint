@@ -27,8 +27,8 @@ import java.util.Map;
 
 /**
  * 会员卡券业务实现类
- * Created by zach on 2020/09/06.
- * Updated by zach on 2021/05/04
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @Service
 public class UserCouponServiceImpl extends BaseService implements UserCouponService {

@@ -3,7 +3,8 @@ package com.fuint.application.enums;
 /**
  * 升级会员等级条件枚举
  *
- * Created by zach on 2021/05/12.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public enum UserGradeCatchTypeEnum {
 

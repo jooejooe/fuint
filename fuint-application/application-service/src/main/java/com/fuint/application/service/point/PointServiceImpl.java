@@ -13,7 +13,8 @@ import org.springframework.stereotype.Service;
 
 /**
  * 积分管理业务实现类
- * Created by zach 2021/3/15
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @Service
 public class PointServiceImpl implements PointService {

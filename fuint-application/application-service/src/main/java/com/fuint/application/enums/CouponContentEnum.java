@@ -3,7 +3,8 @@ package com.fuint.application.enums;
 /**
  * 卡券内容枚举
  * <p/>
- * Created by zach on 2019/9/6.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public enum CouponContentEnum {
 

@@ -49,7 +49,8 @@ import java.util.regex.Pattern;
 
 /**
  * 分组业务实现类
- * Created by zach on 2019/08/06.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @Service
 public class CouponGroupServiceImpl implements CouponGroupService {
@@ -110,7 +111,7 @@ public class CouponGroupServiceImpl implements CouponGroupService {
         couponGroup.setMoney(reqCouponGroupDto.getMoney());
         couponGroup.setTotal(reqCouponGroupDto.getTotal());
         couponGroup.setDescription(CommonUtil.replaceXSS(reqCouponGroupDto.getDescription()));
-        couponGroup.setStatus("A");
+        couponGroup.setStatus(StatusEnum.ENABLED.getKey());
 
         //创建时间
         couponGroup.setCreateTime(new Date());

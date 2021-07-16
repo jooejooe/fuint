@@ -31,7 +31,8 @@ import java.util.*;
 
 /**
  * 会员业务接口实现类
- * Created by zach 2021/3/15
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @Service
 public class MemberServiceImpl implements MemberService {

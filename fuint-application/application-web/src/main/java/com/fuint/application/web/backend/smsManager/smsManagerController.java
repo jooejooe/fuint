@@ -18,7 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * 短信管理类controller
- * Created by zach on 2020/04/26.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @Controller
 @RequestMapping(value = "/backend/smsManager")

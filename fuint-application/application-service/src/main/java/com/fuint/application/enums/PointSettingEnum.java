@@ -3,7 +3,8 @@ package com.fuint.application.enums;
 /**
  * 积分配置项枚举
  *
- * Created by zach on 2021/05/16.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public enum PointSettingEnum {
     POINT_NEED_CONSUME("pointNeedConsume", "返1积分所需消费金额"),

@@ -9,11 +9,11 @@ import javax.persistence.GenerationType;
 import java.io.Serializable;
 import java.util.Date;
 
-   /**
-    * t_account 实体类
-    * Created by zach
-    * Tue Sep 17 21:50:18 CST 2019
-    */ 
+/**
+ * t_account 实体类
+ * Created by FSQ
+ * Contact wx fsq_better
+ */
 @Entity 
 @Table(name = "t_account")
 public class TAccount implements Serializable{

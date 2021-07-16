@@ -10,11 +10,11 @@ import java.io.Serializable;
 import java.util.Date;
 import java.sql.*;
 
-   /**
-    * mt_banner 实体类
-    * Created by zach
-    * Thu Apr 22 10:35:28 GMT+08:00 2021
-    */ 
+/**
+ * mt_banner 实体类
+ * Created by FSQ
+ * Contact wx fsq_better
+ */
 @Entity 
 @Table(name = "mt_banner")
 public class MtBanner implements Serializable{

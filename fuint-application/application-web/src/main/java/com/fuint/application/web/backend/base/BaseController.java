@@ -8,7 +8,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Created by zach on 2020/4/16.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public class BaseController {
 

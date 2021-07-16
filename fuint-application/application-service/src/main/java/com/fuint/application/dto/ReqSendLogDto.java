@@ -5,7 +5,8 @@ import java.util.Date;
 
 /**
  * 发放卡券记录请求DTO
- * Created by zach on 2019/9/17.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public class ReqSendLogDto implements Serializable {
 

@@ -20,14 +20,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
  * 核销人员管理接口实现类
- * Created by zach 2019/09/09
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @Service
 public class ConfirmerServiceImpl implements ConfirmerService {

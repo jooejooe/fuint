@@ -8,11 +8,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import java.io.Serializable;
 
-   /**
-    * mt_user_group 实体类
-    * Created by zach
-    * Mon Mar 15 15:34:23 GMT+08:00 2021
-    */ 
+/**
+ * mt_user_group 实体类
+ * Created by FSQ
+ * Contact wx fsq_better
+ */
 @Entity 
 @Table(name = "mt_user_group")
 public class MtUserGroup implements Serializable{

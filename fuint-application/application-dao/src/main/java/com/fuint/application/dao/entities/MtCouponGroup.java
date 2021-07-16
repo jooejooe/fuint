@@ -10,11 +10,11 @@ import java.io.Serializable;
 import java.util.Date;
 import java.math.BigDecimal;
 
-   /**
-    * mt_coupon_group 实体类
-    * Created by zach
-    * Wed Aug 28 13:51:33 GMT+08:00 2019
-    */ 
+/**
+ * mt_coupon_group 实体类
+ * Created by FSQ
+ * Contact wx fsq_better
+ */
 @Entity 
 @Table(name = "mt_coupon_group")
 public class MtCouponGroup implements Serializable{

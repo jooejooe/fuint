@@ -10,11 +10,11 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-   /**
-    * mt_confirm_log 实体类
-    * Created by shude.wang
-    * Fri Oct 18 10:03:14 CST 2019
-    */ 
+/**
+ * mt_confirm_log 实体类
+ * Created by FSQ
+ * Contact wx fsq_better
+ */
 @Entity 
 @Table(name = "mt_confirm_log")
 public class MtConfirmLog implements Serializable{

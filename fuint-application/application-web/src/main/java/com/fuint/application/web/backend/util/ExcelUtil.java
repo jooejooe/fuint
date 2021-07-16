@@ -6,10 +6,14 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import javax.servlet.http.HttpServletResponse;
-
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 
+/**
+ * Excel工具
+ * Created by FSQ
+ * Contact wx fsq_better
+ */
 public class ExcelUtil {
 
     /**

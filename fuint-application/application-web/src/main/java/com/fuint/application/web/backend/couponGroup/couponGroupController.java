@@ -42,7 +42,8 @@ import java.util.regex.Pattern;
 
 /**
  * 优惠分组管理类controller
- * Created by zach on 2019/07/18.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @Controller
 @RequestMapping(value = "/backend/couponGroup")

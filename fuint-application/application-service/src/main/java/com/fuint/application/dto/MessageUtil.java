@@ -1,7 +1,8 @@
 package com.fuint.application.dto;
 
 /**
- * Created by zach on 2016/7/25.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public class MessageUtil {
 

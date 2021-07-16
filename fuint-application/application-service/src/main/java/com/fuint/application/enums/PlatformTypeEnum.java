@@ -2,7 +2,8 @@ package com.fuint.application.enums;
 
 /**
  * 平台类型枚举
- * Created by zach on 2017/8/22.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public enum PlatformTypeEnum {
 

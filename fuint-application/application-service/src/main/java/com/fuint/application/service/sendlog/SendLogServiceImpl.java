@@ -17,7 +17,8 @@ import java.util.*;
 
 /**
  * 发送卡券记录业务实现类
- * Created by zach on 2019/09/17.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @Service
 public class SendLogServiceImpl implements SendLogService {

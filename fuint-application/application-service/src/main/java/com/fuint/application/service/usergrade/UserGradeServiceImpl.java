@@ -1,6 +1,5 @@
 package com.fuint.application.service.usergrade;
 
-import com.fuint.application.dao.entities.MtBanner;
 import com.fuint.application.dao.entities.MtUserGrade;
 import com.fuint.application.dao.repositories.MtUserGradeRepository;
 import com.fuint.application.enums.UserGradeCatchTypeEnum;
@@ -16,14 +15,14 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
  * 会员等级业务接口实现类
- * Created by zach 2021/3/15
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @Service
 public class UserGradeServiceImpl implements UserGradeService {

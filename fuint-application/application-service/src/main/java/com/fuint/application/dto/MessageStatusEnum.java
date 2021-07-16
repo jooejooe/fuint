@@ -2,7 +2,8 @@ package com.fuint.application.dto;
 
 /**
  * 消息状态枚举
- * Created by zach on 2019/7/25.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public enum MessageStatusEnum {
     SUCCESS("000000","成功"),

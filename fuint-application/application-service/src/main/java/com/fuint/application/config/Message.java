@@ -1,8 +1,8 @@
 package com.fuint.application.config;
 
 /**
- * Created by zach on 2021/04/23.
- * Updated by zach on 2021/04/28.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public class Message {
     public static final String PARAM_ERROR = "参数出错";

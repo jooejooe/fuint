@@ -8,8 +8,8 @@ import java.util.Date;
 
 /**
  * 核销卡券流水表
- * Created by zach
- * 2019-10-11 16:09
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public class ConfirmLogDto {
 

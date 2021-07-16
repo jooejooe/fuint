@@ -11,7 +11,8 @@ import java.util.Random;
 
 /**
  * 业务Code生成器
- * Created by zach on 2017/2/14.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public class BizCodeGenerator {
 

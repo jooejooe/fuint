@@ -2,7 +2,8 @@ package com.fuint.application.cache;
 
 /**
  * 缓存key的集中生成策略
- * Created by zach on 2017/1/4.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public class CacheKeyUtil {
 

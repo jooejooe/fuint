@@ -5,7 +5,8 @@ import java.util.Date;
 
 /**
  * 特例
- * Created by zach on 2019/3/16.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public class ExceptionDto implements Serializable {
 

@@ -6,11 +6,11 @@ import com.fuint.application.dao.entities.MtCouponGroup;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-   /**
-    * mt_coupon_group Repository
-    * Created by zach
-    * Wed Aug 28 13:51:33 GMT+08:00 2019
-    */ 
+/**
+ * mt_coupon_group Repository
+ * Created by FSQ
+ * Contact wx fsq_better
+ */
 @Repository 
 public interface MtCouponGroupRepository extends BaseRepository<MtCouponGroup, Integer> {
 }

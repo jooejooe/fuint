@@ -8,11 +8,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import java.io.Serializable;
 
-   /**
-    * mt_user_grade 实体类
-    * Created by zach
-    * Tue May 18 22:35:56 GMT+08:00 2021
-    */ 
+/**
+ * mt_user_grade 实体类
+ * Created by FSQ
+ * Contact wx fsq_better
+ */
 @Entity 
 @Table(name = "mt_user_grade")
 public class MtUserGrade implements Serializable{

@@ -5,7 +5,8 @@ import java.util.Map;
 
 /**
  * 消息体Body信息
- * Created by zach on 2016/7/19.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public class Body implements Serializable{
 

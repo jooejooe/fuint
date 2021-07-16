@@ -10,8 +10,8 @@ import java.util.List;
 
 /**
  * mt_coupon Repository
- * Created by zach
- * Mon Aug 12 14:28:02 GMT+08:00 2019
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @Repository
 public interface MtCouponRepository extends BaseRepository<MtCoupon, Integer> {
@@ -35,7 +35,7 @@ public interface MtCouponRepository extends BaseRepository<MtCoupon, Integer> {
    List<MtCoupon> queryByGroupId(@Param("groupId") Integer groupId);
 
    /**
-    * 根据店铺id获取列表 20190917 zach add
+    * 根据店铺id获取列表
     *
     * @param storeId
     * @return

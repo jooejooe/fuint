@@ -2,12 +2,12 @@ package com.fuint.application.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.io.UnsupportedEncodingException;
 import java.util.Base64;
 
 /**
- * Created by zach on 2017/5/22.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public class Base64Util {
     private static final Logger logger = LoggerFactory.getLogger(Base64Util.class);

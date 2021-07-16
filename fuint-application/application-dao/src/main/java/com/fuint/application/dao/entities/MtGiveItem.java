@@ -9,11 +9,11 @@ import javax.persistence.GenerationType;
 import java.io.Serializable;
 import java.util.Date;
 
-   /**
-    * mt_give_item 实体类
-    * Created by zach
-    * Wed Oct 09 10:08:14 GMT+08:00 2019
-    */ 
+/**
+ * mt_give_item 实体类
+ * Created by FSQ
+ * Contact wx fsq_better
+ */
 @Entity 
 @Table(name = "mt_give_item")
 public class MtGiveItem implements Serializable{

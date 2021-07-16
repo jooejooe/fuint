@@ -1,5 +1,6 @@
 package com.fuint.application.service.confirmlog;
 
+import com.fuint.application.dao.repositories.MtConfirmLogRepository;
 import com.fuint.base.dao.pagination.PaginationRequest;
 import com.fuint.base.dao.pagination.PaginationResponse;
 import com.fuint.exception.BusinessCheckException;
@@ -13,11 +14,11 @@ import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -26,13 +27,16 @@ import java.util.*;
 
 /**
  * 核销卡券服务
- * Created by zach on 2019/10/12
- * Updated by zach on 2021/05/04.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @Service
 public class ConfirmLogServiceImpl implements ConfirmLogService {
 
     private static final Logger log = LoggerFactory.getLogger(ConfirmLogServiceImpl.class);
+
+    @Autowired
+    private MtConfirmLogRepository confirmLogRepository;
 
     @PersistenceContext(unitName = "defaultPersistenceUnit")
     private EntityManager entityManager;
@@ -89,6 +93,7 @@ public class ConfirmLogServiceImpl implements ConfirmLogService {
         Query query = getQueryByParams(params);
         List<ConfirmLogDto> result = convertConfirmLog(query);
         ConfirmLogDto ConfirmLogDto = result.get(0);
+
         return ConfirmLogDto;
     }
 
@@ -104,6 +109,14 @@ public class ConfirmLogServiceImpl implements ConfirmLogService {
         Long num = getTotal(params);
 
         return num.intValue();
+    }
+
+    /**
+     * 获取订单数量
+     * */
+    @Override
+    public Long getConfirmCount() throws BusinessCheckException {
+        return confirmLogRepository.getConfirmLogCount();
     }
 
     /**

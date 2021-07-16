@@ -2,7 +2,9 @@ package com.fuint.application.web.rest;
 
 import com.fuint.application.dao.entities.MtConfirmer;
 import com.fuint.application.service.confirmer.ConfirmerService;
+import com.fuint.application.service.confirmlog.ConfirmLogService;
 import com.fuint.application.service.member.MemberService;
+import com.fuint.application.service.order.OrderService;
 import com.fuint.exception.BusinessCheckException;
 import com.fuint.application.service.token.TokenService;
 import org.slf4j.Logger;
@@ -20,7 +22,8 @@ import java.util.Map;
 
 /**
  * 商家相关controller
- * Created by zach on 2021/05/24.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @RestController
 @RequestMapping(value = "/rest/merchant")
@@ -33,6 +36,12 @@ public class MerchantController extends BaseController {
 
     @Autowired
     private ConfirmerService confirmerService;
+
+    @Autowired
+    private ConfirmLogService confirmLogService;
+
+    @Autowired
+    private OrderService orderService;
 
     @Autowired
     private TokenService tokenService;
@@ -64,19 +73,22 @@ public class MerchantController extends BaseController {
         outParams.put("confirmInfo", confirmInfo);
 
         // 收款额
-        outParams.put("payMoney", 18890);
+        outParams.put("payMoney", 0);
 
         // 会员数
-        outParams.put("userCount", 1003);
+        Long userCount = memberService.getUserCount();
+        outParams.put("userCount", userCount);
 
         // 订单数
-        outParams.put("orderCount", 108);
+        Long orderCount = orderService.getOrderCount();
+        outParams.put("orderCount", orderCount);
 
         // 核销券数
-        outParams.put("couponCount", 206);
+        Long confirmCount = confirmLogService.getConfirmCount();
+        outParams.put("couponCount", confirmCount);
 
         // 售后订单
-        outParams.put("refundCount", 2);
+        outParams.put("refundCount", 0);
 
         return getSuccessResult(outParams);
     }

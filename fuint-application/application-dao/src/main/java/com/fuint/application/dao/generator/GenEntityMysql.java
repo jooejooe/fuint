@@ -1,7 +1,6 @@
 package com.fuint.application.dao.generator;
 
 import org.apache.commons.lang.StringUtils;
-
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,7 +15,8 @@ import java.util.List;
 
 /**
  * 由数据库表生成jpa实体工具
- * Created by zach on 2019/5/25.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public class GenEntityMysql {
     //数据库连接

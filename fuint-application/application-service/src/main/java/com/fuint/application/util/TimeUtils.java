@@ -6,7 +6,8 @@ import java.util.Date;
 
 /**
  * 时间相关的工具类
- * Created by zach
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public class TimeUtils {
     /**

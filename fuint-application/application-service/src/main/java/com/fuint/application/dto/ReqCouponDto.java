@@ -6,7 +6,8 @@ import java.util.Date;
 
 /**
  * 卡券请求DTO
- * Created by zach on 2020/8/6.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public class ReqCouponDto implements Serializable {
     /**

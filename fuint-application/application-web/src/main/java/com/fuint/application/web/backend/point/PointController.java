@@ -27,7 +27,8 @@ import java.util.*;
 
 /**
  * 积分管理controller
- * Created by zach on 2021/05/16
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @Controller
 @RequestMapping(value = "/backend/point")

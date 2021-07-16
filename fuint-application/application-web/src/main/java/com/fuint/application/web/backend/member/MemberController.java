@@ -30,7 +30,8 @@ import java.util.*;
 
 /**
  * 会员信息管理类controller
- * Created by zach on 2019/07/19
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @Controller
 @RequestMapping(value = "/backend/member")

@@ -12,7 +12,8 @@ import java.util.Map;
 
 /**
  * 会员用户业务接口
- * Created by zach 20190820
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public interface UvCouponInfoService {
 

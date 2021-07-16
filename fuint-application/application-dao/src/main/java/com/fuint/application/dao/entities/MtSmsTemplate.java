@@ -9,11 +9,11 @@ import javax.persistence.GenerationType;
 import java.io.Serializable;
 import java.util.Date;
 
-   /**
-    * mt_sms_template 实体类
-    * Created by zach
-    * Sat Apr 18 18:39:27 GMT+08:00 2020
-    */ 
+/**
+ * mt_sms_template 实体类
+ * Created by FSQ
+ * Contact wx fsq_better
+ */
 @Entity 
 @Table(name = "mt_sms_template")
 public class MtSmsTemplate implements Serializable{

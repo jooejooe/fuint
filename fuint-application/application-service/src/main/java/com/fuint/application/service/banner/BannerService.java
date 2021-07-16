@@ -10,7 +10,8 @@ import java.util.Map;
 
 /**
  * banner业务接口
- * Created by zach 2021/4/13
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public interface BannerService {
     /**

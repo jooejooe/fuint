@@ -11,10 +11,10 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
-    * mt_user 实体类
-    * Created by zach
-    * Mon Mar 15 15:32:28 GMT+08:00 2021
-    */ 
+ * mt_user 实体类
+ * Created by FSQ
+ * Contact wx fsq_better
+ */
 @Entity 
 @Table(name = "mt_user")
 public class MtUser implements Serializable{

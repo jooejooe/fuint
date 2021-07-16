@@ -23,8 +23,8 @@ import java.util.Map;
 
 /**
  * 卡券接口controller
- * Created by zach on 2021/4/22.
- * updated by zach on 2021/5/1.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @RestController
 @RequestMapping(value = "/rest/coupon")

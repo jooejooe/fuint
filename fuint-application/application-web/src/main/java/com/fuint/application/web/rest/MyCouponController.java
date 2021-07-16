@@ -21,8 +21,8 @@ import java.util.Map;
 
 /**-
  * 我的卡券controller
- * Created by zach on 2019/08/26.
- * Updated by zach on 2021/04/23.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @RestController
 @RequestMapping(value = "/rest/myCoupon")

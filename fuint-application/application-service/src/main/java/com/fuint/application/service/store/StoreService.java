@@ -12,7 +12,8 @@ import java.util.Map;
 
 /**
  * 店铺业务接口
- * Created by zach 2021.3.15
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public interface StoreService {
 
@@ -23,7 +24,6 @@ public interface StoreService {
      * @return
      */
     PaginationResponse<MtStore> queryStoreListByPagination(PaginationRequest paginationRequest) throws BusinessCheckException;
-
 
     /**
      * 添加店铺

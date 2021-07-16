@@ -35,7 +35,8 @@ import java.util.*;
 
 /**
  * 订单接口实现类
- * Created by zach 2021/05/05
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @Service
 public class OrderServiceImpl extends BaseService implements OrderService {
@@ -287,5 +288,13 @@ public class OrderServiceImpl extends BaseService implements OrderService {
         dto.setGoods(goodsList);
 
         return dto;
+    }
+
+    /**
+     * 获取订单数量
+     * */
+    @Override
+    public Long getOrderCount() throws BusinessCheckException {
+        return orderRepository.getOrderCount();
     }
 }

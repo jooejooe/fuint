@@ -5,8 +5,8 @@ import java.math.BigDecimal;
 
 /**
  * 卡券DTO
- * Created by zach on 2021/4/22.
- * Updated by zach on 2021/5/1.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public class CouponDto implements Serializable {
 

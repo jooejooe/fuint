@@ -9,11 +9,11 @@ import javax.persistence.GenerationType;
 import java.io.Serializable;
 import java.util.Date;
 
-   /**
-    * mt_verify_code 实体类
-    * Created by zach
-    * Tue Aug 20 10:26:51 CST 2019
-    */ 
+/**
+ * mt_verify_code 实体类
+ * Created by FSQ
+ * Contact wx fsq_better
+ */
 @Entity 
 @Table(name = "mt_verify_code")
 public class MtVerifyCode implements Serializable{

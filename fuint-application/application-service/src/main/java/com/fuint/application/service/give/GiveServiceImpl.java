@@ -36,7 +36,8 @@ import java.util.*;
 
 /**
  * 转赠业务实现类
- * Created by zach on 2019/10/09.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @Service
 public class GiveServiceImpl extends BaseService implements GiveService {

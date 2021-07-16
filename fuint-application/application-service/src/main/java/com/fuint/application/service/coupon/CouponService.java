@@ -13,8 +13,8 @@ import java.util.Map;
 
 /**
  * 卡券业务接口
- * Created by zach on 2021/3/17.
- * Updated by zach on 2021/4/23.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public interface CouponService {
 

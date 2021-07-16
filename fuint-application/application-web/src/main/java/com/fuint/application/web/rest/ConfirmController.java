@@ -26,7 +26,8 @@ import java.util.List;
 
 /**-
  * 核销卡券controller
- * Created by zach on 2019/9/05.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @RestController
 @RequestMapping(value = "/rest/confirm")

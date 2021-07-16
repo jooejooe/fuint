@@ -7,7 +7,8 @@ import com.fuint.exception.BusinessCheckException;
 
 /**
  * 会员等级业务接口
- * Created by zach 2021/5/12
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public interface UserGradeService {
 

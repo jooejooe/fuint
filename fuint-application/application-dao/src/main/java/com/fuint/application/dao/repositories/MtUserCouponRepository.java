@@ -7,14 +7,13 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import com.fuint.application.dao.entities.MtUserCoupon;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 
-   /**
-    * mt_user_coupon Repository
-    * Created by zach
-    * Tue Sep 03 11:34:25 GMT+08:00 2019
-    */ 
+/**
+ * mt_user_coupon Repository
+ * Created by FSQ
+ * Contact wx fsq_better
+ */
 @Repository 
 public interface MtUserCouponRepository extends BaseRepository<MtUserCoupon, Integer> {
 

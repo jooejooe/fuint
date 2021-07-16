@@ -9,11 +9,11 @@ import javax.persistence.GenerationType;
 import java.io.Serializable;
 import java.util.Date;
 
-   /**
-    * mt_store 实体类
-    * Created by shd.wang
-    * Fri Aug 02 18:01:07 CST 2019
-    */ 
+/**
+ * mt_store 实体类
+ * Created by FSQ
+ * Contact wx fsq_better
+ */
 @Entity 
 @Table(name = "mt_store")
 public class MtStore implements Serializable{

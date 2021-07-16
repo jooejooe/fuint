@@ -6,11 +6,11 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
-   /**
-    * mt_confirmer 实体类
-    * Created by zach
-    * Tue Sep 10 16:40:57 CST 2019
-    */ 
+/**
+ * mt_confirmer 实体类
+ * Created by FSQ
+ * Contact wx fsq_better
+ */
 @Entity 
 @Table(name = "mt_confirmer")
 public class MtConfirmer implements Serializable{

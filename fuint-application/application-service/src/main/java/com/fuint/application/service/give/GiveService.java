@@ -3,19 +3,17 @@ package com.fuint.application.service.give;
 import com.fuint.base.dao.pagination.PaginationRequest;
 import com.fuint.base.dao.pagination.PaginationResponse;
 import com.fuint.exception.BusinessCheckException;
-import com.fuint.application.dao.entities.MtCoupon;
 import com.fuint.application.dao.entities.MtGive;
 import com.fuint.application.dao.entities.MtGiveItem;
-import com.fuint.application.dao.entities.MtUserCoupon;
 import com.fuint.application.dto.GiveDto;
-import com.fuint.application.dto.ReqCouponDto;
 import com.fuint.application.ResponseObject;
 import java.util.List;
 import java.util.Map;
 
 /**
  * 转赠业务接口
- * Created by zach on 2019/10/09.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public interface GiveService {
 

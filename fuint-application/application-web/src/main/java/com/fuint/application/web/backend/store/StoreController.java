@@ -34,7 +34,8 @@ import java.util.*;
 
 /**
  * 店铺信息管理类controller
- * Created by zach on 2019-07-19
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @Controller
 @RequestMapping(value = "/backend/store")
@@ -118,8 +119,8 @@ public class StoreController {
             params = new HashMap<>();
         }
         params.put("EQ_status", StatusEnum.ENABLED.getKey());
-        //限制选择店铺，只能选择自己有权限的店铺 20191024
-        //登录员工所属店铺处理 20191024
+        //限制选择店铺，只能选择自己有权限的店铺
+        //登录员工所属店铺处理
         Long accID = ShiroUserHelper.getCurrentShiroUser().getId();
         TAccount tAccount=tAccountService.findAccountById(accID);
         if(tAccount.getStoreId()==null||tAccount.getStoreId().equals(-1))

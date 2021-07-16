@@ -10,15 +10,15 @@ import com.fuint.application.dao.entities.TAccount;
 import java.util.List;
 
 /**
-    * t_account Repository
-    * Created by zach
-    * Tue Sep 17 21:50:18 CST 2019
-    */ 
+ * t_account Repository
+ * Created by FSQ
+ * Contact wx fsq_better
+ */
 @Repository 
 public interface TAccountRepository extends BaseRepository<TAccount, Integer> {
 
    /**
-    * 根据店铺id获取列表 20190917 zach add
+    * 根据店铺id获取列表
     *
     * @param storeId
     * @return

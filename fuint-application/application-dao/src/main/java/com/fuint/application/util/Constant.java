@@ -1,7 +1,8 @@
 package com.fuint.application.util;
 
 /**
- * Created by Evan on 2017/2/21.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public interface Constant {
     /**

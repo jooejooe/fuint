@@ -19,7 +19,8 @@ import java.util.HashMap;
 
 /**
  * 二维码生成工具类
- * Created by zach on 2019/09/04.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public class QRCodeUtil {
     public static final Logger logger = LoggerFactory.getLogger(QRCodeUtil.class);

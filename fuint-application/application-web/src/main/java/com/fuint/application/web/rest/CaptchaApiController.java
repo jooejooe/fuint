@@ -20,7 +20,8 @@ import java.util.Map;
 
 /**
  * 图形验证码控制类
- * Created by fsq on 2021/04/27.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @RestController
 @RequestMapping("/rest/captcha")

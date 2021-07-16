@@ -1,13 +1,13 @@
 package com.fuint.application;
 
 import org.springframework.util.StringUtils;
-
 import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 /**
- * Created by zach on 2019/8/19.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public class PropertiesUtil {
 

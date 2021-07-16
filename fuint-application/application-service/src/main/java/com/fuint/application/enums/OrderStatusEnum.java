@@ -2,8 +2,8 @@ package com.fuint.application.enums;
 
 /**
  * 订单状态枚举
- * <p/>
- * Created by zach on 2021/05/05.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public enum OrderStatusEnum {
 

@@ -13,7 +13,8 @@ import java.math.BigDecimal;
 
 /**
  * 优惠分组业务接口
- * Created by zach on 2019/8/22.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public interface CouponGroupService {
 

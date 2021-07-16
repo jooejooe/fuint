@@ -5,7 +5,8 @@ import org.springframework.context.annotation.ImportResource;
 
 /**
  * 加载 applicationContext.xml
- * Created by zach on 2017/2/22.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @Configuration
 @ImportResource("classpath:/applicationContext.xml")

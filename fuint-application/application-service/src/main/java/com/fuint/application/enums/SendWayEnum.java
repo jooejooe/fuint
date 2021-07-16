@@ -3,7 +3,8 @@ package com.fuint.application.enums;
 /**
  * 卡券发放方式
  * <p/>
- * Created by zach on 2021-03-17.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public enum SendWayEnum {
     BACKEND("backend", "后台发放"),

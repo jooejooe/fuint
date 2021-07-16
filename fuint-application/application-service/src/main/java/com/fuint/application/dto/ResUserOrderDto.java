@@ -5,7 +5,8 @@ import java.util.List;
 
 /**
  * 用户订单返回DTO
- * Created by zach on 2021/5/05.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public class ResUserOrderDto implements Serializable {
 

@@ -46,8 +46,8 @@ import java.util.*;
 
 /**
  * 卡券业务实现类
- * Created by zach on 2020/08/06.
- * Updated by zach on 2021/04/23.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @Service
 public class CouponServiceImpl extends BaseService implements CouponService {
@@ -758,7 +758,7 @@ public class CouponServiceImpl extends BaseService implements CouponService {
     }
 
     /**
-     * 根据券ID 撤销个人卡券消费流水 zach 20191012 add
+     * 根据券ID 撤销个人卡券消费流水
      *
      * @param id       消费流水ID
      * @param userCouponId       用户卡券ID

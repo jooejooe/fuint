@@ -8,8 +8,8 @@ import java.math.BigDecimal;
 
 /**
  * uv_coupon_info 实体类
- * Created by zach
- * Thu Sep 12 17:18:54 CST 2019
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @Entity 
 @Table(name = "uv_coupon_info")

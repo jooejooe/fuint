@@ -12,10 +12,10 @@ import java.util.Date;
 import java.util.List;
 
 /**
-    * mt_store Repository
-    * Created by zach
-    * Thu Jul 18 15:16:30 CST 2019
-    */ 
+ * mt_store Repository
+ * Created by FSQ
+ * Contact wx fsq_better
+ */
 @Repository 
 public interface MtStoreRepository extends BaseRepository<MtStore, Integer> {
 

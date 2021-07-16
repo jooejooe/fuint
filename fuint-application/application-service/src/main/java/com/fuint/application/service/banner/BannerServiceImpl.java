@@ -23,7 +23,8 @@ import java.util.*;
 
 /**
  * banner管理业务实现类
- * Created by zach 2021/04/13
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @Service
 public class BannerServiceImpl implements BannerService {

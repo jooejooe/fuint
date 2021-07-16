@@ -27,8 +27,8 @@ import java.util.Map;
 
 /**
  * 登录类controller
- * Created by zach on 2019/07/16.
- * Updated by zach on 2021/04/25.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @RestController
 @RequestMapping(value = "/rest/sign")

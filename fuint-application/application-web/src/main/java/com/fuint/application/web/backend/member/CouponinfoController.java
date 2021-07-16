@@ -43,8 +43,9 @@ import java.util.*;
 import static com.fuint.application.util.XlsUtil.objectConvertToString;
 
 /**
- * 会员卡券控制器controller
- * Created by zach on 2019-09-12
+ * 会员卡券controller
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @Controller
 @RequestMapping(value = "/backend/member")

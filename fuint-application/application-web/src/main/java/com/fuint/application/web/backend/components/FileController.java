@@ -29,7 +29,8 @@ import java.util.UUID;
 
 /**
  * 文件管理控制类
- * Created by zach on 2019-9-13.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @Controller
 @RequestMapping(value = "/backend/file")

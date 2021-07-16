@@ -12,7 +12,8 @@ import java.math.BigDecimal;
 
 /**
  * 发送记录业务接口
- * Created by zach on 2019/9/17.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public interface SendLogService {
 

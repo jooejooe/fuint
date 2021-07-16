@@ -9,11 +9,11 @@ import javax.persistence.GenerationType;
 import java.io.Serializable;
 import java.util.Date;
 
-   /**
-    * mt_point 实体类
-    * Created by zach
-    * Tue May 18 23:09:52 GMT+08:00 2021
-    */ 
+/**
+ * mt_point 实体类
+ * Created by FSQ
+ * Contact wx fsq_better
+ */
 @Entity 
 @Table(name = "mt_point")
 public class MtPoint implements Serializable{

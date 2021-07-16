@@ -2,8 +2,8 @@ package com.fuint.application.enums;
 
 /**
  * 卡券类型
- * <p/>
- * Created by zach on 2021/1/19.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public enum CouponTypeEnum {
     COUPON("C", "优惠券"),

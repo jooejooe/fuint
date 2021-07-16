@@ -8,8 +8,8 @@ import java.util.Map;
 
 /**
  * 微信业务接口
- * Created by zach on 2021/5/8.
- * Updated by zach on 2021/5/8.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public interface WeixinService {
     ResponseObject createPrepayOrder(MtUser userInfo, String memberId, String goodsInfo, Integer payAmount, Integer giveAmount);

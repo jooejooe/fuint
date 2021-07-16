@@ -3,7 +3,8 @@ package com.fuint.application.enums;
 /**
  * 配置类型枚举
  *
- * Created by zach on 2021/05/16.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public enum SettingTypeEnum {
     POINT("point", "积分配置"),

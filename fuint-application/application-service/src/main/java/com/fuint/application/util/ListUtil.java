@@ -4,7 +4,8 @@ import java.util.List;
 
 /**
  * List 工具类
- * Created by zach on 2017/3/13.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public class ListUtil {
 

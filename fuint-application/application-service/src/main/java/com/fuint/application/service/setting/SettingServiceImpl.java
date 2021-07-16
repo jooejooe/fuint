@@ -15,7 +15,8 @@ import java.util.List;
 
 /**
  * 配置业务接口实现类
- * Created by zach 2021/5/16
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @Service
 public class SettingServiceImpl implements SettingService {

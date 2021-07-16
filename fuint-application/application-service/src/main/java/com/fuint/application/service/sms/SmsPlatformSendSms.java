@@ -15,7 +15,8 @@ import java.util.stream.Collectors;
 
 /**
  * 短信平台 - 发送短信
- * Created by zach on 20190821.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @Service
 public class SmsPlatformSendSms implements SendSmsInterface {

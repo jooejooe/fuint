@@ -7,14 +7,13 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import com.fuint.application.dao.entities.MtConfirmer;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.Date;
 import java.util.List;
 
 /**
  * mt_confirmer_personel Repository
- * Created by zach
- * Tue Sep 10 16:40:57 CST 2019
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @Repository 
 public interface MtConfirmerRepository extends BaseRepository<MtConfirmer, Integer> {

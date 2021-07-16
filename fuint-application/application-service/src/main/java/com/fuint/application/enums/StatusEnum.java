@@ -2,8 +2,8 @@ package com.fuint.application.enums;
 
 /**
  * 状态枚举
- * <p/>
- * Created by zach on 2019/09/05.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public enum StatusEnum {
 

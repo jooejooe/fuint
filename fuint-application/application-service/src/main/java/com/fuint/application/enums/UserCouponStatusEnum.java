@@ -2,8 +2,8 @@ package com.fuint.application.enums;
 
 /**
  * 用户卡券状态 状态：A：未使用；B：已使用；C：已过期; D：已作废
- * <p/>
- * Created by zach on 2021/03/17.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public enum UserCouponStatusEnum {
     UNUSED("A", "未使用"),

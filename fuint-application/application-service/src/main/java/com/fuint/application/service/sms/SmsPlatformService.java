@@ -32,7 +32,8 @@ import java.util.*;
 
 /**
  * 调用短信平台Service
- * Created by zach on 201909199
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @Service
 public class SmsPlatformService {

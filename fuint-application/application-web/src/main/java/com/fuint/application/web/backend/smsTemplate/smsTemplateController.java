@@ -20,7 +20,8 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * 短信模板管理类controller
- * Created by zach on 2020/04/18.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @Controller
 @RequestMapping(value = "/backend/smsTemplate")
@@ -95,9 +96,7 @@ public class smsTemplateController {
     @RequiresPermissions("backend/smsTemplate/save")
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String saveHandler(HttpServletRequest request, HttpServletResponse response, Model model, MtSmsTemplateDto smsTemplateDto) throws BusinessCheckException {
-
         smsTemplateService.saveSmsTemplate(smsTemplateDto);
-
         return "redirect:/backend/smsTemplate/index";
     }
 

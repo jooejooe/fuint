@@ -16,7 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * 支付类controller
- * Created by zach on 2021/05/7.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @RestController
 @RequestMapping(value = "/rest/pay")

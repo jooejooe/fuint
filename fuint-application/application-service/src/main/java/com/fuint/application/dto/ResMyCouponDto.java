@@ -5,7 +5,8 @@ import java.util.List;
 
 /**
  * 我的卡券返回DTO
- * Created by zach on 2019/8/28.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public class ResMyCouponDto implements Serializable {
 

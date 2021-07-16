@@ -1,7 +1,5 @@
 package com.fuint.application.service.member;
 
-import com.fuint.application.util.Base64Util;
-import com.fuint.application.util.QRCodeUtil;
 import com.fuint.base.dao.pagination.PaginationRequest;
 import com.fuint.base.dao.pagination.PaginationResponse;
 import com.fuint.exception.BusinessCheckException;
@@ -23,21 +21,16 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.EntityManager;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
  * 会员卡券统计业务实现类
- * Created by zach 20190808
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @Service
 public class UvCouponInfoServiceImpl implements UvCouponInfoService {

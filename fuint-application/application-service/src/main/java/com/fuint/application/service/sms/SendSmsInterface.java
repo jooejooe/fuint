@@ -5,7 +5,8 @@ import java.util.Map;
 
 /**
  * 发送短信接口
- * Created by zach on 2021/07/03.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public interface SendSmsInterface {
 

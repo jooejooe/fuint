@@ -9,10 +9,10 @@ import com.fuint.application.dao.entities.UvCouponInfo;
 import java.util.List;
 
 /**
-    * uv_coupon_info Repository
-    * Created by zach
-    * Thu Sep 12 17:18:55 CST 2019
-    */ 
+ * uv_coupon_info Repository
+ * Created by FSQ
+ * Contact wx fsq_better
+ */
 @Repository 
 public interface MtCouponInfoRepository extends BaseRepository<UvCouponInfo, Integer> {
 

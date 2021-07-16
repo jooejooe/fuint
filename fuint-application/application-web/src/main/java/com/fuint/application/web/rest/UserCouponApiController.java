@@ -36,8 +36,8 @@ import java.util.Map;
 
 /**
  * 会员卡券controller
- * Created by zach on 2020/08/18.
- * Updated by zach on 2021/04/29.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @RestController
 @RequestMapping(value = "/rest/userCouponApi")

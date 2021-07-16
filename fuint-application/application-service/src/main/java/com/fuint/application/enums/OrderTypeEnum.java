@@ -3,7 +3,8 @@ package com.fuint.application.enums;
 /**
  * 订单类型
  *
- * Created by zach on 2021/5/05.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public enum OrderTypeEnum {
     PRESTORE("prestore", "预存卡订单"),

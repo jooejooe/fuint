@@ -24,7 +24,8 @@ import java.util.Map;
 
 /**
  * 积分相关controller
- * Created by zach on 2021/05/15.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @RestController
 @RequestMapping(value = "/rest/points")

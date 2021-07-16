@@ -5,10 +5,10 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
-    * mt_give 实体类
-    * Created by zach
-    * Sat Oct 12 15:34:19 GMT+08:00 2019
-    */
+ * mt_give 实体类
+ * Created by FSQ
+ * Contact wx fsq_better
+ */
 public class GiveItemDto implements Serializable{
    /**
     * 自增 

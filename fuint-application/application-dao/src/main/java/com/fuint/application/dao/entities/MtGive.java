@@ -12,8 +12,8 @@ import java.math.BigDecimal;
 
 /**
  * mt_give 实体类
- * Created by zach
- * Sat Oct 12 15:34:19 GMT+08:00 2019
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @Entity 
 @Table(name = "mt_give")

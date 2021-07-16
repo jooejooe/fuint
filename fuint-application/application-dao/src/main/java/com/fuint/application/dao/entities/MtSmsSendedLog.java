@@ -9,11 +9,11 @@ import javax.persistence.GenerationType;
 import java.io.Serializable;
 import java.util.Date;
 
-   /**
-    * mt_sms_sended_log 实体类
-    * Created by zach
-    * Thu Sep 19 15:37:11 CST 2019
-    */ 
+/**
+ * mt_sms_sended_log 实体类
+ * Created by FSQ
+ * Contact wx fsq_better
+ */
 @Entity 
 @Table(name = "mt_sms_sended_log")
 public class MtSmsSendedLog implements Serializable{

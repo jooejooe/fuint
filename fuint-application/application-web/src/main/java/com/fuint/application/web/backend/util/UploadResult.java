@@ -4,7 +4,8 @@ import java.io.Serializable;
 
 /**
  * 上传图片返回结果
- * Created by liuguofang on 2016/9/13.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public class UploadResult implements Serializable{
     /**

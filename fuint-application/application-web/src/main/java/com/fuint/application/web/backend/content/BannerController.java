@@ -29,7 +29,8 @@ import java.util.*;
 
 /**
  * Banner信息管理类controller
- * Created by zach on 2021-04-12
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @Controller
 @RequestMapping(value = "/backend/banner")

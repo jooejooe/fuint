@@ -12,8 +12,8 @@ import java.math.BigDecimal;
 
 /**
 * mt_order 实体类
-* Created by zach
-* Wed May 05 22:00:40 GMT+08:00 2021
+* Created by FSQ
+* Contact wx fsq_better
 */
 @Entity 
 @Table(name = "mt_order")

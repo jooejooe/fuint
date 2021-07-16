@@ -4,10 +4,8 @@ package com.fuint.application.web.backend.util;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import java.io.StringWriter;
 import java.text.SimpleDateFormat;
-
 
 /**
  * JsonUtil

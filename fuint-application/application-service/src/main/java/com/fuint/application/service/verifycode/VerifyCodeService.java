@@ -5,7 +5,8 @@ import com.fuint.application.dao.entities.MtVerifyCode;
 
 /**
  * 验证码接口
- * Created by zach 2019/08/20
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public interface VerifyCodeService {
     /**

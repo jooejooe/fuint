@@ -6,8 +6,8 @@ import java.util.List;
 
 /**
  * UserOrderDto 实体类
- * Created by zach
- * Tue Apr 13 16:31:40 GMT+08:00 2021
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public class UserOrderDto implements Serializable {
 	/**

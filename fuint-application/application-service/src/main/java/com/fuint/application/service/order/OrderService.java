@@ -12,7 +12,8 @@ import java.util.Map;
 
 /**
  * 订单业务接口
- * Created by zach 2021/05/05
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public interface OrderService {
     /**
@@ -66,4 +67,9 @@ public interface OrderService {
      * 根据条件搜索订单
      * */
     List<MtOrder> getOrderListByParams(Map<String, Object> params) throws BusinessCheckException;
+
+    /**
+     * 获取订单总数
+     * */
+    Long getOrderCount() throws BusinessCheckException;
 }

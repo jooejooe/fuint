@@ -4,7 +4,8 @@ import java.io.Serializable;
 
 /**
  * 下单用户DTO
- * Created by zach on 2021/5/21.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public class OrderUserDto implements Serializable {
 

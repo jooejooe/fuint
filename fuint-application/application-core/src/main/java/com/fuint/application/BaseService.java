@@ -1,7 +1,8 @@
 package com.fuint.application;
 
 /**
- * Created by zach on 2019/8/27.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public class BaseService {
 

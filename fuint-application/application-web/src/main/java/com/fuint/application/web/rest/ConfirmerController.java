@@ -30,7 +30,8 @@ import java.util.Map;
 
 /**
  * 登录类controller
- * Created by zach on 2019/7/16.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @RestController
 @RequestMapping(value = "/rest/confirmer")

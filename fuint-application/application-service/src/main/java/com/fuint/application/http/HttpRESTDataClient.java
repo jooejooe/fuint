@@ -15,7 +15,8 @@ import java.util.Optional;
 
 /**
  * 调用REST接口并解析数据
- * Created by gang.wang on 2017/4/12.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 @Component
 public class HttpRESTDataClient {

@@ -9,7 +9,8 @@ import java.util.Map;
 
 /**
  * 核销人员管理接口
- * Created by zach 2019/09/09
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public interface ConfirmerService {
 
@@ -21,7 +22,6 @@ public interface ConfirmerService {
      */
     PaginationResponse<MtConfirmer> queryConfirmerListByPagination(PaginationRequest paginationRequest) throws BusinessCheckException;
 
-
     /**
      * 添加核销人员记录
      *
@@ -29,7 +29,6 @@ public interface ConfirmerService {
      * @throws BusinessCheckException
      */
     MtConfirmer addConfirmer(MtConfirmer reqConfirmerDto) throws BusinessCheckException;
-
 
     /**
      * 修改核销人员信息
@@ -46,8 +45,6 @@ public interface ConfirmerService {
      * @throws BusinessCheckException
      */
     MtConfirmer queryConfirmerById(Integer id) throws BusinessCheckException;
-
-
 
     /**
      * 审核更改状态(禁用，审核通过)
