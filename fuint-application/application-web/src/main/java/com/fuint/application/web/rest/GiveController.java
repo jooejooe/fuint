@@ -4,7 +4,6 @@ import com.fuint.base.dao.pagination.PaginationRequest;
 import com.fuint.base.dao.pagination.PaginationResponse;
 import com.fuint.base.util.RequestHandler;
 import com.fuint.exception.BusinessCheckException;
-import com.fuint.application.dao.entities.MtGive;
 import com.fuint.application.dao.entities.MtVerifyCode;
 import com.fuint.application.dto.GiveDto;
 import com.fuint.application.service.give.GiveService;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 import com.fuint.application.BaseController;
 import com.fuint.application.ResponseObject;
 import com.fuint.application.dao.entities.MtUser;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
@@ -61,7 +59,7 @@ public class GiveController extends BaseController {
      */
     @RequestMapping(value = "/doGive", method = RequestMethod.POST)
     @CrossOrigin
-    public ResponseObject doGive(HttpServletRequest request, @RequestParam Map<String, Object> param) throws BusinessCheckException {
+    public ResponseObject doGive(HttpServletRequest request, @RequestBody Map<String, Object> param) throws BusinessCheckException {
         String token = request.getHeader("Access-Token");
 
         if (StringUtils.isEmpty(token)) {
@@ -76,17 +74,17 @@ public class GiveController extends BaseController {
         param.put("userId", mtUser.getId());
 
         try {
+            /*
             String vcode = param.get("vcode") == null ? "" : param.get("vcode").toString();
             if (StringUtils.isEmpty(vcode)) {
                 return getFailureResult(3001, "验证码不能为空");
             }
-
             MtVerifyCode mtVerifyCode = verifyCodeService.checkVerifyCode(mtUser.getMobile(), vcode);
             if (null != mtVerifyCode) {
                 verifyCodeService.updateValidFlag(mtVerifyCode.getId(),"1");
             } else {
                 return getFailureResult(3002, "验证码有误");
-            }
+            }*/
 
             ResponseObject result = giveService.addGive(param);
 
@@ -141,7 +139,7 @@ public class GiveController extends BaseController {
 
         ResponseObject responseObject;
         Map<String, Object> outParams = new HashMap();
-        outParams.put("dataList", paginationResponse.getContent());
+        outParams.put("content", paginationResponse.getContent());
         outParams.put("pageSize", paginationResponse.getPageSize());
         outParams.put("pageNumber", paginationResponse.getCurrentPage());
         outParams.put("totalRow", paginationResponse.getTotalElements());

@@ -1,8 +1,6 @@
 package com.fuint.application.web.backend.coupon;
 
 import com.fuint.application.enums.CouponTypeEnum;
-import com.fuint.application.enums.OrderTypeEnum;
-import com.fuint.application.enums.UserCouponStatusEnum;
 import com.fuint.application.service.usergrade.UserGradeService;
 import com.fuint.base.shiro.ShiroUser;
 import com.fuint.base.shiro.util.ShiroUserHelper;
@@ -19,7 +17,6 @@ import com.fuint.application.service.coupon.CouponService;
 import com.fuint.application.service.coupongroup.CouponGroupService;
 import com.fuint.application.service.store.StoreService;
 import com.fuint.application.service.sendlog.SendLogService;
-import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
@@ -38,7 +35,6 @@ import com.fuint.application.dto.ReqCouponDto;
 import com.fuint.application.dto.DateDto;
 import com.fuint.base.util.RequestHandler;
 import com.fuint.application.web.backend.base.BaseController;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
@@ -83,9 +79,6 @@ public class couponController extends BaseController {
 
     @Autowired
     private SendLogService sendLogService;
-
-    @Autowired
-    private UserGradeService userGradeService;
 
     @Autowired
     private MtCouponGroupRepository couponGroupRepository;
@@ -234,6 +227,9 @@ public class couponController extends BaseController {
             groupTotal = groupInfo.getTotal();
         }
 
+        String baseImage = env.getProperty("images.website");
+
+        model.addAttribute("baseImage", baseImage);
         model.addAttribute("groupTotal", groupTotal);
         model.addAttribute("storeMap", storeMap);
         model.addAttribute("groupMap", groupMap);

@@ -1,5 +1,6 @@
 package com.fuint.application.service.give;
 
+import com.fuint.application.enums.StatusEnum;
 import com.fuint.base.annoation.OperationServiceLog;
 import com.fuint.base.dao.pagination.PaginationRequest;
 import com.fuint.base.dao.pagination.PaginationResponse;
@@ -255,11 +256,14 @@ public class GiveServiceImpl extends BaseService implements GiveService {
         MtUser user = memberService.queryMemberByMobile(mobile);
         if (null == user) {
             MtUser userInfo = new MtUser();
+            userInfo.setName(mobile);
             userInfo.setMobile(mobile);
-            userInfo.setStatus("A");
+            userInfo.setGradeId("1");
+            userInfo.setBalance(new BigDecimal("0"));
+            userInfo.setStatus(StatusEnum.ENABLED.getKey());
             user = memberService.addMember(userInfo);
         } else {
-            if (!user.getStatus().equals("A")) {
+            if (!user.getStatus().equals(StatusEnum.ENABLED.getKey())) {
                 throw new BusinessCheckException("转增对象可能已被禁用");
             }
         }
