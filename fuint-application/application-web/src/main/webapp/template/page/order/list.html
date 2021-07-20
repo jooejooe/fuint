@@ -64,7 +64,7 @@
                         <td>${ct.orderSn}</td>
                         <td>${ct.typeName}</td>
                         <td>${ct.amount}</td>
-                        <td>${ct.discount}</td>
+                        <td><#if ct.discount>${ct.discount}<#else>0.00</#if></td>
                         <td>${ct.createTime}</td>
                         <td>${ct.updateTime}</td>
                         <td>
@@ -75,8 +75,7 @@
                         </#if>
                         </td>
                         <td>
-                            <a class="label label-success small-btn" href="javascript:getData('${rc.contextPath}/backend/order/detail?EQ_id=${ct.id}','displayArea');" title="详情"><i class="fa fa-eye"></i>详情</a>
-                            <a class="label label-success small-btn" href="javascript:getData('${rc.contextPath}/backend/order/update/${ct.id}','displayArea')" title="更新"><i class="fa fa-edit"></i>更新</a>
+                            <a class="label label-success small-btn" href="javascript:getData('${rc.contextPath}/backend/order/detail/${ct.id}','displayArea');" title="查看详情"><i class="fa fa-eye"></i>详情</a>
                         </td>
                     </tr>
                 </#list>

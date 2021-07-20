@@ -14,12 +14,11 @@
             <tr>
                 <th >记录ID</th>
                 <th >用户手机号</th>
-                <th >FuInt账号</th>
+                <th>券名称</th>
+                <th >转赠对象手机号</th>
                 <th >转赠数量</th>
                 <th >转赠总金额</th>
-                <th >赠予对象手机号</th>
-                <th >赠予对象FuInt账号</th>
-                <th >赠予时间</th>
+                <th >转赠时间</th>
                 <th >操作</th>
             </tr>
             </thead>
@@ -29,11 +28,10 @@
                         <tr>
                             <td>${ct.id}</td>
                             <td>${ct.userMobile}</td>
-                            <td>${ct.userHnaAccount}</td>
+                            <td>${ct.couponNames}</td>
+                            <td>${ct.mobile}</td>
                             <td>${ct.num}</td>
                             <td>${ct.money}</td>
-                            <td>${ct.mobile}</td>
-                            <td>${ct.hnaAccount}</td>
                             <td>${ct.createTime}</td>
                             <td>
                                 <a class="label label-success" href="javascript:void(0)" onclick="javascript:viewItem(${ct.id});">查看详情</a>

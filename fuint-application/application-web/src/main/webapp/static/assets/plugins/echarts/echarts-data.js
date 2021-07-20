@@ -15,9 +15,9 @@ $(function () {
     $('.aw-content-wrap').find('.date-end').val(dateArr[0]);
 
 
-    //图表数据接入
-    var echart = new Echarts('#main', 'line', '/fuint-application/backend/home/statistic?tag=new_user,user_live&start_date=' + dateArr[3] + '&end_date=' + dateArr[2]);
-    var echart2 = new Echarts('#main2', 'line', '/fuint-application/backend/home/statistic?tag=prestore_in,prestore_spend,coupon_get,coupon_spend&start_date=' + dateArr[3] + '&end_date=' + dateArr[2]);
+    // 图表数据接入
+    var echart = new Echarts('#main', 'line', '/fuint-application/backend/home/statistic?tag=new_user,user_active&start_date=' + dateArr[3] + '&end_date=' + dateArr[2]);
+    var echart2 = new Echarts('#main2', 'line', '/fuint-application/backend/home/statistic?tag=order,payment&start_date=' + dateArr[3] + '&end_date=' + dateArr[2]);
 
 
     // 左侧菜单收缩重新渲染图表
@@ -236,7 +236,6 @@ Echarts.prototype = {
     // 渲染
     render: function () {
         var chart = echarts.init($(this.element)[0]);
-
         chart.setOption(this.options);
     },
 
@@ -249,25 +248,16 @@ Echarts.prototype = {
 
         for (var i = 0; i < param.length; i++) {
             switch (param[i]) {
-            case 'prestore_in':
-                arr.push('预存卡预存金额');
+            case 'order':
+                arr.push('订单数');
                 break;
-            case 'prestore_spend':
-                    arr.push('预存卡消费金额');
+            case 'payment':
+                    arr.push('支付金额');
                     break;
-
-            case 'coupon_get':
-                arr.push('卡券领取金额');
-                break;
-            case 'coupon_spend':
-                arr.push('卡券消费金额');
-                break;
-
             case 'new_user':
                 arr.push('新增会员数');
                 break;
-
-            case 'user_live':
+            case 'user_active':
                 arr.push('活跃会员数');
                 break;
             }
