@@ -20,14 +20,15 @@ import java.util.List;
  */
 public class GenEntityMysql {
     //数据库连接
-    private static final String URL = "jdbc:mysql://localhost:3306/fuint-db";
+    private static final String URL = "jdbc:mysql://localhost:3306/fuint-db?useSSL=true";
     private static final String NAME = "root";
     private static final String PASS = "";
 
     private String entityPackage = "com.fuint.application.dao.entities";//指定实体生成所在包的路径
     private String repositoryPackage = "com.fuint.application.dao.repositories";//指定实体仓库接口生成所在包的路径
-    private String authorName = "zach";//作者名字
-    private String tableName = "mt_point";//表名
+    private String authorName = "FSQ";//作者名字
+    private String contact = "fsq_better"; //联系微信
+    private String tableName = "mt_refund";//表名
 
     private List<String> colNames = new ArrayList<>(); // 列名数组
     private List<String> colTypes = new ArrayList<>(); //列名类型数组
@@ -39,7 +40,7 @@ public class GenEntityMysql {
     private boolean f_sql = false; // 是否需要导入包java.sql.*
     private boolean f_bigDecimal = false;// 是否需要导入包java.math.BigDecimal
 
-    private static final String DRIVER = "com.mysql.jdbc.Driver";
+    private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
 
     private static final String AUTO = "auto_increment";
 
@@ -91,11 +92,11 @@ public class GenEntityMysql {
 
         sb.append("\r\n");
         //注释部分
-        sb.append("   /**\r\n");
-        sb.append("    * " + tableName + " 实体类\r\n");
-        sb.append("    * Created by " + this.authorName + "\r\n");
-        sb.append("    * " + new Date() + "\r\n");
-        sb.append("    */ \r\n");
+        sb.append("/**\r\n");
+        sb.append(" * " + tableName + " 实体类\r\n");
+        sb.append(" * Created by " + this.authorName + "\r\n");
+        sb.append(" * Contact wx "+ this.contact + "\r\n");
+        sb.append(" */ \r\n");
         //实体部分
         sb.append("@Entity " + "\r\n");
         sb.append("@Table(name = \"" + tableName + "\")" + "\r\n");

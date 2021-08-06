@@ -68,9 +68,9 @@
                         </td>
                         <td>${ct.mobile}</td>
                         <td>${ct.name}</td>
-                        <td>${ct.birthday}</td>
-                        <td>${ct.balance}</td>
-                        <td>${ct.point}</td>
+                        <td><#if (ct.birthday)>${ct.birthday}<#else>-</#if></td>
+                        <td><#if (ct.balance > 0)>${ct.balance}<#else>0.0</#if></td>
+                        <td><#if (ct.point)>${ct.point}<#else>0</#if></td>
                         <td>
                         <#if ct.status == "A">
                             激活

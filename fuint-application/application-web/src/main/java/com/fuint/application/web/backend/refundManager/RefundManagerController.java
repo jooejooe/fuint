@@ -1,4 +1,4 @@
-package com.fuint.application.web.backend.orderManager;
+package com.fuint.application.web.backend.refundManager;
 
 import com.fuint.application.dao.entities.MtOrder;
 import com.fuint.application.dto.UserOrderDto;
@@ -20,15 +20,15 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
- * 订单管理controller
+ * 售后管理controller
  * Created by FSQ
  * Contact wx fsq_better
  */
 @Controller
-@RequestMapping(value = "/backend/order")
-public class OrderManagerController {
+@RequestMapping(value = "/backend/refund")
+public class RefundManagerController {
 
-    private static final Logger logger = LoggerFactory.getLogger(OrderManagerController.class);
+    private static final Logger logger = LoggerFactory.getLogger(RefundManagerController.class);
 
     /**
      * 订单服务接口
@@ -37,14 +37,14 @@ public class OrderManagerController {
     private OrderService orderService;
 
     /**
-     * 订单列表查询
+     * 退款列表查询
      *
      * @param request  HttpServletRequest对象
      * @param model    SpringFramework Model对象
      * @return
      */
-    @RequiresPermissions("backend/order/list")
-    @RequestMapping(value = "/list")
+    @RequiresPermissions("backend/refund/index")
+    @RequestMapping(value = "/index")
     public String list(HttpServletRequest request, Model model) throws BusinessCheckException {
         PaginationRequest paginationRequest = RequestHandler.buildPaginationRequest(request, model);
         Map<String, Object> params = paginationRequest.getSearchParams();
@@ -65,21 +65,21 @@ public class OrderManagerController {
         model.addAttribute("typeList", typeList);
         model.addAttribute("params", params);
 
-        return "order/list";
+        return "refund/list";
     }
 
     /**
-     * 订单详情
+     * 退款详情
      * @param request  HttpServletRequest对象
      * @param model    SpringFramework Model对象
      * @return
      * */
-    @RequiresPermissions("backend/order/detail/{orderId}")
-    @RequestMapping(value = "/detail/{orderId}")
-    public String detail(HttpServletRequest request, Model model, @PathVariable("orderId") Integer orderId) throws BusinessCheckException {
-        UserOrderDto orderInfo = orderService.getOrderById(orderId);
+    @RequiresPermissions("backend/refund/detail/{refundId}")
+    @RequestMapping(value = "/detail/{refundId}")
+    public String detail(HttpServletRequest request, Model model, @PathVariable("refundId") Integer refundId) throws BusinessCheckException {
+        UserOrderDto orderInfo = orderService.getOrderById(refundId);
 
         model.addAttribute("orderInfo", orderInfo);
-        return "order/detail";
+        return "refund/detail";
     }
 }
