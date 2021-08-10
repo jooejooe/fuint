@@ -26,10 +26,10 @@ public class MtRefund implements Serializable{
 	private Integer id;
 
    /**
-    * 订单ID 
+    * 订单号
     */ 
-	@Column(name = "ORDER_ID", nullable = false, length = 11)
-	private Integer orderId;
+	@Column(name = "ORDER_SN", nullable = false, length = 32)
+	private String orderSn;
 
    /**
     * 会员ID 
@@ -73,11 +73,11 @@ public class MtRefund implements Serializable{
 	public void setId(Integer id){
 	this.id=id;
 	}
-	public Integer getOrderId(){
-		return orderId;
+	public String getOrderSn(){
+		return orderSn;
 	}
-	public void setOrderId(Integer orderId){
-	this.orderId=orderId;
+	public void setOrderSn(String orderSn){
+	this.orderSn=orderSn;
 	}
 	public Integer getUserId(){
 		return userId;

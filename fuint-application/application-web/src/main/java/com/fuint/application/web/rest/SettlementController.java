@@ -31,7 +31,7 @@ import java.util.Map;
 @RequestMapping(value = "/rest/settlement")
 public class SettlementController extends BaseController {
 
-    private static final Logger logger = LoggerFactory.getLogger(PageController.class);
+    private static final Logger logger = LoggerFactory.getLogger(SettlementController.class);
 
     /**
      * 会员卡券服务接口

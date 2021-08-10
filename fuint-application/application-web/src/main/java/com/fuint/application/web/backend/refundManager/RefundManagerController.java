@@ -1,9 +1,8 @@
 package com.fuint.application.web.backend.refundManager;
 
-import com.fuint.application.dao.entities.MtOrder;
-import com.fuint.application.dto.UserOrderDto;
-import com.fuint.application.enums.OrderTypeEnum;
-import com.fuint.application.service.order.OrderService;
+import com.fuint.application.dao.entities.MtRefund;
+import com.fuint.application.dto.RefundDto;
+import com.fuint.application.service.refund.RefundService;
 import com.fuint.base.dao.pagination.PaginationRequest;
 import com.fuint.base.dao.pagination.PaginationResponse;
 import com.fuint.base.util.RequestHandler;
@@ -34,7 +33,7 @@ public class RefundManagerController {
      * 订单服务接口
      * */
     @Autowired
-    private OrderService orderService;
+    private RefundService refundService;
 
     /**
      * 退款列表查询
@@ -49,20 +48,9 @@ public class RefundManagerController {
         PaginationRequest paginationRequest = RequestHandler.buildPaginationRequest(request, model);
         Map<String, Object> params = paginationRequest.getSearchParams();
 
-        PaginationResponse<MtOrder> paginationResponse = orderService.getOrderListByPagination(paginationRequest);
-        OrderTypeEnum[] typeList = OrderTypeEnum.values();
-
-        // 取订单类型名称
-        for (MtOrder order :paginationResponse.getContent()) {
-          for (OrderTypeEnum type: typeList) {
-              if (type.getKey().equals(order.getType())) {
-                 order.setTypeName(type.getValue());
-              }
-          }
-        }
+        PaginationResponse<MtRefund> paginationResponse = refundService.getRefundListByPagination(paginationRequest);
 
         model.addAttribute("paginationResponse", paginationResponse);
-        model.addAttribute("typeList", typeList);
         model.addAttribute("params", params);
 
         return "refund/list";
@@ -77,9 +65,9 @@ public class RefundManagerController {
     @RequiresPermissions("backend/refund/detail/{refundId}")
     @RequestMapping(value = "/detail/{refundId}")
     public String detail(HttpServletRequest request, Model model, @PathVariable("refundId") Integer refundId) throws BusinessCheckException {
-        UserOrderDto orderInfo = orderService.getOrderById(refundId);
+        RefundDto refundInfo = refundService.getRefundById(refundId);
 
-        model.addAttribute("orderInfo", orderInfo);
+        model.addAttribute("orderInfo", refundInfo);
         return "refund/detail";
     }
 }

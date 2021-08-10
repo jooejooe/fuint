@@ -32,7 +32,7 @@ import java.util.Map;
 @RequestMapping(value = "/rest/order")
 public class OrderController extends BaseController {
 
-    private static final Logger logger = LoggerFactory.getLogger(SignController.class);
+    private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
 
     @Autowired
     private TokenService tokenService;
