@@ -124,7 +124,7 @@ public class giveLogController extends BaseController{
     /**
      * 快速查询详情
      * */
-    @RequiresPermissions("backend/give/viewItem")
+    @RequiresPermissions("backend/give/giveItem")
     @RequestMapping(value = "/giveItem")
     public String giveItem(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException {
         PaginationRequest paginationRequest = RequestHandler.buildPaginationRequest(request, model);
@@ -155,7 +155,7 @@ public class giveLogController extends BaseController{
             dto.setGroupName(groupInfo.getName());
             dto.setCouponId(userCouponInfo.getCouponId());
             dto.setCouponName(couponInfo.getName());
-            dto.setMoney(couponInfo.getAmount());
+            dto.setMoney(userCouponInfo.getAmount());
             dto.setCreateTime(item.getCreateTime());
 
             dataList.add(dto);
@@ -183,7 +183,7 @@ public class giveLogController extends BaseController{
         List<GiveDto> list = paginationResponse.getContent();
 
         //excel标题
-        String[] title = {"记录ID", "用户手机号", "FuInt账号", "转赠数量", "转赠总金额", "赠予对象手机号", "赠予对象FuInt账号", "赠予时间"};
+        String[] title = {"记录ID", "用户手机号", "转赠数量", "转赠总金额", "赠予对象手机号", "赠予时间"};
         String fileName;
         fileName = "转赠记录" + System.currentTimeMillis() + ".xls";
 
@@ -196,12 +196,10 @@ public class giveLogController extends BaseController{
             GiveDto obj = list.get(i);
             content[i][0] = objectConvertToString(obj.getId());
             content[i][1] = objectConvertToString(obj.getUserMobile());
-            content[i][2] = objectConvertToString(obj.getUserHnaAccount());
-            content[i][3] = objectConvertToString(obj.getNum());
-            content[i][4] = objectConvertToString(obj.getMoney());
-            content[i][5] = objectConvertToString(obj.getMobile());
-            content[i][6] = objectConvertToString(obj.getHnaAccount());
-            content[i][7] = objectConvertToString(obj.getCreateTime());
+            content[i][2] = objectConvertToString(obj.getNum());
+            content[i][3] = objectConvertToString(obj.getMoney());
+            content[i][4] = objectConvertToString(obj.getMobile());
+            content[i][5] = objectConvertToString(obj.getCreateTime());
         }
 
         // 创建HSSFWorkbook

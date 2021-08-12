@@ -82,7 +82,7 @@ public class GiveServiceImpl extends BaseService implements GiveService {
         PageRequest pageRequest = new PageRequest(paginationRequest.getCurrentPage() - 1, paginationRequest.getPageSize());
         query.setFirstResult(pageRequest.getOffset());
         query.setMaxResults(pageRequest.getPageSize());
-        List<GiveDto> content =this.convert(query);
+        List<GiveDto> content = this.convert(query);
 
         Long total = this.getTotal(params);
         Page page = new PageImpl(content, pageRequest, total.longValue());
@@ -103,20 +103,18 @@ public class GiveServiceImpl extends BaseService implements GiveService {
             give.setUserId(objArray[1] == null ? 0 : Integer.parseInt(objArray[1].toString()));
             give.setGiveUserId(objArray[2] == null ? 0 : Integer.parseInt(objArray[2].toString()));
             give.setMobile(objArray[3] == null ? "" : objArray[3].toString());
-            give.setHnaAccount(objArray[4] == null ? "" : objArray[4].toString());
-            give.setUserMobile(objArray[5] == null ? "" : objArray[5].toString());
-            give.setUserHnaAccount(objArray[6] == null ? "" : objArray[6].toString());
-            give.setGroupIds(objArray[7] == null ? "" : objArray[7].toString());
-            give.setGroupNames(objArray[8] == null ? "" : objArray[8].toString());
-            give.setCouponIds(objArray[9] == null ? "" : objArray[9].toString());
-            give.setCouponNames(objArray[10] == null ? "" : objArray[10].toString());
-            give.setNum(objArray[11] == null ? 0 : Integer.parseInt(objArray[11].toString()));
-            give.setMoney(objArray[12] == null ? BigDecimal.valueOf(0) : new BigDecimal(objArray[12].toString()));
-            give.setNote(objArray[13] == null ? "" : objArray[13].toString());
-            give.setMessage(objArray[14] == null ? "" : objArray[14].toString());
-            give.setCreateTime(objArray[15] == null ? "" : objArray[15].toString());
-            give.setUpdateTime(objArray[16] == null ? "" : objArray[16].toString());
-            give.setStatus(objArray[17] == null ? "" : objArray[17].toString());
+            give.setUserMobile(objArray[4] == null ? "" : objArray[4].toString());
+            give.setGroupIds(objArray[5] == null ? "" : objArray[5].toString());
+            give.setGroupNames(objArray[6] == null ? "" : objArray[6].toString());
+            give.setCouponIds(objArray[7] == null ? "" : objArray[7].toString());
+            give.setCouponNames(objArray[8] == null ? "" : objArray[8].toString());
+            give.setNum(objArray[9] == null ? 0 : Integer.parseInt(objArray[9].toString()));
+            give.setMoney(objArray[10] == null ? BigDecimal.valueOf(0) : new BigDecimal(objArray[10].toString()));
+            give.setNote(objArray[11] == null ? "" : objArray[11].toString());
+            give.setMessage(objArray[12] == null ? "" : objArray[12].toString());
+            give.setCreateTime(objArray[13] == null ? "" : objArray[13].toString());
+            give.setUpdateTime(objArray[14] == null ? "" : objArray[14].toString());
+            give.setStatus(objArray[15] == null ? "" : objArray[15].toString());
             content.add(give);
         }
 
@@ -131,8 +129,7 @@ public class GiveServiceImpl extends BaseService implements GiveService {
      */
     private Query getQueryByParams(Map<String, Object> params) {
         StringBuffer queryStr = new StringBuffer();
-        queryStr.append("SELECT * " +
-                "from mt_give t where t.status='A' ");
+        queryStr.append("SELECT * from mt_give t where t.status='A' ");
 
         if (params.get("EQ_userMobile") != null && StringUtils.isNotEmpty(params.get("EQ_userMobile").toString())) {
             queryStr.append(" and t.user_mobile like '%" + params.get("EQ_userMobile").toString().trim() + "%' ");
@@ -253,6 +250,7 @@ public class GiveServiceImpl extends BaseService implements GiveService {
             throw new BusinessCheckException("转增卡券数量不能超过10张");
         }
 
+        // 如果赠予对象为空，则注册
         MtUser user = memberService.queryMemberByMobile(mobile);
         if (null == user) {
             MtUser userInfo = new MtUser();
@@ -302,11 +300,11 @@ public class GiveServiceImpl extends BaseService implements GiveService {
                 groupNames.add(group.getName());
             }
 
-            money = money.add(coupon.getAmount());
+            money = money.add(userCoupon.getAmount());
             if (null == userCoupon) {
                 throw new BusinessCheckException("转增卡券不存在");
             } else {
-                if (!userCoupon.getStatus().equals("A")) {
+                if (!userCoupon.getStatus().equals(StatusEnum.ENABLED.getKey())) {
                     throw new BusinessCheckException("转增卡券必须是未使用状态");
                 }
                 if (!userCoupon.getUserId().toString().equals(userId.toString())) {

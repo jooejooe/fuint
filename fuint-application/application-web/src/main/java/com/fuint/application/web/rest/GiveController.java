@@ -4,7 +4,6 @@ import com.fuint.base.dao.pagination.PaginationRequest;
 import com.fuint.base.dao.pagination.PaginationResponse;
 import com.fuint.base.util.RequestHandler;
 import com.fuint.exception.BusinessCheckException;
-import com.fuint.application.dao.entities.MtVerifyCode;
 import com.fuint.application.dto.GiveDto;
 import com.fuint.application.service.give.GiveService;
 import com.fuint.application.service.token.TokenService;
@@ -45,12 +44,6 @@ public class GiveController extends BaseController {
      */
     @Autowired
     private TokenService tokenService;
-
-    /**
-     * 验证码信息管理接口
-     */
-    @Autowired
-    private VerifyCodeService verifyCodeService;
 
     /**
      * 转赠卡券
@@ -116,10 +109,10 @@ public class GiveController extends BaseController {
 
         PaginationRequest paginationRequest = RequestHandler.buildPaginationRequest(request, model);
 
-        String mobile = request.getParameter("mobile") == null ? "" : request.getParameter("mobile").toString();
-        String type = request.getParameter("type") == null ? "give" : request.getParameter("type").toString();
-        String pageNumber = request.getParameter("pageNumber") == null ? "1" : request.getParameter("pageNumber").toString();
-        String pageSize = request.getParameter("pageSize") == null ? "20" : request.getParameter("pageSize").toString();
+        String mobile = request.getParameter("mobile") == null ? "" : request.getParameter("mobile");
+        String type = request.getParameter("type") == null ? "give" : request.getParameter("type");
+        String pageNumber = request.getParameter("pageNumber") == null ? "1" : request.getParameter("pageNumber");
+        String pageSize = request.getParameter("pageSize") == null ? "20" : request.getParameter("pageSize");
         paginationRequest.setCurrentPage(Integer.parseInt(pageNumber));
         paginationRequest.setPageSize(Integer.parseInt(pageSize));
 

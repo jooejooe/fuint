@@ -109,7 +109,6 @@ public class CouponinfoController {
         if (params == null || params.size()==0) {
             params = new HashMap<String, Object>();
             String mobile = request.getParameter("LIKE_mobile");
-            String hnaName = request.getParameter("LIKE_hnaName");
             String groupId = request.getParameter("EQ_groupId");
             String couponGroupName = request.getParameter("LIKE_couponGroupName");
             String couponId = request.getParameter("EQ_couponId");
@@ -118,9 +117,6 @@ public class CouponinfoController {
             String couponInfoStatus = request.getParameter("EQ_couponInfoStatus");
             if (StringUtils.isNotEmpty(mobile)) {
                 params.put("LIKE_mobile", mobile);
-            }
-            if (StringUtils.isNotEmpty(hnaName)) {
-                params.put("LIKE_hnaName", hnaName);
             }
             if (StringUtils.isNotEmpty(groupId)) {
                 params.put("EQ_groupId", Integer.parseInt(groupId));
@@ -205,7 +201,6 @@ public class CouponinfoController {
         if (params == null || params.size() == 0) {
             params = new HashMap<String, Object>();
             String mobile = request.getParameter("LIKE_mobile");
-            String hnaName = request.getParameter("LIKE_hnaName");
             String groupId = request.getParameter("EQ_groupId");
             String couponGroupName = request.getParameter("LIKE_couponGroupName");
             String couponId = request.getParameter("EQ_couponId");
@@ -214,9 +209,6 @@ public class CouponinfoController {
             String couponInfoStatus = request.getParameter("EQ_couponInfoStatus");
             if (StringUtils.isNotEmpty(mobile)) {
                 params.put("LIKE_mobile", mobile);
-            }
-            if (StringUtils.isNotEmpty(hnaName)) {
-                params.put("LIKE_hnaName", hnaName);
             }
             if (StringUtils.isNotEmpty(groupId)) {
                 params.put("EQ_groupId", Integer.parseInt(groupId));
@@ -371,7 +363,6 @@ public class CouponinfoController {
         if (params == null || params.size()==0) {
             params = new HashMap<String, Object>();
             String mobile = request.getParameter("LIKE_mobile");
-            String hnaName = request.getParameter("LIKE_hnaName");
             String groupId = request.getParameter("EQ_groupId");
             String couponGroupName = request.getParameter("LIKE_couponGroupName");
             String couponId = request.getParameter("EQ_couponId");
@@ -379,13 +370,9 @@ public class CouponinfoController {
             String storeId = request.getParameter("EQ_storeId");
             String suitStoreIds = request.getParameter("LIKE_suitStoreIds");
             String couponInfoStatus = request.getParameter("EQ_couponInfoStatus");
-            String isHna = request.getParameter("EQ_isHna");
             String uuid = request.getParameter("EQ_uuid");
             if (StringUtils.isNotEmpty(mobile)) {
                 params.put("LIKE_mobile", CommonUtil.filter(mobile));
-            }
-            if (StringUtils.isNotEmpty(hnaName)) {
-                params.put("LIKE_hnaName", CommonUtil.filter(hnaName));
             }
             if (StringUtils.isNotEmpty(groupId)) {
                 params.put("EQ_groupId", Integer.parseInt(groupId));
@@ -409,10 +396,6 @@ public class CouponinfoController {
                 params.put("EQ_couponInfoStatus", CommonUtil.filter(couponInfoStatus));
             }
 
-            if (StringUtils.isNotEmpty(isHna)) {
-                params.put("EQ_isHna", CommonUtil.filter(isHna));
-            }
-
             if (StringUtils.isNotEmpty(uuid)) {
                 params.put("EQ_uuid", CommonUtil.filter(uuid));
             }
@@ -425,8 +408,7 @@ public class CouponinfoController {
         //获取数据
         List<UvCouponInfo> list = uvCouponInfoService.queryCouponInfoByParams(params);
         //excel标题
-        String[] title = {"最后操作时间", "消费分组ID", "消费分组名称", "消费券ID"
-                , "消费券名称", "用户手机号","FuInt用户","FuInt账号","状态","面额","使用店铺","使用时间"};
+        String[] title = {"最后操作时间", "消费分组ID", "消费分组名称", "消费券ID", "消费券名称", "用户手机号", "状态", "面额", "使用店铺", "使用时间"};
         //excel文件名
         String fileName = "会员卡券列表.xls";
         //sheet名

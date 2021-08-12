@@ -188,7 +188,6 @@ public class ConfirmLogController {
         if (params == null || params.size() == 0) {
             params = new HashMap<>();
             String mobile = request.getParameter("LIKE_mobile");
-            String hnaName = request.getParameter("LIKE_hnaName");
             String groupId = request.getParameter("EQ_groupId");
             String couponGroupName = request.getParameter("LIKE_couponGroupName");
             String couponId = request.getParameter("EQ_couponId");
@@ -196,9 +195,6 @@ public class ConfirmLogController {
             String storeId = request.getParameter("EQ_storeId");
             if (StringUtils.isNotEmpty(mobile)) {
                 params.put("LIKE_mobile", CommonUtil.filter(mobile));
-            }
-            if (StringUtils.isNotEmpty(hnaName)) {
-                params.put("LIKE_hnaName", CommonUtil.filter(hnaName));
             }
             if (StringUtils.isNotEmpty(groupId)) {
                 params.put("EQ_groupId", Integer.parseInt(groupId));

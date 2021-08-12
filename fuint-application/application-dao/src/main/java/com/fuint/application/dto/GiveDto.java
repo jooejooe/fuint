@@ -30,19 +30,9 @@ public class GiveDto implements Serializable{
     private String mobile;
 
    /**
-    * 赠予对象FuInt账号
-    */
-    private String hnaAccount;
-
-   /**
     * 用户手机 
     */
     private String userMobile;
-
-   /**
-    * 用户FuInt账号
-    */
-    private String userHnaAccount;
 
    /**
     * 分组ID，逗号隔开
@@ -53,6 +43,11 @@ public class GiveDto implements Serializable{
     * 分组名称，逗号隔开
     */
     private String groupNames;
+
+    /**
+     * 图片
+     */
+    private String image;
 
    /**
     * 券ID，逗号隔开 
@@ -123,23 +118,11 @@ public class GiveDto implements Serializable{
     public void setMobile(String mobile){
     this.mobile=mobile;
     }
-    public String getHnaAccount(){
-        return hnaAccount;
-    }
-    public void setHnaAccount(String hnaAccount){
-    this.hnaAccount=hnaAccount;
-    }
     public String getUserMobile(){
         return userMobile;
     }
     public void setUserMobile(String userMobile){
     this.userMobile=userMobile;
-    }
-    public String getUserHnaAccount(){
-        return userHnaAccount;
-    }
-    public void setUserHnaAccount(String userHnaAccount){
-    this.userHnaAccount=userHnaAccount;
     }
     public String getGroupIds(){
         return groupIds;
@@ -152,6 +135,12 @@ public class GiveDto implements Serializable{
     }
     public void setGroupNames(String groupNames){
     this.groupNames=groupNames;
+    }
+    public String getImage(){
+        return image;
+    }
+    public void setImage(String image){
+        this.image=image;
     }
     public String getCouponIds(){
         return couponIds;
