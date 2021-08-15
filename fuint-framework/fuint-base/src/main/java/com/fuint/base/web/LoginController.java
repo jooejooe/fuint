@@ -52,7 +52,7 @@ public class LoginController {
      * @param model
      * @return
      */
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = "/to", method = RequestMethod.GET)
     public String context(HttpServletRequest request, HttpServletResponse response, Model model) {
         return "redirect:/login";
     }
@@ -67,7 +67,7 @@ public class LoginController {
         Subject subject = SecurityUtils.getSubject();
         // 已登陆则 跳到首页
         if (subject.isAuthenticated()) {
-            return "redirect:/index";
+            return "redirect:/home";
         }
 
         String requestType = request.getHeader("X-Requested-With");
@@ -86,7 +86,7 @@ public class LoginController {
      * @param model    SpringFramework Model对象
      * @return
      */
-    @RequestMapping(value = "/index", method = RequestMethod.GET)
+    @RequestMapping(value = "/home", method = RequestMethod.GET)
     public String indexGet(HttpServletRequest request, HttpServletResponse response, Model model) {
         return "index";
     }
@@ -99,7 +99,7 @@ public class LoginController {
      * @param model
      * @return
      */
-    @RequestMapping(value = "/index", method = RequestMethod.POST)
+    @RequestMapping(value = "/home", method = RequestMethod.POST)
     public String indexPost(HttpServletRequest request, HttpServletResponse response, Model model) {
         return "index";
     }
@@ -117,7 +117,7 @@ public class LoginController {
         Subject subject = SecurityUtils.getSubject();
         // 已登陆则 跳到首页
         if (subject.isAuthenticated()) {
-            return "redirect:/index.htm";
+            return "redirect:/home";
         }
         String exception = (String) request
                 .getAttribute(FormAuthenticationFilter.DEFAULT_ERROR_KEY_ATTRIBUTE_NAME);

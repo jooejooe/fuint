@@ -1,0 +1,81 @@
+<link href="<@sp.static/>/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="<@sp.static/>/assets/css/style.min.css" rel="stylesheet"/>
+<link href="<@sp.static/>/css/style.css" rel="stylesheet"/>
+<link href="<@sp.static/>/assets/plugins/datatables/css/data-table.css" rel="stylesheet"/>
+<div style="overflow: auto; height: 450px; position: relative; margin: 8px;">
+    <div class="panel panel-inverse" data-sortable-id="form-stuff-5">
+        <div class="panel-body">
+            <form class="form-horizontal do-confirm-form" id="confirmForm" name="memberForm" action="" method="post">
+                <div class="form-group m-l-10">
+                    <label class="col-md-2 control-label">名称</label>
+                    <div class="col-md-10">
+                        <span class="form-control info name">${couponInfo.name}</span>
+                    </div>
+                </div>
+                <div class="form-group m-l-10">
+                    <label class="col-md-2 control-label">面额</label>
+                    <div class="col-md-10">
+                        <span class="form-control info">${couponInfo.amount}元</span>
+                    </div>
+                </div>
+                <div class="form-group m-l-10">
+                    <label class="col-md-2 control-label">有效期</label>
+                    <div class="col-md-10">
+                        <span class="form-control info">2021-08-22 12:00:00</span>
+                    </div>
+                </div>
+                <div class="form-group m-l-10">
+                    <label class="col-md-2 control-label">说明</label>
+                    <div class="col-md-10">
+                        <div class="form-control info desc">
+                            <p>1、凭本卡券到适用网点可享受车辆洗车服务一次，每日限用1张，若超标使用导致账户锁定我司不予处理。</p>
+                            <p>2、只限本人使用。</p>
+                            <p>3、使用本卡券前，需点击查看最新的“适用网点”，并致电网点预约服务时间，错峰到店。因服务网点实时变动，如您未查看【适用网点】，而前往不合作的网点使用服务，或未提前预约导致您行程耽误的，期间产生的损失与费用，我司概不负责。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group m-l-10">
+                    <label class="col-md-2 control-label">备注</label>
+                    <div class="col-md-10">
+                        <input type="text" class="form-control remark" id="remark" name="remark" placeholder="核销备注" value="">
+                    </div>
+                </div>
+                <div class="form-group m-l-10">
+                    <label class="col-md-2 control-label"></label>
+                    <div class="col-md-10">
+                        <button type="button" id="submitButton" class="btn btn-sm btn-danger">确认核销</button>
+                    </div>
+                </div>
+            </form>
+     </div>
+    </div>
+</div>
+<script language="JavaScript">
+    $(function () {
+        $('#submitButton').click(function () {
+            $('#confirmForm').submit();
+        });
+
+        $('#confirmForm').validate({
+            rules: {
+                storeId: {
+                    required:true
+                }
+            },
+            messages: {
+                storeId: {
+                    required : "必须选择一个店铺"
+                }
+            },
+            errorPlacement: function (error, element) {
+                error.appendTo(element.parent());
+            },
+            submitHandler: function () {
+                var id = $('#id').val();
+                var storeId = $('#storeId').val();
+                postDataByForm('${rc.contextPath}/backend/member/stringconfirmerUserCoupon?id='+id+'&storeId='+storeId, 'displayArea', 'memberForm');
+                parent.layer.closeAll();
+            }
+        })
+    })
+</script>

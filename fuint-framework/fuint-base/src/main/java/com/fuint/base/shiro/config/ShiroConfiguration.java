@@ -287,14 +287,13 @@ public class ShiroConfiguration {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(getDefaultWebSecurityManager());
         shiroFilterFactoryBean.setLoginUrl("/login");//登录URL
-        shiroFilterFactoryBean.setSuccessUrl("/index");//登录成功跳转URL
+        shiroFilterFactoryBean.setSuccessUrl("");//登录成功跳转URL
         shiroFilterFactoryBean.setUnauthorizedUrl("/login");//登录失败跳转URL
 
         Map<String, Filter> filters = new LinkedHashMap<String, Filter>();
         filters.put("authFilter", new AuthFilter());
         shiroFilterFactoryBean.setFilters(filters);
         filterChainDefinitionMap.put("/login", "authFilter");
-        filterChainDefinitionMap.put("/index", "authFilter");
         filterChainDefinitionMap.put("/logout", "logout");
 
         Properties property = new Properties();

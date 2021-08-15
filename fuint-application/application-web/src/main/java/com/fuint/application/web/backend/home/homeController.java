@@ -88,10 +88,10 @@ public class homeController {
 
         Map<String, Object> resultMap = new HashMap<>();
         if (tag.equals("new_user,user_active")) {
-            int data[][] = {{ 100, 290, 300, 401, 680, 790, 902 }, { 10, 300, 420, 710, 880, 700, 500 }};
+            int data[][] = {{100, 290, 300, 401, 680, 790, 902}, {10, 300, 420, 710, 880, 700, 500}};
             resultMap.put("data", data);
         } else {
-            int data[][] = {{ 52, 40, 30, 40, 68, 79, 72 }, { 10, 30, 40, 10, 88, 70, 80 }};
+            int data[][] = {{52, 40, 30, 40, 68, 79, 72}, {10, 30, 40, 10, 88, 70, 80}};
             resultMap.put("data", data);
         }
 
@@ -99,5 +99,18 @@ public class homeController {
         resultMap.put("labels", label);
 
         return new ResponseObject(FrameworkConstants.HTTP_RESPONSE_CODE_SUCCESS, "请求成功", resultMap);
+    }
+
+    /**
+     * 核销卡券
+     *
+     * @param request
+     * @param response
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/confirmCoupon")
+    public String confirmCoupon(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException {
+        return "home/confirmCoupon";
     }
 }

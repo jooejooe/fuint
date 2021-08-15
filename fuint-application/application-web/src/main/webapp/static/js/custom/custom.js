@@ -558,7 +558,6 @@ function alterpage(url, title,width,height,callback){
     layer.iframeAuto(layerIndex);
 }
 
-
 /**
  * 改变图片路径响应事件
  * @param domain 图片服务器地址

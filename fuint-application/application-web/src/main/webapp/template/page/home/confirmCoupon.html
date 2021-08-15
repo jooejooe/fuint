@@ -1,0 +1,32 @@
+<h1 class="page-header">
+    <small>卡券核销</small>
+</h1>
+<hr/>
+<div class="panel panel-inverse" data-sortable-id="form-stuff-1">
+    <div class="panel-heading">
+        <h4 class="panel-title">卡券核销</h4>
+    </div>
+    <div class="panel-body">
+        <div class="confirm-form">
+            <form id="confirmForm" name="confirmForm" method="post" class="form-horizontal">
+                <div class="form-group">
+                    <div class="col-md-6">
+                        <input type="text" class="form-control qr-code" name="name" onfocus="toConfirm()" placeholder="使用扫码枪扫描卡券二维码" rangelength="1,200" required/>
+                    </div>
+                    <div class="col-md-3 back">
+                        <button type="button" class="btn back btn-danger" onclick="getData('${rc.contextPath}/backend/home/index','displayArea')">返回首页</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="application/javascript">
+    /**
+     * 核销卡券
+     * @param name
+     */
+    function toConfirm() {
+        alterpage('${rc.contextPath}/backend/doConfirm/index?id=99', "核销卡券");
+    }
+</script>

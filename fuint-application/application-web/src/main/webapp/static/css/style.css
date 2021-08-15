@@ -180,6 +180,67 @@ p, h1, h2, h3, h4, input {
 .group-data .second-row{
     color:orange;
 }
+.home-tools {
+    min-height: 205px;
+}
+.home-tools .item{
+    height: 80px;
+    padding: 12px 10px 10px 50px;
+    margin-bottom: 30px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #666666;
+    border: #00acac solid 2px;
+    border-radius: 6px;
+}
+.home-tools .payment{
+    background: #ffffff;
+}
+.home-tools .coupon{
+    background: #ffffff;
+}
+.home-tools .t-icon{
+    width: 50px;
+    height: 50px;
+    margin-right: 20px;
+}
+.confirm-form {
+    padding-top: 30px;
+    padding-left: 50px;
+    padding-bottom: 20px;
+    height: 100%;
+}
+.confirm-form .qr-code {
+    height: 50px;
+    border: #00acac 2px solid;
+}
+.confirm-form .back{
+    height: 45px;
+}
+.do-confirm-form {
+    min-height: 320px;
+}
+.do-confirm-form .control-label {
+    margin-top: 10px;
+}
+.do-confirm-form .form-control {
+    height: 50px;
+    border: #cccccc 1px solid;
+}
+.do-confirm-form .info {
+    padding-top: 17px;
+    padding-bottom: 17px;
+}
+.do-confirm-form .desc {
+   min-height: 100px;
+   overflow-y: scroll;
+}
+.do-confirm-form .name {
+    font-weight: bold;
+}
+.do-confirm-form .remark {
+    border: #00acac 1px solid;;
+}
 @media (max-width: 1328px){
     .product-header{
         width: 100%;

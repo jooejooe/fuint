@@ -1,4 +1,3 @@
-
 <div class="aw-content-wrap">
     <div class="row mod-echat-info">
         <div class="col-md-6">
@@ -13,23 +12,23 @@
                         <tbody>
                         <tr>
                             <td>会员总数</td>
-                            <td>${totalMember}</td>
+                            <td>${totalMember}人</td>
                         </tr>
                         <tr>
                             <td>订单总数</td>
-                            <td>${totalOrder}</td>
+                            <td>${totalOrder}单</td>
                         </tr>
                         <tr>
                             <td>今日支付金额</td>
-                            <td>${totalPay}</td>
+                            <td>${totalPay}元</td>
                         </tr>
                         <tr>
                             <td>核销券数</td>
-                            <td>${confirmCount}</td>
+                            <td>${confirmCount}张</td>
                         </tr>
                         <tr>
                             <td>售后订单</td>
-                            <td>${refundCount}</td>
+                            <td>${refundCount}单</td>
                         </tr>
                         </tbody>
                     </table>
@@ -40,34 +39,14 @@
             <div class="mod">
                 <div class="mod-head">
                     <h3>
-                        <strong class="pull-left">系统信息</strong>
+                        <strong class="pull-left">快捷工具</strong>
                     </h3>
                 </div>
                 <div class="tab-content mod-content">
-                    <table  class="table table-striped table-bordered">
-                        <tbody>
-                        <tr>
-                            <td>JAVA版本</td>
-                            <td>1.8</td>
-                        </tr>
-                        <tr>
-                            <td>MySQL版本</td>
-                            <td>5.7</td>
-                        </tr>
-                        <tr>
-                            <td>系统版本</td>
-                            <td>v1.2</td>
-                        </tr>
-                        <tr>
-                            <td>是否授权</td>
-                            <td>是</td>
-                        </tr>
-                        <tr>
-                            <td>授权期至</td>
-                            <td>2025-09-30</td>
-                        </tr>
-                        </tbody>
-                    </table>
+                    <div class="home-tools">
+                        <div class="item payment" onclick="getData('${rc.contextPath}/backend/home/pay','displayArea')"><img class="t-icon" src="<@sp.static/>/img/pay.png"/><span>快速收款</span></div>
+                        <div class="item coupon" onclick="getData('${rc.contextPath}/backend/home/confirmCoupon','displayArea')"><img class="t-icon" src="<@sp.static/>/img/coupon.png"/><span>核销卡券</span></div>
+                    </div>
                 </div>
             </div>
         </div>
