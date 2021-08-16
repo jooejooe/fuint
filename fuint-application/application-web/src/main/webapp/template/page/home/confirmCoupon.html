@@ -8,13 +8,14 @@
     </div>
     <div class="panel-body">
         <div class="confirm-form">
-            <form id="confirmForm" name="confirmForm" method="post" class="form-horizontal">
+            <form id="confirmForm" name="confirmForm" method="post" onSubmit="return false;" class="form-horizontal">
                 <div class="form-group">
                     <div class="col-md-6">
-                        <input type="text" class="form-control qr-code" name="name" onfocus="toConfirm()" placeholder="使用扫码枪扫描卡券二维码" rangelength="1,200" required/>
+                        <input type="text" id="code" class="form-control qr-code" name="code" placeholder="使用扫码枪扫描卡券二维码，或手工输入核销码" rangelength="1,1000" required/>
                     </div>
-                    <div class="col-md-3 back">
-                        <button type="button" class="btn back btn-danger" onclick="getData('${rc.contextPath}/backend/home/index','displayArea')">返回首页</button>
+                    <div class="col-md-3 do-confirm">
+                        <button type="button" class="btn confirm-btn btn-danger" onclick="toConfirm()">核销</button>
+                        <button type="button" class="btn btn-sm btn-default back-btn" onclick="getData('${rc.contextPath}/backend/home/index','displayArea')">返回</button>
                     </div>
                 </div>
             </form>
@@ -22,11 +23,20 @@
     </div>
 </div>
 <script type="application/javascript">
-    /**
-     * 核销卡券
-     * @param name
-     */
+    // 扫码枪回车事件
+    $('#code').bind('keyup', function(event) {
+        if (event.keyCode == "13") {
+            toConfirm();
+            return false;
+        }
+    });
+    // 核销卡券
     function toConfirm() {
-        alterpage('${rc.contextPath}/backend/doConfirm/index?id=99', "核销卡券");
+       const code = $("#code").val();
+       if (code.length < 6) {
+          layer.alert("请输入正确的核销码！");
+          return false;
+       }
+       alterpage('${rc.contextPath}/backend/doConfirm/index?code='+code, "核销卡券");
     }
 </script>

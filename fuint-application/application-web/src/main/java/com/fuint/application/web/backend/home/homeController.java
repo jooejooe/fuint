@@ -113,4 +113,17 @@ public class homeController {
     public String confirmCoupon(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException {
         return "home/confirmCoupon";
     }
+
+    /**
+     * 快速收款
+     *
+     * @param request
+     * @param response
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/toCashier")
+    public String toCashier(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException {
+        return "home/toCashier";
+    }
 }

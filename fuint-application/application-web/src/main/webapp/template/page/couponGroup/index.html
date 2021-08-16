@@ -52,12 +52,12 @@
     });
 
     /**
-     * 删除优惠分组
+     * 删除分组
      * @param groupId 组ID
      */
     function removeCouponGroup(groupId) {
-        layer.confirm('确定要删除该优惠分组吗？', {
-            btn: ['确定', '取消'] //按钮
+        layer.confirm('确定要删除该分组吗？', {
+            btn: ['确定', '取消']
         }, function () {
             $.ajax({
                 type: "GET",

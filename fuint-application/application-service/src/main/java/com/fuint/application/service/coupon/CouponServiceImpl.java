@@ -640,7 +640,6 @@ public class CouponServiceImpl extends BaseService implements CouponService {
                              try {
                                  Date startTime = DateUtil.parseDate(timeItem[0].toString(), "yyyy-MM-dd HH:mm");
                                  Date endTime = DateUtil.parseDate(timeItem[1].toString(), "yyyy-MM-dd HH:mm");
-                                 // 2019-09-18 17:00_2019-09-19 04:00
                                  if (now.before(endTime) && now.after(startTime)) {
                                      throw new BusinessCheckException("该卡券在当前日期不可用");
                                  }

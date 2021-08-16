@@ -3,8 +3,12 @@ package com.fuint.application.web.backend.coupon;
 import com.fuint.application.dao.entities.MtCoupon;
 import com.fuint.application.dao.entities.MtUserCoupon;
 import com.fuint.application.dao.repositories.MtUserCouponRepository;
+import com.fuint.application.dto.ReqResult;
+import com.fuint.application.dto.UserCouponDto;
 import com.fuint.application.service.coupon.CouponService;
+import com.fuint.application.util.DateUtil;
 import com.fuint.exception.BusinessCheckException;
+import com.fuint.exception.BusinessRuntimeException;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,8 +17,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.fuint.application.web.backend.base.BaseController;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.apache.commons.lang.StringUtils;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 卡券核销类controller
@@ -36,24 +44,75 @@ public class doConfirmController extends BaseController {
     private CouponService couponService;
 
     /**
-     * 卡券列表查询
+     * 核销页面
      *
      * @param request  HttpServletRequest对象
      * @param response HttpServletResponse对象
      * @param model    SpringFramework Model对象
-     * @return 卡券列表展现页面
+     * @return
      */
-    @RequiresPermissions("backend/coupon/confirm")
+    @RequiresPermissions("backend/doConfirm/index")
     @RequestMapping(value = "/index")
     public String index(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException {
         Integer userCouponId = request.getParameter("id") == null ? 0 : Integer.parseInt(request.getParameter("id"));
+        String userCouponCode = request.getParameter("code") == null ? "" : request.getParameter("code");
+        if (StringUtils.isEmpty(userCouponCode) && userCouponId < 1) {
+            throw new BusinessRuntimeException("核销券码不能为空!");
+        }
 
-        MtUserCoupon userCoupon = userCouponRepository.findOne(userCouponId);
+        // 通过券码或ID获取
+        MtUserCoupon userCoupon;
+        if (!StringUtils.isEmpty(userCouponCode)) {
+            userCoupon = userCouponRepository.findByCode(userCouponCode);
+        } else {
+            userCoupon = userCouponRepository.findOne(userCouponId);
+        }
+
+        if (userCoupon == null) {
+            throw new BusinessRuntimeException("未查询到该卡券信息，请刷新后再试!");
+        }
+
         MtCoupon couponInfo = couponService.queryCouponById(userCoupon.getCouponId().longValue());
 
-        model.addAttribute("couponInfo", couponInfo);
-        model.addAttribute("userCoupon", userCoupon);
+        String effectiveDate = DateUtil.formatDate(couponInfo.getBeginTime(), "yyyy.MM.dd") + " - " + DateUtil.formatDate(couponInfo.getEndTime(), "yyyy.MM.dd");
+
+        UserCouponDto userCouponInfo = new UserCouponDto();
+        userCouponInfo.setName(couponInfo.getName());
+        userCouponInfo.setEffectiveDate(effectiveDate);
+        userCouponInfo.setDescription(couponInfo.getDescription());
+        userCouponInfo.setId(userCoupon.getId());
+        userCouponInfo.setType(couponInfo.getType());
+        userCouponInfo.setStatus(userCoupon.getStatus());
+        userCouponInfo.setBalance(userCoupon.getBalance());
+        userCouponInfo.setAmount(userCoupon.getAmount());
+        userCouponInfo.setCode(userCoupon.getCode());
+
+        model.addAttribute("couponInfo", userCouponInfo);
 
         return "coupon/confirm";
+    }
+
+    /**
+     * 确认核销
+     *
+     * @param request  HttpServletRequest对象
+     * @param response HttpServletResponse对象
+     * @param model    SpringFramework Model对象
+     * @return
+     */
+    @RequiresPermissions("backend/doConfirm/doConfirm")
+    @RequestMapping(value = "/doConfirm")
+    @ResponseBody
+    public ReqResult doConfirm(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException {
+        Integer userCouponId = request.getParameter("id") == null ? 0 : Integer.parseInt(request.getParameter("id"));
+        String userCouponCode = request.getParameter("code") == null ? "" : request.getParameter("code");
+        String remark = request.getParameter("remark") == null ? "" : request.getParameter("remark");
+
+        Map<String, Object> resultMap = new HashMap<>();
+
+        ReqResult reqResult = new ReqResult();
+        reqResult.setResult(true);
+
+        return reqResult;
     }
 }

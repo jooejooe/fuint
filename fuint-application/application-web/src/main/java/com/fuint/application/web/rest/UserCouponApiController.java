@@ -112,7 +112,7 @@ public class UserCouponApiController extends BaseController {
         ByteArrayOutputStream out = null;
         ResponseObject responseObject;
         try {
-            // 如果超过两小时，重新生成code
+            // 如果超时，重新生成code
             String rCode = userCoupon.getCode();
             if (couponService.codeExpired(rCode) && userCoupon.getStatus().equals(UserCouponStatusEnum.UNUSED.getKey())) {
                 StringBuffer code = new StringBuffer();
@@ -123,8 +123,7 @@ public class UserCouponApiController extends BaseController {
                 userCouponRepository.save(userCoupon);
             }
 
-            String website = env.getProperty("website.url");
-            String content  = website + "/#/pages/confirm/doConfirm?id=" + userCoupon.getId() +"&time=" + new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date());
+            String content = userCoupon.getCode();
 
             // 生成并输出二维码
             out = new ByteArrayOutputStream();

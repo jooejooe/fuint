@@ -1,11 +1,13 @@
-<link href="<@sp.static/>/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
-<link href="<@sp.static/>/assets/css/style.min.css" rel="stylesheet"/>
-<link href="<@sp.static/>/css/style.css" rel="stylesheet"/>
-<link href="<@sp.static/>/assets/plugins/datatables/css/data-table.css" rel="stylesheet"/>
+<link href="<@sp.static/>/assets/plugins/bootstrap/css/bootstrap.min.css?v=1.0.0" rel="stylesheet"/>
+<link href="<@sp.static/>/assets/css/style.min.css?v=1.0.0" rel="stylesheet"/>
+<link href="<@sp.static/>/css/style.css?v=1.0.0" rel="stylesheet"/>
+<link href="<@sp.static/>/assets/plugins/datatables/css/data-table.css?v=1.0.0" rel="stylesheet"/>
 <div style="overflow: auto; height: 450px; position: relative; margin: 8px;">
     <div class="panel panel-inverse" data-sortable-id="form-stuff-5">
         <div class="panel-body">
-            <form class="form-horizontal do-confirm-form" id="confirmForm" name="memberForm" action="" method="post">
+            <form class="form-horizontal do-confirm-form" id="confirmForm" name="confirmForm" action="" method="post">
+                <input type="hidden" id="userCouponId" name="userCouponId" value="${couponInfo.id}">
+                <input type="hidden" id="code" name="code" value="${couponInfo.code}">
                 <div class="form-group m-l-10">
                     <label class="col-md-2 control-label">名称</label>
                     <div class="col-md-10">
@@ -21,16 +23,14 @@
                 <div class="form-group m-l-10">
                     <label class="col-md-2 control-label">有效期</label>
                     <div class="col-md-10">
-                        <span class="form-control info">2021-08-22 12:00:00</span>
+                        <span class="form-control info">${couponInfo.effectiveDate}</span>
                     </div>
                 </div>
                 <div class="form-group m-l-10">
                     <label class="col-md-2 control-label">说明</label>
                     <div class="col-md-10">
                         <div class="form-control info desc">
-                            <p>1、凭本卡券到适用网点可享受车辆洗车服务一次，每日限用1张，若超标使用导致账户锁定我司不予处理。</p>
-                            <p>2、只限本人使用。</p>
-                            <p>3、使用本卡券前，需点击查看最新的“适用网点”，并致电网点预约服务时间，错峰到店。因服务网点实时变动，如您未查看【适用网点】，而前往不合作的网点使用服务，或未提前预约导致您行程耽误的，期间产生的损失与费用，我司概不负责。</p>
+                            ${couponInfo.description}
                         </div>
                     </div>
                 </div>
@@ -50,32 +50,39 @@
      </div>
     </div>
 </div>
-<script language="JavaScript">
+<!-- jquery -->
+<script src="<@sp.static/>/js/jquery/jquery-3.0.0.min.js?v=1.0.0" type="text/javascript" charset="UTF-8"></script>
+<script src="<@sp.static/>/js/jquery/validation/jquery.validate.min.js?v=1.0.0" type="text/javascript" charset="UTF-8"></script>
+<script src="<@sp.static/>/assets/plugins/jquery-ui/ui/minified/jquery-ui.min.js?v=1.0.0"></script>
+<script src="<@sp.static/>/assets/plugins/bootstrap/js/bootstrap.min.js?v=1.0.0"></script>
+<script src="<@sp.static/>/js/layer/layer.js?v=1.0.0" type="text/javascript" charset="UTF-8"></script>
+<script src="<@sp.static/>/js/custom/util.js?v=1.0.0" type="text/javascript" charset="UTF-8"></script>
+<script src="<@sp.static/>/js/custom/message.js?v=1.0.0" type="text/javascript" charset="UTF-8"></script>
+<script src="<@sp.static/>/js/custom/send.js?v=1.0.0" type="text/javascript" charset="UTF-8"></script>
+<script type="text/javascript" language="JavaScript">
     $(function () {
         $('#submitButton').click(function () {
-            $('#confirmForm').submit();
+            layer.confirm('确定核销吗？', {
+                btn: ['确定']
+            }, function () {
+                $.ajax({
+                    type: "POST",
+                    data:{"userCouponId": $("#userCouponId").val(), "code": $("#code").val(), "remark": $("#remark").val()},
+                    url: "${rc.contextPath}/backend/doConfirm/doConfirm",
+                    success: function (data) {
+                        if (data.result) {
+                            layer.alert("核销成功！");
+                            return;
+                        } else {
+                            layer.alert(data.msg);
+                            return;
+                        }
+                    }
+                })
+                $.close();
+            }, function () {
+                $.close();
+            });
         });
-
-        $('#confirmForm').validate({
-            rules: {
-                storeId: {
-                    required:true
-                }
-            },
-            messages: {
-                storeId: {
-                    required : "必须选择一个店铺"
-                }
-            },
-            errorPlacement: function (error, element) {
-                error.appendTo(element.parent());
-            },
-            submitHandler: function () {
-                var id = $('#id').val();
-                var storeId = $('#storeId').val();
-                postDataByForm('${rc.contextPath}/backend/member/stringconfirmerUserCoupon?id='+id+'&storeId='+storeId, 'displayArea', 'memberForm');
-                parent.layer.closeAll();
-            }
-        })
     })
 </script>
