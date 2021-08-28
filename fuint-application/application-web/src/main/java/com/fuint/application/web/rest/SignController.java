@@ -9,17 +9,15 @@ import com.fuint.application.dao.entities.MtVerifyCode;
 import com.fuint.application.dto.TokenDto;
 import com.fuint.application.enums.StatusEnum;
 import com.fuint.application.service.member.MemberService;
+import com.fuint.application.service.weixin.WeixinService;
 import com.fuint.application.service.token.TokenService;
 import com.fuint.application.service.verifycode.VerifyCodeService;
 import com.fuint.application.util.PhoneFormatCheckUtils;
 import nl.bitwalker.useragentutils.UserAgent;
 import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
@@ -33,8 +31,6 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/rest/sign")
 public class SignController extends BaseController {
-
-    private static final Logger logger = LoggerFactory.getLogger(SignController.class);
 
     /**
      * 会员服务接口
@@ -52,19 +48,29 @@ public class SignController extends BaseController {
     private VerifyCodeService verifyCodeService;
 
     /**
+     * 微信相关接口
+     * */
+    @Autowired
+    private WeixinService weixinService;
+
+    /**
      * 微信授权登录
      * */
     @RequestMapping(value = "/mpWxLogin", method = RequestMethod.POST)
+    @ResponseBody
     @CrossOrigin
     public ResponseObject mpWxLogin(HttpServletRequest request, @RequestBody Map<String, Object> param, Model model) throws BusinessCheckException{
-        Map<String, Object> outParams = new HashMap<String, Object>();
+        JSONObject paramsObj = new JSONObject(param);
+        JSONObject userInfo = paramsObj.getJSONObject("userInfo");
+        String openId = weixinService.getOpenId(param.get("code").toString());
 
-        MtUser mtUser = memberService.queryMemberById(1);
+        MtUser mtUser = memberService.queryMemberByOpenId(openId, userInfo);
 
         String userAgent = request.getHeader("user-agent");
         String token = tokenService.generateToken(userAgent, mtUser.getMobile());
         tokenService.saveToken(token, mtUser);
 
+        Map<String, Object> outParams = new HashMap<>();
         outParams.put("token", token);
         outParams.put("userId", mtUser.getId());
         outParams.put("userName", mtUser.getName());

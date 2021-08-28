@@ -23,7 +23,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+import com.alibaba.fastjson.JSONObject;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -154,7 +154,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     /**
-     * 根据手机号获取会员用户信息信息
+     * 根据手机号获取会员用户信息
      *
      * @param mobile 手机号
      * @throws BusinessCheckException
@@ -166,16 +166,47 @@ public class MemberServiceImpl implements MemberService {
     }
 
     /**
-     * 根据会员用户ID获取会员用户响应DTO
+     * 根据会员用户ID获取会员响应DTO
      *
-     * @param id 会员用户信息ID
+     * @param id 会员ID
      * @return
      * @throws BusinessCheckException
      */
     @Override
-    public MtUser queryMemberById(Integer id) throws BusinessCheckException {
+    public MtUser queryMemberById(Integer id) {
         MtUser mtUser = userRepository.findMembersById(id);
         return mtUser;
+    }
+
+    /**
+     * 根据openId获取会员信息
+     *
+     * @param openId
+     * @throws BusinessCheckException
+     */
+    @Override
+    public MtUser queryMemberByOpenId(String openId, JSONObject userInfo) throws BusinessCheckException {
+        MtUser user = userRepository.queryMemberByOpenId(openId);
+
+        if (user == null) {
+            MtUser mtUser = new MtUser();
+            mtUser.setName(userInfo.get("nickName").toString());
+            mtUser.setOpenId(openId);
+            mtUser.setMobile("");
+            MtUserGrade grade = userGradeService.getInitUserGrade();
+            mtUser.setGradeId(grade.getId()+"");
+            mtUser.setCreateTime(new Date());
+            mtUser.setUpdateTime(new Date());
+            mtUser.setBalance(new BigDecimal("0.00"));
+            mtUser.setPoint(0);
+            mtUser.setDescription("微信登录自动注册");
+            mtUser.setIdcard("");
+            mtUser.setStatus(StatusEnum.ENABLED.getKey());
+            userRepository.save(mtUser);
+            user = userRepository.queryMemberByOpenId(openId);
+        }
+
+        return user;
     }
 
     /**
@@ -185,7 +216,7 @@ public class MemberServiceImpl implements MemberService {
      * @throws BusinessCheckException
      */
     @Override
-    public MtUserGrade queryMemberGradeByGradeId(Integer id) throws BusinessCheckException {
+    public MtUserGrade queryMemberGradeByGradeId(Integer id) {
         MtUserGrade gradeInfo = userGradeRepository.findOne(id);
         return gradeInfo;
     }
@@ -228,10 +259,10 @@ public class MemberServiceImpl implements MemberService {
 
         mtUser.setStatus(StatusEnum.DISABLE.getKey());
 
-        //清token缓存
+        // 清token缓存
         tokenService.removeTokenLikeMobile(mtUser.getMobile());
 
-        //修改时间
+        // 修改时间
         mtUser.setUpdateTime(new Date());
 
         userRepository.save(mtUser);
@@ -245,7 +276,7 @@ public class MemberServiceImpl implements MemberService {
      * @throws BusinessCheckException
      */
     @Override
-    public List<MtUser> queryEffectiveMemberRange(Map<String, Object> params) throws BusinessCheckException {
+    public List<MtUser> queryEffectiveMemberRange(Map<String, Object> params) {
         log.info("############ 根据创建时间参数查询会员用户信息 #################.");
         if (MapUtils.isEmpty(params)) {
             params = new HashMap<>();
@@ -282,7 +313,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public List<MtUser> queryMembersByParams(Map<String, Object> params) throws BusinessCheckException {
+    public List<MtUser> queryMembersByParams(Map<String, Object> params) {
         if (MapUtils.isEmpty(params)) {
             params = new HashMap<>();
         }
@@ -298,7 +329,7 @@ public class MemberServiceImpl implements MemberService {
      * 根据条件搜索会员分组
      * */
     @Override
-    public List<MtUserGrade> queryMemberGradeByParams(Map<String, Object> params) throws BusinessCheckException {
+    public List<MtUserGrade> queryMemberGradeByParams(Map<String, Object> params) {
         if (MapUtils.isEmpty(params)) {
             params = new HashMap<>();
         }
@@ -314,7 +345,7 @@ public class MemberServiceImpl implements MemberService {
      * 获取会员数量
      * */
     @Override
-    public Long getUserCount() throws BusinessCheckException {
+    public Long getUserCount() {
         return userRepository.getUserCount();
     }
 }

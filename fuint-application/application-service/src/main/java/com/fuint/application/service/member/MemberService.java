@@ -5,6 +5,7 @@ import com.fuint.base.dao.pagination.PaginationRequest;
 import com.fuint.base.dao.pagination.PaginationResponse;
 import com.fuint.exception.BusinessCheckException;
 import com.fuint.application.dao.entities.MtUser;
+import com.alibaba.fastjson.JSONObject;
 import java.util.List;
 import java.util.Map;
 
@@ -50,10 +51,18 @@ public interface MemberService {
     /**
      * 根据会员用户ID获取会员信息
      *
-     * @param id 会员用户ID
+     * @param id 会员ID
      * @throws BusinessCheckException
      */
     MtUser queryMemberById(Integer id) throws BusinessCheckException;
+
+    /**
+     * 根据会员用户ID获取会员信息
+     *
+     * @param openId 微信openId
+     * @throws BusinessCheckException
+     */
+    MtUser queryMemberByOpenId(String openId, JSONObject userInfo) throws BusinessCheckException;
 
     /**
      * 根据会员组ID获取会员组信息

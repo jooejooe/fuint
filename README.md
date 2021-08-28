@@ -15,6 +15,8 @@ Fuint侧重于线下实体店的私域流量的运营，帮助商户降低获客
 <p>2、打通收银系统和会员营销的壁垒，支付即会员。</p>
 <p>3、会员体系完整化：积分、会员等级权益、积分加速、买单折扣。</p>
 <p>小程序前端仓库：https://gitee.com/fuint/fuint-uniapp</p>
+<b>扫码小程序演示：</b><br>
+<p><img src="screenshots/miniapp.png" alt="小程序演示"></p>
 
 #### 软件架构
 后端：JAVA（springMvc + mybatis） + MYSQL + Redis

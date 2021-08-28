@@ -2,14 +2,18 @@ package com.fuint.application.service.weixin;
 
 import com.fuint.application.BaseService;
 import com.fuint.application.dao.entities.MtUser;
+import  com.fuint.application.http.HttpRESTDataClient;
 import com.fuint.application.util.TimeUtils;
 import com.github.wxpay.sdk.WXPay;
 import com.github.wxpay.sdk.WXPayUtil;
 import com.fuint.application.config.WXPayConfigImpl;
 import com.fuint.application.ResponseObject;
 import org.apache.commons.lang.StringUtils;
+import com.alibaba.fastjson.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import weixin.popular.util.JsonUtil;
 import javax.annotation.Resource;
@@ -28,6 +32,9 @@ public class WeixinServiceimpl extends BaseService implements WeixinService {
 
     @Resource
     private WXPayConfigImpl wxPayConfigImpl;
+
+    @Autowired
+    private Environment env;
 
     @Override
     public ResponseObject createPrepayOrder(MtUser userInfo, String memberId, String goodsInfo, Integer payAmount, Integer giveAmount) {
@@ -171,6 +178,29 @@ public class WeixinServiceimpl extends BaseService implements WeixinService {
                 }
             }
         }
+    }
+
+    @Override
+    public String getOpenId(String code) {
+        String wxAppId = env.getProperty("weixin.pay.appId");
+        String wxAppSecret = env.getProperty("weixin.pay.appSecret");
+        String wxAccessUrl = env.getProperty("weixin.access.url");
+
+        String url = String.format(wxAccessUrl, wxAppId, wxAppSecret, code);
+        String openId = null;
+        try {
+            String response = HttpRESTDataClient.requestGet(url);
+            JSONObject json = (JSONObject) JSONObject.parse(response);
+            if (!json.containsKey("errcode")) {
+                openId = json.get("openid").toString();
+            } else {
+                logger.error("获取union id 出错：" + json.get("errmsg"));
+            }
+        } catch (Exception e) {
+            logger.error("获取微信union id 异常：" + e.getMessage());
+        }
+
+        return openId;
     }
 
     private Map<String, String> unifiedOrder(Map<String, String> reqData) {

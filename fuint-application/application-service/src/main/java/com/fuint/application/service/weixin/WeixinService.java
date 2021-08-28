@@ -16,4 +16,5 @@ public interface WeixinService {
     boolean paymentCallback(MtUser userPayment);
     Map<String,String> processResXml(HttpServletRequest request);
     void processRespXml(HttpServletResponse response, boolean flag);
+    String getOpenId(String code);
 }

@@ -32,6 +32,12 @@ public class MtUser implements Serializable{
 	@Column(name = "NAME", length = 30)
 	private String name;
 
+	/**
+	 * open_id
+	 */
+	@Column(name = "OPEN_ID", length = 50)
+	private String openId;
+
    /**
     * 手机号码 
     */ 
@@ -139,6 +145,12 @@ public class MtUser implements Serializable{
 	}
 	public void setName(String name){
 	this.name=name;
+	}
+	public String getOpenId(){
+		return openId;
+	}
+	public void setOpenId(String openId){
+		this.openId=openId;
 	}
 	public String getMobile(){
 		return mobile;

@@ -28,13 +28,20 @@ public interface MtUserRepository extends BaseRepository<MtUser, Integer> {
    List<MtUser> queryEffectiveMemberRange(@Param("beginTime") Date beginTime, @Param("endTime") Date endTime);
 
    /**
-    * 根据名称查找会员用户列表
+    * 根据手机号码查找会员
     *
     * @return
     */
    @Query("select t from MtUser t where t.mobile = :mobile")
    MtUser queryMemberByMobile(@Param("mobile") String mobile);
 
+   /**
+    * 根据openId查找会员
+    *
+    * @return
+    */
+   @Query("select t from MtUser t where t.openId = :openId")
+   MtUser queryMemberByOpenId(@Param("openId") String openId);
 
    /**
     * 根据会员Ids 列表获取会员列表

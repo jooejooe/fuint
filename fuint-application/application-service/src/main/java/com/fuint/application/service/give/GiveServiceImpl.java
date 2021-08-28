@@ -1,6 +1,7 @@
 package com.fuint.application.service.give;
 
 import com.fuint.application.enums.StatusEnum;
+import com.fuint.application.service.usergrade.UserGradeService;
 import com.fuint.base.annoation.OperationServiceLog;
 import com.fuint.base.dao.pagination.PaginationRequest;
 import com.fuint.base.dao.pagination.PaginationResponse;
@@ -50,6 +51,9 @@ public class GiveServiceImpl extends BaseService implements GiveService {
 
     @Autowired
     private MemberService memberService;
+
+    @Autowired
+    private UserGradeService userGradeService;
 
     @Autowired
     private SendSmsInterface sendSmsService;
@@ -256,7 +260,8 @@ public class GiveServiceImpl extends BaseService implements GiveService {
             MtUser userInfo = new MtUser();
             userInfo.setName(mobile);
             userInfo.setMobile(mobile);
-            userInfo.setGradeId("1");
+            MtUserGrade grade = userGradeService.getInitUserGrade();
+            userInfo.setGradeId(grade.getId()+"");
             userInfo.setBalance(new BigDecimal("0"));
             userInfo.setStatus(StatusEnum.ENABLED.getKey());
             user = memberService.addMember(userInfo);

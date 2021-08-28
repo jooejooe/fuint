@@ -116,6 +116,8 @@
     <orderEntry type="library" name="Maven: javax.activation:javax.activation-api:1.2.0" level="project" />
     <orderEntry type="library" name="Maven: org.jacoco:org.jacoco.agent:runtime:0.8.3" level="project" />
     <orderEntry type="library" name="Maven: org.ini4j:ini4j:0.5.4" level="project" />
+    <orderEntry type="library" name="Maven: com.squareup.okhttp3:okhttp:3.8.1" level="project" />
+    <orderEntry type="library" name="Maven: com.squareup.okio:okio:1.13.0" level="project" />
     <orderEntry type="library" name="Maven: nl.bitwalker:UserAgentUtils:1.2.4" level="project" />
     <orderEntry type="library" name="Maven: com.google.zxing:core:3.3.0" level="project" />
     <orderEntry type="library" name="Maven: com.google.zxing:javase:3.3.0" level="project" />
