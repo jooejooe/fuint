@@ -36,6 +36,11 @@ public class OrderDto implements Serializable {
 	private BigDecimal amount;
 
 	/**
+	 * 支付金额
+	 */
+	private BigDecimal payAmount;
+
+	/**
 	 * 订单参数
 	 */
 	private String param;
@@ -100,6 +105,12 @@ public class OrderDto implements Serializable {
 	}
 	public void setAmount(BigDecimal amount){
 		this.amount=amount;
+	}
+	public BigDecimal getPayAmount(){
+		return payAmount;
+	}
+	public void setPayAmount(BigDecimal payAmount){
+		this.payAmount=payAmount;
 	}
 	public String getParam(){
 		return param;

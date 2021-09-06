@@ -62,6 +62,12 @@ public class MtOrder implements Serializable{
 	@Column(name = "AMOUNT")
 	private BigDecimal amount;
 
+	/**
+	 * 支付金额
+	 */
+	@Column(name = "PAY_AMOUNT")
+	private BigDecimal payAmount;
+
    /**
 	* 优惠金额
 	*/
@@ -151,6 +157,12 @@ public class MtOrder implements Serializable{
 	}
 	public void setAmount(BigDecimal amount){
 	this.amount=amount;
+	}
+	public BigDecimal getPayAmount(){
+		return payAmount;
+	}
+	public void setPayAmount(BigDecimal payAmount){
+		this.payAmount=payAmount;
 	}
     public BigDecimal getDiscount(){
 	   return discount;

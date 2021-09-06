@@ -9,6 +9,8 @@ import com.fuint.application.service.coupon.CouponService;
 import com.fuint.application.service.order.OrderService;
 import com.fuint.application.service.token.TokenService;
 import com.fuint.application.service.usercoupon.UserCouponService;
+import com.fuint.application.service.weixin.WeixinService;
+import com.fuint.application.util.CommonUtil;
 import com.fuint.exception.BusinessCheckException;
 import com.fuint.application.ResponseObject;
 import com.fuint.application.BaseController;
@@ -58,17 +60,23 @@ public class SettlementController extends BaseController {
     private CouponService couponService;
 
     /**
+     * 微信服务接口
+     * */
+    @Autowired
+    private WeixinService weixinService;
+
+    /**
      * 结算提交
      */
     @RequestMapping(value = "/submit", method = RequestMethod.POST)
     @CrossOrigin
     public ResponseObject submit(HttpServletRequest request, @RequestBody Map<String, Object> param) throws BusinessCheckException {
         String token = request.getHeader("Access-Token");
-        MtUser mtUser = tokenService.getUserInfoByToken(token);
-        if (null == mtUser) {
+        MtUser userInfo = tokenService.getUserInfoByToken(token);
+        if (null == userInfo) {
             return getFailureResult(1001);
         }
-        param.put("userId", mtUser.getId());
+        param.put("userId", userInfo.getId());
 
         Integer couponId = param.get("couponId") == null ? 0 : Integer.parseInt(param.get("couponId").toString());
         String selectNum = param.get("selectNum") == null ? "" : param.get("selectNum").toString();
@@ -79,7 +87,7 @@ public class SettlementController extends BaseController {
         OrderDto orderDto = new OrderDto();
         orderDto.setCouponId(couponId);
         orderDto.setRemark(remark);
-        orderDto.setUserId(mtUser.getId());
+        orderDto.setUserId(userInfo.getId());
         orderDto.setType(type);
 
         // 预存卡的订单
@@ -108,14 +116,16 @@ public class SettlementController extends BaseController {
         MtOrder orderInfo = orderService.createOrder(orderDto);
         param.put("orderId", orderInfo.getId());
 
-        // @TODO 给前台生成支付信息，支付成功回调
-        userCouponService.preStore(param);
+        // 生成支付订单
+        String ip = CommonUtil.getIPFromHttpRequest(request);
+        ResponseObject paymentInfo = weixinService.createPrepayOrder(userInfo, orderInfo, 1, 0, ip);
 
         Map<String, Object> outParams = new HashMap();
 
         outParams.put("isCreated", true);
-        outParams.put("payType", "WECHAT");
+        outParams.put("payType", "wechat");
         outParams.put("orderInfo", orderInfo);
+        outParams.put("payment", paymentInfo.getData());
 
         ResponseObject responseObject = getSuccessResult(outParams);
 

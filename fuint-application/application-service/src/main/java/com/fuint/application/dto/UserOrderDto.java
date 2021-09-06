@@ -21,6 +21,11 @@ public class UserOrderDto implements Serializable {
 	private String orderSn;
 
 	/**
+	 * 类型
+	 * */
+	private String type;
+
+	/**
 	 * 卡券ID
 	 */
 	private Integer couponId;
@@ -34,6 +39,11 @@ public class UserOrderDto implements Serializable {
 	 * 总金额
 	 * */
 	private BigDecimal amount;
+
+	/**
+	 * 支付金额
+	 * */
+	private BigDecimal payAmount;
 
 	/**
 	 * 优惠金额
@@ -97,6 +107,12 @@ public class UserOrderDto implements Serializable {
 	public void setOrderSn(String orderSn){
 		this.orderSn=orderSn;
 	}
+	public String getType(){
+		return type;
+	}
+	public void setType(String type){
+		this.type=type;
+	}
 	public Integer getCouponId(){
 		return couponId;
 	}
@@ -114,6 +130,12 @@ public class UserOrderDto implements Serializable {
 	}
 	public void setAmount(BigDecimal amount){
 		this.amount=amount;
+	}
+	public BigDecimal getPayAmount(){
+		return payAmount;
+	}
+	public void setPayAmount(BigDecimal payAmount){
+		this.payAmount=payAmount;
 	}
 	public BigDecimal getDiscount(){
 		return discount;

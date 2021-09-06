@@ -76,6 +76,11 @@ public class CouponDto implements Serializable {
     private boolean isReceive;
 
     /**
+     * 会员卡券ID
+     * */
+    private Integer userCouponId;
+
+    /**
      * 有效期
      * */
     private String effectiveDate;
@@ -88,7 +93,6 @@ public class CouponDto implements Serializable {
     public Integer getId() {
         return id;
     }
-
     public void setId(Integer id) {
         this.id = id;
     }
@@ -175,6 +179,13 @@ public class CouponDto implements Serializable {
     }
     public void setIsReceive(boolean isReceive) {
         this.isReceive = isReceive;
+    }
+
+    public Integer getUserCouponId() {
+        return userCouponId;
+    }
+    public void setUserCouponId(Integer userCouponId) {
+        this.userCouponId = userCouponId;
     }
 
     public String getEffectiveDate() {

@@ -7,7 +7,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
-
+import javax.servlet.http.HttpServletRequest;
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -53,6 +53,25 @@ public class CommonUtil {
         // 加上4位随机数
         sb.append(SeqUtil.getRandomNumber(4));
         return sb.toString();
+    }
+
+    /**
+     * 获取IP地址
+     *
+     * @param request
+     * @return String
+     */
+    public static String getIPFromHttpRequest(HttpServletRequest request) {
+
+        String remoteIp = request.getHeader("X-Real-IP");
+        if (remoteIp == null) {
+            remoteIp = request.getHeader("x-forwarded-for");
+        }
+        if (remoteIp == null) {
+            remoteIp = request.getRemoteAddr();
+        }
+
+        return remoteIp;
     }
 
     /**

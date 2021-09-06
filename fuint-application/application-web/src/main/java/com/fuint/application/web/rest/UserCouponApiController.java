@@ -19,17 +19,16 @@ import com.fuint.application.dao.entities.MtUser;
 import com.fuint.application.util.QRCodeUtil;
 import com.fuint.application.util.Base64Util;
 import com.fuint.application.util.SeqUtil;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpServletRequest;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
@@ -76,7 +75,7 @@ public class UserCouponApiController extends BaseController {
      */
     @RequestMapping(value = "/detail", method = RequestMethod.GET)
     @CrossOrigin
-    public ResponseObject detail(HttpServletRequest request, @RequestParam Map<String, Object> param) throws BusinessCheckException {
+    public ResponseObject detail(HttpServletRequest request, @RequestParam Map<String, Object> param) throws BusinessCheckException, InvocationTargetException, IllegalAccessException{
         String token = request.getHeader("Access-Token");
         Integer userCouponId = param.get("userCouponId") == null ? 0 : Integer.parseInt(param.get("userCouponId").toString());
         int width = param.get("width") == null ? 800 : Integer.parseInt(param.get("width").toString());
@@ -84,7 +83,7 @@ public class UserCouponApiController extends BaseController {
 
         // 参数有误
         if (userCouponId <= 0) {
-            return getFailureResult(1002);
+            return getFailureResult(1001);
         }
 
         if (StringUtils.isEmpty(token)) {
@@ -129,7 +128,7 @@ public class UserCouponApiController extends BaseController {
             out = new ByteArrayOutputStream();
             QRCodeUtil.createQrCode(out, content, width, height, "png", "");
 
-            // 对数据进行Base64编码，返回的码需加上：data:image/jpg;base64
+            // 对数据进行Base64编码
             String qrCode = new String(Base64Util.baseEncode(out.toByteArray()), "UTF-8");
             qrCode = "data:image/jpg;base64," + qrCode;
 

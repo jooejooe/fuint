@@ -41,7 +41,7 @@ public interface MtUserCouponRepository extends BaseRepository<MtUserCoupon, Int
        * @param userId
        * @return
        * */
-      @Query("SELECT t FROM MtUserCoupon t WHERE t.userId =:userId AND t.status IN (:status) ORDER BY id DESC")
+      @Query("SELECT t FROM MtUserCoupon t WHERE t.userId =:userId AND t.status IN (:status) ORDER BY t.id DESC")
       List<MtUserCoupon> getUserCouponList(@Param("userId") Integer userId, @Param("status") List<String> status);
 
       /**
@@ -59,7 +59,7 @@ public interface MtUserCouponRepository extends BaseRepository<MtUserCoupon, Int
        * @param code
        * @return
        * */
-       @Query("SELECT t FROM MtUserCoupon t WHERE t.code =:code ORDER BY id DESC")
+       @Query("SELECT t FROM MtUserCoupon t WHERE t.code =:code ORDER BY t.id DESC")
        MtUserCoupon findByCode(@Param("code") String code);
 
        /**
@@ -89,4 +89,14 @@ public interface MtUserCouponRepository extends BaseRepository<MtUserCoupon, Int
         */
        @Query("SELECT t.couponId FROM MtUserCoupon t WHERE t.uuid =:uuid GROUP BY t.couponId")
        List<Integer> getCouponIdsByUuid(@Param("uuid") String uuid);
+
+        /**
+         * 通过couponId、userId获取
+         *
+         * @param couponId
+         * @param userId
+         * @return
+         * */
+        @Query("SELECT t FROM MtUserCoupon t WHERE t.couponId =:couponId AND t.userId =:userId ORDER BY t.id DESC")
+        List<MtUserCoupon> findUserCouponDetail(@Param("couponId") Integer couponId, @Param("userId") Integer userId);
 }

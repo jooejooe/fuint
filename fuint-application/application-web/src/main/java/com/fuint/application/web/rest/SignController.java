@@ -61,10 +61,19 @@ public class SignController extends BaseController {
     @CrossOrigin
     public ResponseObject mpWxLogin(HttpServletRequest request, @RequestBody Map<String, Object> param, Model model) throws BusinessCheckException{
         JSONObject paramsObj = new JSONObject(param);
-        JSONObject userInfo = paramsObj.getJSONObject("userInfo");
-        String openId = weixinService.getOpenId(param.get("code").toString());
 
-        MtUser mtUser = memberService.queryMemberByOpenId(openId, userInfo);
+        JSONObject userInfo = paramsObj.getJSONObject("userInfo");
+        JSONObject loginInfo = weixinService.wxLogin(param.get("code").toString());
+
+        String type = userInfo.getString("type");
+        String encryptedData = userInfo.getString("encryptedData");
+        userInfo.put("phone", "");
+        if (type.equals("phone") && StringUtils.isNotEmpty(encryptedData)) {
+            String phone = weixinService.getPhoneNumber(userInfo.get("encryptedData").toString(), loginInfo.get("session_key").toString(), userInfo.get("iv").toString());
+            userInfo.put("phone", phone);
+        }
+
+        MtUser mtUser = memberService.queryMemberByOpenId(loginInfo.get("openid").toString(), userInfo);
 
         String userAgent = request.getHeader("user-agent");
         String token = tokenService.generateToken(userAgent, mtUser.getMobile());

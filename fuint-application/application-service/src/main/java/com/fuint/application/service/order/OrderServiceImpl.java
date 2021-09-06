@@ -169,6 +169,18 @@ public class OrderServiceImpl extends BaseService implements OrderService {
     }
 
     /**
+     * 根据订单号获取订单详情
+     *
+     * @param orderSn 订单号
+     * @throws BusinessCheckException
+     */
+    @Override
+    public UserOrderDto getOrderByOrderSn(String orderSn) throws BusinessCheckException {
+        MtOrder orderInfo = orderRepository.findByOrderSn(orderSn);
+        return this. _dealOrderDetail(orderInfo);
+    }
+
+    /**
      * 根据ID删除数据
      *
      * @param id       订单ID
@@ -216,6 +228,10 @@ public class OrderServiceImpl extends BaseService implements OrderService {
             MtOrder.setStatus(orderDto.getStatus());
         }
 
+        if (null != orderDto.getPayAmount()) {
+            MtOrder.setPayAmount(orderDto.getPayAmount());
+        }
+
         return orderRepository.save(MtOrder);
     }
 
@@ -240,12 +256,14 @@ public class OrderServiceImpl extends BaseService implements OrderService {
         dto.setCouponId(orderInfo.getCouponId());
         dto.setOrderSn(orderInfo.getOrderSn());
         dto.setRemark(orderInfo.getRemark());
-
+        dto.setType(orderInfo.getType());
         String createTime = DateUtil.formatDate(orderInfo.getCreateTime(), "yyyy.MM.dd HH:mm");
         dto.setCreateTime(createTime);
         dto.setAmount(orderInfo.getAmount());
+        dto.setPayAmount(orderInfo.getPayAmount());
         dto.setDiscount(orderInfo.getDiscount());
         dto.setStatus(orderInfo.getStatus());
+        dto.setParam(orderInfo.getParam());
 
         if (dto.getStatus().equals(OrderStatusEnum.CREATED.getKey())) {
             dto.setStatusText(OrderStatusEnum.CREATED.getValue());

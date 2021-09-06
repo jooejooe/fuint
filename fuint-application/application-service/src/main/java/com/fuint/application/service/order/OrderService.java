@@ -42,10 +42,18 @@ public interface OrderService {
     /**
      * 根据ID获取信息
      *
-     * @param id Banner ID
+     * @param id ID
      * @throws BusinessCheckException
      */
     UserOrderDto getOrderById(Integer id) throws BusinessCheckException;
+
+    /**
+     * 根据订单号获取信息
+     *
+     * @param orderSn
+     * @throws BusinessCheckException
+     */
+    UserOrderDto getOrderByOrderSn(String orderSn) throws BusinessCheckException;
 
     /**
      * 根据ID 删除订单信息

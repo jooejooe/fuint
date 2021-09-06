@@ -2,6 +2,7 @@ package com.fuint.application.web.rest;
 
 import com.fuint.application.dao.entities.MtCoupon;
 import com.fuint.application.dao.entities.MtUser;
+import com.fuint.application.dao.entities.MtUserCoupon;
 import com.fuint.application.dto.CouponDto;
 import com.fuint.application.service.coupon.CouponService;
 import com.fuint.application.service.token.TokenService;
@@ -11,15 +12,14 @@ import com.fuint.exception.BusinessCheckException;
 import com.fuint.application.ResponseObject;
 import com.fuint.application.BaseController;
 import org.apache.commons.beanutils.BeanUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
 
 /**
  * 卡券接口controller
@@ -29,8 +29,6 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/rest/coupon")
 public class CouponApiController extends BaseController {
-
-    private static final Logger logger = LoggerFactory.getLogger(CouponApiController.class);
 
     /**
      * 卡券服务接口
@@ -49,6 +47,9 @@ public class CouponApiController extends BaseController {
      */
     @Autowired
     private TokenService tokenService;
+
+    @Autowired
+    private Environment env;
 
     /**
      * 获取列表数据
@@ -108,16 +109,30 @@ public class CouponApiController extends BaseController {
     @RequestMapping(value = "/detail", method = RequestMethod.GET)
     @CrossOrigin
     public ResponseObject detail(HttpServletRequest request, @RequestParam Map<String, Object> param) throws BusinessCheckException, InvocationTargetException, IllegalAccessException {
+        String token = request.getHeader("Access-Token");
+        MtUser mtUser = tokenService.getUserInfoByToken(token);
+
         Integer couponId = param.get("couponId") == null ? 0 : Integer.parseInt(param.get("couponId").toString());
 
         MtCoupon couponInfo = couponService.queryCouponById(couponId.longValue());
 
         CouponDto dto = new CouponDto();
-
         BeanUtils.copyProperties(dto, couponInfo);
+
+        if (null != mtUser) {
+            List<MtUserCoupon> userCoupon = userCouponService.getUserCouponDetail(mtUser.getId(), couponId);
+            if (userCoupon.size() > 0) {
+                dto.setIsReceive(true);
+                dto.setUserCouponId(userCoupon.get(0).getId());
+            }
+        }
+
+        String baseImage = env.getProperty("images.website");
+        dto.setImage(baseImage + couponInfo.getImage());
 
         String effectiveDate = DateUtil.formatDate(couponInfo.getBeginTime(), "yyyy.MM.dd") + " - " + DateUtil.formatDate(couponInfo.getEndTime(), "yyyy.MM.dd");
         dto.setEffectiveDate(effectiveDate);
+
         dto.setGotNum(10093);
         dto.setLimitNum(1092);
 

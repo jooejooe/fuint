@@ -18,7 +18,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Date;
@@ -132,10 +131,10 @@ public class UserCouponServiceImpl extends BaseService implements UserCouponServ
     public boolean preStore(Map<String, Object> paramMap) throws BusinessCheckException {
         Integer couponId = paramMap.get("couponId") == null ? 0 : Integer.parseInt(paramMap.get("couponId").toString());
         Integer userId = paramMap.get("userId") == null ? 0 : Integer.parseInt(paramMap.get("userId").toString());
-        String selectNum = paramMap.get("selectNum") == null ? "" : paramMap.get("selectNum").toString();
+        String param = paramMap.get("param") == null ? "" : paramMap.get("param").toString();
         Integer orderId = paramMap.get("orderId") == null ? 0 : Integer.parseInt(paramMap.get("orderId").toString());
 
-        if (StringUtils.isEmpty(selectNum) || couponId <= 0 || userId <= 0) {
+        if (StringUtils.isEmpty(param) || couponId <= 0 || userId <= 0) {
             throw new BusinessCheckException(Message.PARAM_ERROR);
         }
 
@@ -149,22 +148,19 @@ public class UserCouponServiceImpl extends BaseService implements UserCouponServ
             throw new BusinessCheckException(Message.USER_NOT_EXIST);
         }
 
-        String[] numArr = selectNum.split(",");
-        String[] ruleArr = couponInfo.getInRule().split(",");
+        String[] paramArr = param.split(",");
 
-        if (numArr.length != ruleArr.length) {
-            throw new BusinessCheckException(Message.PARAM_ERROR);
-        }
-
-        for (int i = 0; i < ruleArr.length; i++) {
-            String num = numArr[i];
-            if (StringUtils.isNotEmpty(num)) {
-                Integer numInt = Integer.parseInt(num);
-                for (int j = 1; j <= numInt; j++) {
-                    String ruleItem = ruleArr[i]; // 100_200
-                    String[] ruleItemArr = ruleItem.split("_");
-                    if (StringUtils.isNotEmpty(ruleItemArr[1])) {
-                        this.preStoreItem(couponInfo, userInfo, orderId, new BigDecimal(ruleItemArr[1]));
+        for (int i = 0; i < paramArr.length; i++) {
+            String item = paramArr[i];
+            if (StringUtils.isNotEmpty(item)) {
+                String buyItem = paramArr[i]; // 100_200_1
+                String[] buyItemArr = buyItem.split("_");
+                if (StringUtils.isNotEmpty(buyItemArr[2])) {
+                    Integer numInt = Integer.parseInt(buyItemArr[2]);
+                    for (int j = 1; j <= numInt; j++) {
+                        if (StringUtils.isNotEmpty(buyItemArr[1])) {
+                            this.preStoreItem(couponInfo, userInfo, orderId, new BigDecimal(buyItemArr[1]));
+                        }
                     }
                 }
             }
@@ -176,11 +172,23 @@ public class UserCouponServiceImpl extends BaseService implements UserCouponServ
     /**
      * 获取会员卡券列表
      * @param userId
+     * @param status
      * @return
      * */
     @Override
-    public List<MtUserCoupon> getUserCouponList(Integer userId, List<String> status) throws BusinessCheckException {
+    public List<MtUserCoupon> getUserCouponList(Integer userId, List<String> status) {
         return userCouponRepository.getUserCouponList(userId, status);
+    }
+
+    /**
+     * 获取会员卡券详情
+     * @param userId
+     * @param couponId
+     * @return
+     * */
+    @Override
+    public  List<MtUserCoupon> getUserCouponDetail(Integer userId, Integer couponId) {
+        return userCouponRepository.findUserCouponDetail(couponId, userId);
     }
 
     /**

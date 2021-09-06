@@ -16,6 +16,7 @@ import com.fuint.application.enums.StatusEnum;
 import com.fuint.application.service.sms.SendSmsInterface;
 import com.fuint.application.service.token.TokenService;
 import org.apache.commons.collections.MapUtils;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -179,7 +180,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     /**
-     * 根据openId获取会员信息
+     * 根据openId获取会员信息(为空就注册)
      *
      * @param openId
      * @throws BusinessCheckException
@@ -190,9 +191,17 @@ public class MemberServiceImpl implements MemberService {
 
         if (user == null) {
             MtUser mtUser = new MtUser();
-            mtUser.setName(userInfo.get("nickName").toString());
+            String nickName = userInfo.getString("nickName");
+            String mobile = StringUtils.isNotEmpty(userInfo.getString("phone")) ? userInfo.getString("phone") : "";
+
+            // 昵称为空，用手机号
+            if (StringUtils.isEmpty(nickName) && StringUtils.isNotEmpty(mobile)) {
+                nickName = mobile.replaceAll("(\\d{3})\\d{4}(\\d{4})","$1****$2");
+            }
+
+            mtUser.setMobile(mobile);
+            mtUser.setName(nickName);
             mtUser.setOpenId(openId);
-            mtUser.setMobile("");
             MtUserGrade grade = userGradeService.getInitUserGrade();
             mtUser.setGradeId(grade.getId()+"");
             mtUser.setCreateTime(new Date());
@@ -204,6 +213,27 @@ public class MemberServiceImpl implements MemberService {
             mtUser.setStatus(StatusEnum.ENABLED.getKey());
             userRepository.save(mtUser);
             user = userRepository.queryMemberByOpenId(openId);
+        } else {
+            // 更新昵称和手机号码
+            String nickName = "";
+            String name = user.getName();
+            String mobile = StringUtils.isNotEmpty(userInfo.getString("phone")) ? userInfo.getString("phone") : "";
+            if (StringUtils.isEmpty(name)) {
+                nickName = userInfo.getString("nickName");
+                if (StringUtils.isEmpty(nickName) && StringUtils.isNotEmpty(mobile)) {
+                    nickName = mobile.replaceAll("(\\d{3})\\d{4}(\\d{4})","$1****$2");
+                }
+            }
+
+            if (StringUtils.isNotEmpty(nickName)) {
+                user.setName(nickName);
+            }
+            if (StringUtils.isNotEmpty(mobile)) {
+                user.setMobile(mobile);
+            }
+
+            user.setUpdateTime(new Date());
+            userRepository.save(user);
         }
 
         return user;

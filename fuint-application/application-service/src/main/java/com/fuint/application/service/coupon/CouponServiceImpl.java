@@ -439,6 +439,7 @@ public class CouponServiceImpl extends BaseService implements CouponService {
             List<MtUserCoupon> userCoupon = userCouponRepository.getUserCouponListByCouponId(userId, item.getId(), statusList);
             if ((userCoupon.size() >= dataList.get(i).getLimitNum()) && (dataList.get(i).getLimitNum() > 0)) {
                 item.setIsReceive(true);
+                item.setUserCouponId(userCoupon.get(0).getId());
             }
 
             // 领取或预存数量
