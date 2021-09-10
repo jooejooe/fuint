@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class GenEntityMysql {
     //数据库连接
-    private static final String URL = "jdbc:mysql://localhost:3306/fuint-db?useSSL=true";
+    private static final String URL = "jdbc:mysql://localhost:3306/fuint-db?useSSL=true&serverTimezone=GMT";
     private static final String NAME = "root";
     private static final String PASS = "";
 
@@ -28,7 +28,7 @@ public class GenEntityMysql {
     private String repositoryPackage = "com.fuint.application.dao.repositories";//指定实体仓库接口生成所在包的路径
     private String authorName = "FSQ";//作者名字
     private String contact = "fsq_better"; //联系微信
-    private String tableName = "mt_refund";//表名
+    private String tableName = "mt_open_gift_item";//表名
 
     private List<String> colNames = new ArrayList<>(); // 列名数组
     private List<String> colTypes = new ArrayList<>(); //列名类型数组

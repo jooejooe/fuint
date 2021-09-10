@@ -2,6 +2,7 @@ package com.fuint.application.service.member;
 
 import com.fuint.application.dao.entities.MtUserGrade;
 import com.fuint.application.dao.repositories.MtUserGradeRepository;
+import com.fuint.application.service.opengift.OpenGiftService;
 import com.fuint.application.service.usergrade.UserGradeService;
 import com.fuint.base.annoation.OperationServiceLog;
 import com.fuint.base.dao.pagination.PaginationRequest;
@@ -65,13 +66,20 @@ public class MemberServiceImpl implements MemberService {
     private UserGradeService userGradeService;
 
     /**
+     * 会员等级接口
+     * */
+    @Autowired
+    private OpenGiftService openGiftService;
+
+    /**
      * 分页查询会员用户列表
      *
      * @param paginationRequest
      * @return
      */
     @Override
-    public PaginationResponse<MtUser> queryMemberListByPagination(PaginationRequest paginationRequest) throws BusinessCheckException {
+    public PaginationResponse<MtUser> queryMemberListByPagination(PaginationRequest paginationRequest) {
+        paginationRequest.setSortColumn(new String[]{"updateTime desc", "createTime desc"});
         PaginationResponse<MtUser> paginationResponse = userRepository.findResultsByPagination(paginationRequest);
         return paginationResponse;
     }
@@ -108,6 +116,11 @@ public class MemberServiceImpl implements MemberService {
 
         userRepository.save(mtUser);
 
+        mtUser = this.queryMemberByMobile(mtUser.getMobile());
+
+        // 开卡赠礼
+        openGiftService.openGift(mtUser.getId(), Integer.parseInt(mtUser.getGradeId()));
+
         // 清token缓存
         tokenService.removeTokenLikeMobile(mtUser.getMobile());
 
@@ -115,6 +128,7 @@ public class MemberServiceImpl implements MemberService {
         if (newFlag.equals(Boolean.TRUE) && mtUser.getStatus().equals(StatusEnum.ENABLED.getKey())) {
             // 发送短信
             List<String> mobileList = new ArrayList<String>();
+
             mobileList.add(mtUser.getMobile());
             // 短信模板
             try {
@@ -151,6 +165,12 @@ public class MemberServiceImpl implements MemberService {
         mtUser.setStatus(StatusEnum.ENABLED.getKey());
 
         userRepository.save(mtUser);
+
+        mtUser = this.queryMemberByMobile(mobile);
+
+        // 开卡赠礼
+        openGiftService.openGift(mtUser.getId(), Integer.parseInt(mtUser.getGradeId()));
+
         return mtUser;
     }
 
@@ -190,9 +210,13 @@ public class MemberServiceImpl implements MemberService {
         MtUser user = userRepository.queryMemberByOpenId(openId);
 
         if (user == null) {
-            MtUser mtUser = new MtUser();
             String nickName = userInfo.getString("nickName");
             String mobile = StringUtils.isNotEmpty(userInfo.getString("phone")) ? userInfo.getString("phone") : "";
+
+            MtUser mtUser = new MtUser();
+            if (StringUtils.isNotEmpty(mobile)) {
+                mtUser = this.queryMemberByMobile(mobile);
+            }
 
             // 昵称为空，用手机号
             if (StringUtils.isEmpty(nickName) && StringUtils.isNotEmpty(mobile)) {
@@ -213,6 +237,9 @@ public class MemberServiceImpl implements MemberService {
             mtUser.setStatus(StatusEnum.ENABLED.getKey());
             userRepository.save(mtUser);
             user = userRepository.queryMemberByOpenId(openId);
+
+            // 开卡赠礼
+            openGiftService.openGift(user.getId(), Integer.parseInt(user.getGradeId()));
         } else {
             // 更新昵称和手机号码
             String nickName = "";

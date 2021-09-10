@@ -2,8 +2,8 @@ package com.fuint.application.service.sms;
 
 /**
  * @Description:
- * @Author: zach
- * @date: 2017/8/23
+ * @Author: FSQ
+ * @date: 2021/8/23
  */
 public class MessageResInfo {
     private String[] sendIds;

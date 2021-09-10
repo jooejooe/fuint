@@ -1,8 +1,10 @@
 package com.fuint.application.service.point;
 
 import com.fuint.application.dao.entities.MtPoint;
+import com.fuint.application.dao.entities.MtUser;
 import com.fuint.application.dao.repositories.MtPointRepository;
-import com.fuint.base.annoation.OperationServiceLog;
+import com.fuint.application.dao.repositories.MtUserRepository;
+import com.fuint.application.enums.StatusEnum;
 import com.fuint.base.dao.pagination.PaginationRequest;
 import com.fuint.base.dao.pagination.PaginationResponse;
 import com.fuint.exception.BusinessCheckException;
@@ -10,6 +12,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Date;
 
 /**
  * 积分管理业务实现类
@@ -24,6 +29,9 @@ public class PointServiceImpl implements PointService {
     @Autowired
     private MtPointRepository pointRepository;
 
+    @Autowired
+    private MtUserRepository userRepository;
+
     /**
      * 分页查询积分列表
      *
@@ -31,7 +39,7 @@ public class PointServiceImpl implements PointService {
      * @return
      */
     @Override
-    public PaginationResponse<MtPoint> queryPointListByPagination(PaginationRequest paginationRequest) throws BusinessCheckException {
+    public PaginationResponse<MtPoint> queryPointListByPagination(PaginationRequest paginationRequest) {
         PaginationResponse<MtPoint> paginationResponse = pointRepository.findResultsByPagination(paginationRequest);
         return paginationResponse;
     }
@@ -43,8 +51,19 @@ public class PointServiceImpl implements PointService {
      * @throws BusinessCheckException
      */
     @Override
-    @OperationServiceLog(description = "添加积分记录")
-    public MtPoint addPoint(MtPoint mtPoint) throws BusinessCheckException {
-        return pointRepository.save(mtPoint);
+    @Transactional
+    public void addPoint(MtPoint mtPoint) {
+        if (mtPoint.getUserId() < 0 || mtPoint.getAmount() < 0) {
+           return;
+        }
+        mtPoint.setStatus(StatusEnum.ENABLED.getKey());
+        mtPoint.setCreateTime(new Date());
+        mtPoint.setUpdateTime(new Date());
+
+        MtUser user = userRepository.findOne(mtPoint.getUserId());
+        user.setPoint(user.getPoint() + mtPoint.getAmount());
+
+        userRepository.save(user);
+        pointRepository.save(mtPoint);
     }
 }

@@ -2,11 +2,14 @@ package com.fuint.application.service.weixin;
 
 import com.fuint.application.BaseService;
 import com.fuint.application.dao.entities.MtOrder;
+import com.fuint.application.dao.entities.MtPoint;
+import com.fuint.application.dao.entities.MtSetting;
 import com.fuint.application.dao.entities.MtUser;
 import com.fuint.application.dto.OrderDto;
 import com.fuint.application.dto.UserOrderDto;
 import com.fuint.application.enums.OrderStatusEnum;
 import com.fuint.application.enums.OrderTypeEnum;
+import com.fuint.application.enums.PayStatusEnum;
 import  com.fuint.application.http.HttpRESTDataClient;
 import com.fuint.application.service.order.OrderService;
 import com.fuint.application.util.TimeUtils;
@@ -22,6 +25,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import weixin.popular.util.JsonUtil;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -31,6 +35,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Arrays;
@@ -42,6 +47,8 @@ import javax.crypto.spec.SecretKeySpec;
 import java.security.AlgorithmParameters;
 import java.security.Security;
 import com.fuint.application.service.usercoupon.UserCouponService;
+import com.fuint.application.service.setting.SettingService;
+import com.fuint.application.service.point.PointService;
 
 @Service
 public class WeixinServiceimpl extends BaseService implements WeixinService {
@@ -55,6 +62,12 @@ public class WeixinServiceimpl extends BaseService implements WeixinService {
 
     @Autowired
     private OrderService orderService;
+
+    @Autowired
+    private SettingService settingService;
+
+    @Autowired
+    private PointService pointService;
 
     @Autowired
     private Environment env;
@@ -74,7 +87,7 @@ public class WeixinServiceimpl extends BaseService implements WeixinService {
         reqData.put("out_trade_no", orderInfo.getOrderSn());
         reqData.put("device_info", "");
         reqData.put("fee_type", "CNY");
-        reqData.put("total_fee", payAmount.toString());
+        reqData.put("total_fee", "1");// 测试 支付1分钱 payAmount.toString()
         reqData.put("spbill_create_ip", ip);
         reqData.put("notify_url", wxPayConfigImpl.getCallbackUrl());
         reqData.put("trade_type", "JSAPI");
@@ -129,6 +142,7 @@ public class WeixinServiceimpl extends BaseService implements WeixinService {
     }
 
     @Override
+    @Transactional
     public boolean paymentCallback(UserOrderDto orderInfo) throws BusinessCheckException {
         // 预存卡订单
         if (orderInfo.getType().equals(OrderTypeEnum.PRESTORE.getKey())) {
@@ -144,7 +158,34 @@ public class WeixinServiceimpl extends BaseService implements WeixinService {
         OrderDto reqDto = new OrderDto();
         reqDto.setId(orderInfo.getId());
         reqDto.setStatus(OrderStatusEnum.PAID.getKey());
+        reqDto.setPayStatus(PayStatusEnum.SUCCESS.getKey());
+        reqDto.setPayTime(new Date());
+        reqDto.setUpdateTime(new Date());
         orderService.updateOrder(reqDto);
+
+        // 处理消费返积分，查询返1积分所需消费金额
+        MtSetting setting = settingService.querySettingByName("pointNeedConsume");
+        if (setting != null) {
+            String needPayAmount = setting.getValue();
+            Double pointNum = 0d;
+            if (orderInfo.getPayAmount().compareTo(new BigDecimal(needPayAmount)) > 0) {
+                BigDecimal point = orderInfo.getPayAmount().divide(new BigDecimal(needPayAmount));
+                pointNum = Math.ceil(point.doubleValue());
+            }
+
+            logger.debug("WXService paymentCallback Point orderSn = {} , pointNum ={}", orderInfo.getOrderSn(), pointNum);
+
+            if (pointNum > 0) {
+                MtPoint reqPointDto = new MtPoint();
+                reqPointDto.setAmount(pointNum.intValue());
+                reqPointDto.setUserId(orderInfo.getUserId());
+                reqPointDto.setOrderSn(orderInfo.getOrderSn());
+                reqPointDto.setDescription("支付￥"+orderInfo.getPayAmount()+"返"+pointNum+"积分");
+                pointService.addPoint(reqPointDto);
+            }
+        }
+
+        logger.debug("WXService paymentCallback Success orderSn {}", orderInfo.getOrderSn());
 
         return true;
     }

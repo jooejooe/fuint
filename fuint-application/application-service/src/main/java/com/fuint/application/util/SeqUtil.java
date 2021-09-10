@@ -8,7 +8,7 @@ import java.util.concurrent.ThreadLocalRandom;
 /**
  * 序列工具类
  *
- * @author zach
+ * @author FSQ
  */
 public class SeqUtil {
 

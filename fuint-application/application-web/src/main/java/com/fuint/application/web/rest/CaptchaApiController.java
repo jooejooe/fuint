@@ -4,8 +4,6 @@ import com.fuint.application.BaseController;
 import com.fuint.application.ResponseObject;
 import com.fuint.application.util.Base64Util;
 import com.fuint.captcha.service.CaptchaService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
@@ -26,7 +24,6 @@ import java.util.Map;
 @RestController
 @RequestMapping("/rest/captcha")
 public class CaptchaApiController extends BaseController {
-    private static final Logger logger = LoggerFactory.getLogger(CaptchaApiController.class);
 
     @Resource
     private CaptchaService captchaService;

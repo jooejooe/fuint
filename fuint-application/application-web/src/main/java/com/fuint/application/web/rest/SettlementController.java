@@ -8,7 +8,6 @@ import com.fuint.application.enums.OrderTypeEnum;
 import com.fuint.application.service.coupon.CouponService;
 import com.fuint.application.service.order.OrderService;
 import com.fuint.application.service.token.TokenService;
-import com.fuint.application.service.usercoupon.UserCouponService;
 import com.fuint.application.service.weixin.WeixinService;
 import com.fuint.application.util.CommonUtil;
 import com.fuint.exception.BusinessCheckException;
@@ -34,12 +33,6 @@ import java.util.Map;
 public class SettlementController extends BaseController {
 
     private static final Logger logger = LoggerFactory.getLogger(SettlementController.class);
-
-    /**
-     * 会员卡券服务接口
-     * */
-    @Autowired
-    private UserCouponService userCouponService;
 
     /**
      * Token服务接口
@@ -78,10 +71,11 @@ public class SettlementController extends BaseController {
         }
         param.put("userId", userInfo.getId());
 
-        Integer couponId = param.get("couponId") == null ? 0 : Integer.parseInt(param.get("couponId").toString());
-        String selectNum = param.get("selectNum") == null ? "" : param.get("selectNum").toString();
+        Integer couponId = param.get("couponId") == null ? 0 : Integer.parseInt(param.get("couponId").toString()); // 预存卡必填
+        String selectNum = param.get("selectNum") == null ? "" : param.get("selectNum").toString(); // 预存卡必填
         String remark = param.get("remark") == null ? "" : param.get("remark").toString();
         String type = param.get("type") == null ? "" : param.get("type").toString();
+        String payAmount = param.get("payAmount") == null ? "" : param.get("payAmount").toString();
 
         // 生成订单数据
         OrderDto orderDto = new OrderDto();
@@ -90,10 +84,13 @@ public class SettlementController extends BaseController {
         orderDto.setUserId(userInfo.getId());
         orderDto.setType(type);
 
+        BigDecimal realPayAmount = new BigDecimal("0");
+
         // 预存卡的订单
-        String orderParam = "";
-        BigDecimal totalAmount = new BigDecimal(0);
         if (orderDto.getType().equals(OrderTypeEnum.PRESTORE.getKey())) {
+            String orderParam = "";
+            BigDecimal totalAmount = new BigDecimal(0);
+
             MtCoupon couponInfo = couponService.queryCouponById(couponId.longValue());
             String inRule = couponInfo.getInRule();
             String[] selectNumArr = selectNum.split(",");
@@ -109,16 +106,27 @@ public class SettlementController extends BaseController {
                 totalAmount = totalAmount.add(amount);
                 orderParam = StringUtils.isEmpty(orderParam) ?  item : orderParam + ","+item;
             }
-        }
-        orderDto.setParam(orderParam);
-        orderDto.setAmount(totalAmount);
 
+            orderDto.setParam(orderParam);
+            orderDto.setAmount(totalAmount);
+
+            realPayAmount = totalAmount;
+        }
+
+        // 付款订单
+        if (orderDto.getType().equals(OrderTypeEnum.PAYMENT.getKey())) {
+            orderDto.setAmount(new BigDecimal(payAmount));
+            realPayAmount = new BigDecimal(payAmount);
+        }
+
+        // 生成订单
         MtOrder orderInfo = orderService.createOrder(orderDto);
         param.put("orderId", orderInfo.getId());
 
         // 生成支付订单
         String ip = CommonUtil.getIPFromHttpRequest(request);
-        ResponseObject paymentInfo = weixinService.createPrepayOrder(userInfo, orderInfo, 1, 0, ip);
+        BigDecimal pay = realPayAmount.multiply(new BigDecimal("100"));
+        ResponseObject paymentInfo = weixinService.createPrepayOrder(userInfo, orderInfo, (pay.intValue()), 0, ip);
 
         Map<String, Object> outParams = new HashMap();
 

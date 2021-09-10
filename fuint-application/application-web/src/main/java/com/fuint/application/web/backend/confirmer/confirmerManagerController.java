@@ -23,7 +23,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.*;
@@ -175,7 +174,7 @@ public class confirmerManagerController {
      */
     @RequiresPermissions("backend/confirmer/confirmerEditInit/{id}")
     @RequestMapping(value = "/confirmerEditInit/{id}")
-    public String storeRuleEditInit(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable("id") Integer id) throws BusinessCheckException {
+    public String confirmerEditInit(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable("id") Integer id) throws BusinessCheckException {
         MtConfirmer mtConfirmer;
         mtConfirmer = confirmerService.queryConfirmerById(id);
 

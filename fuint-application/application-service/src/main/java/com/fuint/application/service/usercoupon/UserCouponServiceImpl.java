@@ -68,6 +68,7 @@ public class UserCouponServiceImpl extends BaseService implements UserCouponServ
     public boolean receiveCoupon(Map<String, Object> paramMap) throws BusinessCheckException {
         Integer couponId = paramMap.get("couponId") == null ? 0 : Integer.parseInt(paramMap.get("couponId").toString());
         Integer userId = paramMap.get("userId") == null ? 0 : Integer.parseInt(paramMap.get("userId").toString());
+        Integer num = paramMap.get("num") == null ? 1 : Integer.parseInt(paramMap.get("num").toString());
 
         MtCoupon couponInfo = couponService.queryCouponById(couponId.longValue());
         if (null == couponInfo) {
@@ -98,27 +99,37 @@ public class UserCouponServiceImpl extends BaseService implements UserCouponServ
             throw new BusinessCheckException(Message.MAX_COUPON_LIMIT);
         }
 
-        MtUserCoupon userCoupon = new MtUserCoupon();
-        userCoupon.setCouponId(couponInfo.getId());
-        userCoupon.setType(couponInfo.getType());
-        userCoupon.setAmount(couponInfo.getAmount());
-        userCoupon.setGroupId(groupInfo.getId());
-        userCoupon.setMobile(userInfo.getMobile());
-        userCoupon.setUserId(userInfo.getId());
-        userCoupon.setStatus(UserCouponStatusEnum.UNUSED.getKey());
-        userCoupon.setCreateTime(new Date());
-        userCoupon.setUpdateTime(new Date());
+        // 可领取多张，领取序列号
+        StringBuffer uuid = new StringBuffer();
+        uuid.append(SeqUtil.getRandomNumber(4));
+        uuid.append(SeqUtil.getRandomNumber(4));
+        uuid.append(SeqUtil.getRandomNumber(4));
+        uuid.append(SeqUtil.getRandomNumber(4));
 
-        // 12位随机数
-        StringBuffer code = new StringBuffer();
-        code.append(SeqUtil.getRandomNumber(4));
-        code.append(SeqUtil.getRandomNumber(4));
-        code.append(SeqUtil.getRandomNumber(4));
-        code.append(SeqUtil.getRandomNumber(4));
-        userCoupon.setCode(code.toString());
-        userCoupon.setUuid(code.toString());
+        for (int i = 1; i <= num; i++) {
+            MtUserCoupon userCoupon = new MtUserCoupon();
 
-        userCouponRepository.save(userCoupon);
+            userCoupon.setCouponId(couponInfo.getId());
+            userCoupon.setType(couponInfo.getType());
+            userCoupon.setAmount(couponInfo.getAmount());
+            userCoupon.setGroupId(groupInfo.getId());
+            userCoupon.setMobile(userInfo.getMobile());
+            userCoupon.setUserId(userInfo.getId());
+            userCoupon.setStatus(UserCouponStatusEnum.UNUSED.getKey());
+            userCoupon.setCreateTime(new Date());
+            userCoupon.setUpdateTime(new Date());
+
+            // 12位随机数
+            StringBuffer code = new StringBuffer();
+            code.append(SeqUtil.getRandomNumber(4));
+            code.append(SeqUtil.getRandomNumber(4));
+            code.append(SeqUtil.getRandomNumber(4));
+            code.append(SeqUtil.getRandomNumber(4));
+            userCoupon.setCode(code.toString());
+            userCoupon.setUuid(uuid.toString());
+
+            userCouponRepository.save(userCoupon);
+        }
 
         return true;
     }

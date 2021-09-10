@@ -10,13 +10,13 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * mt_point 实体类
+ * mt_open_gift_item 实体类
  * Created by FSQ
  * Contact wx fsq_better
- */
+ */ 
 @Entity 
-@Table(name = "mt_point")
-public class MtPoint implements Serializable{
+@Table(name = "mt_open_gift_item")
+public class MtOpenGiftItem implements Serializable{
    /**
     * 自增ID 
     */ 
@@ -26,45 +26,27 @@ public class MtPoint implements Serializable{
 	private Integer id;
 
    /**
-    * 用户ID 
+    * 会用ID 
     */ 
 	@Column(name = "USER_ID", nullable = false, length = 10)
 	private Integer userId;
 
-	/**
-	 * 订单号
-	 */
-	@Column(name = "ORDER_SN", length = 50)
-	private String orderSn;
-
    /**
-    * 积分变化数量 
+    * 赠礼ID 
     */ 
-	@Column(name = "AMOUNT", nullable = false, length = 10)
-	private Integer amount;
+	@Column(name = "OPEN_GIFT_ID", nullable = false, length = 10)
+	private Integer openGiftId;
 
    /**
     * 创建时间 
     */ 
-	@Column(name = "CREATE_TIME")
+	@Column(name = "CREATE_TIME", nullable = false)
 	private Date createTime;
 
    /**
-    * 更新时间 
+    * 状态 
     */ 
-	@Column(name = "UPDATE_TIME")
-	private Date updateTime;
-
-   /**
-    * 备注说明 
-    */ 
-	@Column(name = "DESCRIPTION", length = 200)
-	private String description;
-
-   /**
-    * 状态，A正常；D作废 
-    */ 
-	@Column(name = "STATUS", length = 1)
+	@Column(name = "STATUS", nullable = false, length = 1)
 	private String status;
 
 	public Integer getId(){
@@ -79,35 +61,17 @@ public class MtPoint implements Serializable{
 	public void setUserId(Integer userId){
 	this.userId=userId;
 	}
-	public String getOrderSn(){
-		return orderSn;
+	public Integer getOpenGiftId(){
+		return openGiftId;
 	}
-	public void setOrderSn(String orderSn){
-		this.orderSn=orderSn;
-	}
-	public Integer getAmount(){
-		return amount;
-	}
-	public void setAmount(Integer amount){
-	this.amount=amount;
+	public void setOpenGiftId(Integer openGiftId){
+	this.openGiftId=openGiftId;
 	}
 	public Date getCreateTime(){
 		return createTime;
 	}
 	public void setCreateTime(Date createTime){
 	this.createTime=createTime;
-	}
-	public Date getUpdateTime(){
-		return updateTime;
-	}
-	public void setUpdateTime(Date updateTime){
-	this.updateTime=updateTime;
-	}
-	public String getDescription(){
-		return description;
-	}
-	public void setDescription(String description){
-	this.description=description;
 	}
 	public String getStatus(){
 		return status;

@@ -13,7 +13,6 @@ import com.fuint.application.BaseController;
 import com.fuint.application.ResponseObject;
 import com.fuint.application.dao.entities.MtUser;
 import com.fuint.application.enums.UserCouponStatusEnum;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;

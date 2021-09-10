@@ -27,7 +27,7 @@ public interface SettingService {
     List<MtSetting> getSettingList(String type) throws BusinessCheckException;
 
     /**
-     * 根据ID获取配置信息
+     * 根据配置名称获取配置信息
      *
      * @param name name
      * @throws BusinessCheckException

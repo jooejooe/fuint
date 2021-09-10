@@ -1,11 +1,12 @@
 package com.fuint.application.web.backend.orderManager;
 
-import com.fuint.application.dao.entities.MtOrder;
+import com.fuint.application.ResponseObject;
 import com.fuint.application.dto.UserOrderDto;
+import com.fuint.application.enums.OrderStatusEnum;
 import com.fuint.application.enums.OrderTypeEnum;
+import com.fuint.application.enums.PayStatusEnum;
 import com.fuint.application.service.order.OrderService;
 import com.fuint.base.dao.pagination.PaginationRequest;
-import com.fuint.base.dao.pagination.PaginationResponse;
 import com.fuint.base.util.RequestHandler;
 import com.fuint.exception.BusinessCheckException;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -17,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -49,20 +51,25 @@ public class OrderManagerController {
         PaginationRequest paginationRequest = RequestHandler.buildPaginationRequest(request, model);
         Map<String, Object> params = paginationRequest.getSearchParams();
 
-        PaginationResponse<MtOrder> paginationResponse = orderService.getOrderListByPagination(paginationRequest);
+        Map<String, Object> param = new HashMap<>();
+        param.put("type", params.get("EQ_type"));
+        param.put("orderSn", params.get("EQ_orderSn"));
+        param.put("status", params.get("EQ_status"));
+        param.put("payStatus", params.get("EQ_payStatus"));
+        param.put("pageNumber", paginationRequest.getCurrentPage());
+        param.put("pageSize", paginationRequest.getPageSize());
+        param.put("userId", params.get("EQ_userId"));
+        param.put("mobile", params.get("EQ_mobile"));
+
+        ResponseObject response = orderService.getUserOrderList(param);
         OrderTypeEnum[] typeList = OrderTypeEnum.values();
+        OrderStatusEnum[] statusList = OrderStatusEnum.values();
+        PayStatusEnum[] payStatusList = PayStatusEnum.values();
 
-        // 取订单类型名称
-        for (MtOrder order :paginationResponse.getContent()) {
-          for (OrderTypeEnum type: typeList) {
-              if (type.getKey().equals(order.getType())) {
-                 order.setTypeName(type.getValue());
-              }
-          }
-        }
-
-        model.addAttribute("paginationResponse", paginationResponse);
+        model.addAttribute("paginationResponse", response.getData());
         model.addAttribute("typeList", typeList);
+        model.addAttribute("statusList", statusList);
+        model.addAttribute("payStatusList", payStatusList);
         model.addAttribute("params", params);
 
         return "order/list";

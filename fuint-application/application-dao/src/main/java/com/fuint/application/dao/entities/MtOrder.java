@@ -105,10 +105,22 @@ public class MtOrder implements Serializable{
 	private Date updateTime;
 
    /**
-    * 状态 
+    * 订单状态
     */ 
 	@Column(name = "STATUS", length = 1)
 	private String status;
+
+	/**
+	 * 支付状态
+	 */
+	@Column(name = "PAY_STATUS", length = 1)
+	private String payStatus;
+
+	/**
+	 * 支付时间
+	 */
+	@Column(name = "PAY_TIME")
+	private Date payTime;
 
    /**
     * 最后操作人 
@@ -205,6 +217,18 @@ public class MtOrder implements Serializable{
 	}
 	public void setStatus(String status){
 	this.status=status;
+	}
+	public String getPayStatus(){
+		return payStatus;
+	}
+	public void setPayStatus(String payStatus){
+		this.payStatus=payStatus;
+	}
+	public Date getPayTime(){
+		return payTime;
+	}
+	public void setPayTime(Date payTime){
+		this.payTime=payTime;
 	}
 	public String getOperator(){
 		return operator;

@@ -87,6 +87,15 @@
     $(document).ready(function () {
         App.init();
     });
+
+    $(document).keyup(function(event){
+        if(event.keyCode ==13) {
+            if ($("#captcha").val().length >= 4) {
+                formSubmit();
+            }
+        }
+    });
+
     function formSubmit() {
         var encrypt = new JSEncrypt();
         encrypt.setPublicKey('${stringUtil.getPublicKey()}');

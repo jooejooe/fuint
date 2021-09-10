@@ -26,6 +26,11 @@ public class UserOrderDto implements Serializable {
 	private String type;
 
 	/**
+	 * 类型名称
+	 * */
+	private String typeName;
+
+	/**
 	 * 卡券ID
 	 */
 	private Integer couponId;
@@ -71,9 +76,19 @@ public class UserOrderDto implements Serializable {
 	private String updateTime;
 
 	/**
+	 * 支付时间
+	 */
+	private String payTime;
+
+	/**
 	 * 状态
 	 */
 	private String status;
+
+	/**
+	 * 支付状态
+	 */
+	private String payStatus;
 
 	/**
 	 * 状态
@@ -112,6 +127,12 @@ public class UserOrderDto implements Serializable {
 	}
 	public void setType(String type){
 		this.type=type;
+	}
+	public String getTypeName() {
+		return typeName;
+	}
+	public void setTypeName(String typeName) {
+		this.typeName=typeName;
 	}
 	public Integer getCouponId(){
 		return couponId;
@@ -178,6 +199,18 @@ public class UserOrderDto implements Serializable {
 	}
 	public void setStatusText(String statusText){
 		this.statusText=statusText;
+	}
+	public String getPayStatus(){
+		return payStatus;
+	}
+	public void setPayStatus(String payStatus){
+		this.payStatus=payStatus;
+	}
+	public String getPayTime(){
+		return payTime;
+	}
+	public void setPayTime(String payTime){
+		this.payTime=payTime;
 	}
 	public String getOperator(){
 		return operator;

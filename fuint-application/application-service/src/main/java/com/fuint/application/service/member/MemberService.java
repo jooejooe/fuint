@@ -73,7 +73,7 @@ public interface MemberService {
     MtUserGrade queryMemberGradeByGradeId(Integer id) throws BusinessCheckException;
 
     /**
-     * 根据会员用户手机获取会员用户信息
+     * 根据会员用户手机获取会员信息
      *
      * @param mobile 会员用户手机
      * @throws BusinessCheckException
@@ -89,7 +89,7 @@ public interface MemberService {
     List<MtUser> queryEffectiveMemberRange(Map<String, Object> params) throws BusinessCheckException;
 
     /**
-     * 更改状态(禁用)
+     * 更改状态
      *
      * @param ids
      * @throws com.fuint.exception.BusinessCheckException

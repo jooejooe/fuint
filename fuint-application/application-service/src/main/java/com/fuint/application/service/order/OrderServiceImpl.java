@@ -9,6 +9,7 @@ import com.fuint.application.dao.entities.MtUser;
 import com.fuint.application.dao.repositories.MtOrderRepository;
 import com.fuint.application.dto.*;
 import com.fuint.application.enums.OrderTypeEnum;
+import com.fuint.application.enums.PayStatusEnum;
 import com.fuint.application.service.coupon.CouponService;
 import com.fuint.application.service.member.MemberService;
 import com.fuint.application.util.CommonUtil;
@@ -21,10 +22,14 @@ import com.fuint.exception.BusinessRuntimeException;
 import com.fuint.application.enums.StatusEnum;
 import com.fuint.application.enums.OrderStatusEnum;
 import org.apache.commons.collections.map.HashedMap;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -56,18 +61,6 @@ public class OrderServiceImpl extends BaseService implements OrderService {
     private Environment env;
 
     /**
-     * 分页查询订单列表
-     *
-     * @param paginationRequest
-     * @return
-     */
-    @Override
-    public PaginationResponse<MtOrder> getOrderListByPagination(PaginationRequest paginationRequest) throws BusinessCheckException {
-        PaginationResponse<MtOrder> paginationResponse = orderRepository.findResultsByPagination(paginationRequest);
-        return paginationResponse;
-    }
-
-    /**
      * 获取用户订单列表
      * @param paramMap
      * @throws BusinessCheckException
@@ -77,9 +70,13 @@ public class OrderServiceImpl extends BaseService implements OrderService {
     public ResponseObject getUserOrderList(Map<String, Object> paramMap) throws BusinessCheckException {
         Integer pageNumber = paramMap.get("pageNumber") == null ? Constants.PAGE_NUMBER : Integer.parseInt(paramMap.get("pageNumber").toString());
         Integer pageSize = paramMap.get("pageSize") == null ? Constants.PAGE_SIZE : Integer.parseInt(paramMap.get("pageSize").toString());
-        String userId = paramMap.get("userId") == null ? "0" : paramMap.get("userId").toString();
+        String userId = paramMap.get("userId") == null ? "" : paramMap.get("userId").toString();
         String status =  paramMap.get("status") == null ? "": paramMap.get("status").toString();
+        String payStatus =  paramMap.get("payStatus") == null ? "": paramMap.get("payStatus").toString();
         String dataType =  paramMap.get("dataType") == null ? "": paramMap.get("dataType").toString();
+        String type =  paramMap.get("type") == null ? "": paramMap.get("type").toString();
+        String orderSn =  paramMap.get("orderSn") == null ? "": paramMap.get("orderSn").toString();
+        String mobile =  paramMap.get("mobile") == null ? "": paramMap.get("mobile").toString();
 
         if (dataType.equals("pay")) {
             status = OrderStatusEnum.CREATED.getKey();// 待支付
@@ -94,11 +91,29 @@ public class OrderServiceImpl extends BaseService implements OrderService {
         paginationRequest.setPageSize(pageSize);
 
         Map<String, Object> searchParams = new HashedMap();
-        searchParams.put("EQ_status", status);
-        searchParams.put("EQ_userId", userId);
+
+        if (StringUtils.isNotEmpty(orderSn)) {
+            searchParams.put("EQ_orderSn", orderSn);
+        }
+        if (StringUtils.isNotEmpty(status)) {
+            searchParams.put("EQ_status", status);
+        }
+        if (StringUtils.isNotEmpty(payStatus)) {
+            searchParams.put("EQ_payStatus", payStatus);
+        }
+        if (StringUtils.isNotEmpty(mobile)) {
+            MtUser userInfo = memberService.queryMemberByMobile(mobile);
+            userId = userInfo.getId()+"";
+        }
+        if (StringUtils.isNotEmpty(userId)) {
+            searchParams.put("EQ_userId", userId);
+        }
+        if (StringUtils.isNotEmpty(type)) {
+            searchParams.put("EQ_type", type);
+        }
 
         paginationRequest.setSearchParams(searchParams);
-        paginationRequest.setSortColumn(new String[]{"updateTime desc", "status asc"});
+        paginationRequest.setSortColumn(new String[]{"createTime desc", "status asc"});
         PaginationResponse<MtOrder> paginationResponse = orderRepository.findResultsByPagination(paginationRequest);
 
         List<UserOrderDto> dataList = new ArrayList<>();
@@ -109,14 +124,14 @@ public class OrderServiceImpl extends BaseService implements OrderService {
             }
         }
 
-        ResUserOrderDto resUserOrderDto = new ResUserOrderDto();
-        resUserOrderDto.setPageNumber(pageNumber);
-        resUserOrderDto.setPageSize(pageSize);
-        resUserOrderDto.getTotalRow(paginationResponse.getTotalElements());
-        resUserOrderDto.setTotalPage(paginationResponse.getTotalPages());
-        resUserOrderDto.setContent(dataList);
+        Long total = paginationResponse.getTotalElements();
+        PageRequest pageRequest = new PageRequest(paginationRequest.getCurrentPage(), paginationRequest.getPageSize());
+        Page page = new PageImpl(dataList, pageRequest, total.longValue());
+        PaginationResponse<UserOrderDto> pageResponse = new PaginationResponse(page, UserOrderDto.class);
+        pageResponse.setContent(page.getContent());
+        pageResponse.setCurrentPage(pageResponse.getCurrentPage() + 1);
 
-        return getSuccessResult(resUserOrderDto);
+        return getSuccessResult(pageResponse);
     }
 
     /**
@@ -142,6 +157,7 @@ public class OrderServiceImpl extends BaseService implements OrderService {
         MtOrder.setStatus(OrderStatusEnum.CREATED.getKey());
         MtOrder.setType(orderDto.getType());
         MtOrder.setAmount(orderDto.getAmount());
+        MtOrder.setPayStatus(PayStatusEnum.WAIT.getKey());
 
         try {
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -202,14 +218,14 @@ public class OrderServiceImpl extends BaseService implements OrderService {
     }
 
     /**
-     * 修改订单
+     * 更新订单
      *
      * @param orderDto
      * @throws BusinessCheckException
      */
     @Override
     @Transactional
-    @OperationServiceLog(description = "修改订单")
+    @OperationServiceLog(description = "更新订单")
     public MtOrder updateOrder(OrderDto orderDto) throws BusinessCheckException {
         MtOrder MtOrder = orderRepository.findOne(orderDto.getId());
         if (null == MtOrder || StatusEnum.DISABLE.getKey().equals(MtOrder.getStatus())) {
@@ -230,6 +246,14 @@ public class OrderServiceImpl extends BaseService implements OrderService {
 
         if (null != orderDto.getPayAmount()) {
             MtOrder.setPayAmount(orderDto.getPayAmount());
+        }
+
+        if (null != orderDto.getPayTime()) {
+            MtOrder.setPayTime(orderDto.getPayTime());
+        }
+
+        if (null != orderDto.getPayStatus()) {
+            MtOrder.setPayStatus(orderDto.getPayStatus());
         }
 
         return orderRepository.save(MtOrder);
@@ -257,13 +281,29 @@ public class OrderServiceImpl extends BaseService implements OrderService {
         dto.setOrderSn(orderInfo.getOrderSn());
         dto.setRemark(orderInfo.getRemark());
         dto.setType(orderInfo.getType());
-        String createTime = DateUtil.formatDate(orderInfo.getCreateTime(), "yyyy.MM.dd HH:mm");
-        dto.setCreateTime(createTime);
+        dto.setCreateTime(DateUtil.formatDate(orderInfo.getCreateTime(), "yyyy.MM.dd HH:mm"));
+        dto.setUpdateTime(DateUtil.formatDate(orderInfo.getUpdateTime(), "yyyy.MM.dd HH:mm"));
         dto.setAmount(orderInfo.getAmount());
         dto.setPayAmount(orderInfo.getPayAmount());
         dto.setDiscount(orderInfo.getDiscount());
         dto.setStatus(orderInfo.getStatus());
         dto.setParam(orderInfo.getParam());
+        dto.setPayStatus(orderInfo.getPayStatus());
+        if (orderInfo.getPayTime() != null) {
+            dto.setPayTime(DateUtil.formatDate(orderInfo.getPayTime(), "yyyy.MM.dd HH:mm"));
+        }
+
+        if (dto.getType().equals(OrderTypeEnum.PRESTORE.getKey())) {
+            dto.setTypeName(OrderTypeEnum.PRESTORE.getValue());
+        } else if(dto.getType().equals(OrderTypeEnum.PAYMENT.getKey())) {
+            dto.setTypeName(OrderTypeEnum.PAYMENT.getValue());
+        } else if(dto.getType().equals(OrderTypeEnum.GOOGS.getKey())) {
+            dto.setTypeName(OrderTypeEnum.GOOGS.getValue());
+        } else if(dto.getType().equals(OrderTypeEnum.MEMBER.getKey())) {
+            dto.setTypeName(OrderTypeEnum.MEMBER.getValue());
+        } else if(dto.getType().equals(OrderTypeEnum.RECHARGE.getKey())) {
+            dto.setTypeName(OrderTypeEnum.RECHARGE.getValue());
+        }
 
         if (dto.getStatus().equals(OrderStatusEnum.CREATED.getKey())) {
             dto.setStatusText(OrderStatusEnum.CREATED.getValue());
@@ -276,11 +316,13 @@ public class OrderServiceImpl extends BaseService implements OrderService {
         // 下单用户信息暂时直接取会员个人信息
         OrderUserDto userInfo = new OrderUserDto();
         MtUser user = memberService.queryMemberById(orderInfo.getUserId());
-        userInfo.setName(user.getName());
-        userInfo.setMobile(user.getMobile());
-        userInfo.setCardNo(user.getCarNo());
-        userInfo.setAddress(user.getAddress());
-        dto.setUserInfo(userInfo);
+        if (user != null) {
+            userInfo.setName(user.getName());
+            userInfo.setMobile(user.getMobile());
+            userInfo.setCardNo(user.getCarNo());
+            userInfo.setAddress(user.getAddress());
+            dto.setUserInfo(userInfo);
+        }
 
         List<OrderGoodsDto> goodsList = new ArrayList<>();
 

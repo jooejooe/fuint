@@ -26,5 +26,5 @@ public interface PointService {
      * @param reqPointDto
      * @throws BusinessCheckException
      */
-    MtPoint addPoint(MtPoint reqPointDto) throws BusinessCheckException;
+    void addPoint(MtPoint reqPointDto) throws BusinessCheckException;
 }

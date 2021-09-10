@@ -66,7 +66,7 @@
                             </#if>
                             </#list>
                         </td>
-                        <td>${ct.mobile}</td>
+                        <td><#if (ct.mobile)>${ct.mobile}<#else>-</#if></td>
                         <td>${ct.name}</td>
                         <td><#if (ct.birthday)>${ct.birthday}<#else>-</#if></td>
                         <td><#if (ct.balance > 0)>${ct.balance}<#else>0.0</#if></td>
@@ -83,7 +83,7 @@
                         <td>
                             <a class="label label-success small-btn" href="javascript:getData('${rc.contextPath}/backend/member/memberEditInit/${ct.id}','displayArea')"><i class="fa fa-edit"></i>编辑</a>
                             <#if ct.status == "A">
-                            <a class="label label-danger small-btn" href="javascript:getConfirmData('确定删除该会员用户信息吗?','${rc.contextPath}/backend/member/delete/${ct.id}','displayArea')"><i class="fa fa-remove"></i>删除</a>
+                            <a class="label label-danger small-btn" href="javascript:getConfirmData('确定删除该会员信息吗?','${rc.contextPath}/backend/member/delete/${ct.id}','displayArea')"><i class="fa fa-remove"></i>删除</a>
                             </#if>
                         </td>
                     </tr>

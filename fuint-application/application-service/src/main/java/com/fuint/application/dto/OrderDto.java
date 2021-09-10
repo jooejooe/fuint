@@ -61,9 +61,19 @@ public class OrderDto implements Serializable {
 	private Date updateTime;
 
 	/**
-	 * 状态
+	 * 支付时间
+	 */
+	private Date payTime;
+
+	/**
+	 * 订单状态
 	 */
 	private String status;
+
+	/**
+	 * 支付状态
+	 */
+	private String payStatus;
 
 	/**
 	 * 最后操作人
@@ -136,11 +146,23 @@ public class OrderDto implements Serializable {
 	public void setUpdateTime(Date updateTime){
 		this.updateTime=updateTime;
 	}
+	public Date getPayTime(){
+		return payTime;
+	}
+	public void setPayTime(Date payTime){
+		this.payTime=payTime;
+	}
 	public String getStatus(){
 		return status;
 	}
 	public void setStatus(String status){
 		this.status=status;
+	}
+	public String getPayStatus(){
+		return payStatus;
+	}
+	public void setPayStatus(String payStatus){
+		this.payStatus=payStatus;
 	}
 	public String getOperator(){
 		return operator;

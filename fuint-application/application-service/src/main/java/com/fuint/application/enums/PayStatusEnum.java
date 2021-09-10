@@ -1,24 +1,20 @@
 package com.fuint.application.enums;
 
 /**
- * 订单状态枚举
+ * 支付状态
+ *
  * Created by FSQ
  * Contact wx fsq_better
  */
-public enum OrderStatusEnum {
-    CREATED("A", "待支付"),
-    PAID("B", "已支付"),
-    CANCEL("C", "已取消"),
-    DELIVERY("D", "待发货"),
-    DELIVERED("E", "已发货"),
-    RECEIVED("F", "已收货"),
-    DELETED("G", "已删除"),;
+public enum PayStatusEnum {
+    WAIT("A", "未支付"),
+    SUCCESS("B", "已支付");
 
     private String key;
 
     private String value;
 
-    OrderStatusEnum(String key, String value) {
+    PayStatusEnum(String key, String value) {
         this.key = key;
         this.value = value;
     }

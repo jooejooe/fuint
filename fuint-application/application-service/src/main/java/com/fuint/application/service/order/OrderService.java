@@ -4,8 +4,6 @@ import com.fuint.application.ResponseObject;
 import com.fuint.application.dao.entities.MtOrder;
 import com.fuint.application.dto.OrderDto;
 import com.fuint.application.dto.UserOrderDto;
-import com.fuint.base.dao.pagination.PaginationRequest;
-import com.fuint.base.dao.pagination.PaginationResponse;
 import com.fuint.exception.BusinessCheckException;
 import java.util.List;
 import java.util.Map;
@@ -16,13 +14,6 @@ import java.util.Map;
  * Contact wx fsq_better
  */
 public interface OrderService {
-    /**
-     * 分页查询列表
-     *
-     * @param paginationRequest
-     * @return
-     */
-    PaginationResponse<MtOrder> getOrderListByPagination(PaginationRequest paginationRequest) throws BusinessCheckException;
 
     /**
      * 获取用户的订单

@@ -7,10 +7,11 @@ package com.fuint.application.enums;
  * Contact wx fsq_better
  */
 public enum OrderTypeEnum {
-    PRESTORE("prestore", "预存卡订单"),
-    MEMBER("member", "会员升级订单"),
+    PAYMENT("payment", "收款订单"),
+    GOOGS("goods", "商品订单"),
     RECHARGE("recharge", "充值订单"),
-    GOOGS("goods", "商品订单");
+    PRESTORE("prestore", "预存卡订单"),
+    MEMBER("member", "会员升级订单");
 
     private String key;
 
