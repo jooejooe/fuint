@@ -4,7 +4,6 @@ import com.fuint.application.dao.entities.MtMessage;
 import com.fuint.application.service.message.MessageService;
 import com.fuint.exception.BusinessCheckException;
 import com.fuint.application.service.token.TokenService;
-import jodd.util.StringUtil;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,7 +42,7 @@ public class MessageController extends BaseController {
     private TokenService tokenService;
 
     /**
-     * 查询最新提条消息
+     * 查询最新一条未读消息
      *
      * @param request  Request对象
      */
@@ -53,12 +52,12 @@ public class MessageController extends BaseController {
         String token = request.getHeader("Access-Token");
 
         if (StringUtils.isEmpty(token)) {
-            return getFailureResult(1001);
+            return getSuccessResult(false);
         }
 
         MtUser mtUser = tokenService.getUserInfoByToken(token);
         if (null == mtUser) {
-            return getFailureResult(1001);
+            return getSuccessResult(false);
         }
 
         MtMessage messageInfo = messageService.getOne(mtUser.getId());
@@ -86,12 +85,12 @@ public class MessageController extends BaseController {
         Integer msgId =  request.getParameter("msgId") == null ? 0 :Integer.parseInt(request.getParameter("msgId"));
 
         if (null == mtUser) {
-            return getFailureResult(1001);
+            return getSuccessResult(false);
         }
 
         messageService.readMessage(msgId);
 
-        ResponseObject responseObject = getSuccessResult(null);
+        ResponseObject responseObject = getSuccessResult(true);
         return getSuccessResult(responseObject.getData());
     }
 }

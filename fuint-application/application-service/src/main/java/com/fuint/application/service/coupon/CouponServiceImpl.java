@@ -758,11 +758,11 @@ public class CouponServiceImpl extends BaseService implements CouponService {
     }
 
     /**
-     * 根据券ID 撤销个人卡券消费流水
+     * 根据券ID 撤销个人卡券核销
      *
-     * @param id       消费流水ID
-     * @param userCouponId       用户卡券ID
-     * @param operator 操作人
+     * @param id             核销流水ID
+     * @param userCouponId   用户卡券ID
+     * @param operator       操作人
      * @throws BusinessCheckException
      */
     @Override

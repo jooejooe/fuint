@@ -37,7 +37,7 @@ public interface MessageService {
     void readMessage(Integer msg_id) throws BusinessCheckException;
 
     /**
-     * 获取最新一条消息
+     * 获取最新一条未读消息
      *
      * @throws BusinessCheckException
      */

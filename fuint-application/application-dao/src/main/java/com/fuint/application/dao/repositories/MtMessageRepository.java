@@ -15,7 +15,7 @@ import java.util.List;
 @Repository 
 public interface MtMessageRepository extends BaseRepository<MtMessage, Integer> {
    /**
-    * 获取最新一条消息
+    * 获取最新未读消息
     *
     * @return
     * */

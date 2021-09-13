@@ -133,8 +133,8 @@ public class CouponApiController extends BaseController {
         String effectiveDate = DateUtil.formatDate(couponInfo.getBeginTime(), "yyyy.MM.dd") + " - " + DateUtil.formatDate(couponInfo.getEndTime(), "yyyy.MM.dd");
         dto.setEffectiveDate(effectiveDate);
 
-        dto.setGotNum(10093);
-        dto.setLimitNum(1092);
+        dto.setGotNum(0);
+        dto.setLimitNum(0);
 
         return getSuccessResult(dto);
     }

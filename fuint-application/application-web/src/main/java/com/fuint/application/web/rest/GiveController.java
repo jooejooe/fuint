@@ -7,7 +7,6 @@ import com.fuint.exception.BusinessCheckException;
 import com.fuint.application.dto.GiveDto;
 import com.fuint.application.service.give.GiveService;
 import com.fuint.application.service.token.TokenService;
-import com.fuint.application.service.verifycode.VerifyCodeService;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

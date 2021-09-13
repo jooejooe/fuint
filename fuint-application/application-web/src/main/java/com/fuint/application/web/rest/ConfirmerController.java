@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
@@ -51,7 +50,7 @@ public class ConfirmerController extends BaseController{
      */
     @RequestMapping(value = "/doAdd", method = RequestMethod.POST)
     @CrossOrigin
-    public ResponseObject doAddConfirmer(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException{
+    public ResponseObject doAdd(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException{
         String mobile = CommonUtil.replaceXSS(request.getParameter("mobile"));
         String storeID = request.getParameter("storeID");
 
@@ -82,19 +81,18 @@ public class ConfirmerController extends BaseController{
         try {
             mtConfirmer.setStoreId(Integer.parseInt(storeID));
             MtStore mtStore=storeService.queryStoreById(Integer.parseInt(storeID));
-            if(mtStore==null) {
+            if (mtStore==null) {
                 return getFailureResult(1002, "店铺ID不正确");
             }
-
-        }catch (Exception e) {
+        } catch (Exception e) {
             return getFailureResult(1002, "店铺ID不正确");
         }
 
         MtConfirmer mtConfirmer2=confirmerService.queryConfirmerByMobile(mobile);
-        if(mtConfirmer2 != null) {
-            if(mtConfirmer2.getAuditedStatus().equals(StatusEnum.ENABLED.getKey())||mtConfirmer2.getAuditedStatus().equals(StatusEnum.FORBIDDEN.getKey())) {
+        if (mtConfirmer2 != null) {
+            if (mtConfirmer2.getAuditedStatus().equals(StatusEnum.ENABLED.getKey())||mtConfirmer2.getAuditedStatus().equals(StatusEnum.FORBIDDEN.getKey())) {
                 return getFailureResult(1002, "手机号不能重复提交！");
-            }else {
+            } else {
                 mtConfirmer2.setAuditedStatus(StatusEnum.UnAudited.getKey());
                 mtConfirmer2.setUserId(null);
                 mtConfirmer2.setStoreId(Integer.parseInt(storeID));
@@ -113,7 +111,7 @@ public class ConfirmerController extends BaseController{
      */
     @RequestMapping(value = "/getStoreList", method = RequestMethod.POST)
     @CrossOrigin
-    public ResponseObject getStoreList(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException{
+    public ResponseObject getStoreList(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException {
         Map<String, Object> params = new HashMap<>();
         params.put("EQ_status", StatusEnum.ENABLED.getKey());
         List<MtStore> storeList = storeService.queryStoresByParams(params);

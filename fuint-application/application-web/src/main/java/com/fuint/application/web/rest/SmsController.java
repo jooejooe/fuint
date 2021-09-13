@@ -12,15 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import com.fuint.application.BaseController;
 import com.fuint.application.ResponseObject;
-import java.util.*;
 import com.fuint.application.util.PhoneFormatCheckUtils;
+import java.util.*;
 
 /**
  * 短信类controller

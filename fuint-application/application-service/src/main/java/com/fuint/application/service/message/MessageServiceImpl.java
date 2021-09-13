@@ -86,7 +86,7 @@ public class MessageServiceImpl implements MessageService {
     }
 
     /**
-     * 获取最新一条消息
+     * 获取最新一条未读消息
      *
      * @throws BusinessCheckException
      */

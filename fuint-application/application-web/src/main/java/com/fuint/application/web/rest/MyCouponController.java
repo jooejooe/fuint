@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 
-/**-
+/**
  * 我的卡券controller
  * Created by FSQ
  * Contact wx fsq_better
@@ -50,8 +50,8 @@ public class MyCouponController extends BaseController {
     @CrossOrigin
     public ResponseObject list(HttpServletRequest request, HttpServletResponse response) throws BusinessCheckException {
         String token = request.getHeader("Access-Token");
-        String status = request.getParameter("status") == null ? "" : request.getParameter("status").toString();
-        String type = request.getParameter("type") == null ? "" : request.getParameter("type").toString();
+        String status = request.getParameter("status") == null ? "" : request.getParameter("status");
+        String type = request.getParameter("type") == null ? "" : request.getParameter("type");
 
         if (StringUtils.isEmpty(token)) {
             return getFailureResult(1001);

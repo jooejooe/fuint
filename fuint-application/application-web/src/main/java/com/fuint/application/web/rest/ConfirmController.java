@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 import com.fuint.application.BaseController;
 import com.fuint.application.ResponseObject;
 import com.fuint.application.dao.entities.MtUser;
-
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.util.HashMap;
