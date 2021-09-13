@@ -85,7 +85,7 @@ public class ConfirmController extends BaseController {
             return getFailureResult(1003, "二维码已过期，请重新获取！");
         }
 
-        MtCoupon couponInfo = couponService.queryCouponById(userCoupon.getCouponId().longValue());
+        MtCoupon couponInfo = couponService.queryCouponById(userCoupon.getCouponId());
 
         // 核销人员是否已经被审核
         HashMap params = new HashMap<>();

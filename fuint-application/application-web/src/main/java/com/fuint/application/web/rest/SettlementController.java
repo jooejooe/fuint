@@ -91,7 +91,7 @@ public class SettlementController extends BaseController {
             String orderParam = "";
             BigDecimal totalAmount = new BigDecimal(0);
 
-            MtCoupon couponInfo = couponService.queryCouponById(couponId.longValue());
+            MtCoupon couponInfo = couponService.queryCouponById(couponId);
             String inRule = couponInfo.getInRule();
             String[] selectNumArr = selectNum.split(",");
             String[] ruleArr = inRule.split(",");

@@ -114,7 +114,7 @@ public class CouponApiController extends BaseController {
 
         Integer couponId = param.get("couponId") == null ? 0 : Integer.parseInt(param.get("couponId").toString());
 
-        MtCoupon couponInfo = couponService.queryCouponById(couponId.longValue());
+        MtCoupon couponInfo = couponService.queryCouponById(couponId);
 
         CouponDto dto = new CouponDto();
         BeanUtils.copyProperties(dto, couponInfo);

@@ -48,7 +48,7 @@ public interface CouponService {
      * @param id 券ID
      * @throws BusinessCheckException
      */
-    MtCoupon queryCouponById(Long id) throws BusinessCheckException;
+    MtCoupon queryCouponById(Integer id) throws BusinessCheckException;
 
     /**
      * 根据分组ID 删除卡券信息

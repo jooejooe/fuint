@@ -330,7 +330,7 @@ public class OrderServiceImpl extends BaseService implements OrderService {
 
         // 预存卡的订单
         if (orderInfo.getType().equals(OrderTypeEnum.PRESTORE.getKey())) {
-            MtCoupon coupon = couponService.queryCouponById(orderInfo.getCouponId().longValue());
+            MtCoupon coupon = couponService.queryCouponById(orderInfo.getCouponId());
             String[] paramArr = orderInfo.getParam().split(",");
             for(int i = 0; i < paramArr.length; i++) {
                 String[] item = paramArr[i].split("_");

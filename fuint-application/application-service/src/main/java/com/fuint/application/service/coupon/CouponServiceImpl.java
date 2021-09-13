@@ -222,8 +222,8 @@ public class CouponServiceImpl extends BaseService implements CouponService {
      * @throws BusinessCheckException
      */
     @Override
-    public MtCoupon queryCouponById(Long id) throws BusinessCheckException {
-        return couponRepository.findOne(id.intValue());
+    public MtCoupon queryCouponById(Integer id) throws BusinessCheckException {
+        return couponRepository.findOne(id);
     }
 
     /**
@@ -236,7 +236,7 @@ public class CouponServiceImpl extends BaseService implements CouponService {
     @Override
     @OperationServiceLog(description = "删除卡券")
     public void deleteCoupon(Long id, String operator) throws BusinessCheckException {
-        MtCoupon coupon = this.queryCouponById(id);
+        MtCoupon coupon = this.queryCouponById(id.intValue());
         if (null == coupon) {
             return;
         }
@@ -258,7 +258,7 @@ public class CouponServiceImpl extends BaseService implements CouponService {
     @Transactional
     @OperationServiceLog(description = "修改卡券")
     public MtCoupon updateCoupon(ReqCouponDto reqCouponDto) throws BusinessCheckException {
-        MtCoupon coupon = this.queryCouponById(reqCouponDto.getId());
+        MtCoupon coupon = this.queryCouponById(reqCouponDto.getId().intValue());
 
         if (null == coupon) {
             throw new BusinessCheckException("该卡券不存在！");
@@ -308,7 +308,7 @@ public class CouponServiceImpl extends BaseService implements CouponService {
             List<String> statusList = Arrays.asList(UserCouponStatusEnum.UNUSED.getKey());
             List<MtUserCoupon> data = userCouponRepository.getUserCouponList(Integer.parseInt(userId), statusList);
             for (MtUserCoupon uc : data) {
-                MtCoupon coupon = this.queryCouponById(uc.getCouponId().longValue());
+                MtCoupon coupon = this.queryCouponById(uc.getCouponId());
                 if (coupon.getEndTime().before(new Date())) {
                     uc.setStatus(StatusEnum.EXPIRED.getKey());
                     uc.setUpdateTime(new Date());
@@ -337,7 +337,7 @@ public class CouponServiceImpl extends BaseService implements CouponService {
 
         if (paginationResponse.getContent().size() > 0) {
             for (MtUserCoupon userCouponDto : paginationResponse.getContent()) {
-                 MtCoupon couponInfo = this.queryCouponById(userCouponDto.getCouponId().longValue());
+                 MtCoupon couponInfo = this.queryCouponById(userCouponDto.getCouponId());
 
                  MyCouponDto dto = new MyCouponDto();
                  dto.setId(userCouponDto.getId());
@@ -608,7 +608,7 @@ public class CouponServiceImpl extends BaseService implements CouponService {
         }
 
         // 是否处于有效期
-        MtCoupon couponInfo = this.queryCouponById(userCoupon.getCouponId().longValue());
+        MtCoupon couponInfo = this.queryCouponById(userCoupon.getCouponId());
         Date begin = couponInfo.getBeginTime();
         Date end = couponInfo.getEndTime();
         Date now = new Date();
@@ -863,7 +863,7 @@ public class CouponServiceImpl extends BaseService implements CouponService {
 
         for (int i = 0; i < coupondIdList.size(); i++) {
             Integer couponId = coupondIdList.get(i);
-            MtCoupon couponInfo = this.queryCouponById(couponId.longValue());
+            MtCoupon couponInfo = this.queryCouponById(couponId);
             if (couponInfo.getStatus().equals("A") && couponInfo.getEndTime().after(nowDate)) {
                 couponIds.add(couponId);
             }

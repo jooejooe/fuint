@@ -288,7 +288,7 @@ public class GiveServiceImpl extends BaseService implements GiveService {
         for (String id : couponIds) {
             MtUserCoupon userCoupon = userCouponRepository.findOne(Integer.parseInt(id));
 
-            MtCoupon coupon = couponService.queryCouponById(userCoupon.getCouponId().longValue());
+            MtCoupon coupon = couponService.queryCouponById(userCoupon.getCouponId());
 
             if (!couponIdList.contains(coupon.getId().toString())) {
                 couponIdList.add(coupon.getId().toString());

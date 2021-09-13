@@ -72,7 +72,7 @@ public class doConfirmController extends BaseController {
             throw new BusinessRuntimeException("未查询到该卡券信息，请刷新后再试!");
         }
 
-        MtCoupon couponInfo = couponService.queryCouponById(userCoupon.getCouponId().longValue());
+        MtCoupon couponInfo = couponService.queryCouponById(userCoupon.getCouponId());
 
         String effectiveDate = DateUtil.formatDate(couponInfo.getBeginTime(), "yyyy.MM.dd") + " - " + DateUtil.formatDate(couponInfo.getEndTime(), "yyyy.MM.dd");
 

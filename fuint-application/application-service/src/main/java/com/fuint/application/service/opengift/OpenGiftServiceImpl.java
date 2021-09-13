@@ -7,6 +7,7 @@ import com.fuint.application.dao.entities.*;
 import com.fuint.application.dao.repositories.MtOpenGiftRepository;
 import com.fuint.application.dto.*;
 import com.fuint.application.service.coupon.CouponService;
+import com.fuint.application.service.message.MessageService;
 import com.fuint.application.service.point.PointService;
 import com.fuint.application.service.usercoupon.UserCouponService;
 import com.fuint.application.service.usergrade.UserGradeService;
@@ -30,6 +31,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -60,7 +63,7 @@ public class OpenGiftServiceImpl extends BaseService implements OpenGiftService 
     private PointService pointService;
 
     @Autowired
-    private Environment env;
+    private MessageService messageService;
 
     /**
      * 获取开卡赠礼列表
@@ -228,6 +231,8 @@ public class OpenGiftServiceImpl extends BaseService implements OpenGiftService 
         List<MtOpenGift> openGiftList = openGiftRepository.findAll(specification, sort);
 
         if (openGiftList.size() > 0) {
+           Integer totalPoint = 0;
+            BigDecimal totalAmount = new BigDecimal("0");
            for(MtOpenGift item : openGiftList) {
                // 叠加积分
                if (item.getPoint() > 0) {
@@ -236,6 +241,7 @@ public class OpenGiftServiceImpl extends BaseService implements OpenGiftService 
                    reqPointDto.setAmount(item.getPoint());
                    reqPointDto.setDescription("开卡赠送"+ item.getPoint() +"积分");
                    pointService.addPoint(reqPointDto);
+                   totalPoint = totalPoint + item.getPoint();
                }
                // 返卡券
                if (item.getCouponId() > 0) {
@@ -244,7 +250,26 @@ public class OpenGiftServiceImpl extends BaseService implements OpenGiftService 
                    param.put("userId", userId);
                    param.put("num", item.getCouponNum());
                    userCouponService.receiveCoupon(param);
+
+                   MtCoupon mtCoupon = couponService.queryCouponById(item.getCouponId());
+                   totalAmount = totalAmount.add(mtCoupon.getAmount());
                }
+           }
+
+           // 弹框消息
+           MtMessage msg = new MtMessage();
+           msg.setType("pop");
+           msg.setUserId(userId);
+           msg.setTitle("温馨提示");
+           if (totalAmount.compareTo(new BigDecimal("0")) > 0 && totalPoint > 0) {
+               msg.setContent("系统赠送您价值￥" + totalAmount + "卡券和" + totalPoint + "积分，请查收！");
+               messageService.addMessage(msg);
+           } else if(totalAmount.compareTo(new BigDecimal("0")) > 0) {
+               msg.setContent("系统赠送您价值" + totalAmount + "卡券，请查收！");
+               messageService.addMessage(msg);
+           } else if(totalPoint > 0) {
+               msg.setContent("系统赠送您" + totalPoint + "积分，请查收！");
+               messageService.addMessage(msg);
            }
         }
 
@@ -267,7 +292,7 @@ public class OpenGiftServiceImpl extends BaseService implements OpenGiftService 
         dto.setPoint(openGiftInfo.getPoint());
         dto.setOperator(openGiftInfo.getOperator());
 
-        MtCoupon couponInfo = couponService.queryCouponById(openGiftInfo.getCouponId().longValue());
+        MtCoupon couponInfo = couponService.queryCouponById(openGiftInfo.getCouponId());
         dto.setCouponInfo(couponInfo);
 
         MtUserGrade gradeInfo = userGradeService.queryUserGradeById(openGiftInfo.getGradeId());

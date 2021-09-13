@@ -348,7 +348,7 @@ public class couponController extends BaseController {
      */
     @RequiresPermissions("backend/coupon/couponEditInit")
     @RequestMapping(value = "/couponEditInit/{id}")
-    public String couponEditInit(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable("id") Long id) throws BusinessCheckException {
+    public String couponEditInit(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable("id") Integer id) throws BusinessCheckException {
         MtCoupon mtCouponInfo = couponService.queryCouponById(id);
 
         String baseImage = env.getProperty("images.website");

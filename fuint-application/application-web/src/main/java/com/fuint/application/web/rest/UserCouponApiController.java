@@ -103,7 +103,7 @@ public class UserCouponApiController extends BaseController {
             }
         }
 
-        MtCoupon couponInfo = couponService.queryCouponById(userCoupon.getCouponId().longValue());
+        MtCoupon couponInfo = couponService.queryCouponById(userCoupon.getCouponId());
         if (null == couponInfo) {
             return getFailureResult(1002);
         }

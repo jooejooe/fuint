@@ -269,7 +269,7 @@ public class MemberServiceImpl implements MemberService {
     /**
      * 根据等级ID获取会员等级信息
      *
-     * @param id 会员组ID
+     * @param id 等级ID
      * @throws BusinessCheckException
      */
     @Override

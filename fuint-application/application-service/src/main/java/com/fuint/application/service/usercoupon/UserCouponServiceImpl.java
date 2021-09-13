@@ -70,7 +70,7 @@ public class UserCouponServiceImpl extends BaseService implements UserCouponServ
         Integer userId = paramMap.get("userId") == null ? 0 : Integer.parseInt(paramMap.get("userId").toString());
         Integer num = paramMap.get("num") == null ? 1 : Integer.parseInt(paramMap.get("num").toString());
 
-        MtCoupon couponInfo = couponService.queryCouponById(couponId.longValue());
+        MtCoupon couponInfo = couponService.queryCouponById(couponId);
         if (null == couponInfo) {
             throw new BusinessCheckException(Message.COUPON_NOT_EXIST);
         }
@@ -149,7 +149,7 @@ public class UserCouponServiceImpl extends BaseService implements UserCouponServ
             throw new BusinessCheckException(Message.PARAM_ERROR);
         }
 
-        MtCoupon couponInfo = couponService.queryCouponById(couponId.longValue());
+        MtCoupon couponInfo = couponService.queryCouponById(couponId);
         if (null == couponInfo) {
             throw new BusinessCheckException(Message.COUPON_NOT_EXIST);
         }
