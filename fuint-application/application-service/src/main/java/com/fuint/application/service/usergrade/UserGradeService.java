@@ -5,6 +5,8 @@ import com.fuint.base.dao.pagination.PaginationRequest;
 import com.fuint.base.dao.pagination.PaginationResponse;
 import com.fuint.exception.BusinessCheckException;
 
+import java.util.List;
+
 /**
  * 会员等级业务接口
  * Created by FSQ
@@ -59,4 +61,11 @@ public interface UserGradeService {
      * @throws BusinessCheckException
      */
     MtUserGrade getInitUserGrade() throws BusinessCheckException;
+
+    /**
+     * 获取付费会员等级列表
+     *
+     * @throws BusinessCheckException
+     * */
+    List<MtUserGrade> getPayUserGradeList() throws BusinessCheckException;
 }

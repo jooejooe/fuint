@@ -135,4 +135,22 @@ public class UserGradeServiceImpl implements UserGradeService {
 
          return result;
     }
+
+    /**
+     * 获取付费会员等级列表
+     *
+     * @throws BusinessCheckException
+     * */
+    @Override
+    public List<MtUserGrade> getPayUserGradeList() {
+        Map<String, Object> param = new HashMap<>();
+        param.put("EQ_status", StatusEnum.ENABLED.getKey());
+        param.put("EQ_catchType", UserGradeCatchTypeEnum.PAY.getKey());
+
+        Specification<MtUserGrade> specification = userGradeRepository.buildSpecification(param);
+        Sort sort = new Sort(Sort.Direction.DESC, "catchValue");
+        List<MtUserGrade> dataList = userGradeRepository.findAll(specification, sort);
+
+        return dataList;
+    }
 }

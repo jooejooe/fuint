@@ -9,6 +9,7 @@ import com.fuint.application.service.confirmer.ConfirmerService;
 import com.fuint.application.service.member.MemberService;
 import com.fuint.application.service.usercoupon.UserCouponService;
 import com.fuint.application.service.coupon.CouponService;
+import com.fuint.application.service.usergrade.UserGradeService;
 import com.fuint.base.dao.pagination.PaginationRequest;
 import com.fuint.base.dao.pagination.PaginationResponse;
 import com.fuint.base.util.RequestHandler;
@@ -50,6 +51,9 @@ public class UserController extends BaseController {
     @Autowired
     private CouponService couponService;
 
+    @Autowired
+    private UserGradeService userGradeService;
+
     /**
      * 获取会员信息
      */
@@ -59,28 +63,27 @@ public class UserController extends BaseController {
         String userToken = request.getHeader("Access-Token");
         MtUser userInfo = tokenService.getUserInfoByToken(userToken);
 
-        if (null == userInfo) {
-            return getFailureResult(1001, "用户未登录");
+        MtUserGrade gradeInfo = null;
+        if (userInfo != null) {
+            userInfo = memberService.queryMemberById(userInfo.getId());
+            gradeInfo = memberService.queryMemberGradeByGradeId(Integer.parseInt(userInfo.getGradeId()));
         }
 
-        userInfo = memberService.queryMemberById(userInfo.getId());
-
-        if (null == userInfo.getGradeId()) {
-            userInfo.setGradeId("0");
-        }
-
-        MtUserGrade gradeInfo = memberService.queryMemberGradeByGradeId(Integer.parseInt(userInfo.getGradeId()));
+        List<MtUserGrade> memberGrade = userGradeService.getPayUserGradeList();
 
         Map<String, Object> outParams = new HashMap<>();
         outParams.put("userInfo", userInfo);
         outParams.put("gradeInfo", gradeInfo);
+        outParams.put("memberGrade", memberGrade);
 
         // 是否商户核销员
         boolean isMerchant = false;
-        MtConfirmer confirmInfo = confirmerService.queryConfirmerByUserId(userInfo.getId());
-        if (null != confirmInfo) {
-            if (confirmInfo.getAuditedStatus().equals(StatusEnum.ENABLED.getKey())) {
-                isMerchant = true;
+        if (userInfo != null) {
+            MtConfirmer confirmInfo = confirmerService.queryConfirmerByUserId(userInfo.getId());
+            if (null != confirmInfo) {
+                if (confirmInfo.getAuditedStatus().equals(StatusEnum.ENABLED.getKey())) {
+                    isMerchant = true;
+                }
             }
         }
         outParams.put("isMerchant", isMerchant);

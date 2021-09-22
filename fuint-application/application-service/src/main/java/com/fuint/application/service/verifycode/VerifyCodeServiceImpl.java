@@ -100,8 +100,8 @@ public class VerifyCodeServiceImpl implements VerifyCodeService {
 
         MtVerifyCode mtVerifyCode = verifyCodeRepository.findOne(id);
         if (mtVerifyCode == null) {
-            log.error("验证码不存在.");
-            throw new BusinessCheckException("验证码不存在.");
+            log.error("验证码不存在");
+            throw new BusinessCheckException("验证码不存在");
         }
 
         MtVerifyCode reVerifyCode=null;
