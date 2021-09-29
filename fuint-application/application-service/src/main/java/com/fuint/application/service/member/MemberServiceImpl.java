@@ -4,6 +4,7 @@ import com.fuint.application.dao.entities.MtUserGrade;
 import com.fuint.application.dao.repositories.MtUserGradeRepository;
 import com.fuint.application.service.opengift.OpenGiftService;
 import com.fuint.application.service.usergrade.UserGradeService;
+import com.fuint.application.util.DateUtil;
 import com.fuint.base.annoation.OperationServiceLog;
 import com.fuint.base.dao.pagination.PaginationRequest;
 import com.fuint.base.dao.pagination.PaginationResponse;
@@ -85,13 +86,13 @@ public class MemberServiceImpl implements MemberService {
     }
 
     /**
-     * 添加会员用户信息
+     * 添加会员
      *
      * @param mtUser
      * @throws BusinessCheckException
      */
     @Override
-    @OperationServiceLog(description = "添加会员信息")
+    @OperationServiceLog(description = "添加会员")
     public MtUser addMember(MtUser mtUser) throws BusinessCheckException {
         Boolean newFlag = Boolean.FALSE;
         try {
@@ -143,6 +144,20 @@ public class MemberServiceImpl implements MemberService {
     }
 
     /**
+     * 编辑会员
+     *
+     * @param mtUser
+     * @throws BusinessCheckException
+     */
+    @Override
+    @OperationServiceLog(description = "编辑会员")
+    @Transactional
+    public MtUser updateMember(MtUser mtUser) {
+        mtUser.setUpdateTime(new Date());
+        return userRepository.save(mtUser);
+    }
+
+    /**
      * 通过手机号添加会员
      *
      * @param mobile
@@ -150,6 +165,7 @@ public class MemberServiceImpl implements MemberService {
      */
     @Override
     @OperationServiceLog(description = "添加会员信息")
+    @Transactional
     public MtUser addMemberByMobile(String mobile) throws BusinessCheckException {
         MtUser mtUser = new MtUser();
         mtUser.setName(mobile);
@@ -194,8 +210,24 @@ public class MemberServiceImpl implements MemberService {
      * @throws BusinessCheckException
      */
     @Override
-    public MtUser queryMemberById(Integer id) {
+    public MtUser queryMemberById(Integer id) throws BusinessCheckException {
         MtUser mtUser = userRepository.findMembersById(id);
+
+        if (mtUser != null) {
+            // 检查会员是否过期，过期就把会员等级置为初始等级
+            Date endTime = mtUser.getEndTime();
+            if (endTime != null) {
+                Date now = new Date();
+                if (endTime.before(now)) {
+                    MtUserGrade grade = userGradeService.getInitUserGrade();
+                    if (!mtUser.getGradeId().equals(grade.getId())) {
+                        mtUser.setGradeId(grade.getId().toString());
+                        userRepository.save(mtUser);
+                    }
+                }
+            }
+        }
+
         return mtUser;
     }
 
@@ -209,13 +241,22 @@ public class MemberServiceImpl implements MemberService {
     public MtUser queryMemberByOpenId(String openId, JSONObject userInfo) throws BusinessCheckException {
         MtUser user = userRepository.queryMemberByOpenId(openId);
 
+        String avatar = StringUtils.isNotEmpty(userInfo.getString("avatarUrl")) ? userInfo.getString("avatarUrl") : "";
+        String gender = StringUtils.isNotEmpty(userInfo.getString("gender")) ? userInfo.getString("gender") : "1";
+        String country = StringUtils.isNotEmpty(userInfo.getString("country")) ? userInfo.getString("country") : "";
+        String province = StringUtils.isNotEmpty(userInfo.getString("province")) ? userInfo.getString("province") : "";
+        String city = StringUtils.isNotEmpty(userInfo.getString("city")) ? userInfo.getString("city") : "";
+
         if (user == null) {
             String nickName = userInfo.getString("nickName");
             String mobile = StringUtils.isNotEmpty(userInfo.getString("phone")) ? userInfo.getString("phone") : "";
 
             MtUser mtUser = new MtUser();
             if (StringUtils.isNotEmpty(mobile)) {
-                mtUser = this.queryMemberByMobile(mobile);
+                MtUser mtUserMobile = this.queryMemberByMobile(mobile);
+                if (mtUserMobile != null) {
+                    mtUser = mtUserMobile;
+                }
             }
 
             // 昵称为空，用手机号
@@ -224,6 +265,7 @@ public class MemberServiceImpl implements MemberService {
             }
 
             mtUser.setMobile(mobile);
+            mtUser.setAvatar(avatar);
             mtUser.setName(nickName);
             mtUser.setOpenId(openId);
             MtUserGrade grade = userGradeService.getInitUserGrade();
@@ -235,14 +277,21 @@ public class MemberServiceImpl implements MemberService {
             mtUser.setDescription("微信登录自动注册");
             mtUser.setIdcard("");
             mtUser.setStatus(StatusEnum.ENABLED.getKey());
+            mtUser.setAddress(country + province + city);
+            mtUser.setSex(Integer.parseInt(gender));
             userRepository.save(mtUser);
             user = userRepository.queryMemberByOpenId(openId);
 
             // 开卡赠礼
             openGiftService.openGift(user.getId(), Integer.parseInt(user.getGradeId()));
         } else {
+            // 已被禁用
+            if (user.getStatus().equals(StatusEnum.DISABLE.getKey())) {
+               return null;
+            }
+
             // 更新昵称和手机号码
-            String nickName = "";
+            String nickName = StringUtils.isNotEmpty(userInfo.getString("nickName")) ? userInfo.getString("nickName") : "";
             String name = user.getName();
             String mobile = StringUtils.isNotEmpty(userInfo.getString("phone")) ? userInfo.getString("phone") : "";
             if (StringUtils.isEmpty(name)) {
@@ -258,6 +307,13 @@ public class MemberServiceImpl implements MemberService {
             if (StringUtils.isNotEmpty(mobile)) {
                 user.setMobile(mobile);
             }
+            if (StringUtils.isNotEmpty(avatar)) {
+                user.setAvatar(avatar);
+            }
+            if (StringUtils.isEmpty(user.getAddress())) {
+                user.setAddress(country + province + city);
+            }
+            user.setSex(Integer.parseInt(gender));
 
             user.setUpdateTime(new Date());
             userRepository.save(user);
@@ -279,23 +335,9 @@ public class MemberServiceImpl implements MemberService {
     }
 
     /**
-     * 修改会员用户
+     * 禁用会员
      *
-     * @param mtUser
-     * @throws BusinessCheckException
-     */
-    @Override
-    @Transactional
-    @OperationServiceLog(description = "修改会员用户")
-    public MtUser updateMember(MtUser mtUser) throws BusinessCheckException {
-        MtUser mtUser_new = this.addMember(mtUser);
-        return mtUser_new;
-    }
-
-    /**
-     * 根据店铺ID 删除店铺信息
-     *
-     * @param id       店铺信息ID
+     * @param id       会员ID
      * @param operator 操作人
      * @throws BusinessCheckException
      */
@@ -307,23 +349,17 @@ public class MemberServiceImpl implements MemberService {
             return 0;
         }
 
-        List<String> statusList = Arrays.asList("A");
-        List<MtUserCoupon> listMtUserCoupon = mtUserCouponRepository.getUserCouponList(id, statusList);
-        if (listMtUserCoupon!=null && listMtUserCoupon.size()>0 ) {
-            log.error(id.toString()+"该会员用户有未使用的卡券，不能被删除!");
-            throw new BusinessCheckException("该会员用户有未使用的卡券，不能被删除!");
-        }
-
         mtUser.setStatus(StatusEnum.DISABLE.getKey());
 
-        // 清token缓存
+        // 清空token
         tokenService.removeTokenLikeMobile(mtUser.getMobile());
 
-        // 修改时间
         mtUser.setUpdateTime(new Date());
+        mtUser.setOperator(operator);
 
         userRepository.save(mtUser);
-        return 1;
+
+        return mtUser.getId();
     }
 
     /**

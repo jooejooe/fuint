@@ -189,11 +189,9 @@ public class CouponinfoController {
         try {
             if (StringUtils.isNotEmpty(GTE_usedTime)) {
                 params.put("GTE_usedTime", GTE_usedTime+" 00:00:00");
-                //params.put("GTE_usedTime", dtformat.parse(GTE_usedTime+" 00:00:00"));
             }
             if (StringUtils.isNotEmpty(LTE_usedTime)) {
                 params.put("LTE_usedTime", LTE_usedTime+" 23:59:59");
-                // params.put("LTE_usedTime", dtformat.parse(LTE_usedTime+" 23:59:59"));
             }
         } catch (Exception e) {
             throw new BusinessRuntimeException("日期转换异常" + e.getMessage());
@@ -508,7 +506,7 @@ public class CouponinfoController {
             return "redirect:/login";
         }
 
-        couponService.useCoupon(Long.parseLong(id),shiroUser.getId().intValue(),Integer.parseInt(storeId), new BigDecimal(mtUserCoupon.getBalance()+""), "");
+        couponService.useCoupon(Integer.parseInt(id), shiroUser.getId().intValue(),Integer.parseInt(storeId), new BigDecimal(mtUserCoupon.getBalance()+""), "");
 
         return "redirect:/backend/member/CouponinfoList";
     }

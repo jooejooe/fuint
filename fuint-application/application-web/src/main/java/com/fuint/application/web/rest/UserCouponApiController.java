@@ -47,18 +47,12 @@ public class UserCouponApiController extends BaseController {
     @Autowired
     private MtUserCouponRepository userCouponRepository;
 
-    /**
-     * 卡券服务接口
-     */
     @Autowired
     private CouponService couponService;
 
     @Autowired
     private ConfirmLogService confirmLogService;
 
-    /**
-     * Token服务接口
-     */
     @Autowired
     private TokenService tokenService;
 

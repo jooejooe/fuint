@@ -68,6 +68,18 @@ public class MtOrder implements Serializable{
 	@Column(name = "PAY_AMOUNT")
 	private BigDecimal payAmount;
 
+	/**
+	 * 积分金额
+	 */
+	@Column(name = "POINT_AMOUNT")
+	private BigDecimal pointAmount;
+
+	/**
+	 * 积分数量
+	 */
+	@Column(name = "USE_POINT", nullable = false, length = 10)
+	private Integer usePoint;
+
    /**
 	* 优惠金额
 	*/
@@ -175,6 +187,18 @@ public class MtOrder implements Serializable{
 	}
 	public void setPayAmount(BigDecimal payAmount){
 		this.payAmount=payAmount;
+	}
+	public BigDecimal getPointAmount(){
+		return pointAmount;
+	}
+	public void setPointAmount(BigDecimal pointAmount){
+		this.pointAmount=pointAmount;
+	}
+	public Integer getUsePoint(){
+		return usePoint;
+	}
+	public void setUsePoint(Integer usePoint){
+		this.usePoint=usePoint;
 	}
     public BigDecimal getDiscount(){
 	   return discount;

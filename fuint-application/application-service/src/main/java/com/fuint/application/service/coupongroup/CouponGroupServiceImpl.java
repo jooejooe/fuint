@@ -103,13 +103,13 @@ public class CouponGroupServiceImpl implements CouponGroupService {
      * @throws BusinessCheckException
      */
     @Override
-    @OperationServiceLog(description = "添加优惠分组")
+    @OperationServiceLog(description = "添加卡券分组")
     public MtCouponGroup addCouponGroup(ReqCouponGroupDto reqCouponGroupDto) throws BusinessCheckException {
         MtCouponGroup couponGroup = new MtCouponGroup();
 
         couponGroup.setName(CommonUtil.replaceXSS(reqCouponGroupDto.getName()));
-        couponGroup.setMoney(reqCouponGroupDto.getMoney());
-        couponGroup.setTotal(reqCouponGroupDto.getTotal());
+        couponGroup.setMoney(new BigDecimal("0"));
+        couponGroup.setTotal(0);
         couponGroup.setDescription(CommonUtil.replaceXSS(reqCouponGroupDto.getDescription()));
         couponGroup.setStatus(StatusEnum.ENABLED.getKey());
 
@@ -136,7 +136,7 @@ public class CouponGroupServiceImpl implements CouponGroupService {
      * @throws BusinessCheckException
      */
     @Override
-    public MtCouponGroup queryCouponGroupById(Long id) throws BusinessCheckException {
+    public MtCouponGroup queryCouponGroupById(Integer id) throws BusinessCheckException {
         return couponGroupRepository.findOne(id.intValue());
     }
 
@@ -149,7 +149,7 @@ public class CouponGroupServiceImpl implements CouponGroupService {
      */
     @Override
     @OperationServiceLog(description = "删除优惠分组")
-    public void deleteCouponGroup(Long id, String operator) throws BusinessCheckException {
+    public void deleteCouponGroup(Integer id, String operator) throws BusinessCheckException {
         MtCouponGroup couponGroup = this.queryCouponGroupById(id);
         if (null == couponGroup) {
             return;
@@ -174,7 +174,7 @@ public class CouponGroupServiceImpl implements CouponGroupService {
      */
     @Override
     @Transactional
-    @OperationServiceLog(description = "修改优惠分组")
+    @OperationServiceLog(description = "修改卡券分组")
     public MtCouponGroup updateCouponGroup(ReqCouponGroupDto reqcouponGroupDto) throws BusinessCheckException {
 
         MtCouponGroup couponGroup = this.queryCouponGroupById(reqcouponGroupDto.getId());
@@ -183,21 +183,17 @@ public class CouponGroupServiceImpl implements CouponGroupService {
             throw new BusinessCheckException("该分组不存在或已被删除");
         }
 
-        if (reqcouponGroupDto.getTotal() < couponGroup.getTotal()) {
-            throw new BusinessCheckException("券数只能增加");
-        }
-
         couponGroup.setId(reqcouponGroupDto.getId().intValue());
         couponGroup.setName(CommonUtil.replaceXSS(reqcouponGroupDto.getName()));
 
         couponGroup.setDescription(CommonUtil.replaceXSS(reqcouponGroupDto.getDescription()));
 
-        couponGroup.setTotal(reqcouponGroupDto.getTotal());
+        couponGroup.setTotal(0);
 
-        //修改时间
+        // 修改时间
         couponGroup.setUpdateTime(new Date());
 
-        //操作人
+        // 操作人
         couponGroup.setOperator(reqcouponGroupDto.getOperator());
 
         couponGroupRepository.save(couponGroup);
@@ -226,7 +222,7 @@ public class CouponGroupServiceImpl implements CouponGroupService {
      */
     @Override
     @Transactional
-    public BigDecimal getCouponMoney(Long groupId) throws BusinessCheckException {
+    public BigDecimal getCouponMoney(Integer groupId) throws BusinessCheckException {
         List<MtCoupon> couponList = couponRepository.queryByGroupId(groupId.intValue());
         MtCouponGroup groupInfo = this.queryCouponGroupById(groupId);
         BigDecimal money = BigDecimal.valueOf(0);
@@ -247,7 +243,7 @@ public class CouponGroupServiceImpl implements CouponGroupService {
      * @throws BusinessCheckException
      * */
     @Override
-    public Integer getSendedNum(Integer groupId) throws BusinessCheckException {
+    public Integer getSendedNum(Integer groupId) {
         List<Object[]> list = userCouponRepository.getSendedNum(groupId);
         if (null == list || list.size() < 1) {
             return 0;
@@ -386,7 +382,7 @@ public class CouponGroupServiceImpl implements CouponGroupService {
         }
 
         for (String key : groupIdMap.keySet()) {
-             MtCouponGroup groupInfo = this.queryCouponGroupById(Long.parseLong(key));
+             MtCouponGroup groupInfo = this.queryCouponGroupById(Integer.parseInt(key));
 
              if (null == groupInfo) {
                  if (StringUtil.isNotBlank(errorMsgNoGroup.toString())) {
@@ -401,7 +397,7 @@ public class CouponGroupServiceImpl implements CouponGroupService {
                  throw new BusinessCheckException("分组ID"+key+"可能已删除或禁用");
              }
 
-             List<MtCoupon> couponList = couponService.queryCouponListByGroupId(Long.parseLong(key));
+             List<MtCoupon> couponList = couponService.queryCouponListByGroupId(Integer.parseInt(key));
              if (couponList.size() < 1) {
                  throw new BusinessCheckException("分组ID"+key+"种类为空，请增加卡券");
              }
@@ -443,8 +439,8 @@ public class CouponGroupServiceImpl implements CouponGroupService {
                 BigDecimal totalMoney = new BigDecimal("0.0");
 
                 for (int gid = 0; gid < cellDto.getGroupId().size(); gid++) {
-                    couponService.sendCoupon(cellDto.getGroupId().get(gid).longValue(), cellDto.getMobile(), cellDto.getNum().get(gid), uuid);
-                    List<MtCoupon> couponList = couponService.queryCouponListByGroupId(cellDto.getGroupId().get(gid).longValue());
+                    couponService.sendCoupon(cellDto.getGroupId().get(gid).intValue(), cellDto.getMobile(), cellDto.getNum().get(gid), uuid);
+                    List<MtCoupon> couponList = couponService.queryCouponListByGroupId(cellDto.getGroupId().get(gid).intValue());
                     // 累加总张数、总价值
                     for (MtCoupon coupon : couponList) {
                          totalNum = totalNum + (coupon.getSendNum()*cellDto.getNum().get(gid));
@@ -528,7 +524,7 @@ public class CouponGroupServiceImpl implements CouponGroupService {
      * @param groupId 分组ID
      * */
     public GroupDataDto getGroupData(Integer groupId, HttpServletRequest request, Model model) throws BusinessCheckException {
-        MtCouponGroup groupInfo = this.queryCouponGroupById(groupId.longValue());
+        MtCouponGroup groupInfo = this.queryCouponGroupById(groupId);
 
         // 已发放套数
         Integer sendNum = this.getSendedNum(groupId);
@@ -546,7 +542,7 @@ public class CouponGroupServiceImpl implements CouponGroupService {
         // 已过期张数
         Date nowDate = new Date();
         Integer expireNum = 0;
-        List<MtCoupon> couponList = couponService.queryCouponListByGroupId(groupId.longValue());
+        List<MtCoupon> couponList = couponService.queryCouponListByGroupId(groupId);
         List<MtUserCoupon> userCouponList = userCouponRepository.queryExpireNumByGroupId(groupId);
         if (null != userCouponList) {
             for (MtUserCoupon userCoupon: userCouponList) {

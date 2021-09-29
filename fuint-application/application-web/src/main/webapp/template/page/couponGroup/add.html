@@ -11,14 +11,13 @@
             <div class="form-group">
                 <label class="col-md-3 control-label"><span class="requiredstar">* </span>分组名称：</label>
                 <div class="col-md-6">
-                    <input type="text" class="form-control" name="name" placeholder="输入2-100个字符，如：2021年双十一活动卡券" rangelength="1,100" required/>
+                    <input type="text" class="form-control" name="name" placeholder="输入2-100个字符，如：xx年双十一活动卡券" rangelength="1,100" required/>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-md-3 control-label">备注信息：</label>
                 <div class="col-md-6">
-                    <textarea rows="5" class="form-control" id="description" name="description"
-                              maxlength="500" placeholder="请输入备注信息"></textarea>
+                    <textarea rows="5" class="form-control" id="description" name="description" maxlength="500" placeholder="请输入备注信息"></textarea>
                 </div>
             </div>
             <div class="form-group">
@@ -48,16 +47,7 @@
                 error.appendTo(element.parent());
             },
             submitHandler: function () {
-                var n = $('#total').val();
-                if (parseInt(n) < 1) {
-                    layer.alert("发行量不能是负数哦~");
-                    return false;
-                }
-                if (parseInt(n) > 50000) {
-                    layer.alert("一次发行不能超过50000套哦~");
-                    return false;
-                }
-                layer.confirm('确认发行'+n+'套吗？', {
+                layer.confirm('确定新增分组吗？', {
                     btn: ['确定']
                 }, function () {
                     postDataByForm('${rc.contextPath}/backend/couponGroup/create', 'displayArea', 'activityGroupForm');

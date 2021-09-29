@@ -123,17 +123,15 @@ public class OrderController extends BaseController {
         String userToken = request.getHeader("Access-Token");
         MtUser mtUser = tokenService.getUserInfoByToken(userToken);
 
-        if (mtUser == null) {
-            return getFailureResult(1001, "用户未登录");
-        }
-
-        Map<String, Object> param = new HashMap<>();
-        param.put("EQ_status", OrderStatusEnum.CREATED.getKey());
-        param.put("EQ_userId", mtUser.getId()+"");
-        List<MtOrder> data = orderService.getOrderListByParams(param);
-
         Map<String, Object> result = new HashMap<>();
-        result.put("payment", data.size());
+
+        if (mtUser != null) {
+            Map<String, Object> param = new HashMap<>();
+            param.put("EQ_status", OrderStatusEnum.CREATED.getKey());
+            param.put("EQ_userId", mtUser.getId() + "");
+            List<MtOrder> data = orderService.getOrderListByParams(param);
+            result.put("payment", data.size());
+        }
 
         return getSuccessResult(result);
     }

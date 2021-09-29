@@ -39,10 +39,16 @@ public class MtConfirmLog implements Serializable{
     private BigDecimal amount;
 
    /**
-    * 用户券ID 
+    * 会员卡券ID
     */ 
     @Column(name = "USER_COUPON_ID", nullable = false, length = 10)
     private Integer userCouponId;
+
+    /**
+     * 卡券ID
+     */
+    @Column(name = "COUPON_ID", nullable = false, length = 10)
+    private Integer couponId;
 
    /**
     * 创建时间 
@@ -127,6 +133,12 @@ public class MtConfirmLog implements Serializable{
     }
     public void setUserCouponId(Integer userCouponId){
     this.userCouponId=userCouponId;
+    }
+    public Integer getCouponId(){
+        return couponId;
+    }
+    public void setCouponId(Integer couponId){
+        this.couponId=couponId;
     }
     public Date getCreateTime(){
         return createTime;

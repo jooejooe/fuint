@@ -23,7 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 
-/**-
+/**
  * 核销卡券controller
  * Created by FSQ
  * Contact wx fsq_better
@@ -125,7 +125,7 @@ public class ConfirmController extends BaseController {
         String confirmCode = "";
 
         try {
-            confirmCode = couponService.useCoupon(userCouponId.longValue(), mtUser.getId(), storeId, new BigDecimal(amount), remark);
+            confirmCode = couponService.useCoupon(userCouponId, mtUser.getId(), storeId, new BigDecimal(amount), remark);
         } catch (BusinessCheckException e) {
             return getFailureResult(1003, e.getMessage());
         }

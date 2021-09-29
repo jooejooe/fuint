@@ -22,20 +22,28 @@
             <div class="form-group">
                 <label class="col-md-3 control-label">手机号：</label>
                 <div class="col-md-9">
-                    <input type="text" id="mobile" class="form-control" name="mobile" placeholder="手机号"
-                           maxlength="20" value="${member.mobile}">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-md-3 control-label">openId：</label>
-                <div class="col-md-9">
-                    <input type="text" id="openId" class="form-control" name="openId" placeholder="openId" maxlength="50" value="${member.openId}">
+                    <input type="text" id="mobile" class="form-control" name="mobile" placeholder="手机号" maxlength="20" value="${member.mobile}">
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-md-3 control-label">姓名：</label>
                 <div class="col-md-9">
                     <input type="text" id="name" class="form-control" name="name" placeholder="用户名最长20位" maxlength="20" value="${member.name}" >
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label">性别：</label>
+                <div class="col-md-9">
+                    <select class="form-control" name="sex" id="sex">
+                        <option value="0" <#if member.sex == "1" >selected</#if>>男</option>
+                        <option value="1" <#if member.sex == "2" >selected</#if>>女</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label">身份证：</label>
+                <div class="col-md-9">
+                    <input type="text" id="idcard" class="form-control" name="idcard" placeholder="身份证号码" maxlength="30" value="${member.idcard}">
                 </div>
             </div>
             <div class="form-group">
@@ -60,13 +68,13 @@
                 <label class="col-md-3 control-label">状态：</label>
                 <div class="col-md-9">
                     <select class="form-control" name="status" id="status">
-                        <option value="A" <#if member.status == "A" >selected</#if>>已激活</option>
-                        <option value="D" <#if member.status == "D" >selected</#if>>已禁用</option>
+                        <option value="A" <#if member.status == "A" >selected</#if>>激活</option>
+                        <option value="D" <#if member.status == "D" >selected</#if>>禁用</option>
                     </select>
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-md-3 control-label">创建时间：</label>
+                <label class="col-md-3 control-label">注册时间：</label>
                 <div class="col-md-9">
                     <input type="hidden" id="createTime"  name="createTime" placeholder="创建时间" value="${member.createTime}">
                     <label class="control-label">${member.createTime}</label>
@@ -106,13 +114,13 @@
 
         $('#memberForm').validate({
             rules: {
-                realName: {
+                name: {
                     maxlength : 20
                 }
 
             },
             messages: {
-                realName: {
+                name: {
                     maxlength : "不能大于20个字符"
                 }
             },
@@ -120,7 +128,7 @@
                 error.appendTo(element.parent());
             },
             submitHandler: function () {
-                postDataByFormParams('${rc.contextPath}/backend/member/create', 'displayArea', 'memberForm');
+                postDataByFormParams('${rc.contextPath}/backend/member/update', 'displayArea', 'memberForm');
             }
         })
     })

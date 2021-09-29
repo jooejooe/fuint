@@ -242,9 +242,10 @@ function getConfirmData(text, actionUrl, resultArea) {
     }
     //询问框
     layer.confirm(text, {
-        btn: ['确定', '关闭'] //按钮
+        btn: ['确定', '取消'] //按钮
     }, function () {
         getData(actionUrl, resultArea);
+        $.close();
     }, function () {
         $.close();
     });

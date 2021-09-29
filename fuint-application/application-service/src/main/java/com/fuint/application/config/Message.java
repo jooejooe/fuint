@@ -12,5 +12,6 @@ public class Message {
     public static final String USER_NOT_EXIST = "该用户不存在";
     public static final String MAX_COUPON_LIMIT = "已经领取过了";
     public static final String COUPON_TYPE_ERROR = "卡券类型有误";
+    public static final String POINT_LIMIT = "您的积分不足";
 
 }

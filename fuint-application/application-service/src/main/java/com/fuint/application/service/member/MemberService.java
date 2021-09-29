@@ -25,12 +25,20 @@ public interface MemberService {
     PaginationResponse<MtUser> queryMemberListByPagination(PaginationRequest paginationRequest) throws BusinessCheckException;
 
     /**
-     * 添加会员用户
+     * 添加会员
      *
      * @param reqUserDto
      * @throws BusinessCheckException
      */
     MtUser addMember(MtUser reqUserDto) throws BusinessCheckException;
+
+    /**
+     * 编辑会员
+     *
+     * @param reqUserDto
+     * @throws BusinessCheckException
+     */
+    MtUser updateMember(MtUser reqUserDto) throws BusinessCheckException;
 
     /**
      * 通过手机号添加会员
@@ -39,14 +47,6 @@ public interface MemberService {
      * @throws BusinessCheckException
      */
     MtUser addMemberByMobile(String mobile) throws BusinessCheckException;
-
-    /**
-     * 修改会员用户
-     *
-     * @param reqUserDto
-     * @throws BusinessCheckException
-     */
-    MtUser updateMember(MtUser reqUserDto) throws BusinessCheckException;
 
     /**
      * 根据会员用户ID获取会员信息

@@ -76,19 +76,19 @@ public interface CouponService {
     /**
      * 发放卡券
      *
-     * @param groupId 券ID
+     * @param couponId 券ID
      * @param mobile  操作人
      * @param num     发放套数
      * @throws BusinessCheckException
      */
-    void sendCoupon(Long groupId, String mobile, Integer num, String uuid) throws BusinessCheckException;
+    void sendCoupon(Integer couponId, String mobile, Integer num, String uuid) throws BusinessCheckException;
 
     /**
      * 根据分组获取卡券列表
      * @param groupId 查询参数
      * @throws BusinessCheckException
      * */
-    List<MtCoupon> queryCouponListByGroupId(Long groupId) throws BusinessCheckException;
+    List<MtCoupon> queryCouponListByGroupId(Integer groupId) throws BusinessCheckException;
 
     /**
      * 核销卡券
@@ -99,7 +99,7 @@ public interface CouponService {
      * @param remark 核销备注
      * @throws BusinessCheckException
      * */
-    String useCoupon(Long userCouponId, Integer userId, Integer storeId, BigDecimal amount, String remark) throws BusinessCheckException;
+    String useCoupon(Integer userCouponId, Integer userId, Integer storeId, BigDecimal amount, String remark) throws BusinessCheckException;
 
     /**
      * 根据券ID删除个人卡券

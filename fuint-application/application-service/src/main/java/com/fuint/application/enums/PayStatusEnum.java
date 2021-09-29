@@ -7,7 +7,7 @@ package com.fuint.application.enums;
  * Contact wx fsq_better
  */
 public enum PayStatusEnum {
-    WAIT("A", "未支付"),
+    WAIT("A", "待支付"),
     SUCCESS("B", "已支付");
 
     private String key;

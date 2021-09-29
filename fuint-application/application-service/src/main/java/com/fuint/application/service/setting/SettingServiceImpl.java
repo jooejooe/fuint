@@ -69,7 +69,7 @@ public class SettingServiceImpl implements SettingService {
      * @throws BusinessCheckException
      */
     @Override
-    public MtSetting querySettingByName(String name) throws BusinessCheckException {
+    public MtSetting querySettingByName(String name) {
         MtSetting setting = settingRepository.querySettingByName(name);
         return setting;
     }

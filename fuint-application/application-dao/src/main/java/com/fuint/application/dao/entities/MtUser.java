@@ -26,6 +26,12 @@ public class MtUser implements Serializable{
 	@Column(name = "ID", nullable = false, length = 10)
 	private Integer id;
 
+	/**
+	 * 头像
+	 */
+	@Column(name = "AVATAR", length = 100)
+	private String avatar;
+
    /**
     * 称呼
     */ 
@@ -55,6 +61,18 @@ public class MtUser implements Serializable{
     */ 
 	@Column(name = "GRADE_ID", length = 10)
 	private String gradeId;
+
+	/**
+	 * 等级开始时间
+	 */
+	@Column(name = "START_TIME")
+	private Date startTime;
+
+	/**
+	 * 等级结束时间
+	 */
+	@Column(name = "END_TIME")
+	private Date endTime;
 
    /**
     * 性别 0男；1女 
@@ -140,6 +158,12 @@ public class MtUser implements Serializable{
 	public void setId(Integer id){
 	this.id=id;
 	}
+	public String getAvatar(){
+		return avatar;
+	}
+	public void setAvatar(String avatar){
+		this.avatar=avatar;
+	}
 	public String getName(){
 		return name;
 	}
@@ -169,6 +193,18 @@ public class MtUser implements Serializable{
 	}
 	public void setGradeId(String gradeId){
 	this.gradeId=gradeId;
+	}
+	public Date getStartTime(){
+		return startTime;
+	}
+	public void setStartTime(Date startTime){
+		this.startTime=startTime;
+	}
+	public Date getEndTime(){
+		return endTime;
+	}
+	public void setEndTime(Date endTime){
+		this.endTime=endTime;
 	}
 	public Integer getSex(){
 		return sex;

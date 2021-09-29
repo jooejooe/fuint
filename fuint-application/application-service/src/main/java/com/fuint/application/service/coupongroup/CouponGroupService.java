@@ -48,7 +48,7 @@ public interface CouponGroupService {
      * @param id 分组ID
      * @throws BusinessCheckException
      */
-    MtCouponGroup queryCouponGroupById(Long id) throws BusinessCheckException;
+    MtCouponGroup queryCouponGroupById(Integer id) throws BusinessCheckException;
 
     /**
      * 根据分组ID 删除分组信息
@@ -57,7 +57,7 @@ public interface CouponGroupService {
      * @param operator 操作人
      * @throws BusinessCheckException
      */
-    void deleteCouponGroup(Long id, String operator) throws BusinessCheckException;
+    void deleteCouponGroup(Integer id, String operator) throws BusinessCheckException;
 
     /**
      * 根据分组ID 获取券种类数量
@@ -73,7 +73,7 @@ public interface CouponGroupService {
      * @param id       分组ID
      * @throws BusinessCheckException
      */
-    BigDecimal getCouponMoney(Long id) throws BusinessCheckException;
+    BigDecimal getCouponMoney(Integer id) throws BusinessCheckException;
 
     /**
      * 获取已发放套数

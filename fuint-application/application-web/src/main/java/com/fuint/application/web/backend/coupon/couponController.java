@@ -1,6 +1,9 @@
 package com.fuint.application.web.backend.coupon;
 
+import com.fuint.application.dto.*;
 import com.fuint.application.enums.CouponTypeEnum;
+import com.fuint.application.service.member.MemberService;
+import com.fuint.application.service.sms.SendSmsInterface;
 import com.fuint.application.service.usergrade.UserGradeService;
 import com.fuint.base.shiro.ShiroUser;
 import com.fuint.base.shiro.util.ShiroUserHelper;
@@ -10,8 +13,6 @@ import com.fuint.util.DateUtil;
 import com.fuint.application.dao.entities.*;
 import com.fuint.application.dao.repositories.MtSendLogRepository;
 import com.fuint.application.dao.repositories.MtUserCouponRepository;
-import com.fuint.application.dto.ContentDto;
-import com.fuint.application.dto.ReqResult;
 import com.fuint.application.enums.StatusEnum;
 import com.fuint.application.service.coupon.CouponService;
 import com.fuint.application.service.coupongroup.CouponGroupService;
@@ -31,17 +32,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.fuint.base.dao.pagination.PaginationRequest;
 import com.fuint.base.dao.pagination.PaginationResponse;
-import com.fuint.application.dto.ReqCouponDto;
-import com.fuint.application.dto.DateDto;
 import com.fuint.base.util.RequestHandler;
 import com.fuint.application.web.backend.base.BaseController;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.HashMap;
-import java.util.Map;
+import java.math.BigDecimal;
+import java.util.*;
+import java.util.regex.Pattern;
 
 /**
  * 卡券管理类controller
@@ -81,6 +78,12 @@ public class couponController extends BaseController {
     private SendLogService sendLogService;
 
     @Autowired
+    private MemberService memberService;
+
+    @Autowired
+    private SendSmsInterface sendSmsService;
+
+    @Autowired
     private MtCouponGroupRepository couponGroupRepository;
 
     @Autowired
@@ -107,7 +110,7 @@ public class couponController extends BaseController {
         model.addAttribute("EQ_groupId", EQ_groupId);
 
         if (StringUtils.isNotEmpty(EQ_groupId)) {
-            MtCouponGroup group = couponGroupService.queryCouponGroupById(Long.parseLong(EQ_groupId));
+            MtCouponGroup group = couponGroupService.queryCouponGroupById(Integer.parseInt(EQ_groupId));
             model.addAttribute("groupName", group.getName());
         }
 
@@ -223,7 +226,7 @@ public class couponController extends BaseController {
 
         Integer groupTotal = 0;
         if (StringUtils.isNotEmpty(groupId)) {
-            MtCouponGroup groupInfo = couponGroupService.queryCouponGroupById(Long.parseLong(groupId));
+            MtCouponGroup groupInfo = couponGroupService.queryCouponGroupById(Integer.parseInt(groupId));
             groupTotal = groupInfo.getTotal();
         }
 
@@ -276,7 +279,7 @@ public class couponController extends BaseController {
 
         // 分组
         if (StringUtils.isNotEmpty(groupId)) {
-            MtCouponGroup mtCouponInfo = couponGroupService.queryCouponGroupById(Long.parseLong(groupId));
+            MtCouponGroup mtCouponInfo = couponGroupService.queryCouponGroupById(Integer.parseInt(groupId));
             model.addAttribute("groupInfo", mtCouponInfo);
         }
 
@@ -356,7 +359,7 @@ public class couponController extends BaseController {
 
         model.addAttribute("couponInfo", mtCouponInfo);
 
-        MtCouponGroup mtGroupInfo = couponGroupService.queryCouponGroupById(mtCouponInfo.getGroupId().longValue());
+        MtCouponGroup mtGroupInfo = couponGroupService.queryCouponGroupById(mtCouponInfo.getGroupId());
         model.addAttribute("groupInfo", mtGroupInfo);
 
         List<MtStore> storeList = new ArrayList<>();
@@ -506,6 +509,114 @@ public class couponController extends BaseController {
         ReqResult reqResult = new ReqResult();
         reqResult.setResult(true);
 
-        return "redirect:/backend/confirmLog/ConfirmLogQueryList";
+        return "redirect:/backend/confirmLog/confirmLogList";
+    }
+
+    /**
+     * 发放卡券
+     *
+     * @param request
+     * @param response
+     * @param model
+     * @return
+     */
+    @RequiresPermissions("backend/coupon/sendCoupon")
+    @RequestMapping(value = "/sendCoupon")
+    @ResponseBody
+    public ReqResult sendCoupon(HttpServletRequest request, HttpServletResponse response, Model model, ReqSendCouponDto reqSendCouponDto) throws BusinessCheckException {
+        String mobile = request.getParameter("mobile");
+        String num = request.getParameter("num");
+        String couponId = request.getParameter("couponId");
+
+        ReqResult reqResult = new ReqResult();
+
+        if (couponId == null) {
+            reqResult.setResult(false);
+            reqResult.setMsg("系统参数有误！");
+            return reqResult;
+        }
+
+        try {
+            String operator = ShiroUserHelper.getCurrentShiroUser().getAcctName();
+            if (null == operator) {
+                reqResult.setResult(false);
+                reqResult.setMsg("请重新登录！");
+                return reqResult;
+            }
+        } catch (Exception e) {
+            reqResult.setResult(false);
+            reqResult.setMsg("请重新登录！");
+            return reqResult;
+        }
+
+        if (mobile.length() < 11 || mobile.length() > 11) {
+            reqResult.setResult(false);
+            reqResult.setMsg("手机号格式有误！");
+            return reqResult;
+        }
+
+        Pattern pattern = Pattern.compile("[0-9]*");
+        if (num == null || (!pattern.matcher(num).matches())) {
+            reqResult.setResult(false);
+            reqResult.setMsg("发放套数必须为正整数！");
+            return reqResult;
+        }
+
+        // 导入批次
+        String uuid = UUID.randomUUID().toString().replaceAll("-", "");
+
+        try {
+            couponService.sendCoupon(Integer.parseInt(couponId), mobile, Integer.parseInt(num), uuid);
+        } catch (BusinessCheckException e) {
+            reqResult.setResult(false);
+            reqResult.setMsg(e.getMessage());
+            return reqResult;
+        }
+
+        MtCoupon couponInfo = couponService.queryCouponById(Integer.parseInt(couponId));
+
+        MtUser mtUser = memberService.queryMemberByMobile(mobile);
+        MtCouponGroup mtCouponGroup = couponGroupService.queryCouponGroupById(couponInfo.getGroupId());
+
+        // 发放记录
+        ReqSendLogDto dto = new ReqSendLogDto();
+        dto.setType(1);
+        dto.setMobile(mobile);
+        dto.setUserId(mtUser.getId());
+        dto.setFileName("");
+        dto.setGroupId(couponInfo.getGroupId());
+        dto.setGroupName(mtCouponGroup.getName());
+        dto.setSendNum(Integer.parseInt(num));
+
+        String operator = ShiroUserHelper.getCurrentShiroUser().getAcctName();
+        dto.setOperator(operator);
+
+        dto.setUuid(uuid);
+        sendLogService.addSendLog(dto);
+
+        // 发送短信
+        try {
+            List<String> mobileList = new ArrayList<>();
+            mobileList.add(mobile);
+
+            Integer totalNum = 0;
+            BigDecimal totalMoney = new BigDecimal("0.0");
+
+            List<MtCoupon> couponList = couponService.queryCouponListByGroupId(couponInfo.getGroupId());
+            for (MtCoupon coupon : couponList) {
+                totalNum = totalNum + (coupon.getSendNum()*Integer.parseInt(num));
+                totalMoney = totalMoney.add((coupon.getAmount().multiply(new BigDecimal(num).multiply(new BigDecimal(coupon.getSendNum())))));
+            }
+
+            Map<String, String> params = new HashMap<>();
+            params.put("totalNum", totalNum+"");
+            params.put("totalMoney", totalMoney+"");
+            sendSmsService.sendSms("received-coupon", mobileList, params);
+        } catch (Exception e) {
+            //empty
+        }
+
+        reqResult.setResult(true);
+        return reqResult;
     }
 }

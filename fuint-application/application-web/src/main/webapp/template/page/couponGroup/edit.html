@@ -16,16 +16,6 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-md-3 control-label"><span class="requiredstar">*</span>类型：</label>
-                <div class="col-md-2">
-                    <select class="form-control" name="type" id="type">
-                        <option <#if (couponGroup.type == '')>selected</#if> value="">类型</option>
-                        <option <#if (couponGroup.type == 'C')>selected</#if> value="C">卡券</option>
-                        <option <#if (couponGroup.type == 'P')>selected</#if> value="P">预存卡</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
                 <label class="col-md-3 control-label">备注信息：</label>
                 <div class="col-md-6">
                     <textarea rows="5" class="form-control" id="description" name="description"
@@ -60,28 +50,7 @@
                 error.appendTo(element.parent());
             },
             submitHandler: function () {
-                var n = $('#total').val();
-                var res = $('#res_total').val();
-
-                if (parseInt(n) < parseInt(res)) {
-                    layer.alert("券数只能增加！");
-                    return false;
-                }
-                if (parseInt(n) < 1) {
-                    layer.alert("发行量不能是负数！");
-                    return false;
-                }
-                if (parseInt(n) > 50000) {
-                    layer.alert("一次生成不能超过50000套！");
-                    return false;
-                }
-
-                if (parseInt(n) === parseInt(res)) {
-                    postDataByForm('${rc.contextPath}/backend/couponGroup/update', 'displayArea', 'activityGroupForm');
-                    return false;
-                }
-
-                layer.confirm('确认生成'+(parseInt(n) - parseInt(res))+'套券？', {
+                layer.confirm('确定更新分组？', {
                     btn: ['确定']
                 }, function () {
                     postDataByForm('${rc.contextPath}/backend/couponGroup/update', 'displayArea', 'activityGroupForm');

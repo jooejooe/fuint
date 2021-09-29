@@ -297,7 +297,7 @@ public class GiveServiceImpl extends BaseService implements GiveService {
                 couponNames.add(coupon.getName());
             }
 
-            MtCouponGroup group = couponGroupService.queryCouponGroupById(coupon.getGroupId().longValue());
+            MtCouponGroup group = couponGroupService.queryCouponGroupById(coupon.getGroupId());
             if (!groupIds.contains(group.getId().toString())) {
                 groupIds.add(group.getId().toString());
             }

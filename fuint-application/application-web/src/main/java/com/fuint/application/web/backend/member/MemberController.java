@@ -1,15 +1,19 @@
 package com.fuint.application.web.backend.member;
 
+import com.fuint.application.dao.entities.MtSetting;
 import com.fuint.application.dao.entities.MtUserGrade;
+import com.fuint.application.enums.PointSettingEnum;
+import com.fuint.application.enums.SettingTypeEnum;
+import com.fuint.application.enums.UserSettingEnum;
+import com.fuint.application.service.setting.SettingService;
 import com.fuint.base.dao.pagination.PaginationRequest;
 import com.fuint.base.dao.pagination.PaginationResponse;
+import com.fuint.base.shiro.util.ShiroUserHelper;
 import com.fuint.base.util.RequestHandler;
 import com.fuint.exception.BusinessCheckException;
 import com.fuint.exception.BusinessRuntimeException;
-import com.fuint.util.StringUtil;
 import com.fuint.application.dao.entities.MtUser;
 import com.fuint.application.dto.ReqResult;
-import com.fuint.application.enums.StatusEnum;
 import com.fuint.application.service.member.MemberService;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -24,8 +28,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -44,6 +46,12 @@ public class MemberController {
      */
     @Autowired
     private MemberService memberService;
+
+    /**
+     * 配置服务接口
+     * */
+    @Autowired
+    private SettingService settingService;
 
     /**
      * 会员列表查询
@@ -97,58 +105,14 @@ public class MemberController {
      */
     @RequiresPermissions("backend/member/delete/{id}")
     @RequestMapping(value = "/delete/{id}")
-    public String delete(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable("id") Long id) throws BusinessCheckException {
-        List<Long> ids = new ArrayList<>();
-        ids.add(id);
-        Integer i = memberService.deleteMember(id.intValue(), "删除会员");
+    public String delete(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable("id") Integer id) throws BusinessCheckException {
+        String operator = ShiroUserHelper.getCurrentShiroUser().getAcctName();
+
+        memberService.deleteMember(id, operator);
         ReqResult reqResult = new ReqResult();
 
         reqResult.setResult(true);
         return "redirect:/backend/member/queryList";
-    }
-
-    /**
-     * 激活会员
-     *
-     * @param request
-     * @param response
-     * @param model
-     * @return
-     */
-    @RequiresPermissions("backend/member/active/{id}")
-    @RequestMapping(value = "/active/{id}")
-    public String userActive(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable("id") Long id) throws BusinessCheckException {
-        List<Integer> ids = new ArrayList<>();
-        ids.add(id.intValue());
-        return "redirect:/backend/member/queryList";
-    }
-
-    /**
-     * 批量删除会员
-     *
-     * @param request
-     * @param response
-     * @param model
-     * @return
-     */
-    @RequiresPermissions("backend/member/batchDelete")
-    @RequestMapping(value = "/batchDelete")
-    @ResponseBody
-    public ReqResult batchDelete(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException {
-        String paramIds = request.getParameter("ids");
-        if (StringUtil.isNotBlank(paramIds)) {
-            String[] ids = paramIds.split(",");
-            List<Integer> idList = new ArrayList<Integer>();
-            if (ids.length > 0) {
-                for (String id : ids) {
-                    idList.add(Integer.parseInt(id));
-                }
-            }
-            memberService.updateStatus(idList, StatusEnum.DISABLE.getKey());
-        }
-        ReqResult reqResult = new ReqResult();
-        reqResult.setResult(true);
-        return reqResult;
     }
 
     /**
@@ -163,9 +127,9 @@ public class MemberController {
     @RequestMapping(value = "/add")
     public String add(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException {
         Map<String, Object> param = new HashMap<>();
-        List<MtUserGrade> userGroupMap = memberService.queryMemberGradeByParams(param);
+        List<MtUserGrade> userGradeMap = memberService.queryMemberGradeByParams(param);
 
-        model.addAttribute("userGroupMap", userGroupMap);
+        model.addAttribute("userGradeMap", userGradeMap);
         return "member/member_add";
     }
 
@@ -178,16 +142,8 @@ public class MemberController {
      */
     @RequiresPermissions("backend/member/create")
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String addUserHandler(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException {
+    public String create(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException {
         MtUser memberInfo = (MtUser) RequestHandler.createBean(request, new MtUser());
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String dt=sdf.format(new Date());
-        Date currentDT;
-        try {
-            currentDT = sdf.parse(dt);
-        } catch (ParseException e) {
-            throw new BusinessCheckException("日期转换错误!");
-        }
 
         if (StringUtils.isEmpty(memberInfo.getMobile())) {
             throw new BusinessRuntimeException("手机号码不能为空");
@@ -195,11 +151,9 @@ public class MemberController {
             MtUser tempUser = null;
             if (memberInfo.getId() == null) {
                 tempUser = memberService.queryMemberByMobile(memberInfo.getMobile());
-
             } else {
-                memberInfo.setUpdateTime(currentDT);
+                memberInfo.setUpdateTime(new Date());
             }
-
             if (null != tempUser) {
                 throw new BusinessCheckException("该会员手机号码已经存在!");
             }
@@ -230,5 +184,126 @@ public class MemberController {
         model.addAttribute("member", mtUserInfo);
 
         return "member/member_edit";
+    }
+
+    /**
+     * 提交编辑
+     *
+     * @param request  HttpServletRequest对象
+     * @param response HttpServletResponse对象
+     * @param model    SpringFramework Model对象
+     */
+    @RequiresPermissions("backend/member/update")
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public String update(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException {
+        MtUser param = (MtUser) RequestHandler.createBean(request, new MtUser());
+
+        MtUser memberInfo = memberService.queryMemberById(param.getId());
+        if (memberInfo == null) {
+            throw new BusinessCheckException("该会员不存在");
+        }
+        if (StringUtils.isNotEmpty(param.getName())) {
+            memberInfo.setName(param.getName());
+        }
+        if (StringUtils.isNotEmpty(param.getGradeId())) {
+            memberInfo.setGradeId(param.getGradeId());
+        }
+        if (StringUtils.isNotEmpty(param.getMobile())) {
+            memberInfo.setMobile(param.getMobile());
+        }
+        if (StringUtils.isNotEmpty(param.getIdcard())) {
+            memberInfo.setIdcard(param.getIdcard());
+        }
+        if (StringUtils.isNotEmpty(param.getBirthday())) {
+            memberInfo.setBirthday(param.getBirthday());
+        }
+        if (param.getPoint() != null) {
+            memberInfo.setPoint(param.getPoint());
+        }
+        if (StringUtils.isNotEmpty(param.getAddress())) {
+            memberInfo.setAddress(param.getAddress());
+        }
+        if (StringUtils.isNotEmpty(param.getStatus())) {
+            memberInfo.setStatus(param.getStatus());
+        }
+        if (StringUtils.isNotEmpty(param.getDescription())) {
+            memberInfo.setDescription(param.getDescription());
+        }
+        String operator = ShiroUserHelper.getCurrentShiroUser().getAcctName();
+        memberInfo.setOperator(operator);
+
+        memberService.updateMember(memberInfo);
+
+        return "redirect:/backend/member/queryList";
+    }
+
+    /**
+     * 编辑初始化页面
+     *
+     * @param request
+     * @param response
+     * @param model
+     * @return
+     */
+    @RequiresPermissions("backend/member/setting")
+    @RequestMapping(value = "/setting")
+    public String editInit(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException {
+        List<MtSetting> settingList = settingService.getSettingList(SettingTypeEnum.USER.getKey());
+
+        for (MtSetting setting : settingList) {
+            if (setting.getName().equals("getCouponNeedPhone")) {
+                model.addAttribute("getCouponNeedPhone", setting.getValue());
+            } else if (setting.getName().equals("submitOrderNeedPhone")) {
+                model.addAttribute("submitOrderNeedPhone", setting.getValue());
+            } else if (setting.getName().equals("loginNeedPhone")) {
+                model.addAttribute("loginNeedPhone", setting.getValue());
+            }
+        }
+
+        return "member/setting";
+    }
+
+    /**
+     * 提交保存
+     *
+     * @param request  HttpServletRequest对象
+     * @param response HttpServletResponse对象
+     * @param model    SpringFramework Model对象
+     */
+    @RequiresPermissions("backend/member/saveSetting")
+    @RequestMapping(value = "/saveSetting", method = RequestMethod.POST)
+    @ResponseBody
+    public ReqResult saveSetting(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException {
+        String getCouponNeedPhone = request.getParameter("getCouponNeedPhone") != null ? request.getParameter("getCouponNeedPhone") : "false";
+        String submitOrderNeedPhone = request.getParameter("submitOrderNeedPhone") != null ? request.getParameter("submitOrderNeedPhone") : "false";
+        String loginNeedPhone = request.getParameter("loginNeedPhone") != null ? request.getParameter("loginNeedPhone") : "false";
+
+        String operator = ShiroUserHelper.getCurrentShiroUser().getAcctName();
+
+        UserSettingEnum[] settingList = UserSettingEnum.values();
+        for (UserSettingEnum setting : settingList) {
+            MtSetting info = new MtSetting();
+            info.setType(SettingTypeEnum.USER.getKey());
+            info.setName(setting.getKey());
+
+            if (setting.getKey().equals("getCouponNeedPhone")) {
+                info.setValue(getCouponNeedPhone);
+            } else if (setting.getKey().equals("submitOrderNeedPhone")) {
+                info.setValue(submitOrderNeedPhone);
+            } else if (setting.getKey().equals("loginNeedPhone")) {
+                info.setValue(loginNeedPhone);
+            }
+
+            info.setDescription(setting.getValue());
+            info.setOperator(operator);
+            info.setUpdateTime(new Date());
+
+            settingService.saveSetting(info);
+        }
+
+        ReqResult reqResult = new ReqResult();
+        reqResult.setResult(true);
+
+        return reqResult;
     }
 }

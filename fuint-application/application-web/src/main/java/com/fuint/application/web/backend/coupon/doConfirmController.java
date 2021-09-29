@@ -7,9 +7,13 @@ import com.fuint.application.dto.ReqResult;
 import com.fuint.application.dto.UserCouponDto;
 import com.fuint.application.service.coupon.CouponService;
 import com.fuint.application.util.DateUtil;
+import com.fuint.base.service.account.TAccountService;
+import com.fuint.base.shiro.util.ShiroUserHelper;
 import com.fuint.exception.BusinessCheckException;
 import com.fuint.exception.BusinessRuntimeException;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import com.fuint.base.shiro.ShiroUser;
+import com.fuint.base.dao.entities.TAccount;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.apache.commons.lang.StringUtils;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
-import java.util.Map;
+import java.math.BigDecimal;
 
 /**
  * 卡券核销类controller
@@ -42,6 +45,13 @@ public class doConfirmController extends BaseController {
      */
     @Autowired
     private CouponService couponService;
+
+
+    /**
+     * 账户服务接口
+     */
+    @Autowired
+    private TAccountService htAccountServiceImpl;
 
     /**
      * 核销页面
@@ -103,12 +113,28 @@ public class doConfirmController extends BaseController {
     @RequiresPermissions("backend/doConfirm/doConfirm")
     @RequestMapping(value = "/doConfirm")
     @ResponseBody
-    public ReqResult doConfirm(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException {
-        Integer userCouponId = request.getParameter("id") == null ? 0 : Integer.parseInt(request.getParameter("id"));
-        String userCouponCode = request.getParameter("code") == null ? "" : request.getParameter("code");
+    public ReqResult doConfirm(HttpServletRequest request, HttpServletResponse response, Model model) {
+        Integer userCouponId = request.getParameter("userCouponId") == null ? 0 : Integer.parseInt(request.getParameter("userCouponId"));
+        String amount = request.getParameter("amount") == null ? "0" : request.getParameter("amount");
         String remark = request.getParameter("remark") == null ? "" : request.getParameter("remark");
 
-        Map<String, Object> resultMap = new HashMap<>();
+        if (StringUtils.isEmpty(remark)) {
+            remark = "后台管理员核销";
+        }
+
+        ShiroUser user = ShiroUserHelper.getCurrentShiroUser();
+        TAccount account = htAccountServiceImpl.findAccountById(user.getId());
+        Integer storeId = account.getStoreId();
+
+        try {
+            couponService.useCoupon(userCouponId, user.getId().intValue(), storeId, new BigDecimal(amount), remark);
+        } catch (BusinessCheckException e) {
+            ReqResult reqResult = new ReqResult();
+            reqResult.setResultCode("0");
+            reqResult.setResult(false);
+            reqResult.setMsg("核销失败：" + e.getMessage());
+            return reqResult;
+        }
 
         ReqResult reqResult = new ReqResult();
         reqResult.setResult(true);

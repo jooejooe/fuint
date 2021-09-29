@@ -6,6 +6,7 @@ import com.fuint.application.enums.UserCouponStatusEnum;
 import com.fuint.application.service.coupon.CouponService;
 import com.fuint.application.service.coupongroup.CouponGroupService;
 import com.fuint.application.service.member.MemberService;
+import com.fuint.application.service.point.PointService;
 import com.fuint.application.util.SeqUtil;
 import com.fuint.base.dao.pagination.PaginationRequest;
 import com.fuint.base.dao.pagination.PaginationResponse;
@@ -18,6 +19,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Date;
@@ -46,6 +49,9 @@ public class UserCouponServiceImpl extends BaseService implements UserCouponServ
     @Autowired
     private MemberService memberService;
 
+    @Autowired
+    private PointService pointService;
+
     /**
      * 分页查询券列表
      *
@@ -60,11 +66,12 @@ public class UserCouponServiceImpl extends BaseService implements UserCouponServ
     }
 
     /**
-     * 会员领券(优惠券、集次卡)
+     * 领取卡券(优惠券、集次卡)
      * @param paramMap
      * @return
      * */
     @Override
+    @Transactional
     public boolean receiveCoupon(Map<String, Object> paramMap) throws BusinessCheckException {
         Integer couponId = paramMap.get("couponId") == null ? 0 : Integer.parseInt(paramMap.get("couponId").toString());
         Integer userId = paramMap.get("userId") == null ? 0 : Integer.parseInt(paramMap.get("userId").toString());
@@ -86,7 +93,7 @@ public class UserCouponServiceImpl extends BaseService implements UserCouponServ
             throw new BusinessCheckException(Message.COUPON_IS_EXPIRE);
         }
 
-        MtCouponGroup groupInfo = couponGroupService.queryCouponGroupById(couponInfo.getGroupId().longValue());
+        MtCouponGroup groupInfo = couponGroupService.queryCouponGroupById(couponInfo.getGroupId());
         MtUser userInfo = memberService.queryMemberById(userId);
         if (null == userInfo) {
             throw new BusinessCheckException(Message.USER_NOT_EXIST);
@@ -97,6 +104,13 @@ public class UserCouponServiceImpl extends BaseService implements UserCouponServ
         List<MtUserCoupon> userCouponData = userCouponRepository.getUserCouponListByCouponId(userId, couponId, statusList);
         if ((userCouponData.size() >= couponInfo.getLimitNum()) && (couponInfo.getLimitNum() > 0)) {
             throw new BusinessCheckException(Message.MAX_COUPON_LIMIT);
+        }
+
+        // 积分不足以领取
+        if (couponInfo.getPoint() > 0) {
+            if (userInfo.getPoint() < couponInfo.getPoint()) {
+                throw new BusinessCheckException(Message.POINT_LIMIT);
+            }
         }
 
         // 可领取多张，领取序列号
@@ -129,6 +143,15 @@ public class UserCouponServiceImpl extends BaseService implements UserCouponServ
             userCoupon.setUuid(uuid.toString());
 
             userCouponRepository.save(userCoupon);
+        }
+
+        // 是否需要扣除相应积分
+        if (couponInfo.getPoint() > 0) {
+            MtPoint reqPointDto = new MtPoint();
+            reqPointDto.setUserId(userId);
+            reqPointDto.setAmount(-couponInfo.getPoint());
+            reqPointDto.setDescription("领取"+ couponInfo.getName() + "扣除" +couponInfo.getPoint() +"积分");
+            pointService.addPoint(reqPointDto);
         }
 
         return true;

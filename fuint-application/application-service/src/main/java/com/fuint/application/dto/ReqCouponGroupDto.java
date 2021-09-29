@@ -12,7 +12,7 @@ public class ReqCouponGroupDto implements Serializable {
     /**
      * ID
      */
-    private Long id;
+    private Integer id;
     /**
      * 组名称
      */
@@ -43,11 +43,11 @@ public class ReqCouponGroupDto implements Serializable {
      * */
     private int status;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

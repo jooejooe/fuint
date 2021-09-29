@@ -1,5 +1,6 @@
 package com.fuint.application.dto;
 
+import javax.persistence.Column;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
@@ -49,6 +50,11 @@ public class CouponDto implements Serializable {
      * 面额
      * */
     private BigDecimal amount;
+
+    /**
+     * 领取需要积分数量
+     */
+    private Integer point;
 
     /**
      * 卖点
@@ -144,6 +150,13 @@ public class CouponDto implements Serializable {
     }
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
+    }
+
+    public Integer getPoint(){
+        return point;
+    }
+    public void setPoint(Integer point){
+        this.point=point;
     }
 
     public String getSellingPoint() {

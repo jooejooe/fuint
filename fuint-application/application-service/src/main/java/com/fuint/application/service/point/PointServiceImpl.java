@@ -45,7 +45,7 @@ public class PointServiceImpl implements PointService {
     }
 
     /**
-     * 添加积分记录信息
+     * 添加积分记录
      *
      * @param mtPoint
      * @throws BusinessCheckException
@@ -53,7 +53,7 @@ public class PointServiceImpl implements PointService {
     @Override
     @Transactional
     public void addPoint(MtPoint mtPoint) {
-        if (mtPoint.getUserId() < 0 || mtPoint.getAmount() < 0) {
+        if (mtPoint.getUserId() < 0) {
            return;
         }
         mtPoint.setStatus(StatusEnum.ENABLED.getKey());
@@ -61,7 +61,11 @@ public class PointServiceImpl implements PointService {
         mtPoint.setUpdateTime(new Date());
 
         MtUser user = userRepository.findOne(mtPoint.getUserId());
-        user.setPoint(user.getPoint() + mtPoint.getAmount());
+        Integer newAmount = user.getPoint() + mtPoint.getAmount();
+        if (newAmount < 0) {
+           return;
+        }
+        user.setPoint(newAmount);
 
         userRepository.save(user);
         pointRepository.save(mtPoint);

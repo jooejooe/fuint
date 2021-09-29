@@ -11,9 +11,9 @@
             <div class="form-group">
                 <label class="col-md-3 control-label">等级：</label>
                 <div class="col-md-9">
-                    <select class="form-control" id="groupId" name="groupId">
-                        <#list userGroupMap as group>
-                        <option value="${group.id}">${group.name}</option>
+                    <select class="form-control" id="gradeId" name="gradeId">
+                        <#list userGradeMap as grade>
+                        <option value="${grade.id}">${grade.name}</option>
                         </#list>
                     </select>
                 </div>
@@ -27,7 +27,22 @@
             <div class="form-group">
                 <label class="col-md-3 control-label">姓名：</label>
                 <div class="col-md-9">
-                    <input type="text" id="name" class="form-control" name="name" placeholder="用户名最长20位" maxlength="20" >
+                    <input type="text" id="name" class="form-control" name="name" placeholder="姓名最长20位" maxlength="20" >
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label">性别：</label>
+                <div class="col-md-9">
+                    <select class="form-control" name="sex" id="sex">
+                        <option value="1">男</option>
+                        <option value="2">女</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label">身份证：</label>
+                <div class="col-md-9">
+                    <input type="text" id="idcard" class="form-control" name="idcard" placeholder="身份证号码" maxlength="30" >
                 </div>
             </div>
             <div class="form-group">
@@ -65,11 +80,10 @@
             </div>
             <div class="form-group">
                 <label class="col-md-3 control-label"></label>
-
                 <div class="col-md-9">
                     <button type="button" id="submitButton" class="btn btn-sm btn-success">提交</button>
                     <button type="button" class="btn btn-sm btn-danger"
-                            onclick="getData('${rc.contextPath}/backend/member/queryList','displayArea')">返回
+                            onclick="getData('${rc.contextPath}/backend/member/queryList', 'displayArea')">返回
                     </button>
                 </div>
             </div>
@@ -85,7 +99,6 @@
     }, "请正确填写手机号码");
 
     $(function () {
-
         $('#submitButton').click(function () {
             if ($("#mobile").val() != null || $("#mobile").val() != "") {
                 $('#memberForm').submit();

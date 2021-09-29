@@ -1,8 +1,9 @@
 package com.fuint.application.dto;
 
 import com.alibaba.fastjson.annotation.JSONField;
-
-import javax.persistence.*;
+import com.fuint.application.dao.entities.MtCoupon;
+import com.fuint.application.dao.entities.MtStore;
+import com.fuint.application.dao.entities.MtUser;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -24,136 +25,61 @@ public class ConfirmLogDto {
     private String code;
 
     /**
-     * 核销状态 A正常核销；D：撤销使用
+     * 核销状态
      */
-    private String confirmStatus;
+    private String status;
 
     /**
-     * 用户卡券ID
+     * 会员卡券ID
      */
     private Integer userCouponId;
 
     /**
-     * 核销确认时间
+     * 卡券信息
      */
-    @JSONField(format="yyyy-MM-dd HH:mm:ss")
-    private Date confirmTime;
+    private MtCoupon couponInfo;
 
     /**
-     * 消费撤销时间
+     * 核销会员信息
      */
-    @JSONField(format="yyyy-MM-dd HH:mm:ss")
-    private Date cancelTime;
+    private MtUser userInfo;
 
     /**
-     * 可撤销消费截止时间
+     * 使用店铺信息
      */
-    @JSONField(format="yyyy-MM-dd HH:mm:ss")
-    private Date endCancelTime;
+    private MtStore storeInfo;
 
     /**
-     * 券ID
-     */
-    private Integer couponId;
-
-    /**
-     * 用户ID
-     */
-    private Integer userId;
-
-    /**
-     * 状态：A：未使用；B：已使用；C：已过期; D：已删除
-     */
-    private String couponInfoStatus;
-
-    /**
-     *状态说明：A：未使用；B：已使用；C：已过期; D：已删除
-     */
-    private String couponInfoStatusDesc;
-
-    /**
-     * 使用店铺ID
-     */
-    private Integer storeId;
-
-    /**
-     * 使用时间
-     */
-    @JSONField(format="yyyy-MM-dd HH:mm:ss")
-    private Date usedTime;
-
-    /**
-     * 用户卡券创建时间
+     * 创建时间
      */
     @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     /**
-     * 用户卡券更新时间
+     * 更新时间
      */
     @JSONField(format="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
     /**
-     * 手机号码
+     * 核销面额
      */
-    private String mobile;
+    private BigDecimal amount;
 
     /**
-     * 适用店铺id列表
+     * 核销uuid
      */
-    private String suitStoreIds;
-
-    /**
-     * 真实姓名
-     */
-    private String name;
-
-    /**
-     * 券名称
-     */
-    private String couponName;
-
-    /**
-     * 面额
-     */
-    private BigDecimal money;
-
-    /**
-     * 分组ID
-     */
-    private Integer groupId;
-
-    /**
-     * A：正常；D：删除
-     */
-    private String couponStatus;
-
-    /**
-     * 开始有效期
-     */
-    private Date beginTime;
-
-    /**
-     * 结束有效期
-     */
-    private Date endTime;
-
-    /**
-     * 分组名称
-     */
-    private String couponGroupName;
-
-    /**
-     * 店铺名称
-     */
-    private String storeName;
-
-    /**
-     * 导入UUID
-     */
-    @Column(name = "UUID", nullable = false, length = 50)
     private String uuid;
+
+    /**
+     * 核销备注
+     */
+    private String remark;
+
+    /**
+     * 最后操作人
+     */
+    private String operator;
 
     public Integer getId(){
     return id;
@@ -167,59 +93,29 @@ public class ConfirmLogDto {
     public void setCode(String code){
     this.code=code;
     }
-    public String getConfirmStatus(){
-    return confirmStatus;
-    }
-    public void setConfirmStatus(String confirmStatus){
-    this.confirmStatus=confirmStatus;
-    }
     public Integer getUserCouponId(){
     return userCouponId;
     }
     public void setUserCouponId(Integer userCouponId){
     this.userCouponId=userCouponId;
     }
-    public Date getConfirmTime(){
-    return confirmTime;
+    public MtCoupon getCouponInfo(){
+    return couponInfo;
     }
-    public void setConfirmTime(Date confirmTime){
-    this.confirmTime=confirmTime;
+    public void setCouponInfo(MtCoupon couponInfo){
+    this.couponInfo=couponInfo;
     }
-    public Integer getCouponId(){
-    return couponId;
+    public MtUser getUserInfo(){
+     return userInfo;
     }
-    public void setCouponId(Integer couponId){
-    this.couponId=couponId;
+    public void setUserInfo(MtUser userInfo){
+    this.userInfo=userInfo;
     }
-    public Integer getUserId(){
-     return userId;
+    public MtStore getStoreInfo(){
+     return storeInfo;
     }
-    public void setUserId(Integer userId){
-    this.userId=userId;
-    }
-    public String getCouponInfoStatus(){
-     return couponInfoStatus;
-    }
-    public void setCouponInfoStatus(String couponInfoStatus){
-    this.couponInfoStatus=couponInfoStatus;
-    }
-    public String getCouponInfoStatusDesc(){
-     return couponInfoStatusDesc;
-    }
-    public void setCouponInfoStatusDesc(String couponInfoStatusDesc){
-    this.couponInfoStatusDesc=couponInfoStatusDesc;
-    }
-    public Integer getStoreId(){
-     return storeId;
-    }
-    public void setStoreId(Integer storeId){
-    this.storeId=storeId;
-    }
-    public Date getUsedTime(){
-     return usedTime;
-    }
-    public void setUsedTime(Date usedTime){
-    this.usedTime=usedTime;
+    public void setStoreInfo(MtStore storeInfo){
+    this.storeInfo=storeInfo;
     }
     public Date getCreateTime(){
      return createTime;
@@ -233,71 +129,11 @@ public class ConfirmLogDto {
     public void setUpdateTime(Date updateTime){
     this.updateTime=updateTime;
     }
-    public String getMobile(){
-     return mobile;
+    public BigDecimal getAmount(){
+     return amount;
     }
-    public void setMobile(String mobile){
-    this.mobile=mobile;
-    }
-    public String getName(){
-     return name;
-    }
-    public void setName(String name){
-    this.name=name;
-    }
-    public String getCouponName(){
-     return couponName;
-    }
-    public void setCouponName(String couponName){
-    this.couponName=couponName;
-    }
-    public BigDecimal getMoney(){
-     return money;
-    }
-    public void setMoney(BigDecimal money){
-    this.money=money;
-    }
-    public Integer getGroupId(){
-     return groupId;
-    }
-    public void setGroupId(Integer groupId){
-    this.groupId=groupId;
-    }
-    public String getCouponStatus(){
-     return couponStatus;
-    }
-    public void setCouponStatus(String couponStatus){
-    this.couponStatus=couponStatus;
-    }
-    public Date getBeginTime(){
-     return beginTime;
-    }
-    public void setBeginTime(Date beginTime){
-    this.beginTime=beginTime;
-    }
-    public Date getEndTime(){
-     return endTime;
-    }
-    public void setEndTime(Date endTime){
-    this.endTime=endTime;
-    }
-    public String getCouponGroupName(){
-     return couponGroupName;
-    }
-    public void setCouponGroupName(String couponGroupName){
-    this.couponGroupName=couponGroupName;
-    }
-    public String getStoreName(){
-     return storeName;
-    }
-    public void setStoreName(String storeName){
-    this.storeName=storeName;
-    }
-    public String getSuitStoreIds(){
-    return suitStoreIds;
-    }
-    public void setSuitStoreIds(String suitStoreIds){
-    this.suitStoreIds=suitStoreIds;
+    public void setAmount(BigDecimal amount){
+    this.amount=amount;
     }
     public String getUuid(){
     return uuid;
@@ -305,17 +141,23 @@ public class ConfirmLogDto {
     public void setUuid(String uuid){
     this.uuid=uuid;
     }
-    public Date getCancelTime(){
-    return cancelTime;
+    public String getStatus(){
+        return status;
     }
-    public void setCancelTime(Date cancelTime){
-    this.cancelTime=cancelTime;
+    public void setStatus(String status){
+        this.status=status;
     }
-    public Date getEndCancelTime(){
-    return endCancelTime;
+    public String getRemark(){
+        return remark;
     }
-    public void setEndCancelTime(Date endCancelTime){
-        this.endCancelTime=endCancelTime;
+    public void setRemark(String remark){
+        this.remark=remark;
+    }
+    public String getOperator(){
+        return operator;
+    }
+    public void setOperator(String operator){
+        this.operator=operator;
     }
 }
 

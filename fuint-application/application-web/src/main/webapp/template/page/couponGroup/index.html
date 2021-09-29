@@ -77,54 +77,6 @@
         });
     }
 
-    /**
-     * 发券
-     * @param groupId 组ID
-     * */
-    function sendCoupon(groupId) {
-        var html = '<div style="margin-bottom:10px;"><span><i style="color:red;margin-right:2px;">*</i>手机号码：</span><input type="text" id="send_mobile" name="mobile" value=""/></div>'+
-                    '<div><span><i style="color:red;margin-right:2px;">*</i>发放套数：</span><input id="send_num" type="text" name="num" value=""/></div>';
-        layer.confirm(html, {
-            btn: ['发放', '取消'] //按钮
-        }, function () {
-            var mobile = $("#send_mobile").val();
-            var num = $("#send_num").val();
-
-            if (mobile.length != 11) {
-                layer.alert("手机号码格式有误！");
-                return;
-            }
-
-            if (num.length < 1) {
-                layer.alert("发放套数不能为空！");
-                return;
-            }
-
-            var re = /^[0-9]+$/ ;
-            if (!re.test(num) || parseInt(num) < 1) {
-                layer.alert("发放套数须为正整数！");
-                return;
-            }
-
-            $.ajax({
-                type: "POST",
-                data:{"groupId": groupId, "mobile": mobile, "num": num},
-                url: "${rc.contextPath}/backend/couponGroup/sendCoupon",
-                success: function (data) {
-                    if (data.result) {
-                        layer.alert("发券成功！");
-                        return;
-                    } else {
-                        layer.alert(data.msg);
-                        return;
-                    }
-                }
-            })
-        }, function () {
-            $.close();
-        });
-    }
-
     function selectFile() {
         $("#filePath").css("display", "block");
         var value = $("#fileInput").val();

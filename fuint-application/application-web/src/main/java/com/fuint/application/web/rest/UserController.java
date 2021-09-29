@@ -2,14 +2,14 @@ package com.fuint.application.web.rest;
 
 import com.fuint.application.dao.entities.*;
 import com.fuint.application.dto.AssetDto;
-import com.fuint.application.enums.CouponTypeEnum;
-import com.fuint.application.enums.StatusEnum;
-import com.fuint.application.enums.UserCouponStatusEnum;
+import com.fuint.application.enums.*;
 import com.fuint.application.service.confirmer.ConfirmerService;
 import com.fuint.application.service.member.MemberService;
+import com.fuint.application.service.setting.SettingService;
 import com.fuint.application.service.usercoupon.UserCouponService;
 import com.fuint.application.service.coupon.CouponService;
 import com.fuint.application.service.usergrade.UserGradeService;
+import com.fuint.application.util.DateUtil;
 import com.fuint.base.dao.pagination.PaginationRequest;
 import com.fuint.base.dao.pagination.PaginationResponse;
 import com.fuint.base.util.RequestHandler;
@@ -54,27 +54,39 @@ public class UserController extends BaseController {
     @Autowired
     private UserGradeService userGradeService;
 
+    @Autowired
+    private SettingService settingService;
+
     /**
      * 获取会员信息
      */
     @RequestMapping(value = "/info", method = RequestMethod.GET)
     @CrossOrigin
-    public ResponseObject info(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException{
+    public ResponseObject info(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException {
         String userToken = request.getHeader("Access-Token");
         MtUser userInfo = tokenService.getUserInfoByToken(userToken);
 
         MtUserGrade gradeInfo = null;
         if (userInfo != null) {
-            userInfo = memberService.queryMemberById(userInfo.getId());
             gradeInfo = memberService.queryMemberGradeByGradeId(Integer.parseInt(userInfo.getGradeId()));
         }
 
-        List<MtUserGrade> memberGrade = userGradeService.getPayUserGradeList();
+        // 如果已购买，则返回空
+        List<MtUserGrade> memberGrade = userGradeService.getPayUserGradeList(userInfo);
 
         Map<String, Object> outParams = new HashMap<>();
         outParams.put("userInfo", userInfo);
         outParams.put("gradeInfo", gradeInfo);
         outParams.put("memberGrade", memberGrade);
+
+        // 会员到期时间
+        String gradeEndTime = "";
+        if (userInfo != null) {
+            if (userInfo.getEndTime() != null) {
+                gradeEndTime = DateUtil.formatDate(userInfo.getEndTime(), "yyyy.MM.dd HH:mm");
+            }
+        }
+        outParams.put("gradeEndTime", gradeEndTime);
 
         // 是否商户核销员
         boolean isMerchant = false;
@@ -100,46 +112,43 @@ public class UserController extends BaseController {
         String userToken = request.getHeader("Access-Token");
         MtUser mtUser = tokenService.getUserInfoByToken(userToken);
 
-        if (mtUser == null) {
-            return getFailureResult(1001, "用户未登录");
-        }
-
         Integer couponNum = 0;
         Integer preStoreNum = 0;
         Integer timerNum = 0;
 
-        List<String> statusList = Arrays.asList(UserCouponStatusEnum.UNUSED.getKey());
-        List<MtUserCoupon> dataList = userCouponService.getUserCouponList(mtUser.getId(), statusList);
+        if (mtUser != null) {
+            List<String> statusList = Arrays.asList(UserCouponStatusEnum.UNUSED.getKey());
+            List<MtUserCoupon> dataList = userCouponService.getUserCouponList(mtUser.getId(), statusList);
+            PaginationRequest requestName = RequestHandler.buildPaginationRequest(request, model);
+            requestName.getSearchParams().put("EQ_status", StatusEnum.ENABLED.getKey());
+            requestName.setCurrentPage(1);
+            requestName.setPageSize(10000);
+            PaginationResponse<MtCoupon> couponData = couponService.queryCouponListByPagination(requestName);
+            List<MtCoupon> couponList = couponData.getContent();
 
-        PaginationRequest requestName = RequestHandler.buildPaginationRequest(request, model);
-        requestName.getSearchParams().put("EQ_status", StatusEnum.ENABLED.getKey());
-        requestName.setCurrentPage(1);
-        requestName.setPageSize(10000);
-        PaginationResponse<MtCoupon> couponData = couponService.queryCouponListByPagination(requestName);
-        List<MtCoupon> couponList = couponData.getContent();
-
-        for (int i = 0; i < dataList.size(); i++) {
-            MtCoupon couponInfo = new MtCoupon();
-            for (int j = 0; j < couponList.size(); j++) {
-                if (dataList.get(i).getCouponId() == couponList.get(j).getId()) {
-                    couponInfo = couponList.get(j);
-                    break;
+            for (int i = 0; i < dataList.size(); i++) {
+                MtCoupon couponInfo = new MtCoupon();
+                for (int j = 0; j < couponList.size(); j++) {
+                    if (dataList.get(i).getCouponId() == couponList.get(j).getId()) {
+                        couponInfo = couponList.get(j);
+                        break;
+                    }
                 }
-            }
 
-            boolean isEffective = couponService.isCouponEffective(couponInfo);
-            if (!isEffective) {
-               continue;
-            }
-            
-            if (dataList.get(i).getType().equals(CouponTypeEnum.COUPON.getKey())) {
-                couponNum++;
-            }
-            if (dataList.get(i).getType().equals(CouponTypeEnum.PRESTORE.getKey())) {
-                preStoreNum++;
-            }
-            if (dataList.get(i).getType().equals(CouponTypeEnum.TIMER.getKey())) {
-                timerNum++;
+                boolean isEffective = couponService.isCouponEffective(couponInfo);
+                if (!isEffective) {
+                    continue;
+                }
+
+                if (dataList.get(i).getType().equals(CouponTypeEnum.COUPON.getKey())) {
+                    couponNum++;
+                }
+                if (dataList.get(i).getType().equals(CouponTypeEnum.PRESTORE.getKey())) {
+                    preStoreNum++;
+                }
+                if (dataList.get(i).getType().equals(CouponTypeEnum.TIMER.getKey())) {
+                    timerNum++;
+                }
             }
         }
 
@@ -150,6 +159,29 @@ public class UserController extends BaseController {
 
         Map<String, Object> outParams = new HashMap<>();
         outParams.put("asset", asset);
+
+        return getSuccessResult(outParams);
+    }
+
+    /**
+     * 获取会员设置
+     */
+    @RequestMapping(value = "/setting", method = RequestMethod.GET)
+    @CrossOrigin
+    public ResponseObject setting() throws BusinessCheckException {
+        Map<String, Object> outParams = new HashMap<>();
+
+        List<MtSetting> settingList = settingService.getSettingList(SettingTypeEnum.USER.getKey());
+
+        for (MtSetting setting : settingList) {
+            if (setting.getName().equals("getCouponNeedPhone")) {
+                outParams.put("getCouponNeedPhone", setting.getValue());
+            } else if (setting.getName().equals("submitOrderNeedPhone")) {
+                outParams.put("submitOrderNeedPhone", setting.getValue());
+            } else if (setting.getName().equals("loginNeedPhone")) {
+                outParams.put("loginNeedPhone", setting.getValue());
+            }
+        }
 
         return getSuccessResult(outParams);
     }

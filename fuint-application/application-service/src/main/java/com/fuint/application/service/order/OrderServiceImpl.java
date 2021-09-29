@@ -5,6 +5,7 @@ import com.fuint.application.ResponseObject;
 import com.fuint.application.config.Constants;
 import com.fuint.application.dao.entities.MtCoupon;
 import com.fuint.application.dao.entities.MtOrder;
+import com.fuint.application.dao.entities.MtPoint;
 import com.fuint.application.dao.entities.MtUser;
 import com.fuint.application.dao.repositories.MtOrderRepository;
 import com.fuint.application.dto.*;
@@ -12,6 +13,7 @@ import com.fuint.application.enums.OrderTypeEnum;
 import com.fuint.application.enums.PayStatusEnum;
 import com.fuint.application.service.coupon.CouponService;
 import com.fuint.application.service.member.MemberService;
+import com.fuint.application.service.point.PointService;
 import com.fuint.application.util.CommonUtil;
 import com.fuint.application.util.DateUtil;
 import com.fuint.base.annoation.OperationServiceLog;
@@ -56,6 +58,9 @@ public class OrderServiceImpl extends BaseService implements OrderService {
 
     @Autowired
     private MemberService memberService;
+
+    @Autowired
+    private PointService pointService;
 
     @Autowired
     private Environment env;
@@ -141,8 +146,9 @@ public class OrderServiceImpl extends BaseService implements OrderService {
      * @throws BusinessCheckException
      */
     @Override
+    @Transactional
     @OperationServiceLog(description = "创建订单")
-    public MtOrder createOrder(OrderDto orderDto) throws BusinessCheckException {
+    public MtOrder createOrder(OrderDto orderDto) throws BusinessCheckException{
         MtOrder MtOrder = new MtOrder();
         if (null != orderDto.getId()) {
             MtOrder.setId(MtOrder.getId());
@@ -157,17 +163,23 @@ public class OrderServiceImpl extends BaseService implements OrderService {
         MtOrder.setStatus(OrderStatusEnum.CREATED.getKey());
         MtOrder.setType(orderDto.getType());
         MtOrder.setAmount(orderDto.getAmount());
+        MtOrder.setDiscount(orderDto.getDiscount());
         MtOrder.setPayStatus(PayStatusEnum.WAIT.getKey());
+        MtOrder.setPointAmount(orderDto.getPointAmount());
+        MtOrder.setUsePoint(orderDto.getUsePoint());
 
-        try {
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            String dt = format.format(new Date());
-            Date addTime = format.parse(dt);
-            MtOrder.setUpdateTime(addTime);
-            MtOrder.setCreateTime(addTime);
-        } catch (ParseException e) {
-            throw new BusinessRuntimeException("日期转换异常 " + e.getMessage());
+        // 扣减积分
+        if (orderDto.getUsePoint() > 0) {
+            MtPoint reqPointDto = new MtPoint();
+            reqPointDto.setUserId(orderDto.getUserId());
+            reqPointDto.setAmount(-orderDto.getUsePoint());
+            reqPointDto.setOrderSn(orderSn);
+            reqPointDto.setDescription("支付扣除" + orderDto.getUsePoint() + "积分");
+            pointService.addPoint(reqPointDto);
         }
+
+        MtOrder.setUpdateTime(new Date());
+        MtOrder.setCreateTime(new Date());
 
         return orderRepository.save(MtOrder);
     }

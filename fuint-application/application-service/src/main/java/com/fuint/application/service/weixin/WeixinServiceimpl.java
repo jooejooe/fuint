@@ -1,17 +1,20 @@
 package com.fuint.application.service.weixin;
 
 import com.fuint.application.BaseService;
-import com.fuint.application.dao.entities.MtOrder;
-import com.fuint.application.dao.entities.MtPoint;
-import com.fuint.application.dao.entities.MtSetting;
-import com.fuint.application.dao.entities.MtUser;
+import com.fuint.application.dao.entities.*;
 import com.fuint.application.dto.OrderDto;
 import com.fuint.application.dto.UserOrderDto;
 import com.fuint.application.enums.OrderStatusEnum;
 import com.fuint.application.enums.OrderTypeEnum;
 import com.fuint.application.enums.PayStatusEnum;
-import  com.fuint.application.http.HttpRESTDataClient;
+import com.fuint.application.http.HttpRESTDataClient;
+import com.fuint.application.service.member.MemberService;
 import com.fuint.application.service.order.OrderService;
+import com.fuint.application.service.opengift.OpenGiftService;
+import com.fuint.application.service.usercoupon.UserCouponService;
+import com.fuint.application.service.setting.SettingService;
+import com.fuint.application.service.point.PointService;
+import com.fuint.application.service.usergrade.UserGradeService;
 import com.fuint.application.util.TimeUtils;
 import com.fuint.exception.BusinessCheckException;
 import com.github.wxpay.sdk.WXPay;
@@ -46,9 +49,6 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.security.AlgorithmParameters;
 import java.security.Security;
-import com.fuint.application.service.usercoupon.UserCouponService;
-import com.fuint.application.service.setting.SettingService;
-import com.fuint.application.service.point.PointService;
 
 @Service
 public class WeixinServiceimpl extends BaseService implements WeixinService {
@@ -70,6 +70,15 @@ public class WeixinServiceimpl extends BaseService implements WeixinService {
     private PointService pointService;
 
     @Autowired
+    private OpenGiftService openGiftService;
+
+    @Autowired
+    UserGradeService userGradeService;
+
+    @Autowired
+    private MemberService memberService;
+
+    @Autowired
     private Environment env;
 
     @Override
@@ -87,7 +96,7 @@ public class WeixinServiceimpl extends BaseService implements WeixinService {
         reqData.put("out_trade_no", orderInfo.getOrderSn());
         reqData.put("device_info", "");
         reqData.put("fee_type", "CNY");
-        reqData.put("total_fee", "1");// 测试 支付1分钱 payAmount.toString()
+        reqData.put("total_fee", "1");// 测试 1分钱支付 payAmount.toString()
         reqData.put("spbill_create_ip", ip);
         reqData.put("notify_url", wxPayConfigImpl.getCallbackUrl());
         reqData.put("trade_type", "JSAPI");
@@ -144,6 +153,8 @@ public class WeixinServiceimpl extends BaseService implements WeixinService {
     @Override
     @Transactional
     public boolean paymentCallback(UserOrderDto orderInfo) throws BusinessCheckException {
+        OrderDto reqDto = new OrderDto();
+
         // 预存卡订单
         if (orderInfo.getType().equals(OrderTypeEnum.PRESTORE.getKey())) {
             Map<String, Object> param = new HashMap<>();
@@ -154,8 +165,13 @@ public class WeixinServiceimpl extends BaseService implements WeixinService {
             userCouponService.preStore(param);
         }
 
+        // 会员升级订单
+        if (orderInfo.getType().equals(OrderTypeEnum.MEMBER.getKey())) {
+            openGiftService.openGift(orderInfo.getUserId(), Integer.parseInt(orderInfo.getParam()));
+            reqDto.setRemark("升级会员等级");
+        }
+
         // 更新订单状态为已支付
-        OrderDto reqDto = new OrderDto();
         reqDto.setId(orderInfo.getId());
         reqDto.setStatus(OrderStatusEnum.PAID.getKey());
         reqDto.setPayStatus(PayStatusEnum.SUCCESS.getKey());
@@ -176,6 +192,13 @@ public class WeixinServiceimpl extends BaseService implements WeixinService {
             logger.debug("WXService paymentCallback Point orderSn = {} , pointNum ={}", orderInfo.getOrderSn(), pointNum);
 
             if (pointNum > 0) {
+                MtUser userInfo = memberService.queryMemberById(orderInfo.getUserId());
+                MtUserGrade userGrade = userGradeService.queryUserGradeById(Integer.parseInt(userInfo.getGradeId()));
+                // 是否会员积分加倍
+                if (userGrade.getSpeedPoint() > 1) {
+                    pointNum = pointNum * userGrade.getSpeedPoint();
+                }
+
                 MtPoint reqPointDto = new MtPoint();
                 reqPointDto.setAmount(pointNum.intValue());
                 reqPointDto.setUserId(orderInfo.getUserId());

@@ -59,7 +59,7 @@ public class SignController extends BaseController {
     @RequestMapping(value = "/mpWxLogin", method = RequestMethod.POST)
     @ResponseBody
     @CrossOrigin
-    public ResponseObject mpWxLogin(HttpServletRequest request, @RequestBody Map<String, Object> param, Model model) throws BusinessCheckException{
+    public ResponseObject mpWxLogin(HttpServletRequest request, @RequestBody Map<String, Object> param, Model model) throws BusinessCheckException {
         JSONObject paramsObj = new JSONObject(param);
 
         JSONObject userInfo = paramsObj.getJSONObject("userInfo");
@@ -74,6 +74,9 @@ public class SignController extends BaseController {
         }
 
         MtUser mtUser = memberService.queryMemberByOpenId(loginInfo.get("openid").toString(), userInfo);
+        if (mtUser == null) {
+            return getFailureResult(0, "用户状态异常");
+        }
 
         String userAgent = request.getHeader("user-agent");
         String token = tokenService.generateToken(userAgent, mtUser.getMobile());
@@ -113,7 +116,6 @@ public class SignController extends BaseController {
         MtVerifyCode mtVerifyCode = verifyCodeService.checkVerifyCode(mobile, verifyCode);
         MtUser mtUser = memberService.queryMemberByMobile(mobile);
 
-        //@todo
         if (verifyCode.equals("999999")) {
             mtVerifyCode = new MtVerifyCode();
             mtVerifyCode.setId(1L);
@@ -143,7 +145,6 @@ public class SignController extends BaseController {
             dto.setIsLogin("false");
             return getFailureResult(1002, "验证码错误，登录失败");
         }
-
 
         Map<String, Object> outParams = new HashMap<String, Object>();
 

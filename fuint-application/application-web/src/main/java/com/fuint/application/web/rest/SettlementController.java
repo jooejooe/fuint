@@ -3,12 +3,14 @@ package com.fuint.application.web.rest;
 import com.fuint.application.dao.entities.MtCoupon;
 import com.fuint.application.dao.entities.MtOrder;
 import com.fuint.application.dao.entities.MtUser;
+import com.fuint.application.dao.entities.MtUserGrade;
 import com.fuint.application.dto.OrderDto;
 import com.fuint.application.enums.OrderTypeEnum;
 import com.fuint.application.service.coupon.CouponService;
 import com.fuint.application.service.order.OrderService;
 import com.fuint.application.service.token.TokenService;
 import com.fuint.application.service.weixin.WeixinService;
+import com.fuint.application.service.usergrade.UserGradeService;
 import com.fuint.application.util.CommonUtil;
 import com.fuint.exception.BusinessCheckException;
 import com.fuint.application.ResponseObject;
@@ -24,7 +26,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 结算接口controller
+ * 结算中心接口
  * Created by FSQ
  * Contact wx fsq_better
  */
@@ -59,6 +61,11 @@ public class SettlementController extends BaseController {
     private WeixinService weixinService;
 
     /**
+     * 会员等级接口
+     * */
+    @Autowired UserGradeService userGradeService;
+
+    /**
      * 结算提交
      */
     @RequestMapping(value = "/submit", method = RequestMethod.POST)
@@ -71,27 +78,27 @@ public class SettlementController extends BaseController {
         }
         param.put("userId", userInfo.getId());
 
-        Integer couponId = param.get("couponId") == null ? 0 : Integer.parseInt(param.get("couponId").toString()); // 预存卡必填
+        Integer targetId = param.get("targetId") == null ? 0 : Integer.parseInt(param.get("targetId").toString()); // 预存卡、升级等级必填
         String selectNum = param.get("selectNum") == null ? "" : param.get("selectNum").toString(); // 预存卡必填
         String remark = param.get("remark") == null ? "" : param.get("remark").toString();
         String type = param.get("type") == null ? "" : param.get("type").toString();
         String payAmount = param.get("payAmount") == null ? "" : param.get("payAmount").toString();
+        Integer usePoint = param.get("usePoint") == null ? 0 : Integer.parseInt(param.get("usePoint").toString());
 
         // 生成订单数据
         OrderDto orderDto = new OrderDto();
-        orderDto.setCouponId(couponId);
         orderDto.setRemark(remark);
         orderDto.setUserId(userInfo.getId());
         orderDto.setType(type);
-
-        BigDecimal realPayAmount = new BigDecimal("0");
+        orderDto.setUsePoint(usePoint);
 
         // 预存卡的订单
         if (orderDto.getType().equals(OrderTypeEnum.PRESTORE.getKey())) {
+            orderDto.setCouponId(targetId);
             String orderParam = "";
             BigDecimal totalAmount = new BigDecimal(0);
 
-            MtCoupon couponInfo = couponService.queryCouponById(couponId);
+            MtCoupon couponInfo = couponService.queryCouponById(targetId);
             String inRule = couponInfo.getInRule();
             String[] selectNumArr = selectNum.split(",");
             String[] ruleArr = inRule.split(",");
@@ -110,13 +117,32 @@ public class SettlementController extends BaseController {
             orderDto.setParam(orderParam);
             orderDto.setAmount(totalAmount);
 
-            realPayAmount = totalAmount;
+            payAmount = totalAmount.toString();
         }
 
         // 付款订单
         if (orderDto.getType().equals(OrderTypeEnum.PAYMENT.getKey())) {
-            orderDto.setAmount(new BigDecimal(payAmount));
-            realPayAmount = new BigDecimal(payAmount);
+            MtUserGrade userGrade = userGradeService.queryUserGradeById(Integer.parseInt(userInfo.getGradeId()));
+            // 是否有会员折扣
+            if (userGrade.getDiscount() > 0) {
+                BigDecimal percent = new BigDecimal(userGrade.getDiscount()).divide(new BigDecimal("10"));
+                BigDecimal payAmountDiscount = new BigDecimal(payAmount).multiply(percent);
+                orderDto.setAmount(payAmountDiscount);
+                orderDto.setDiscount(new BigDecimal(payAmount).subtract(payAmountDiscount));
+            } else {
+                orderDto.setAmount(new BigDecimal(payAmount));
+                orderDto.setDiscount(new BigDecimal("0"));
+            }
+            orderDto.setPointAmount(new BigDecimal(usePoint));
+        }
+
+        // 升级订单
+        if (orderDto.getType().equals(OrderTypeEnum.MEMBER.getKey())) {
+            orderDto.setParam(targetId+"");
+            MtUserGrade userGrade = userGradeService.queryUserGradeById(targetId);
+            orderDto.setRemark("付费升级" + userGrade.getName());
+            orderDto.setAmount(new BigDecimal(userGrade.getCatchValue().toString()));
+            payAmount = userGrade.getCatchValue().toString();
         }
 
         // 生成订单
@@ -125,6 +151,7 @@ public class SettlementController extends BaseController {
 
         // 生成支付订单
         String ip = CommonUtil.getIPFromHttpRequest(request);
+        BigDecimal realPayAmount = new BigDecimal(payAmount);
         BigDecimal pay = realPayAmount.multiply(new BigDecimal("100"));
         ResponseObject paymentInfo = weixinService.createPrepayOrder(userInfo, orderInfo, (pay.intValue()), 0, ip);
 

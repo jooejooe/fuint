@@ -1,14 +1,17 @@
 package com.fuint.application.web.rest;
 
+import com.fuint.application.ResponseObject;
+import com.fuint.application.dao.entities.MtSetting;
+import com.fuint.application.dao.entities.MtUser;
 import com.fuint.application.dto.UserOrderDto;
 import com.fuint.application.enums.OrderStatusEnum;
+import com.fuint.application.enums.SettingTypeEnum;
 import com.fuint.application.service.order.OrderService;
+import com.fuint.application.service.setting.SettingService;
+import com.fuint.application.service.token.TokenService;
 import com.fuint.application.service.weixin.WeixinService;
 import com.fuint.exception.BusinessCheckException;
-import com.fuint.application.ResponseObject;
 import com.fuint.application.BaseController;
-import com.fuint.application.dao.entities.MtUser;
-import com.fuint.application.service.token.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.util.CollectionUtils;
@@ -19,6 +22,8 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -32,9 +37,6 @@ public class PayController extends BaseController {
 
     private static final Logger logger = LoggerFactory.getLogger(SignController.class);
 
-    @Autowired
-    private TokenService tokenService;
-
     /**
      * 微信服务接口
      * */
@@ -47,22 +49,43 @@ public class PayController extends BaseController {
     @Autowired
     private OrderService orderService;
 
-    /**
-     * 提交支付
-     */
-    @RequestMapping(value = "/doPay", method = RequestMethod.GET)
-    @CrossOrigin
-    public ResponseObject doPay(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException{
-        String userToken = request.getHeader("Access-Token");
-        MtUser userInfo = tokenService.getUserInfoByToken(userToken);
+    @Autowired
+    private TokenService tokenService;
 
-        if (userInfo == null) {
+    @Autowired
+    private SettingService settingService;
+
+    /**
+     * 支付前查询
+     * */
+    @RequestMapping(value = "/prePay", method = RequestMethod.GET)
+    @CrossOrigin
+    public ResponseObject prePay(HttpServletRequest request) throws BusinessCheckException{
+        String userToken = request.getHeader("Access-Token");
+        MtUser mtUser = tokenService.getUserInfoByToken(userToken);
+
+        if (mtUser == null) {
             return getFailureResult(1001, "用户未登录");
         }
 
-        ResponseObject responseObject = null;
+        Map<String, Object> outParams = new HashMap<>();
 
-        return getSuccessResult(responseObject.getData());
+        List<MtSetting> settingList = settingService.getSettingList(SettingTypeEnum.POINT.getKey());
+        String canUsedAsMoney = "false";
+        String exchangeNeedPoint = "0";
+        for (MtSetting setting : settingList) {
+            if (setting.getName().equals("canUsedAsMoney")) {
+                canUsedAsMoney = setting.getValue();
+            } else if (setting.getName().equals("exchangeNeedPoint")) {
+                exchangeNeedPoint = setting.getValue();
+            }
+        }
+
+        outParams.put("canUsedAsMoney", canUsedAsMoney);
+        outParams.put("exchangeNeedPoint", exchangeNeedPoint);
+        outParams.put("canUsePointAmount", mtUser.getPoint());
+
+        return getSuccessResult(outParams);
     }
 
     /**
@@ -91,7 +114,7 @@ public class PayController extends BaseController {
                     if (true) { // compareFlag == 0，测试暂时去掉
                         if (orderInfo.getStatus().equals(OrderStatusEnum.CREATED.getKey())) {
                             boolean flag = weixinService.paymentCallback(orderInfo);
-                            logger.info("回调结果："+flag);
+                            logger.info("回调结果：" + flag);
                             if (flag) {
                                 weixinService.processRespXml(response, true);
                             } else {

@@ -23,7 +23,7 @@ public interface UserCouponService {
     PaginationResponse<MtUserCoupon> queryUserCouponListByPagination(PaginationRequest paginationRequest) throws BusinessCheckException;
 
     /**
-     * 领券
+     * 领取卡券
      * @param paramMap
      * @return
      * */

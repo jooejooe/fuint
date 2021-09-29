@@ -93,7 +93,7 @@ public class CouponServiceImpl extends BaseService implements CouponService {
      * @return
      */
     @Override
-    public PaginationResponse<MtCoupon> queryCouponListByPagination(PaginationRequest paginationRequest) throws BusinessCheckException {
+    public PaginationResponse<MtCoupon> queryCouponListByPagination(PaginationRequest paginationRequest) {
         paginationRequest.setSortColumn(new String[]{"status asc", "id desc"});
         return couponRepository.findResultsByPagination(paginationRequest);
     }
@@ -182,7 +182,7 @@ public class CouponServiceImpl extends BaseService implements CouponService {
 
         // 如果是优惠券，并且是线下发放，生成卡券
         if (coupon.getType().equals(CouponTypeEnum.COUPON.getKey()) && coupon.getSendWay().equals(SendWayEnum.OFFLINE.getKey())) {
-            MtCouponGroup groupInfo = couponGroupService.queryCouponGroupById(coupon.getGroupId().longValue());
+            MtCouponGroup groupInfo = couponGroupService.queryCouponGroupById(coupon.getGroupId());
 
             Integer total = groupInfo.getTotal() * coupon.getSendNum();
             if (total > 0) {
@@ -410,6 +410,8 @@ public class CouponServiceImpl extends BaseService implements CouponService {
         String status =  paramMap.get("status") == null ? StatusEnum.ENABLED.getKey(): paramMap.get("status").toString();
         String type =  paramMap.get("type") == null ? "" : paramMap.get("type").toString();
         Integer userId =  paramMap.get("userId") == null ? 0 : Integer.parseInt(paramMap.get("userId").toString());
+        String needPoint =  paramMap.get("needPoint") == null ? "0" : paramMap.get("needPoint").toString();
+        String sendWay =  paramMap.get("sendWay") == null ? "front" : paramMap.get("sendWay").toString();
 
         PaginationRequest paginationRequest = new PaginationRequest();
         paginationRequest.setCurrentPage(pageNumber);
@@ -417,9 +419,16 @@ public class CouponServiceImpl extends BaseService implements CouponService {
         Map<String, Object> searchParams = new HashedMap();
 
         searchParams.put("EQ_status", status);
+        if (StringUtils.isNotEmpty(sendWay)) {
+            searchParams.put("EQ_sendWay", sendWay);
+        }
         if (StringUtils.isNotEmpty(type)) {
             searchParams.put("EQ_type", type);
         }
+        if (Integer.parseInt(needPoint) > 0) {
+            searchParams.put("GT_point", needPoint);
+        }
+
         paginationRequest.setSearchParams(searchParams);
         paginationRequest.setSortColumn(new String[]{"id desc", "groupId desc"});
 
@@ -502,7 +511,7 @@ public class CouponServiceImpl extends BaseService implements CouponService {
      * @param groupId 查询参数
      * @throws BusinessCheckException
      * */
-    public List<MtCoupon> queryCouponListByGroupId(Long groupId) throws BusinessCheckException {
+    public List<MtCoupon> queryCouponListByGroupId(Integer groupId) throws BusinessCheckException {
         List<MtCoupon> couponList = couponRepository.queryByGroupId(groupId.intValue());
         return couponList;
     }
@@ -510,79 +519,68 @@ public class CouponServiceImpl extends BaseService implements CouponService {
     /**
      * 发放卡券
      *
-     * @param groupId 券组ID
-     * @param mobile  操作人
-     * @param num     发放套数
+     * @param couponId 卡券ID
+     * @param mobile   手机号
+     * @param num      发放套数
      * @throws BusinessCheckException
      */
     @Override
     @Transactional
     @OperationServiceLog(description = "发放卡券")
-    public void sendCoupon(Long groupId, String mobile, Integer num, String uuid) throws BusinessCheckException {
-        MtCouponGroup groupInfo = couponGroupService.queryCouponGroupById(groupId);
-
+    public void sendCoupon(Integer couponId, String mobile, Integer num, String uuid) throws BusinessCheckException {
         MtUser mtUser = memberService.queryMemberByMobile(mobile);
-
-        if (null == groupInfo) {
-            throw new BusinessCheckException("该分组为空，请增加卡券");
-        }
 
         if (null == mtUser || !mtUser.getStatus().equals(StatusEnum.ENABLED.getKey())) {
             throw new BusinessCheckException("该手机号码不存在或已禁用，请先注册会员");
         }
 
-        Integer sendedNum = couponGroupService.getSendedNum(groupId.intValue());
-        if (sendedNum >= groupInfo.getTotal() || (num - (groupInfo.getTotal() - sendedNum) > 0)) {
-            throw new BusinessCheckException("分组ID"+groupId+"数量不足，请增加发行量");
-        }
+        ShiroUser shiroUser = ShiroUserHelper.getCurrentShiroUser();
 
         // 发放num套
         for (int k = 1; k <= num; k++) {
-            List<MtCoupon> couponList = this.queryCouponListByGroupId(groupId);
-            if (couponList != null && couponList.size() > 0) {
-                for (int i = 0; i < couponList.size(); i++) {
-                    MtCoupon coupon = couponList.get(i);
+            MtCoupon couponInfo = this.queryCouponById(couponId);
 
-                    // 券是否有效
-                    if (!coupon.getStatus().equals(StatusEnum.ENABLED.getKey())) {
-                        continue;
-                    }
+            // 券是否有效
+            if (!couponInfo.getStatus().equals(StatusEnum.ENABLED.getKey())) {
+                continue;
+            }
 
-                    for (int j = 1; j <= coupon.getSendNum(); j++) {
-                        MtUserCoupon userCoupon = new MtUserCoupon();
-                        userCoupon.setCouponId(coupon.getId());
-                        userCoupon.setGroupId(groupInfo.getId());
-                        userCoupon.setMobile(mobile);
-                        userCoupon.setUserId(mtUser.getId());
-                        userCoupon.setStatus(UserCouponStatusEnum.UNUSED.getKey());
-                        userCoupon.setCreateTime(new Date());
-                        userCoupon.setUpdateTime(new Date());
-
-                        // 12位随机数
-                        StringBuffer code = new StringBuffer();
-                        code.append(SeqUtil.getRandomNumber(4));
-                        code.append(SeqUtil.getRandomNumber(4));
-                        code.append(SeqUtil.getRandomNumber(4));
-                        code.append(SeqUtil.getRandomNumber(4));
-                        userCoupon.setCode(code.toString());
-                        userCoupon.setUuid(uuid);
-
-                        userCouponRepository.save(userCoupon);
-                    }
+            for (int j = 1; j <= couponInfo.getSendNum(); j++) {
+                MtUserCoupon userCoupon = new MtUserCoupon();
+                userCoupon.setCouponId(couponInfo.getId());
+                userCoupon.setType(couponInfo.getType());
+                userCoupon.setImage(couponInfo.getImage());
+                userCoupon.setStoreId(0);
+                userCoupon.setAmount(couponInfo.getAmount());
+                userCoupon.setBalance(couponInfo.getAmount());
+                if (shiroUser != null) {
+                    userCoupon.setOperator(shiroUser.getAcctName());
                 }
-            } else {
-                throw new BusinessCheckException("分组ID"+groupId+"数量不足，请增加发行量");
+                userCoupon.setGroupId(couponInfo.getGroupId());
+                userCoupon.setMobile(mobile);
+                userCoupon.setUserId(mtUser.getId());
+                userCoupon.setStatus(UserCouponStatusEnum.UNUSED.getKey());
+                userCoupon.setCreateTime(new Date());
+                userCoupon.setUpdateTime(new Date());
+
+                // 12位随机数
+                StringBuffer code = new StringBuffer();
+                code.append(SeqUtil.getRandomNumber(4));
+                code.append(SeqUtil.getRandomNumber(4));
+                code.append(SeqUtil.getRandomNumber(4));
+                code.append(SeqUtil.getRandomNumber(4));
+                userCoupon.setCode(code.toString());
+                userCoupon.setUuid(uuid);
+                userCouponRepository.save(userCoupon);
             }
         }
-
-        return;
     }
 
     /**
      * 核销卡券
      *
-     * @param userCouponId 用户券ID
-     * @param userId  用户ID
+     * @param userCouponId 用户卡券ID
+     * @param userId  核销员用户ID
      * @param storeId 店铺ID
      * @param amount 核销金额
      * @param remark 核销备注
@@ -591,7 +589,7 @@ public class CouponServiceImpl extends BaseService implements CouponService {
     @Override
     @Transactional
     @OperationServiceLog(description = "核销卡券")
-    public String useCoupon(Long userCouponId, Integer userId, Integer storeId, BigDecimal amount, String remark) throws BusinessCheckException {
+    public String useCoupon(Integer userCouponId, Integer userId, Integer storeId, BigDecimal amount, String remark) throws BusinessCheckException {
         MtUserCoupon userCoupon = userCouponRepository.findOne(userCouponId.intValue());
 
         if (null == userCoupon) {
@@ -600,11 +598,14 @@ public class CouponServiceImpl extends BaseService implements CouponService {
             throw new BusinessCheckException("该卡券状态有误，可能已使用或过期");
         }
 
-        MtStore mtStore = mtStoreRepository.findOne(storeId);
-        if (null == mtStore) {
-            throw new BusinessCheckException("该店铺不存在！");
-        } else if (!mtStore.getStatus().equals(StatusEnum.ENABLED.getKey())) {
-            throw new BusinessCheckException("该店铺状态有误，可能已禁用");
+        MtStore mtStore = null;
+        if (storeId > 0) {
+            mtStore = mtStoreRepository.findOne(storeId);
+            if (null == mtStore) {
+                throw new BusinessCheckException("该店铺不存在！");
+            } else if (!mtStore.getStatus().equals(StatusEnum.ENABLED.getKey())) {
+                throw new BusinessCheckException("该店铺状态有误，可能已禁用");
+            }
         }
 
         // 是否处于有效期
@@ -639,8 +640,8 @@ public class CouponServiceImpl extends BaseService implements CouponService {
                          String[] timeItem = exceptTime.split("_");
                          if (timeItem.length == 2) {
                              try {
-                                 Date startTime = DateUtil.parseDate(timeItem[0].toString(), "yyyy-MM-dd HH:mm");
-                                 Date endTime = DateUtil.parseDate(timeItem[1].toString(), "yyyy-MM-dd HH:mm");
+                                 Date startTime = DateUtil.parseDate(timeItem[0], "yyyy-MM-dd HH:mm");
+                                 Date endTime = DateUtil.parseDate(timeItem[1], "yyyy-MM-dd HH:mm");
                                  if (now.before(endTime) && now.after(startTime)) {
                                      throw new BusinessCheckException("该卡券在当前日期不可用");
                                  }
@@ -671,7 +672,7 @@ public class CouponServiceImpl extends BaseService implements CouponService {
 
             userCoupon.setBalance(newBalance);
         } else if (couponInfo.getType().equals(CouponTypeEnum.TIMER.getKey())) {
-            // 集次卡核销，增肌核销次数至满
+            // 集次卡核销，增加核销次数至满
             int confirmCount = 3;
             if (confirmCount >= Integer.parseInt(couponInfo.getOutRule())) {
                 userCoupon.setStatus(UserCouponStatusEnum.USED.getKey());
@@ -686,17 +687,24 @@ public class CouponServiceImpl extends BaseService implements CouponService {
         // 生成核销流水
         MtConfirmLog confirmLog = new MtConfirmLog();
         StringBuilder code = new StringBuilder();
-        String sstoreId="00000"+storeId.toString();
+        String sStoreId="00000"+storeId.toString();
         code.append(new SimpleDateFormat("yyMMddHHmmss").format(new Date()));
-        code.append(sstoreId.substring(sstoreId.length()-4, sstoreId.length()));
+        code.append(sStoreId.substring(sStoreId.length()-4));
         code.append(SeqUtil.getRandomNumber(6));
         confirmLog.setCode(code.toString());
 
+        confirmLog.setCouponId(couponInfo.getId());
         confirmLog.setUserCouponId(userCouponId.intValue());
         confirmLog.setCreateTime(new Date());
         confirmLog.setUpdateTime(new Date());
         confirmLog.setUserId(userCoupon.getUserId());
         confirmLog.setOperatorUserId(userId);
+        if (userId > 0) {
+            MtUser userInfo = memberService.queryMemberById(userId);
+            if (userInfo != null) {
+                confirmLog.setOperator(userInfo.getName());
+            }
+        }
         confirmLog.setStoreId(storeId);
         confirmLog.setStatus(StatusEnum.ENABLED.getKey());
         confirmLog.setAmount(amount);
@@ -706,6 +714,7 @@ public class CouponServiceImpl extends BaseService implements CouponService {
         ShiroUser shiroUser = ShiroUserHelper.getCurrentShiroUser();
         if (shiroUser != null) {
             confirmLog.setOperatorFrom("tAccount");
+            confirmLog.setOperator(shiroUser.getAcctName());
         }
         confirmLogRepository.save(confirmLog);
 
@@ -714,7 +723,9 @@ public class CouponServiceImpl extends BaseService implements CouponService {
             mobileList.add(userCoupon.getMobile());
             Map<String, String> params = new HashMap<>();
             params.put("couponName", couponInfo.getName());
-            params.put("storeName", mtStore.getName());
+            if (mtStore != null){
+                params.put("storeName", mtStore.getName());
+            }
             params.put("sn", code.toString());
             sendSmsService.sendSms("confirm-coupon", mobileList, params);
         } catch (Exception e) {
@@ -745,13 +756,13 @@ public class CouponServiceImpl extends BaseService implements CouponService {
         }
         usercoupon.setStatus("D");
 
-        //修改时间
+        // 修改时间
         usercoupon.setUpdateTime(new Date());
 
-        //操作人
+        // 操作人
         usercoupon.setOperator(operator);
 
-        //更新发券日志为部分作废状态
+        // 更新发券日志为部分作废状态
         this.sendLogRepository.updateSingleForRemove(usercoupon.getUuid(),"B");
 
         userCouponRepository.save(usercoupon);
@@ -781,7 +792,8 @@ public class CouponServiceImpl extends BaseService implements CouponService {
         if (null == usercoupon) {
             throw new BusinessCheckException("用户卡券不存在！");
         }
-        //卡券未过期才能撤销,当前时间小于过期日期才能删除,48小时
+
+        // 卡券未过期才能撤销,当前时间小于过期日期才能删除,48小时
         Calendar endTimecal = Calendar.getInstance();
         endTimecal.setTime(mtConfirmLog.getCreateTime());
         endTimecal.add(Calendar.DAY_OF_MONTH, 2);
@@ -796,23 +808,25 @@ public class CouponServiceImpl extends BaseService implements CouponService {
         if (mtCoupon.getEndTime().before(new Date())) {
             throw new BusinessCheckException("卡券未过期才能撤销");
         }
+
         // 卡券只有是使用状态且核销流水正常状态才能撤销
-        if(!usercoupon.getStatus().equals(UserCouponStatusEnum.USED.getKey())||
-                !mtConfirmLog.getStatus().equals(StatusEnum.ENABLED.getKey())) {
+        if(!usercoupon.getStatus().equals(UserCouponStatusEnum.USED.getKey()) || !mtConfirmLog.getStatus().equals(StatusEnum.ENABLED.getKey())) {
             throw new BusinessCheckException("该劵状态异常，请稍后重试！");
         }
-        usercoupon.setStatus(UserCouponStatusEnum.UNUSED.getKey());  //回退至可用状态
+
+        // 回退至可用状态
+        usercoupon.setStatus(UserCouponStatusEnum.UNUSED.getKey());
         usercoupon.setStoreId(null);
         usercoupon.setUsedTime(null);
 
         // 修改时间
         usercoupon.setUpdateTime(new Date());
 
-        //更新用户卡券
+        // 更新用户卡券
         userCouponRepository.save(usercoupon);
 
-        //更新流水
-        ShiroUser shiroUser = ShiroUserHelper.getCurrentShiroUser(); //当前登录账号
+        // 更新流水
+        ShiroUser shiroUser = ShiroUserHelper.getCurrentShiroUser();
         mtConfirmLog.setOperator(shiroUser.getAcctName());
 
         mtConfirmLog.setStatus(StatusEnum.DISABLE.getKey());

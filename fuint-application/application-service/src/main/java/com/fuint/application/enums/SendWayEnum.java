@@ -2,7 +2,7 @@ package com.fuint.application.enums;
 
 /**
  * 卡券发放方式
- * <p/>
+ *
  * Created by FSQ
  * Contact wx fsq_better
  */

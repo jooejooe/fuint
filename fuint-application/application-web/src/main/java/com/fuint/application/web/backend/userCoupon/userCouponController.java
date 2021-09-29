@@ -86,7 +86,7 @@ public class userCouponController {
         if (paginationResponse.getContent().size() > 0) {
             for (int i=0; i < paginationResponse.getContent().size(); i++) {
                 MtCouponGroup object = paginationResponse.getContent().get(i);
-                object.setMoney(couponGroupService.getCouponMoney(object.getId().longValue()));
+                object.setMoney(couponGroupService.getCouponMoney(object.getId().intValue()));
                 object.setNum(couponGroupService.getCouponNum(object.getId()));
             }
         }
@@ -106,8 +106,8 @@ public class userCouponController {
     @RequiresPermissions("backend/couponGroup/delete")
     @RequestMapping(value = "/delete/{id}")
     @ResponseBody
-    public ReqResult delete(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable("id") Long id) throws BusinessCheckException {
-        List<Long> ids = new ArrayList<Long>();
+    public ReqResult delete(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable("id") Integer id) throws BusinessCheckException {
+        List<Integer> ids = new ArrayList<Integer>();
         ids.add(id);
 
         String operator = ShiroUserHelper.getCurrentShiroUser().getAcctName();
@@ -159,7 +159,7 @@ public class userCouponController {
      */
     @RequiresPermissions("backend/couponGroupEditInit")
     @RequestMapping(value = "/couponGroupEditInit/{id}")
-    public String couponGroupEditInit(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable("id") Long id) throws BusinessCheckException {
+    public String couponGroupEditInit(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable("id") Integer id) throws BusinessCheckException {
         MtCouponGroup mtCouponGroup = couponGroupService.queryCouponGroupById(id);
         model.addAttribute("couponGroup", mtCouponGroup);
         return "couponGroup/edit";

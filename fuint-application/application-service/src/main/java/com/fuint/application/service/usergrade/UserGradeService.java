@@ -1,10 +1,10 @@
 package com.fuint.application.service.usergrade;
 
+import com.fuint.application.dao.entities.MtUser;
 import com.fuint.application.dao.entities.MtUserGrade;
 import com.fuint.base.dao.pagination.PaginationRequest;
 import com.fuint.base.dao.pagination.PaginationResponse;
 import com.fuint.exception.BusinessCheckException;
-
 import java.util.List;
 
 /**
@@ -64,8 +64,8 @@ public interface UserGradeService {
 
     /**
      * 获取付费会员等级列表
-     *
+     * @param userInfo
      * @throws BusinessCheckException
      * */
-    List<MtUserGrade> getPayUserGradeList() throws BusinessCheckException;
+    List<MtUserGrade> getPayUserGradeList(MtUser userInfo) throws BusinessCheckException;
 }

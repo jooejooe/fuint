@@ -48,7 +48,7 @@ public class AccountDefineController {
     @RequestMapping(value = "/queryListByStore")
     public String accountList(HttpServletRequest request, HttpServletResponse response, Model model) {
         Long accID = ShiroUserHelper.getCurrentShiroUser().getId();
-        TAccount tAccount=htAccountServiceImpl.findAccountById(accID);
+        TAccount tAccount = htAccountServiceImpl.findAccountById(accID);
 
         PaginationRequest paginationRequest = RequestHandler.buildPaginationRequest(request, model);
         Map<String, Object> params = paginationRequest.getSearchParams();

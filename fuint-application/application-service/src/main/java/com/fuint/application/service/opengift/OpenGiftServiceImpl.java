@@ -5,6 +5,7 @@ import com.fuint.application.ResponseObject;
 import com.fuint.application.config.Constants;
 import com.fuint.application.dao.entities.*;
 import com.fuint.application.dao.repositories.MtOpenGiftRepository;
+import com.fuint.application.dao.repositories.MtUserRepository;
 import com.fuint.application.dto.*;
 import com.fuint.application.service.coupon.CouponService;
 import com.fuint.application.service.message.MessageService;
@@ -64,6 +65,9 @@ public class OpenGiftServiceImpl extends BaseService implements OpenGiftService 
 
     @Autowired
     private MessageService messageService;
+
+    @Autowired
+    private MtUserRepository userRepository;
 
     /**
      * 获取开卡赠礼列表
@@ -220,11 +224,35 @@ public class OpenGiftServiceImpl extends BaseService implements OpenGiftService 
      * @return
      * */
     @Override
+    @Transactional
     @OperationServiceLog(description = "开卡赠礼")
     public void openGift(Integer userId, Integer gradeId) throws BusinessCheckException {
         Map<String, Object> params = new HashMap<>();
         params.put("EQ_gradeId", gradeId.toString());
         params.put("EQ_status", StatusEnum.ENABLED.getKey());
+
+        MtUser user = userRepository.findOne(userId);
+        if (user == null) {
+           throw new BusinessCheckException("会员状态异常");
+        }
+
+        // 保存会员等级
+        if (Integer.parseInt(user.getGradeId()) != gradeId) {
+            user.setGradeId(gradeId.toString());
+            // 设置有效期
+            MtUserGrade gradeInfo = userGradeService.queryUserGradeById(gradeId);
+            if (gradeInfo.getValidDay() > 0) {
+                user.setStartTime(new Date());
+                Date endDate = new Date();
+                Calendar calendar = new GregorianCalendar();
+                calendar.setTime(endDate);
+                calendar.add(calendar.DATE, gradeInfo.getValidDay());
+                endDate = calendar.getTime();
+                user.setEndTime(endDate);
+            }
+            user.setUpdateTime(new Date());
+            userRepository.save(user);
+        }
 
         Specification<MtOpenGift> specification = openGiftRepository.buildSpecification(params);
         Sort sort = new Sort(Sort.Direction.ASC, "createTime");
@@ -250,7 +278,6 @@ public class OpenGiftServiceImpl extends BaseService implements OpenGiftService 
                    param.put("userId", userId);
                    param.put("num", item.getCouponNum());
                    userCouponService.receiveCoupon(param);
-
                    MtCoupon mtCoupon = couponService.queryCouponById(item.getCouponId());
                    totalAmount = totalAmount.add(mtCoupon.getAmount());
                }

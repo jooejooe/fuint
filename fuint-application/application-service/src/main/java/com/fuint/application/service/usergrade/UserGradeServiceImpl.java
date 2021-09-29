@@ -1,5 +1,6 @@
 package com.fuint.application.service.usergrade;
 
+import com.fuint.application.dao.entities.MtUser;
 import com.fuint.application.dao.entities.MtUserGrade;
 import com.fuint.application.dao.repositories.MtUserGradeRepository;
 import com.fuint.application.enums.UserGradeCatchTypeEnum;
@@ -15,6 +16,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -138,11 +141,11 @@ public class UserGradeServiceImpl implements UserGradeService {
 
     /**
      * 获取付费会员等级列表
-     *
+     * @param userInfo
      * @throws BusinessCheckException
      * */
     @Override
-    public List<MtUserGrade> getPayUserGradeList() {
+    public List<MtUserGrade> getPayUserGradeList(MtUser userInfo) {
         Map<String, Object> param = new HashMap<>();
         param.put("EQ_status", StatusEnum.ENABLED.getKey());
         param.put("EQ_catchType", UserGradeCatchTypeEnum.PAY.getKey());
@@ -150,6 +153,20 @@ public class UserGradeServiceImpl implements UserGradeService {
         Specification<MtUserGrade> specification = userGradeRepository.buildSpecification(param);
         Sort sort = new Sort(Sort.Direction.DESC, "catchValue");
         List<MtUserGrade> dataList = userGradeRepository.findAll(specification, sort);
+
+        boolean isBuy = false;
+        if (dataList.size() > 0 && userInfo != null) {
+            for (MtUserGrade grade : dataList) {
+               if (userInfo.getGradeId().equals(grade.getId().toString())) {
+                   isBuy = true;
+                   break;
+               }
+            }
+        }
+
+        if (isBuy) {
+            dataList = new ArrayList<>();
+        }
 
         return dataList;
     }

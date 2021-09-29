@@ -1,13 +1,12 @@
 package com.fuint.application.service.token;
 
+import com.fuint.application.service.member.MemberService;
 import com.fuint.cache.redis.RedisTemplate;
 import com.fuint.exception.BusinessCheckException;
 import nl.bitwalker.useragentutils.UserAgent;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.fuint.application.dao.entities.MtUser;
 import org.springframework.stereotype.Service;
-
-import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
@@ -16,6 +15,9 @@ import java.util.Random;
 public class TokenService {
     @Autowired
     private RedisTemplate redisTemplate;
+
+    @Autowired
+    private MemberService memberService;
 
     // 生成token(格式为token:设备-加密的手机号-时间-六位随机数)
     public String generateToken(String userAgent, String mobile) {
@@ -29,7 +31,7 @@ public class TokenService {
         //加加密的手机号
         //token.append(DigestUtils.md5Hex(mobile) + "-");
 
-        //不加密手机号，用于后台变更用户信息的时候，删除缓存(格式："MOBILE_13511111111" or "PC_13511111111"打头) 20190904
+        //不加密手机号，用于后台变更用户信息的时候，删除缓存(格式："MOBILE_13511111111" or "PC_13511111111"打头)
         token.append(mobile);
         //加时间
         token.append(new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date()) + "_");
@@ -41,31 +43,26 @@ public class TokenService {
 
     //保存token
     public void saveToken(String token, MtUser mtUser) {
-        //如果是PC，那么token保存两个小时；
+        //如果是PC，那么token保存24个小时；
         if (token.startsWith("PC")) {
-            //先删除redis key，再保存新key
+            // 先删除redis key，再保存新key
             redisTemplate.removeLike("PC_"+mtUser.getMobile());
-            redisTemplate.set(token, mtUser, 2 * 60 * 60);
+            redisTemplate.set(token, mtUser, 24 * 60 * 60);
         } else {
-            //redisUtil.set(token, JSONObject.toJSONString(user));
-            //先删除redis key，再保存新key
+            // 先删除redis key，再保存新key
             redisTemplate.removeLike("MOBILE_"+mtUser.getMobile());
-           // 如果是MOBILE,那么token保存48个小时；
-            redisTemplate.set(token, mtUser, 48 * 60 * 60);
+           // 如果是MOBILE,那么token保存7天
+            redisTemplate.set(token, mtUser, 168 * 60 * 60);
         }
     }
 
     //检查token是否存在 ，及登录状态
     public Boolean checkTokenLogin(String token) {
         if (this.redisTemplate.exists(token)) {
-            //token超时检查?? 后续再加
             return Boolean.TRUE;
-        }
-        else
-        {
+        } else {
             return Boolean.FALSE;
         }
-
     }
 
     // 通过登录token获取用户登录信息
@@ -74,6 +71,9 @@ public class TokenService {
         try {
             if (this.redisTemplate.exists(token)) {
                 mtUser = this.redisTemplate.get(token, MtUser.class);
+                if (mtUser.getId() > 0) {
+                    mtUser = memberService.queryMemberById(mtUser.getId());
+                }
             }
         } catch (Exception e) {
             throw new BusinessCheckException("连接redis出错");
