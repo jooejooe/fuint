@@ -3,15 +3,17 @@ package com.fuint.application.service.order;
 import com.fuint.application.BaseService;
 import com.fuint.application.ResponseObject;
 import com.fuint.application.config.Constants;
-import com.fuint.application.dao.entities.MtCoupon;
-import com.fuint.application.dao.entities.MtOrder;
-import com.fuint.application.dao.entities.MtPoint;
-import com.fuint.application.dao.entities.MtUser;
+import com.fuint.application.dao.entities.*;
+import com.fuint.application.dao.repositories.MtCartRepository;
 import com.fuint.application.dao.repositories.MtOrderRepository;
+import com.fuint.application.dao.repositories.MtGoodsRepository;
+import com.fuint.application.dao.repositories.MtOrderGoodsRepository;
 import com.fuint.application.dto.*;
 import com.fuint.application.enums.OrderTypeEnum;
 import com.fuint.application.enums.PayStatusEnum;
+import com.fuint.application.service.cart.CartService;
 import com.fuint.application.service.coupon.CouponService;
+import com.fuint.application.service.goods.GoodsService;
 import com.fuint.application.service.member.MemberService;
 import com.fuint.application.service.point.PointService;
 import com.fuint.application.util.CommonUtil;
@@ -20,7 +22,6 @@ import com.fuint.base.annoation.OperationServiceLog;
 import com.fuint.base.dao.pagination.PaginationRequest;
 import com.fuint.base.dao.pagination.PaginationResponse;
 import com.fuint.exception.BusinessCheckException;
-import com.fuint.exception.BusinessRuntimeException;
 import com.fuint.application.enums.StatusEnum;
 import com.fuint.application.enums.OrderStatusEnum;
 import org.apache.commons.collections.map.HashedMap;
@@ -36,8 +37,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.math.BigDecimal;
 import java.util.*;
 
 /**
@@ -54,6 +54,15 @@ public class OrderServiceImpl extends BaseService implements OrderService {
     private MtOrderRepository orderRepository;
 
     @Autowired
+    private MtGoodsRepository goodsRepository;
+
+    @Autowired
+    private MtOrderGoodsRepository orderGoodsRepository;
+
+    @Autowired
+    private MtCartRepository cartRepository;
+
+    @Autowired
     private CouponService couponService;
 
     @Autowired
@@ -61,6 +70,12 @@ public class OrderServiceImpl extends BaseService implements OrderService {
 
     @Autowired
     private PointService pointService;
+
+    @Autowired
+    private CartService cartService;
+
+    @Autowired
+    private GoodsService goodsService;
 
     @Autowired
     private Environment env;
@@ -148,7 +163,7 @@ public class OrderServiceImpl extends BaseService implements OrderService {
     @Override
     @Transactional
     @OperationServiceLog(description = "创建订单")
-    public MtOrder createOrder(OrderDto orderDto) throws BusinessCheckException{
+    public MtOrder createOrder(OrderDto orderDto) throws BusinessCheckException {
         MtOrder MtOrder = new MtOrder();
         if (null != orderDto.getId()) {
             MtOrder.setId(MtOrder.getId());
@@ -181,7 +196,55 @@ public class OrderServiceImpl extends BaseService implements OrderService {
         MtOrder.setUpdateTime(new Date());
         MtOrder.setCreateTime(new Date());
 
-        return orderRepository.save(MtOrder);
+        // 计算订单总金额
+        List<MtCart> cartList = new ArrayList<>();
+        List<MtGoods> goodsList = new ArrayList<>();
+        if (orderDto.getType().equals(OrderTypeEnum.GOOGS.getKey())) {
+            Map<String, Object> param = new HashMap<>();
+            param.put("EQ_status", StatusEnum.ENABLED.getKey());
+            cartList = cartService.queryCartListByParams(param);
+            goodsList = goodsService.queryGoodsListByParams(param);
+            BigDecimal totalAmount = new BigDecimal("0");
+            for (MtCart cart : cartList) {
+                for (MtGoods goods : goodsList) {
+                    if (goods.getStatus().equals(StatusEnum.ENABLED.getKey()) && cart.getGoodsId() == goods.getId()) {
+                        totalAmount = totalAmount.add(goods.getPrice().multiply(new BigDecimal(cart.getNum())));
+                    }
+                }
+            }
+            MtOrder.setAmount(totalAmount);
+        }
+
+        MtOrder orderInfo = orderRepository.save(MtOrder);
+
+        // 如果是商品订单，生成订单商品
+        if (orderDto.getType().equals(OrderTypeEnum.GOOGS.getKey()) && cartList.size() > 0) {
+            for (MtCart cart : cartList) {
+                 MtOrderGoods orderGoods = new MtOrderGoods();
+                 orderGoods.setOrderId(orderInfo.getId());
+                 orderGoods.setGoodsId(cart.getGoodsId());
+                 orderGoods.setNum(cart.getNum());
+                 orderGoods.setStatus(StatusEnum.ENABLED.getKey());
+                 orderGoods.setCreateTime(new Date());
+                 orderGoods.setUpdateTime(new Date());
+                 orderGoodsRepository.save(orderGoods);
+                 // 扣减库存
+                 for (MtGoods goods : goodsList) {
+                    if (cart.getGoodsId() == goods.getId()) {
+                        if (!goods.getStatus().equals(StatusEnum.ENABLED.getKey()) || goods.getStock() < cart.getNum()) {
+                            throw new BusinessCheckException("商品已下架或库存不足，请重新调整购物车");
+                        } else {
+                            MtGoods mtGoods = goodsRepository.findOne(goods.getId());
+                            mtGoods.setStock(mtGoods.getStock() - cart.getNum());
+                            goodsRepository.save(mtGoods);
+                            cartRepository.delete(cart.getId());
+                        }
+                    }
+                 }
+            }
+        }
+
+        return orderInfo;
     }
 
     /**
@@ -338,7 +401,7 @@ public class OrderServiceImpl extends BaseService implements OrderService {
 
         List<OrderGoodsDto> goodsList = new ArrayList<>();
 
-        String baseImage = env.getProperty("images.website");
+        String baseImage = env.getProperty("images.upload.url");
 
         // 预存卡的订单
         if (orderInfo.getType().equals(OrderTypeEnum.PRESTORE.getKey())) {

@@ -82,3 +82,32 @@ Website: http://www.seantheme.com/color-admin-v1.7/admin/
 .page-with-light-sidebar .sidebar .nav > li.active > a .label.label-theme {
     background: #00acac;
 }
+
+
+/* Nav tab */
+.nav-tabs .nav-link.active {
+    color:#20252a;
+    background-color:#ffffff;
+    border-color:transparent
+}
+
+.nav-tabs .nav-link {
+    margin-bottom: 0;
+    background: 0 0;
+    background-color: rgba(0, 0, 0, 0);
+    border: 0 solid transparent;
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+.nav-link {
+    display: block;
+    padding: .5rem 1rem;
+    color: #6c757d;
+    text-decoration: none;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
+}

@@ -130,7 +130,7 @@ public class UserCouponApiController extends BaseController {
             result.setName(couponInfo.getName());
             result.setQrCode(qrCode);
 
-            String baseImage = env.getProperty("images.website");
+            String baseImage = env.getProperty("images.upload.url");
             result.setImage(baseImage + couponInfo.getImage());
 
             result.setId(userCouponId);

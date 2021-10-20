@@ -93,10 +93,10 @@ public class FileController {
         try {
             String fileName = saveFile(file, request);
 
-            String baseImage = env.getProperty("images.website");
+            String baseImage = env.getProperty("images.upload.url");
 
             String filePath = baseImage + fileName;
-
+            
             resultMap.put("status", "success");
             resultMap.put("filePath", filePath);
             resultMap.put("fileName", fileName);
@@ -120,7 +120,8 @@ public class FileController {
 
         String uuid = UUID.randomUUID().toString().replaceAll("-", "");
 
-        String filePath = "/static/uploadImages/"+ DateUtil.formatDate(new Date(), "yyyyMMdd")+"/";
+        String baseImage = env.getProperty("images.path");
+        String filePath = baseImage + DateUtil.formatDate(new Date(), "yyyyMMdd")+"/";
 
         String path = filePath + uuid + imageName;
 

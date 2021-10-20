@@ -346,7 +346,7 @@ public class CouponServiceImpl extends BaseService implements CouponService {
                  dto.setUseRule(couponInfo.getDescription());
 
                  String image = couponInfo.getImage();
-                 String baseImage = env.getProperty("images.website");
+                 String baseImage = env.getProperty("images.upload.url");
                  dto.setImage(baseImage + image);
                  dto.setStatus(userCouponDto.getStatus());
                  dto.setAmount(couponInfo.getAmount());
@@ -436,7 +436,7 @@ public class CouponServiceImpl extends BaseService implements CouponService {
 
         List<MtCoupon> dataList = paginationResponse.getContent();
         List<CouponDto> content = new ArrayList<>();
-        String baseImage = env.getProperty("images.website");
+        String baseImage = env.getProperty("images.upload.url");
         for (int i = 0; i < dataList.size(); i++) {
             CouponDto item = new CouponDto();
             BeanUtils.copyProperties(dataList.get(i), item);

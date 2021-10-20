@@ -1,9 +1,6 @@
 package com.fuint.application.web.rest;
 
-import com.fuint.application.dao.entities.MtCoupon;
-import com.fuint.application.dao.entities.MtOrder;
-import com.fuint.application.dao.entities.MtUser;
-import com.fuint.application.dao.entities.MtUserGrade;
+import com.fuint.application.dao.entities.*;
 import com.fuint.application.dto.OrderDto;
 import com.fuint.application.enums.OrderTypeEnum;
 import com.fuint.application.service.coupon.CouponService;

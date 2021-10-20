@@ -19,6 +19,11 @@ public class BannerDto implements Serializable {
     */
 	private String title;
 
+	/**
+	 * 链接地址
+	 */
+	private String url;
+
    /**
     * 图片地址 
     */
@@ -60,6 +65,12 @@ public class BannerDto implements Serializable {
 	}
 	public void setTitle(String title){
 	this.title=title;
+	}
+	public String getUrl(){
+		return url;
+	}
+	public void setUrl(String url){
+		this.url=url;
 	}
 	public String getImage(){
 		return image;

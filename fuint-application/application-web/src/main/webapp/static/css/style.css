@@ -282,6 +282,40 @@ p, h1, h2, h3, h4, input {
     height: 45px;
     border-radius: 25px;
 }
+.add-goods-image {
+    margin: 6px 20px 10px 0px;
+    color: blue;
+    cursor: pointer;
+}
+.upload-item {
+    margin-bottom: 10px;
+}
+.goods-spec-type {
+    margin-top: 8px;
+}
+.goods-spec-type .spec-type{
+    margin-right: 20px;
+    cursor: pointer;
+}
+.multi-spec {
+    display: none;
+}
+.multi-spec .add-spec-type {
+    color: blue;
+    text-align: right;
+    cursor: pointer;
+}
+.multi-spec .spec-type {
+    padding: 10px;
+    margin-bottom: 10px;
+}
+.multi-spec .spec-type .value {
+    margin-bottom: 10px;
+}
+.sku-list td {
+    padding: 10px;
+}
+
 @media (max-width: 1328px){
     .product-header{
         width: 100%;

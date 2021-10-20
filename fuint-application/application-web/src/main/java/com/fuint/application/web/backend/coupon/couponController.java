@@ -230,7 +230,7 @@ public class couponController extends BaseController {
             groupTotal = groupInfo.getTotal();
         }
 
-        String baseImage = env.getProperty("images.website");
+        String baseImage = env.getProperty("images.upload.url");
 
         model.addAttribute("baseImage", baseImage);
         model.addAttribute("groupTotal", groupTotal);
@@ -354,7 +354,7 @@ public class couponController extends BaseController {
     public String couponEditInit(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable("id") Integer id) throws BusinessCheckException {
         MtCoupon mtCouponInfo = couponService.queryCouponById(id);
 
-        String baseImage = env.getProperty("images.website");
+        String baseImage = env.getProperty("images.upload.url");
         model.addAttribute("baseImage", baseImage);
 
         model.addAttribute("couponInfo", mtCouponInfo);

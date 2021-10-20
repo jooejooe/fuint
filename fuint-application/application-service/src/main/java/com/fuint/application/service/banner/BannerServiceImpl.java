@@ -63,6 +63,7 @@ public class BannerServiceImpl implements BannerService {
             mtBanner.setId(bannerDto.getId());
         }
         mtBanner.setTitle(bannerDto.getTitle());
+        mtBanner.setUrl(bannerDto.getUrl());
         mtBanner.setStatus(StatusEnum.ENABLED.getKey());
         mtBanner.setImage(bannerDto.getImage());
         mtBanner.setDescription(bannerDto.getDescription());
@@ -136,6 +137,8 @@ public class BannerServiceImpl implements BannerService {
         MtBanner.setUpdateTime(new Date());
         MtBanner.setOperator(bannerDto.getOperator());
         MtBanner.setStatus(bannerDto.getStatus());
+        MtBanner.setUrl(bannerDto.getUrl());
+        MtBanner.setOperator(bannerDto.getOperator());
 
         return bannerRepository.save(MtBanner);
     }
@@ -144,10 +147,13 @@ public class BannerServiceImpl implements BannerService {
     public List<MtBanner> queryBannerListByParams(Map<String, Object> params) {
         Map<String, Object> param = new HashMap<>();
 
+        String status =  params.get("status") == null ? StatusEnum.ENABLED.getKey(): params.get("status").toString();
+        param.put("EQ_status", status);
+
         Specification<MtBanner> specification = bannerRepository.buildSpecification(param);
         Sort sort = new Sort(Sort.Direction.DESC, "createTime");
         List<MtBanner> result = bannerRepository.findAll(specification, sort);
-        String baseImage = env.getProperty("images.website");
+        String baseImage = env.getProperty("images.upload.url");
 
         if (result.size() > 0) {
             for (MtBanner banner : result) {

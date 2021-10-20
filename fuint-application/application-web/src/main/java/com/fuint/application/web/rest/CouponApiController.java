@@ -127,7 +127,7 @@ public class CouponApiController extends BaseController {
             }
         }
 
-        String baseImage = env.getProperty("images.website");
+        String baseImage = env.getProperty("images.upload.url");
         dto.setImage(baseImage + couponInfo.getImage());
 
         String effectiveDate = DateUtil.formatDate(couponInfo.getBeginTime(), "yyyy.MM.dd") + " - " + DateUtil.formatDate(couponInfo.getEndTime(), "yyyy.MM.dd");

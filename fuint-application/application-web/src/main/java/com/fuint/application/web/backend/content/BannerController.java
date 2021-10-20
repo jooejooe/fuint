@@ -12,7 +12,6 @@ import com.fuint.application.dao.entities.*;
 import com.fuint.application.dto.ReqResult;
 import com.fuint.application.service.banner.BannerService;
 import com.fuint.application.util.CommonUtil;
-import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +27,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 /**
- * Banner信息管理类controller
+ * Banner管理类controller
  * Created by FSQ
  * Contact wx fsq_better
  */
@@ -76,7 +75,7 @@ public class BannerController {
             }
         }
 
-        String imagePath = env.getProperty("images.website");
+        String imagePath = env.getProperty("images.upload.url");
 
         paginationRequest.setSearchParams(params);
         PaginationResponse<MtBanner> paginationResponse = bannerService.queryBannerListByPagination(paginationRequest);
@@ -98,21 +97,28 @@ public class BannerController {
      */
     @RequiresPermissions("backend/banner/update")
     @RequestMapping(value = "/update")
-    public String updateBanner(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException, InvocationTargetException, IllegalAccessException {
+    public String updateBanner(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException {
         String id = (request.getParameter("id") != null) ? request.getParameter("id") : "0";
         String title = CommonUtil.replaceXSS(request.getParameter("title"));
         String description = CommonUtil.replaceXSS(request.getParameter("description"));
         String image = CommonUtil.replaceXSS(request.getParameter("image"));
         String status = CommonUtil.replaceXSS(request.getParameter("status"));
+        String url = CommonUtil.replaceXSS(request.getParameter("url"));
 
         MtBanner info = bannerService.queryBannerById(Integer.parseInt(id));
 
         if (null != info) {
             BannerDto dto = new BannerDto();
+            dto.setId(Integer.parseInt(id));
             dto.setTitle(title);
             dto.setDescription(description);
             dto.setImage(image);
             dto.setStatus(status);
+            dto.setUrl(url);
+
+            String operator = ShiroUserHelper.getCurrentShiroUser().getAcctName();
+            dto.setOperator(operator);
+
             bannerService.updateBanner(dto);
             ReqResult reqResult = new ReqResult();
             reqResult.setResult(true);
@@ -177,10 +183,12 @@ public class BannerController {
         String title = CommonUtil.replaceXSS(request.getParameter("title"));
         String description = CommonUtil.replaceXSS(request.getParameter("description"));
         String image = CommonUtil.replaceXSS(request.getParameter("image"));
+        String url = CommonUtil.replaceXSS(request.getParameter("url"));
 
         info.setTitle(title);
         info.setDescription(description);
         info.setImage(image);
+        info.setUrl(url);
 
         String operator = ShiroUserHelper.getCurrentShiroUser().getAcctName();
         info.setOperator(operator);
@@ -211,7 +219,7 @@ public class BannerController {
         MtBanner info = bannerService.queryBannerById(id);
         model.addAttribute("info", info);
 
-        String imagePath = env.getProperty("images.website");
+        String imagePath = env.getProperty("images.upload.url");
         model.addAttribute("imagePath", imagePath);
 
         return "banner/edit";

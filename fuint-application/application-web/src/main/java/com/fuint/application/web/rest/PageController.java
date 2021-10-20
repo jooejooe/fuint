@@ -2,6 +2,7 @@ package com.fuint.application.web.rest;
 
 import com.fuint.application.dao.entities.MtBanner;
 import com.fuint.application.dao.entities.MtUser;
+import com.fuint.application.enums.StatusEnum;
 import com.fuint.application.service.coupon.CouponService;
 import com.fuint.application.service.token.TokenService;
 import com.fuint.exception.BusinessCheckException;
@@ -61,6 +62,7 @@ public class PageController extends BaseController {
         Map<String, Object> outParams = new HashMap();
 
         ResponseObject couponData = couponService.findCouponList(param);
+
         List<MtBanner> bannerData = bannerService.queryBannerListByParams(param);
 
         outParams.put("banner", bannerData);

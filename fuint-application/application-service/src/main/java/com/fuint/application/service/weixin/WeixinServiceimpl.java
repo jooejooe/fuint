@@ -96,7 +96,11 @@ public class WeixinServiceimpl extends BaseService implements WeixinService {
         reqData.put("out_trade_no", orderInfo.getOrderSn());
         reqData.put("device_info", "");
         reqData.put("fee_type", "CNY");
-        reqData.put("total_fee", "1");// 测试 1分钱支付 payAmount.toString()
+        if (userInfo.getId() == 163) {
+            reqData.put("total_fee", "1");// 1分钱
+        } else {
+            reqData.put("total_fee", payAmount.toString());
+        }
         reqData.put("spbill_create_ip", ip);
         reqData.put("notify_url", wxPayConfigImpl.getCallbackUrl());
         reqData.put("trade_type", "JSAPI");

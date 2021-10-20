@@ -20,7 +20,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Date;
@@ -59,7 +58,7 @@ public class UserCouponServiceImpl extends BaseService implements UserCouponServ
      * @return
      */
     @Override
-    public PaginationResponse<MtUserCoupon> queryUserCouponListByPagination(PaginationRequest paginationRequest) throws BusinessCheckException {
+    public PaginationResponse<MtUserCoupon> queryUserCouponListByPagination(PaginationRequest paginationRequest) {
         paginationRequest.setSortColumn(new String[]{"status asc", "id desc"});
         PaginationResponse<MtUserCoupon> paginationResponse = userCouponRepository.findResultsByPagination(paginationRequest);
         return paginationResponse;
