@@ -2,7 +2,6 @@ package com.fuint.application.web.rest;
 
 import com.fuint.application.dao.entities.MtBanner;
 import com.fuint.application.dao.entities.MtUser;
-import com.fuint.application.enums.StatusEnum;
 import com.fuint.application.service.coupon.CouponService;
 import com.fuint.application.service.token.TokenService;
 import com.fuint.exception.BusinessCheckException;
