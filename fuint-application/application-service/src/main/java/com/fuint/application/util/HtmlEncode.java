@@ -1,7 +1,11 @@
 package com.fuint.application.util;
 
+/**
+ * HtmlEncode 工具类
+ * Created by FSQ
+ * Contact wx fsq_better
+ */
 public class HtmlEncode {
-
 
     public static String htmlEncode(String string) {
         if(null == string || "".equals(string))
@@ -11,7 +15,7 @@ public class HtmlEncode {
             result = result.replaceAll("&", "&");
             result = result.replaceAll("<", "<");
             result = result.replaceAll(">", ">");
-           // result = result.replaceAll("\"", "");
+
             return (result.toString());
         }
     }

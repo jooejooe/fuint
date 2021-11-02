@@ -14,7 +14,9 @@ import java.text.ParseException;
 import java.util.*;
 
 /**
- * Created by gang.wang on 2017/5/22.
+ * BeanUtil 工具类
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public class BeanUtil {
     private static final Logger logger = LoggerFactory.getLogger(BeanUtil.class);

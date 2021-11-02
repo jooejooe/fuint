@@ -8,7 +8,9 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * Created by gang.wang on 2017/5/22.
+ * MD5Util 工具类
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public class MD5Util {
     private static final Logger logger = LoggerFactory.getLogger(MD5Util.class);

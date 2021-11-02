@@ -6,7 +6,9 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import java.util.List;
 
 /**
- * Created by gang.wang on 2017/5/22.
+ * JsonUtil 工具类
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public class JsonUtil {
     public JsonUtil() {

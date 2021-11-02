@@ -12,7 +12,9 @@ import java.util.Date;
 import java.util.Optional;
 
 /**
- * Created by gang.wang on 2017/5/22.
+ * DateUtil 工具类
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public class DateUtil {
     public static final String PATTERN_ISO_DATE = "yyyy-MM-dd";

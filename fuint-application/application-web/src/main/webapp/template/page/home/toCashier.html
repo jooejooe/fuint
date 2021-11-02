@@ -48,7 +48,7 @@
     // 发起收款
     function toCashier() {
        const mobile = $("#mobile").val();
-       if (mobile.length < 6) {
+       if (mobile.length < 11) {
           layer.alert("请输入会员手机号！");
           return false;
        }
