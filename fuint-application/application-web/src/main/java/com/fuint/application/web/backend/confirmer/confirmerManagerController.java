@@ -28,7 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
 /**
- * 核销人员数据接口控制
+ * 员工管理
  * Created by FSQ
  * Contact wx fsq_better
  */
@@ -38,7 +38,7 @@ public class confirmerManagerController {
     private static final Logger logger = LoggerFactory.getLogger(confirmerManagerController.class);
 
     /**
-     * 核销人员数据录入
+     * 核销人员
      */
     @Autowired
     private ConfirmerService confirmerService;
@@ -80,15 +80,15 @@ public class confirmerManagerController {
 
         // 登录员工所属店铺处理
         Long accID = ShiroUserHelper.getCurrentShiroUser().getId();
-        TAccount tAccount=tAccountService.findAccountById(accID);
-        if (tAccount.getStoreId()==null||tAccount.getStoreId().equals(-1)) {
-            //处理历史异常数据：没有选择店铺的情况
+        TAccount tAccount = tAccountService.findAccountById(accID);
+        if (tAccount.getStoreId() == null || tAccount.getStoreId().equals(-1)) {
+            // 没有选择店铺的情况
             if (tAccount.getStoreId() == null){
-                params_store.put("EQ_id","0");
+                params_store.put("EQ_id", "0");
             }
         } else {
-            params_store.put("EQ_id",tAccount.getStoreId().toString());
-            params.put("EQ_storeId",tAccount.getStoreId().toString());
+            params_store.put("EQ_id", tAccount.getStoreId().toString());
+            params.put("EQ_storeId", tAccount.getStoreId().toString());
         }
 
         paginationRequest.setSearchParams(params);
