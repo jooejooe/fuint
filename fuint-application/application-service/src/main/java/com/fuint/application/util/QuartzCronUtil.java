@@ -4,7 +4,8 @@ import java.time.LocalTime;
 import java.util.Optional;
 
 /**
- * Created by gang.wang on 2017/6/7.
+ * Created by FSQ
+ * Contact wx fsq_better
  */
 public class QuartzCronUtil {
 
