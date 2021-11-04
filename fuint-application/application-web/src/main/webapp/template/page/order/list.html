@@ -80,7 +80,7 @@
                 <#list paginationResponse.content as ct>
                     <tr>
                         <td>${ct.id}</td>
-                        <td style="text-align: center">
+                        <td style="text-align: center;">
                             <#if ct.userInfo.name><p>${ct.userInfo.name}</p></#if>
                             <#if ct.userInfo.mobile><p>${ct.userInfo.mobile}</p></#if>
                         </td>
@@ -93,7 +93,7 @@
                         <td><#if ct.payTime>${ct.payTime}<#else>-</#if></td>
                         <td <#if ct.payStatus='B'>style="color:green;"</#if>>${ct.statusText}</td>
                         <td>
-                            <a class="label label-success small-btn" href="javascript:getData('${rc.contextPath}/backend/order/detail/${ct.id}','displayArea');" title="详情"><i class="fa fa-eye"></i>详情</a>
+                            <a class="label label-success small-btn" href="javascript:getData('${rc.contextPath}/backend/order/detail/${ct.id}', 'displayArea');" title="详情"><i class="fa fa-eye"></i>详情</a>
                         </td>
                     </tr>
                 </#list>

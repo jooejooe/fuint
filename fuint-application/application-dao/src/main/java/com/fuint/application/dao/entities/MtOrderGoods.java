@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -42,6 +43,18 @@ public class MtOrderGoods implements Serializable{
     */ 
 	@Column(name = "NUM", nullable = false, length = 10)
 	private Integer num;
+
+	/**
+	 * 金额
+	 */
+	@Column(name = "PRICE")
+	private BigDecimal price;
+
+	/**
+	 * 优惠金额
+	 */
+	@Column(name = "DISCOUNT")
+	private BigDecimal discount;
 
    /**
     * 创建时间 
@@ -84,6 +97,18 @@ public class MtOrderGoods implements Serializable{
 	}
 	public void setNum(Integer num){
 	this.num=num;
+	}
+	public BigDecimal getDiscount(){
+		return discount;
+	}
+	public void setDiscount(BigDecimal discount){
+		this.discount=discount;
+	}
+	public BigDecimal getPrice(){
+		return price;
+	}
+	public void setPrice(BigDecimal price){
+		this.price=price;
 	}
 	public Date getCreateTime(){
 		return createTime;

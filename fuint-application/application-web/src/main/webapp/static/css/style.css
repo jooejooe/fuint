@@ -315,6 +315,26 @@ p, h1, h2, h3, h4, input {
 .sku-list td {
     padding: 10px;
 }
+.order-detail-info {
+    padding: 10px;
+    border: solid 1px #CCCCCC;
+    margin-bottom: 10px;
+}
+.order-detail-info .title {
+    font-weight: bold;
+    color: #666666;
+    height: 40px;
+    padding: 10px 0px 0px 10px;
+    border: solid 1px #cccccc;
+    background: #F5F5F5;
+    border-radius: 3px;
+}
+.order-detail-info .goods-logo {
+    height: 45px;
+    width: 45px;
+    border: 1px solid #cccccc;
+    margin-right: 5px;
+}
 
 @media (max-width: 1328px){
     .product-header{

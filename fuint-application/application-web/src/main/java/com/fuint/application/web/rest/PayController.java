@@ -64,8 +64,9 @@ public class PayController extends BaseController {
         String userToken = request.getHeader("Access-Token");
         MtUser mtUser = tokenService.getUserInfoByToken(userToken);
 
-        if (mtUser == null) {
-            return getFailureResult(1001, "用户未登录");
+        Integer userPoint = 0;
+        if (mtUser != null) {
+            userPoint = mtUser.getPoint();
         }
 
         Map<String, Object> outParams = new HashMap<>();
@@ -83,7 +84,7 @@ public class PayController extends BaseController {
 
         outParams.put("canUsedAsMoney", canUsedAsMoney);
         outParams.put("exchangeNeedPoint", exchangeNeedPoint);
-        outParams.put("canUsePointAmount", mtUser.getPoint());
+        outParams.put("canUsePointAmount", userPoint);
 
         return getSuccessResult(outParams);
     }

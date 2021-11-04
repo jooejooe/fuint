@@ -1,6 +1,8 @@
 package com.fuint.application.dto;
 
+import javax.persistence.Column;
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 public class OrderGoodsDto implements Serializable {
 	private Integer id;
@@ -10,6 +12,8 @@ public class OrderGoodsDto implements Serializable {
 	private String name;
 
 	private String price;
+
+	private String discount;
 
 	private Integer num;
 
@@ -41,6 +45,13 @@ public class OrderGoodsDto implements Serializable {
 	}
 	public void setPrice(String price) {
 		this.price = price;
+	}
+
+	public String getDiscount(){
+		return discount;
+	}
+	public void setDiscount(String discount){
+		this.discount=discount;
 	}
 
 	public Integer getNum() {

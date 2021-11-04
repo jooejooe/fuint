@@ -220,10 +220,13 @@ public class OrderServiceImpl extends BaseService implements OrderService {
         // 如果是商品订单，生成订单商品
         if (orderDto.getType().equals(OrderTypeEnum.GOOGS.getKey()) && cartList.size() > 0) {
             for (MtCart cart : cartList) {
+                 MtGoods mtGoods = goodsRepository.findOne(cart.getGoodsId());
                  MtOrderGoods orderGoods = new MtOrderGoods();
                  orderGoods.setOrderId(orderInfo.getId());
                  orderGoods.setGoodsId(cart.getGoodsId());
                  orderGoods.setNum(cart.getNum());
+                 orderGoods.setPrice(mtGoods.getPrice());
+                 orderGoods.setDiscount(new BigDecimal("0"));
                  orderGoods.setStatus(StatusEnum.ENABLED.getKey());
                  orderGoods.setCreateTime(new Date());
                  orderGoods.setUpdateTime(new Date());
@@ -234,9 +237,9 @@ public class OrderServiceImpl extends BaseService implements OrderService {
                         if (!goods.getStatus().equals(StatusEnum.ENABLED.getKey()) || goods.getStock() < cart.getNum()) {
                             throw new BusinessCheckException("商品已下架或库存不足，请重新调整购物车");
                         } else {
-                            MtGoods mtGoods = goodsRepository.findOne(goods.getId());
-                            mtGoods.setStock(mtGoods.getStock() - cart.getNum());
-                            goodsRepository.save(mtGoods);
+                            MtGoods goodsInfo = goodsRepository.findOne(goods.getId());
+                            goodsInfo.setStock(goodsInfo.getStock() - cart.getNum());
+                            goodsRepository.save(goodsInfo);
                             cartRepository.delete(cart.getId());
                         }
                     }
@@ -256,7 +259,7 @@ public class OrderServiceImpl extends BaseService implements OrderService {
     @Override
     public UserOrderDto getOrderById(Integer id) throws BusinessCheckException {
         MtOrder orderInfo = orderRepository.findOne(id);
-        return this. _dealOrderDetail(orderInfo);
+        return this._dealOrderDetail(orderInfo);
     }
 
     /**
@@ -268,7 +271,7 @@ public class OrderServiceImpl extends BaseService implements OrderService {
     @Override
     public UserOrderDto getOrderByOrderSn(String orderSn) throws BusinessCheckException {
         MtOrder orderInfo = orderRepository.findByOrderSn(orderSn);
-        return this. _dealOrderDetail(orderInfo);
+        return this._dealOrderDetail(orderInfo);
     }
 
     /**
@@ -415,7 +418,29 @@ public class OrderServiceImpl extends BaseService implements OrderService {
                 o.setName("预存￥"+item[0]+"升至￥"+item[1]);
                 o.setNum(Integer.parseInt(item[2]));
                 o.setPrice(item[0]);
+                o.setDiscount("0");
                 o.setImage(baseImage + coupon.getImage());
+                goodsList.add(o);
+            }
+        }
+
+        // 商品订单
+        if (orderInfo.getType().equals(OrderTypeEnum.GOOGS.getKey())) {
+            Map<String, Object> params = new HashMap<>();
+            params.put("EQ_orderId", orderInfo.getId().toString());
+            Specification<MtOrderGoods> specification = orderGoodsRepository.buildSpecification(params);
+            Sort sort = new Sort(Sort.Direction.ASC, "createTime");
+            List<MtOrderGoods> orderGoodsList = orderGoodsRepository.findAll(specification, sort);
+            for (MtOrderGoods orderGoods : orderGoodsList) {
+                MtGoods goodsInfo = goodsRepository.findOne(orderGoods.getGoodsId());
+                OrderGoodsDto o = new OrderGoodsDto();
+                o.setId(orderGoods.getId());
+                o.setName(goodsInfo.getName());
+                o.setImage(baseImage + goodsInfo.getLogo());
+                o.setType(OrderTypeEnum.GOOGS.getKey());
+                o.setNum(orderGoods.getNum());
+                o.setPrice(orderGoods.getPrice().toString());
+                o.setDiscount("0");
                 goodsList.add(o);
             }
         }
