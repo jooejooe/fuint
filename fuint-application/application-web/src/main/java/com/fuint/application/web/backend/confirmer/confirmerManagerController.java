@@ -83,7 +83,7 @@ public class confirmerManagerController {
         TAccount tAccount = tAccountService.findAccountById(accID);
         if (tAccount.getStoreId() == null || tAccount.getStoreId().equals(-1)) {
             // 没有选择店铺的情况
-            if (tAccount.getStoreId() == null){
+            if (tAccount.getStoreId() == null) {
                 params_store.put("EQ_id", "0");
             }
         } else {

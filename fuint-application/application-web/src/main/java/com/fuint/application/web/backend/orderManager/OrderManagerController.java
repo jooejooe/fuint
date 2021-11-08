@@ -1,6 +1,8 @@
 package com.fuint.application.web.backend.orderManager;
 
 import com.fuint.application.ResponseObject;
+import com.fuint.application.dao.entities.MtOrder;
+import com.fuint.application.dto.OrderDto;
 import com.fuint.application.dto.UserOrderDto;
 import com.fuint.application.enums.OrderStatusEnum;
 import com.fuint.application.enums.OrderTypeEnum;
@@ -88,5 +90,22 @@ public class OrderManagerController {
 
         model.addAttribute("orderInfo", orderInfo);
         return "order/detail";
+    }
+    /**
+     * 确认发货
+     * @param request  HttpServletRequest对象
+     * @param model    SpringFramework Model对象
+     * @return
+     * */
+    @RequiresPermissions("backend/order/delivered/{orderId}")
+    @RequestMapping(value = "/delivered/{orderId}")
+    public String delivered(HttpServletRequest request, Model model, @PathVariable("orderId") Integer orderId) throws BusinessCheckException {
+        OrderDto dto = new OrderDto();
+        dto.setId(orderId);
+        dto.setStatus(OrderStatusEnum.DELIVERED.getKey());
+
+        orderService.updateOrder(dto);
+
+        return "redirect:/backend/order/list";
     }
 }

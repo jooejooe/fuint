@@ -101,17 +101,17 @@ public class ConfirmerServiceImpl implements ConfirmerService {
                 MtUser tmemberInfo = new MtUser();
                 tmemberInfo.setMobile(reqConfirmerDto.getMobile());
                 tmemberInfo.setName(reqConfirmerDto.getRealName());
-                MtUser mtUser_1=memberService.queryMemberByMobile(reqConfirmerDto.getMobile());
+                MtUser mtUser_1 = memberService.queryMemberByMobile(reqConfirmerDto.getMobile());
 
                 if (mtUser_1 == null) {
-                    mtUser_1=memberService.addMember(tmemberInfo);
+                    mtUser_1 = memberService.addMember(tmemberInfo);
                     smsFlag = Boolean.TRUE;
                 }
 
                 // 关联核销人员账户id
                 reqConfirmerDto.setUserId(mtUser_1.getId());
                 reqConfirmerDto.setUpdateTime(new Date());
-                if(!mtConfirmer_temp.getAuditedStatus().equals(StatusEnum.ENABLED.getKey())) {
+                if (!mtConfirmer_temp.getAuditedStatus().equals(StatusEnum.ENABLED.getKey())) {
                     reqConfirmerDto.setAuditedTime(new Date());
                 }
 

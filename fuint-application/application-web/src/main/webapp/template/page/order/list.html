@@ -94,6 +94,7 @@
                         <td <#if ct.payStatus='B'>style="color:green;"</#if>>${ct.statusText}</td>
                         <td>
                             <a class="label label-success small-btn" href="javascript:getData('${rc.contextPath}/backend/order/detail/${ct.id}', 'displayArea');" title="详情"><i class="fa fa-eye"></i>详情</a>
+                            <#if ct.type=='goods'><a class="label label-danger small-btn" href="javascript:getData('${rc.contextPath}/backend/order/delivered/${ct.id}', 'displayArea');" title="发货"><i class="fa fa-eye"></i>发货</a></#if>
                         </td>
                     </tr>
                 </#list>
