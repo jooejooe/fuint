@@ -298,7 +298,7 @@ p, h1, h2, h3, h4, input {
     cursor: pointer;
 }
 .multi-spec {
-    display: none;
+    display: block;
 }
 .multi-spec .spec-value {
     margin-right: 10px;

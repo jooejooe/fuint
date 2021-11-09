@@ -2,8 +2,8 @@ package com.fuint.application.web.backend.goods;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSONArray;
-import com.fuint.application.dao.repositories.MtGoodsRepository;
 import com.fuint.application.dao.repositories.MtGoodsSpecRepository;
+import com.fuint.application.dao.repositories.MtGoodsSkuRepository;
 import com.fuint.application.enums.StatusEnum;
 import com.fuint.application.service.goods.CateService;
 import com.fuint.application.util.CommonUtil;
@@ -52,6 +52,9 @@ public class goodsController {
 
     @Autowired
     private MtGoodsSpecRepository specRepository;
+
+    @Autowired
+    private MtGoodsSkuRepository skuRepository;
 
     @Autowired
     private Environment env;
@@ -168,14 +171,53 @@ public class goodsController {
         String isSingleSpec = CommonUtil.replaceXSS(request.getParameter("isSingleSpec"));
         Integer cateId = request.getParameter("cateId") == null ? 0 : Integer.parseInt(request.getParameter("cateId"));
 
-        Enumeration enum1 = request.getParameterNames();
-        Map skuMap = new HashMap();
-        while (enum1.hasMoreElements()) {
-            String paramName = (String) enum1.nextElement();
+        Enumeration skuMap = request.getParameterNames();
+        List<String> dataArr = new ArrayList<>(); // 5-7_skuNo_9983453
+        List<String> item = new ArrayList<>();
+
+        while (skuMap.hasMoreElements()) {
+            String paramName = (String)skuMap.nextElement();
             if (paramName.contains("skus")) {
                 String paramValue = request.getParameter(paramName);
-                skuMap.put(paramName, paramValue);
+                paramName = paramName.replace("[", "_");
+                paramName = paramName.replace("]", "");
+                String[] s1 = paramName.split("_"); // skus[5-7][image]  skus_5-7_image
+                dataArr.add(s1[1] + '_' + s1[2] + '_' + paramValue);
+                if (!item.contains(s1[1])) {
+                    item.add(s1[1]);
+                }
             }
+        }
+
+        for (String key : item) {
+            MtGoodsSku sku = new MtGoodsSku();
+            sku.setGoodsId(Integer.parseInt(goodsId));
+            sku.setSpecIds(key);
+            for (String str :dataArr) {
+                String[] ss = str.split("_");
+                if (ss[0].equals(key)) {
+                   if (ss[1].equals("skuNo")) {
+                       String skuNo = ss.length > 2 ? ss[2] : "";
+                       sku.setSkuNo(skuNo);
+                   } else if (ss[1].equals("logo")) {
+                       String logo = ss.length > 2 ? ss[2] : "";
+                       sku.setLogo(logo);
+                   } else if (ss[1].equals("stock")) {
+                       String skuStock = ss.length > 2 ? ss[2] : "0";
+                       sku.setStock(Integer.parseInt(skuStock));
+                   } else if (ss[1].equals("price")) {
+                       String skuPrice = ss.length > 2 ? ss[2] : "0";
+                       sku.setPrice(new BigDecimal(skuPrice));
+                   } else if (ss[1].equals("linePrice")) {
+                       String skuLinePrice = ss.length > 2 ? ss[2] : "0";
+                       sku.setLinePrice(new BigDecimal(skuLinePrice));
+                   } else if (ss[1].equals("weight")) {
+                       String skuWeight = ss.length > 2 ? ss[2] : "0";
+                       sku.setWeight(new BigDecimal(skuWeight));
+                   }
+                }
+            }
+            skuRepository.save(sku);
         }
 
         MtGoods info = new MtGoods();

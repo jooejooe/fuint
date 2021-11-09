@@ -103,8 +103,8 @@
                         <label class="col-md-3 control-label">积分抵扣：</label>
                         <div class="col-md-9">
                             <div class="goods-spec-type">
-                                <label class="spec-type"><input type="radio" checked value="Y" name="canUsePoint">开启</label>
-                                <label class="spec-type"><input type="radio" value="N" name="canUsePoint">关闭</label>
+                                <label class="spec-type"><input type="radio" <#if (goods.canUsePoint=='Y')>checked</#if> value="Y" name="canUsePoint">开启</label>
+                                <label class="spec-type"><input type="radio" <#if (goods.canUsePoint=='N')>checked</#if> value="N" name="canUsePoint">关闭</label>
                             </div>
                         </div>
                     </div>
@@ -112,8 +112,8 @@
                         <label class="col-md-3 control-label">会员折扣：</label>
                         <div class="col-md-9">
                             <div class="goods-spec-type">
-                                <label class="spec-type"><input type="radio" checked value="Y" name="isMemberDiscount">开启</label>
-                                <label class="spec-type"><input type="radio" value="N" name="isMemberDiscount">关闭</label>
+                                <label class="spec-type"><input type="radio" value="Y" <#if (goods.isMemberDiscount=='Y')>checked</#if> name="isMemberDiscount">开启</label>
+                                <label class="spec-type"><input type="radio" value="N" <#if (goods.isMemberDiscount=='N')>checked</#if> name="isMemberDiscount">关闭</label>
                             </div>
                         </div>
                     </div>
@@ -121,13 +121,13 @@
                         <label class="col-md-3 control-label">规格类型：</label>
                         <div class="col-md-9">
                             <div class="goods-spec-type">
-                                <label class="spec-type"><input type="radio" checked value="Y" name="isSingleSpec">单规格</label>
-                                <label class="spec-type"><input type="radio" value="N" name="isSingleSpec">多规格</label>
+                                <label class="spec-type"><input type="radio" <#if (goods.isSingleSpec=='Y')>checked</#if> value="Y" name="isSingleSpec">单规格</label>
+                                <label class="spec-type"><input type="radio" <#if (goods.isSingleSpec=='N')>checked</#if> value="N" name="isSingleSpec">多规格</label>
                             </div>
                         </div>
                     </div>
                     <!--单规格 start-->
-                    <div class="single-spec">
+                    <div class="single-spec" <#if (goods.isSingleSpec=='N')>style="display:none;"</#if>>
                         <div class="form-group">
                             <label class="col-md-3 control-label">商品价格：</label>
                             <div class="col-md-9">
@@ -161,7 +161,7 @@
                     </div>
                     <!--单规格 end-->
                     <!--多规格 start-->
-                    <div class="multi-spec">
+                    <div class="multi-spec" <#if (goods.isSingleSpec=='Y')>style="display:none;"</#if>>
                         <div class="form-group">
                             <div class="col-md-9">
                                 <div class="layui-container">
@@ -256,7 +256,7 @@
                     {title: 'sku编码', icon: ''},
                 ],
                 tbody: [
-                    {type: 'image', field: 'image', value: '', verify: '', reqtext: ''},
+                    {type: 'image', field: 'logo', value: '', verify: '', reqtext: ''},
                     {type: 'input', field: 'price', value: '0', verify: 'required|number', reqtext: '销售价不能为空'},
                     {type: 'input', field: 'linePrice', value: '0', verify: 'required|number', reqtext: '市场价不能为空'},
                     {type: 'input', field: 'weight', value: '0', verify: '', reqtext: ''},
