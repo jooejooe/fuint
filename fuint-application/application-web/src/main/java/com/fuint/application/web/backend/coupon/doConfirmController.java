@@ -130,7 +130,7 @@ public class doConfirmController extends BaseController {
             couponService.useCoupon(userCouponId, user.getId().intValue(), storeId, new BigDecimal(amount), remark);
         } catch (BusinessCheckException e) {
             ReqResult reqResult = new ReqResult();
-            reqResult.setResultCode("0");
+            reqResult.setCode("0");
             reqResult.setResult(false);
             reqResult.setMsg("核销失败：" + e.getMessage());
             return reqResult;

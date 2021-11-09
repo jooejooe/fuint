@@ -2,7 +2,8 @@ package com.fuint.application.web.backend.goods;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSONArray;
-import com.fuint.application.enums.OrderStatusEnum;
+import com.fuint.application.dao.repositories.MtGoodsRepository;
+import com.fuint.application.dao.repositories.MtGoodsSpecRepository;
 import com.fuint.application.enums.StatusEnum;
 import com.fuint.application.service.goods.CateService;
 import com.fuint.application.util.CommonUtil;
@@ -14,6 +15,8 @@ import com.fuint.application.service.goods.GoodsService;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.core.env.Environment;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -48,6 +51,9 @@ public class goodsController {
     private CateService cateService;
 
     @Autowired
+    private MtGoodsSpecRepository specRepository;
+
+    @Autowired
     private Environment env;
 
     /**
@@ -74,7 +80,7 @@ public class goodsController {
     }
 
     /**
-     * 删除分类
+     * 删除商品
      *
      * @param request
      * @param response
@@ -159,14 +165,25 @@ public class goodsController {
         String salePoint = CommonUtil.replaceXSS(request.getParameter("salePoint"));
         String canUsePoint = CommonUtil.replaceXSS(request.getParameter("canUsePoint"));
         String isMemberDiscount = CommonUtil.replaceXSS(request.getParameter("isMemberDiscount"));
+        String isSingleSpec = CommonUtil.replaceXSS(request.getParameter("isSingleSpec"));
         Integer cateId = request.getParameter("cateId") == null ? 0 : Integer.parseInt(request.getParameter("cateId"));
 
-        MtGoods info = new MtGoods();
+        Enumeration enum1 = request.getParameterNames();
+        Map skuMap = new HashMap();
+        while (enum1.hasMoreElements()) {
+            String paramName = (String) enum1.nextElement();
+            if (paramName.contains("skus")) {
+                String paramValue = request.getParameter(paramName);
+                skuMap.put(paramName, paramValue);
+            }
+        }
 
+        MtGoods info = new MtGoods();
         info.setId(Integer.parseInt(goodsId));
         info.setCateId(cateId);
         info.setName(name);
         info.setGoodsNo(goodsNo);
+        info.setIsSingleSpec(isSingleSpec);
         info.setStock(Integer.parseInt(stock));
         info.setDescription(description);
         if (images != null) {
@@ -205,6 +222,102 @@ public class goodsController {
 
         Map<String, Object> outParams = new HashMap();
         outParams.put("goods", goods);
+
+        reqResult.setData(outParams);
+
+        return reqResult;
+    }
+
+    /**
+     * 保存商品规格
+     *
+     * @param request  HttpServletRequest对象
+     * @param response HttpServletResponse对象
+     * @param model    SpringFramework Model对象
+     */
+    @RequiresPermissions("backend/goods/goods/saveSpecName")
+    @RequestMapping(value = "/saveSpecName", method = RequestMethod.POST)
+    @ResponseBody
+    public ReqResult saveSpecName(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException {
+        String goodsId = request.getParameter("goodsId") == null ? "0" : request.getParameter("goodsId");
+        String name = request.getParameter("name") == null ? "" : request.getParameter("name");
+
+        if (StringUtils.isEmpty(goodsId)) {
+            return null;
+        }
+
+        Map<String, Object> param = new HashMap<>();
+
+        param.put("EQ_goodsId", goodsId);
+        param.put("EQ_name", name);
+
+        Specification<MtGoodsSpec> specification = specRepository.buildSpecification(param);
+        Sort sort = new Sort(Sort.Direction.DESC, "id");
+        List<MtGoodsSpec> dataList = specRepository.findAll(specification, sort);
+        Integer targetId = 0;
+        if (dataList.size() < 1) {
+            MtGoodsSpec mtGoodsSpec = new MtGoodsSpec();
+            mtGoodsSpec.setGoodsId(Integer.parseInt(goodsId));
+            mtGoodsSpec.setName(name);
+            mtGoodsSpec.setValue("");
+            MtGoodsSpec data = specRepository.save(mtGoodsSpec);
+            targetId = data.getId();
+        } else {
+            targetId = dataList.get(0).getId();
+        }
+
+        ReqResult reqResult = new ReqResult();
+        reqResult.setResult(true);
+        reqResult.setCode("200");
+        reqResult.setMsg("请求成功");
+
+        Map<String, Object> outParams = new HashMap();
+        outParams.put("id", targetId);
+
+        reqResult.setData(outParams);
+
+        return reqResult;
+    }
+
+    /**
+     * 保存商品规格
+     *
+     * @param request  HttpServletRequest对象
+     * @param response HttpServletResponse对象
+     * @param model    SpringFramework Model对象
+     */
+    @RequiresPermissions("backend/goods/goods/saveSpecValue")
+    @RequestMapping(value = "/saveSpecValue", method = RequestMethod.POST)
+    @ResponseBody
+    public ReqResult saveSpecValue(HttpServletRequest request, HttpServletResponse response, Model model) {
+        String specId = request.getParameter("specId") == null ? "0" : request.getParameter("specId");
+        String value = request.getParameter("value") == null ? "" : request.getParameter("value");
+
+        if (StringUtils.isEmpty(specId)) {
+            return null;
+        }
+
+        MtGoodsSpec goodsSpec = specRepository.findOne(Integer.parseInt(specId));
+        Integer targetId = goodsSpec.getId();
+        if (goodsSpec.getValue().equals("")) {
+            goodsSpec.setValue(value);
+            specRepository.save(goodsSpec);
+        } else {
+            MtGoodsSpec mtGoodsSpec = new MtGoodsSpec();
+            mtGoodsSpec.setGoodsId(goodsSpec.getGoodsId());
+            mtGoodsSpec.setName(goodsSpec.getName());
+            mtGoodsSpec.setValue(value);
+            MtGoodsSpec data = specRepository.save(mtGoodsSpec);
+            targetId = data.getId();
+        }
+
+        ReqResult reqResult = new ReqResult();
+        reqResult.setResult(true);
+        reqResult.setCode("200");
+        reqResult.setMsg("请求成功");
+
+        Map<String, Object> outParams = new HashMap();
+        outParams.put("id", targetId);
 
         reqResult.setData(outParams);
 

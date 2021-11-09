@@ -45,6 +45,12 @@ public class MtGoods implements Serializable{
 	@Column(name = "GOODS_NO", length = 100)
 	private String goodsNo;
 
+	/**
+	 * 可否单规格
+	 */
+	@Column(name = "IS_SINGLE_SPEC", length = 1)
+	private String isSingleSpec;
+
    /**
     * 主图地址 
     */ 
@@ -163,7 +169,13 @@ public class MtGoods implements Serializable{
 		return goodsNo;
 	}
 	public void setGoodsNo(String goodsNo){
-	this.goodsNo=goodsNo;
+	    this.goodsNo=goodsNo;
+	}
+	public String getIsSingleSpec(){
+		return isSingleSpec;
+	}
+	public void setIsSingleSpec(String isSingleSpec){
+		this.isSingleSpec=isSingleSpec;
 	}
 	public String getLogo(){
 		return logo;

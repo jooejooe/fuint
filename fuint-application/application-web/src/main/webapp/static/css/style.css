@@ -294,26 +294,14 @@ p, h1, h2, h3, h4, input {
     margin-top: 8px;
 }
 .goods-spec-type .spec-type{
-    margin-right: 20px;
+    width: 65px;
     cursor: pointer;
 }
 .multi-spec {
     display: none;
 }
-.multi-spec .add-spec-type {
-    color: blue;
-    text-align: right;
-    cursor: pointer;
-}
-.multi-spec .spec-type {
-    padding: 10px;
-    margin-bottom: 10px;
-}
-.multi-spec .spec-type .value {
-    margin-bottom: 10px;
-}
-.sku-list td {
-    padding: 10px;
+.multi-spec .spec-value {
+    margin-right: 10px;
 }
 .order-detail-info {
     padding: 10px;
