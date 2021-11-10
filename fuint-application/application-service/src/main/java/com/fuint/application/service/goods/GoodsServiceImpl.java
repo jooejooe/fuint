@@ -1,7 +1,13 @@
 package com.fuint.application.service.goods;
 
 import com.fuint.application.dao.entities.MtGoods;
+import com.fuint.application.dao.entities.MtGoodsSku;
+import com.fuint.application.dao.entities.MtGoodsSpec;
 import com.fuint.application.dao.repositories.MtGoodsRepository;
+import com.fuint.application.dao.repositories.MtGoodsSkuRepository;
+import com.fuint.application.dao.repositories.MtGoodsSpecRepository;
+import com.fuint.application.dto.GoodsDto;
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
 import com.fuint.base.annoation.OperationServiceLog;
@@ -14,6 +20,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.util.*;
 
@@ -29,6 +36,12 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Autowired
     private MtGoodsRepository goodsRepository;
+
+    @Autowired
+    private MtGoodsSpecRepository goodsSpecRepository;
+
+    @Autowired
+    private MtGoodsSkuRepository goodsSkuRepository;
 
     /**
      * 分页查询商品列表
@@ -125,6 +138,37 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     public MtGoods queryGoodsById(Integer id) {
         return goodsRepository.findOne(id);
+    }
+
+    /**
+     * 根据ID获取商品详情
+     *
+     * @param id 商品ID
+     * @throws BusinessCheckException
+     */
+    @Override
+    public GoodsDto getGoodsDetail(Integer id) throws InvocationTargetException, IllegalAccessException {
+        MtGoods mtGoods = goodsRepository.findOne(id);
+
+        GoodsDto goodsInfo = new GoodsDto();
+
+        if (mtGoods != null) {
+            BeanUtils.copyProperties(goodsInfo, mtGoods);
+        }
+
+        // 规格列表
+        Map<String, Object> param = new HashMap<>();
+        param.put("EQ_goodsId", id.toString());
+        Specification<MtGoodsSpec> specification1 = goodsSpecRepository.buildSpecification(param);
+        Sort sort1 = new Sort(Sort.Direction.ASC, "id");
+        List<MtGoodsSpec> goodsSpecList = goodsSpecRepository.findAll(specification1, sort1);
+
+        // sku列表
+        Specification<MtGoodsSku> specification2 = goodsSkuRepository.buildSpecification(param);
+        Sort sort2 = new Sort(Sort.Direction.ASC, "id");
+        List<MtGoodsSku> goodsSkuList = goodsSkuRepository.findAll(specification2, sort2);
+
+        return goodsInfo;
     }
 
     /**

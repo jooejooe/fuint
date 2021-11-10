@@ -8,6 +8,7 @@ import com.fuint.application.enums.StatusEnum;
 import com.fuint.application.service.goods.CateService;
 import com.fuint.application.util.CommonUtil;
 import com.fuint.exception.BusinessCheckException;
+import java.lang.reflect.InvocationTargetException;
 import com.fuint.base.shiro.util.ShiroUserHelper;
 import com.fuint.application.dao.entities.*;
 import com.fuint.application.dto.*;
@@ -115,10 +116,10 @@ public class goodsController {
      */
     @RequiresPermissions("backend/goods/goods/add")
     @RequestMapping(value = "/add")
-    public String add(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException {
+    public String add(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException,InvocationTargetException,IllegalAccessException {
         Integer goodsId = request.getParameter("goodsId") == null ? 0 : Integer.parseInt(request.getParameter("goodsId"));
 
-        MtGoods goods = goodsService.queryGoodsById(goodsId);
+        GoodsDto goods = goodsService.getGoodsDetail(goodsId);
         model.addAttribute("goods", goods);
 
         List<String> images = new ArrayList<>();
