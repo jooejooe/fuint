@@ -150,12 +150,12 @@ layui.define(['jquery', 'form', 'upload', 'layer'], function (exports) {
             skuData: {},
             skuTableConfig: {
                 thead: [
-                    {title: '图片', icon: ''},
-                    {title: '销售价(元)', icon: 'layui-icon-cols'},
-                    {title: '市场价(元)', icon: 'layui-icon-cols'},
-                    {title: '成本价(元)', icon: 'layui-icon-cols'},
-                    {title: '库存', icon: 'layui-icon-cols'},
-                    {title: '状态', icon: ''},
+                    {name: '图片', icon: ''},
+                    {name: '销售价(元)', icon: 'layui-icon-cols'},
+                    {name: '市场价(元)', icon: 'layui-icon-cols'},
+                    {name: '成本价(元)', icon: 'layui-icon-cols'},
+                    {name: '库存', icon: 'layui-icon-cols'},
+                    {name: '状态', icon: ''},
                 ],
                 tbody: [
                     {type: 'image', field: 'picture', value: '', verify: '', reqtext: ''},
@@ -192,11 +192,11 @@ layui.define(['jquery', 'form', 'upload', 'layer'], function (exports) {
                 $.each($(`#${that.options.specTableElemId} tbody tr`), function () {
                     var child = [];
                     $.each($(this).find('input[type=checkbox]'), function () {
-                        child.push({id: $(this).val(), title: $(this).attr('title'), checked: $(this).is(':checked')});
+                        child.push({id: $(this).val(), name: $(this).attr('name'), checked: $(this).is(':checked')});
                     });
                     var specItem = {
                         id: $(this).find('td').eq(0).data('id'),
-                        title: $(this).find('td').eq(0).text(),
+                        name: $(this).find('td').eq(0).text(),
                         child: child
                     };
                     specData.push(specItem);
@@ -230,7 +230,7 @@ layui.define(['jquery', 'form', 'upload', 'layer'], function (exports) {
                     Util.request.post(
                         {url: that.options.specCreateUrl, data: {goodsId: $(":input[name='goodsId']").val(), name: value}},
                         function (res) {
-                            that.options.specData.push({id: res.data.id, title: value, child: []});
+                            that.options.specData.push({id: res.data.id, name: value, child: []});
                             that.renderSpecTable();
                         });
                     Util.msg.close(index);
@@ -248,7 +248,7 @@ layui.define(['jquery', 'form', 'upload', 'layer'], function (exports) {
                         function (res) {
                             that.options.specData.forEach(function (v, i) {
                                 if (v.id == specId) {
-                                    v.child.push({id: res.data.id, title: value, checked: true});
+                                    v.child.push({id: res.data.id, name: value, checked: true});
                                 }
                             });
                             that.renderSpecTable();
@@ -268,11 +268,11 @@ layui.define(['jquery', 'form', 'upload', 'layer'], function (exports) {
 
             $.each(this.options.specData, function (index, item) {
                 table += '<tr>';
-                table += `<td data-id="${item.id}">${item.title}</td>`;
+                table += `<td data-id="${item.id}">${item.name}</td>`;
                 table += '<td>';
                 $.each(item.child, function (key, value) {
-                    table += `<span class="spec-value"><input class="fairy-spec-filter" type="checkbox" checked title="${value.title}" value="${value.id}">`;
-                    table += `${value.title}</span>`;
+                    table += `<span class="spec-value"><input class="fairy-spec-filter" type="checkbox" checked name="${value.name}" value="${value.id}">`;
+                    table += `${value.name}</span>`;
                 });
                 that.options.specValueCreateUrl && (table += '<button type="button" class="layui-btn layui-btn-primary layui-border-blue layui-btn-sm fairy-spec-value-create" style="margin-top: 4px;margin-left: 8px;"><i class="layui-icon layui-icon-addition"></i>规格值</button>');
                 table += '</td>';
@@ -301,11 +301,11 @@ layui.define(['jquery', 'form', 'upload', 'layer'], function (exports) {
                         return value.checked;
                     });
                     if (isShow) {
-                        prependThead.push(item.title);
+                        prependThead.push(item.name);
                         var prependTbodyItem = [];
                         $.each(item.child, function (key, value) {
                             if (value.checked) {
-                                prependTbodyItem.push({id: value.id, title: value.title});
+                                prependTbodyItem.push({id: value.id, name: value.name});
                             }
                         });
                         prependTbody.push(prependTbodyItem);
@@ -323,7 +323,7 @@ layui.define(['jquery', 'form', 'upload', 'layer'], function (exports) {
                     }).join('');
 
                     this.options.skuTableConfig.thead.forEach(function (item) {
-                        theadTr += '<th>' + item.title + (item.icon ? ' <i class="layui-icon ' + item.icon + '" style="cursor: pointer;" title="批量赋值"></i>' : '') + '</th>';
+                        theadTr += '<th>' + item.name + (item.icon ? ' <i class="layui-icon ' + item.icon + '" style="cursor: pointer;" title="批量赋值"></i>' : '') + '</th>';
                     });
 
                     theadTr += '</tr>';
@@ -349,14 +349,14 @@ layui.define(['jquery', 'form', 'upload', 'layer'], function (exports) {
                     var tmp = [];
                     prev.forEach(function (a) {
                         cur.forEach(function (b) {
-                            tmp.push({id: a.id + '-' + b.id, title: a.title + '-' + b.title});
+                            tmp.push({id: a.id + '-' + b.id, name: a.name + '-' + b.name});
                         })
                     });
                     return tmp;
                 }).forEach(function (item, index, array) {
                     var tr = '<tr>';
 
-                    tr += item.title.split('-').map(function (t, i, a) {
+                    tr += item.name.split('-').map(function (t, i, a) {
                         if (that.options.rowspan) {
                             if (index % skuRowspanArr[i] === 0 && skuRowspanArr[i] > 1) {
                                 return '<td class="fairy-spec-value" rowspan="' + skuRowspanArr[i] + '">' + t + '</td>';
@@ -417,10 +417,9 @@ layui.define(['jquery', 'form', 'upload', 'layer'], function (exports) {
                 acceptMime: 'image/*',
                 multiple: false,
                 done: function (res) {
-                    if (res.code === 200) {
-                        var url = res.data.url;
+                    if (res.status === 'success') {
+                        var url = res.filePath;
                         $(this.item).attr('src', url).prev().val(url);
-                        Util.msg.success(res.msg);
                     } else {
                         var msg = res.msg == undefined ? '返回数据格式有误' : res.msg;
                         Util.msg.error(msg);

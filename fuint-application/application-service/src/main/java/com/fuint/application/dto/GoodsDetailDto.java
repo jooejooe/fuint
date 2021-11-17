@@ -8,11 +8,11 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
-public class GoodsDto implements Serializable {
+public class GoodsDetailDto implements Serializable {
 	/**
 	 * 自增ID
 	 */
-	private Integer id;
+	private Integer goodsId;
 
 	/**
 	 * 商品名称
@@ -117,18 +117,18 @@ public class GoodsDto implements Serializable {
 	/**
 	 * sku列表
 	 * */
-	private List<MtGoodsSku> skuList;
+	private List<GoodsSkuDto> skuList;
 
 	/**
 	 * 规格列表
 	 * */
-	private List<MtGoodsSpec> specList;
+	private List<GoodsSpecDto> specList;
 
-	public Integer getId(){
-		return id;
+	public Integer getGoodsId(){
+		return goodsId;
 	}
-	public void setId(Integer id){
-		this.id=id;
+	public void setGoodsId(Integer goodsId){
+		this.goodsId=goodsId;
 	}
 	public String getName(){
 		return name;
@@ -250,16 +250,16 @@ public class GoodsDto implements Serializable {
 	public void setStatus(String status){
 		this.status=status;
 	}
-	public List<MtGoodsSku> getSkuList(){
+	public List<GoodsSkuDto> getSkuList(){
 		return skuList;
 	}
-	public void setSkuList(List<MtGoodsSku> skuList){
+	public void setSkuList(List<GoodsSkuDto> skuList){
 		this.skuList=skuList;
 	}
-	public List<MtGoodsSpec> getSpecList(){
+	public List<GoodsSpecDto> getSpecList(){
 		return specList;
 	}
-	public void setSpecList(List<MtGoodsSpec> specList){
+	public void setSpecList(List<GoodsSpecDto> specList){
 		this.specList=specList;
 	}
 }

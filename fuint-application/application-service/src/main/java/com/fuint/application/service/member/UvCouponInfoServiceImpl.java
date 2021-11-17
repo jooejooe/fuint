@@ -16,7 +16,6 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -40,20 +39,17 @@ public class UvCouponInfoServiceImpl implements UvCouponInfoService {
     @Autowired
     private MtCouponInfoRepository mtCouponInfoRepository;
 
-    @Autowired
-    private Environment env;
-
     @PersistenceContext(unitName = "defaultPersistenceUnit")
     private EntityManager entityManager;
 
     /**
-     * 分页查询会员卡券消费列表 SQL
+     * 分页查询会员卡券消费列表
      *
      * @param paginationRequest
      * @return
      */
     @Override
-    public PaginationResponse<UvCouponInfo> queryCouponInfoListByPagination(PaginationRequest paginationRequest) throws BusinessCheckException {
+    public PaginationResponse<UvCouponInfo> queryCouponInfoListByPagination(PaginationRequest paginationRequest) {
         Map<String, Object> params = paginationRequest.getSearchParams();
 
         PageRequest pageRequest = new PageRequest(paginationRequest.getCurrentPage() - 1, paginationRequest.getPageSize());
@@ -90,7 +86,7 @@ public class UvCouponInfoServiceImpl implements UvCouponInfoService {
     }
 
     /**
-     *查询会员卡券总计
+     * 查询会员卡券总计
      *
      * @param  params
      * @throws BusinessCheckException
@@ -104,24 +100,6 @@ public class UvCouponInfoServiceImpl implements UvCouponInfoService {
         CouponTotalDto couponTotalDto = this.getTotal(params);
         return couponTotalDto;
     }
-
-    /**
-     * 根据ID获取用户卡券信息
-     *
-     * @param id 用户卡券id
-     * @return
-     * @throws BusinessCheckException
-     */
-    @Override
-    public UvCouponInfo queryUvCouponInfoById(Integer id) throws BusinessCheckException {
-        UvCouponInfo uvCouponInfo = mtCouponInfoRepository.findOne(id);
-        if (null == uvCouponInfo || StatusEnum.DISABLE.getKey().equals(uvCouponInfo.getCouponInfoStatus())) {
-            log.error("该卡券不存在或已被删除"+id.toString());
-            throw new BusinessCheckException("该卡券不存在或已被删除");
-        }
-        return uvCouponInfo;
-    }
-
 
     /**
      * 根据参数获取查询Query对象

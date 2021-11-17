@@ -38,6 +38,12 @@ public class MtOrderGoods implements Serializable{
 	@Column(name = "GOODS_ID", nullable = false, length = 10)
 	private Integer goodsId;
 
+	/**
+	 * skuID
+	 */
+	@Column(name = "SKU_ID", length = 10)
+	private Integer skuId;
+
    /**
     * 商品数量 
     */ 
@@ -91,6 +97,12 @@ public class MtOrderGoods implements Serializable{
 	}
 	public void setGoodsId(Integer goodsId){
 	this.goodsId=goodsId;
+	}
+	public Integer getSkuId(){
+		return skuId;
+	}
+	public void setSkuId(Integer skuId){
+		this.skuId=skuId;
 	}
 	public Integer getNum(){
 		return num;

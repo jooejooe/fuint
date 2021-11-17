@@ -9,6 +9,7 @@ import com.fuint.application.dao.repositories.MtGoodsSpecRepository;
 import com.fuint.application.dto.GoodsDto;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.domain.Specification;
 import com.fuint.base.annoation.OperationServiceLog;
 import com.fuint.base.dao.pagination.PaginationRequest;
@@ -42,6 +43,9 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Autowired
     private MtGoodsSkuRepository goodsSkuRepository;
+
+    @Autowired
+    private Environment env;
 
     /**
      * 分页查询商品列表
@@ -77,6 +81,9 @@ public class GoodsServiceImpl implements GoodsService {
         }
         if (StringUtils.isNotEmpty(reqDto.getLogo())) {
             mtGoods.setLogo(reqDto.getLogo());
+        }
+        if (StringUtils.isNotEmpty(reqDto.getIsSingleSpec())) {
+            mtGoods.setIsSingleSpec(reqDto.getIsSingleSpec());
         }
         if (StringUtils.isNotEmpty(reqDto.getDescription())) {
             mtGoods.setDescription(reqDto.getDescription());
@@ -155,6 +162,10 @@ public class GoodsServiceImpl implements GoodsService {
         if (mtGoods != null) {
             BeanUtils.copyProperties(goodsInfo, mtGoods);
         }
+        String basePath = env.getProperty("images.upload.url");
+        if (StringUtils.isNotEmpty(goodsInfo.getLogo())) {
+            goodsInfo.setLogo(basePath + goodsInfo.getLogo());
+        }
 
         // 规格列表
         Map<String, Object> param = new HashMap<>();
@@ -162,11 +173,13 @@ public class GoodsServiceImpl implements GoodsService {
         Specification<MtGoodsSpec> specification1 = goodsSpecRepository.buildSpecification(param);
         Sort sort1 = new Sort(Sort.Direction.ASC, "id");
         List<MtGoodsSpec> goodsSpecList = goodsSpecRepository.findAll(specification1, sort1);
+        goodsInfo.setSpecList(goodsSpecList);
 
         // sku列表
         Specification<MtGoodsSku> specification2 = goodsSkuRepository.buildSpecification(param);
         Sort sort2 = new Sort(Sort.Direction.ASC, "id");
         List<MtGoodsSku> goodsSkuList = goodsSkuRepository.findAll(specification2, sort2);
+        goodsInfo.setSkuList(goodsSkuList);
 
         return goodsInfo;
     }

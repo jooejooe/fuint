@@ -53,6 +53,14 @@ public class FileController {
         MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
         String sourcePic = request.getParameter("sourcePic");// 页面图片元素的id
         MultipartFile file = multipartRequest.getFile(sourcePic);
+
+        if (file == null) {
+            Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();
+            if (fileMap.size() > 0) {
+                file = fileMap.get("file");
+            }
+        }
+
         Map<String, String> resultMap = new HashMap<>();
         String originalFilename = file.getOriginalFilename();
         if (StringUtils.isEmpty(originalFilename)) {

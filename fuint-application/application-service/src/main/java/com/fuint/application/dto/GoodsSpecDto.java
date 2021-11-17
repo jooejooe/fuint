@@ -1,40 +1,30 @@
 package com.fuint.application.dto;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class GoodsSpecDto implements Serializable {
 
    /**
 	* 自增ID
 	* */
-	private Integer id;
+	private Integer specId;
 
-   /**
-    * 商品ID 
-    */
-	private Integer goodsId;
-
-   /**
-    * 规格名称 
-    */
+	/**
+	 * 规格名称
+	 */
 	private String name;
 
    /**
     * 规格值 
     */
-	private String value;
+	private List<GoodsSpecValueDto> valueList;
 
-	public Integer getId(){
-		return id;
+	public Integer getSpecId(){
+		return specId;
 	}
-	public void setId(Integer id){
-	this.id=id;
-	}
-	public Integer getGoodsId(){
-		return goodsId;
-	}
-	public void setGoodsId(Integer goodsId){
-	this.goodsId=goodsId;
+	public void setSpecId(Integer specId){
+	this.specId=specId;
 	}
 	public String getName(){
 		return name;
@@ -42,11 +32,11 @@ public class GoodsSpecDto implements Serializable {
 	public void setName(String name){
 	this.name=name;
 	}
-	public String getValue(){
-		return value;
+	public List<GoodsSpecValueDto> getValueList(){
+		return valueList;
 	}
-	public void setValue(String value){
-	this.value=value;
+	public void setValueList(List<GoodsSpecValueDto> valueList){
+	this.valueList=valueList;
 	}
 }
 

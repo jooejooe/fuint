@@ -60,7 +60,8 @@ public class CartController extends BaseController {
     public ResponseObject save(HttpServletRequest request, @RequestBody Map<String, Object> param) throws BusinessCheckException {
         String token = request.getHeader("Access-Token");
         Integer goodsId = param.get("goodsId") == null ? 0 : Integer.parseInt(param.get("goodsId").toString());
-        Integer num = param.get("num") == null ? 1 : Integer.parseInt(param.get("num").toString());
+        Integer skuId = param.get("skuId") == null ? 0 : Integer.parseInt(param.get("skuId").toString());
+        Integer buyNum = param.get("buyNum") == null ? 1 : Integer.parseInt(param.get("buyNum").toString());
         String action = param.get("action") == null ? "+" : param.get("action").toString();
 
         if (StringUtils.isEmpty(token)) {
@@ -72,12 +73,13 @@ public class CartController extends BaseController {
             return getFailureResult(1001);
         }
 
-        MtCart cart = new MtCart();
-        cart.setGoodsId(goodsId);
-        cart.setUserId(mtUser.getId());
-        cart.setNum(num);
+        MtCart mtCart = new MtCart();
+        mtCart.setGoodsId(goodsId);
+        mtCart.setUserId(mtUser.getId());
+        mtCart.setNum(buyNum);
+        mtCart.setSkuId(skuId);
 
-        cartService.saveCart(cart, action);
+        cartService.saveCart(mtCart, action);
 
         return getSuccessResult(true);
     }
@@ -125,6 +127,7 @@ public class CartController extends BaseController {
             cartDto.setId(cart.getId());
             cartDto.setGoodsId(cart.getGoodsId());
             cartDto.setNum(cart.getNum());
+            cartDto.setSkuId(cart.getSkuId());
             cartDto.setUserId(cart.getUserId());
 
             for (MtGoods goods : goodsList) {

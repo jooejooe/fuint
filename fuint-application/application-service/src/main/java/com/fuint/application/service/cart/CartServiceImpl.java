@@ -49,10 +49,12 @@ public class CartServiceImpl implements CartService {
 
         mtCart.setStatus(StatusEnum.ENABLED.getKey());
         mtCart.setUpdateTime(new Date());
+        mtCart.setSkuId(reqDto.getSkuId());
 
         Map<String, Object> params = new HashMap<>();
         params.put("EQ_userId", mtCart.getUserId().toString());
         params.put("EQ_goodsId", mtCart.getGoodsId().toString());
+        params.put("EQ_skuId", mtCart.getSkuId().toString());
 
         List<MtCart> cartList = this.queryCartListByParams(params);
 

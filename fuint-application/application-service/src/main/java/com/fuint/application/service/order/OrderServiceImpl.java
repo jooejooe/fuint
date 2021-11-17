@@ -224,6 +224,7 @@ public class OrderServiceImpl extends BaseService implements OrderService {
                  MtOrderGoods orderGoods = new MtOrderGoods();
                  orderGoods.setOrderId(orderInfo.getId());
                  orderGoods.setGoodsId(cart.getGoodsId());
+                 orderGoods.setSkuId(cart.getSkuId());
                  orderGoods.setNum(cart.getNum());
                  orderGoods.setPrice(mtGoods.getPrice());
                  orderGoods.setDiscount(new BigDecimal("0"));

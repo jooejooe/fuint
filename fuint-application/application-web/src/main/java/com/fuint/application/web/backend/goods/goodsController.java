@@ -55,7 +55,7 @@ public class goodsController {
     private MtGoodsSpecRepository specRepository;
 
     @Autowired
-    private MtGoodsSkuRepository skuRepository;
+    private MtGoodsSkuRepository goodskuRepository;
 
     @Autowired
     private Environment env;
@@ -128,6 +128,35 @@ public class goodsController {
         }
         model.addAttribute("images", images);
 
+        // 商品规格列表
+        List<String> specKeyArr = new ArrayList<>();
+        List<GoodsSpecItemDto> specArr = new ArrayList<>();
+        for (MtGoodsSpec mtGoodsSpec : goods.getSpecList()) {
+            if (!specKeyArr.contains(mtGoodsSpec.getName())) {
+                specKeyArr.add(mtGoodsSpec.getName());
+            }
+        }
+
+        int id = 1;
+        for (String name : specKeyArr) {
+            GoodsSpecItemDto item = new GoodsSpecItemDto();
+            List<GoodsSpecChildDto> child = new ArrayList<>();
+            for (MtGoodsSpec mtGoodsSpec : goods.getSpecList()) {
+                if (mtGoodsSpec.getName().equals(name)) {
+                    GoodsSpecChildDto e = new GoodsSpecChildDto();
+                    e.setId(mtGoodsSpec.getId());
+                    e.setName(mtGoodsSpec.getValue());
+                    e.setChecked(true);
+                    child.add(e);
+                }
+            }
+            item.setId(id);
+            item.setName(name);
+            item.setChild(child);
+            specArr.add(item);
+            id++;
+        }
+
         Map<String, Object> param = new HashMap<>();
         param.put("EQ_status", StatusEnum.ENABLED.getKey());
         List<MtGoodsCate> cateList = cateService.queryCateListByParams(param);
@@ -135,6 +164,21 @@ public class goodsController {
 
         String imagePath = env.getProperty("images.upload.url");
         model.addAttribute("imagePath", imagePath);
+
+        String specData = JSONObject.toJSONString(specArr);
+        model.addAttribute("specData", specData);
+
+        Map<String, Object> skuData = new HashMap<>();
+        for (MtGoodsSku sku : goods.getSkuList()) {
+            skuData.put("skus["+sku.getSpecIds()+"][skuNo]", sku.getSkuNo());
+            skuData.put("skus["+sku.getSpecIds()+"][logo]", (sku.getLogo().length() > 1 ? (imagePath + sku.getLogo()) : ""));
+            skuData.put("skus["+sku.getSpecIds()+"][goodsId]", sku.getGoodsId());
+            skuData.put("skus["+sku.getSpecIds()+"][stock]", sku.getStock());
+            skuData.put("skus["+sku.getSpecIds()+"][price]", sku.getPrice());
+            skuData.put("skus["+sku.getSpecIds()+"][linePrice]", sku.getLinePrice());
+            skuData.put("skus["+sku.getSpecIds()+"][weight]", sku.getWeight());
+        }
+        model.addAttribute("skuData", JSONObject.toJSONString(skuData));
 
         return "goods/goods/add";
     }
@@ -173,8 +217,10 @@ public class goodsController {
         Integer cateId = request.getParameter("cateId") == null ? 0 : Integer.parseInt(request.getParameter("cateId"));
 
         Enumeration skuMap = request.getParameterNames();
-        List<String> dataArr = new ArrayList<>(); // 5-7_skuNo_9983453
+        List<String> dataArr = new ArrayList<>();
         List<String> item = new ArrayList<>();
+
+        String imagePath = env.getProperty("images.upload.url");
 
         while (skuMap.hasMoreElements()) {
             String paramName = (String)skuMap.nextElement();
@@ -191,7 +237,19 @@ public class goodsController {
         }
 
         for (String key : item) {
+            Map<String, Object> param = new HashMap<>();
+            param.put("EQ_goodsId", goodsId);
+            param.put("EQ_specIds", key);
+
+            // 是否已存在
+            Specification<MtGoodsSku> specification2 = goodskuRepository.buildSpecification(param);
+            Sort sort2 = new Sort(Sort.Direction.ASC, "id");
+            List<MtGoodsSku> goodsSkuList = goodskuRepository.findAll(specification2, sort2);
             MtGoodsSku sku = new MtGoodsSku();
+            if (goodsSkuList.size() > 0) {
+                sku = goodsSkuList.get(0);
+            }
+
             sku.setGoodsId(Integer.parseInt(goodsId));
             sku.setSpecIds(key);
             for (String str :dataArr) {
@@ -202,6 +260,7 @@ public class goodsController {
                        sku.setSkuNo(skuNo);
                    } else if (ss[1].equals("logo")) {
                        String logo = ss.length > 2 ? ss[2] : "";
+                       logo = logo.replace(imagePath, "");
                        sku.setLogo(logo);
                    } else if (ss[1].equals("stock")) {
                        String skuStock = ss.length > 2 ? ss[2] : "0";
@@ -218,7 +277,8 @@ public class goodsController {
                    }
                 }
             }
-            skuRepository.save(sku);
+
+            goodskuRepository.save(sku);
         }
 
         MtGoods info = new MtGoods();

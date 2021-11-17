@@ -26,6 +26,11 @@ public class ResCartDto implements Serializable {
     private Integer goodsId;
 
     /**
+     * skuID
+     */
+    private Integer skuId;
+
+    /**
      * 数量
      */
     private Integer num;
@@ -57,6 +62,13 @@ public class ResCartDto implements Serializable {
 
     public void setGoodsId(Integer goodsId) {
         this.goodsId = goodsId;
+    }
+
+    public Integer getSkuId(){
+        return skuId;
+    }
+    public void setSkuId(Integer skuId){
+        this.skuId=skuId;
     }
 
     public Integer getNum() {
