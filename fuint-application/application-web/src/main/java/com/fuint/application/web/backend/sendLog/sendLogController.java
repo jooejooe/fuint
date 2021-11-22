@@ -26,7 +26,6 @@ import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.List;
-
 import static com.fuint.application.util.XlsUtil.objectConvertToString;
 
 /**
@@ -101,7 +100,6 @@ public class sendLogController {
                     requestUserCouponUse.getSearchParams().put("EQ_status", UserCouponStatusEnum.DISABLE.getKey());
                     PaginationResponse<MtUserCoupon> dataUserCoupon = userCouponService.queryUserCouponListByPagination(requestUserCouponUse);
                     Long successNum = dataUserCoupon.getTotalElements();
-
                     if (null != log.getRemoveSuccessNum()) {
                         if (successNum > log.getRemoveSuccessNum()) {
                             log.setRemoveSuccessNum(successNum.intValue());

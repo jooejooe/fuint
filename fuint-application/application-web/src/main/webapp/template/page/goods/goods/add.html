@@ -1,9 +1,9 @@
 <h1 class="page-header">
-    <small>新增商品</small>
+    <small>编辑商品</small>
 </h1>
 <div class="panel panel-inverse" data-sortable-id="form-stuff-1">
     <div class="panel-heading">
-        <h4 class="panel-title">新增商品信息</h4>
+        <h4 class="panel-title">商品信息</h4>
     </div>
     <div class="panel-body" style="background-color:#f0f3f4;">
         <ul class="nav nav-tabs">
@@ -31,7 +31,7 @@
                         <label class="col-md-3 control-label">商品分类：</label>
                         <div class="col-md-2">
                             <select class="form-control" name="cateId" id="cateId">
-                                <#list cateList as cate><option value="${cate.id}" <#if (cate.id == goods.cateId)>selected</#if>>${cate.name}</option></#list>
+                               <#list cateList as cate><option value="${cate.id}" <#if (cate.id == goods.cateId)>selected</#if>>${cate.name}</option></#list>
                             </select>
                         </div>
                     </div>
@@ -49,7 +49,7 @@
                                 <#list images as img>
                                 <div class="upload-item">
                                     <img name="image${img_index+1}" class="m-r-20 m-b-10" id="image${img_index+1}" src="${imagePath}${img}" style="border:1px solid #ccc;border-radius:1px;width: 120px;height: 80px;">
-                                    <input type="file" name="picture${img_index}" id="picture${img_index}" style="display: inline-block" onchange="ajaxFileUpload('${img_index+1}', '${rc.contextPath}/backend');">
+                                    <input type="file" name="picture${img_index+1}" id="picture${img_index+1}" style="display: inline-block" onchange="ajaxFileUpload('${img_index+1}', '${rc.contextPath}/backend');">
                                     <div style="color:#cccccc;margin-bottom: 10px;">（格式：jpeg/jpg/png）</div>
                                     <input type="text" type="hidden" placeholder="存储路径" class="form-control" name="image" id="filePath${img_index+1}" value="${img}" onchange="changeImagePath('<@mh.static/>', '${img_index+1}')">
                                 </div>
@@ -118,6 +118,12 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label class="col-md-3 control-label">初始销量：</label>
+                        <div class="col-md-9">
+                            <input type="text" id="initSale" class="form-control" name="initSale" value="${goods.initSale}" placeholder="初始销量，正整数" rangelength="1, 10" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label class="col-md-3 control-label">规格类型：</label>
                         <div class="col-md-9">
                             <div class="goods-spec-type">
@@ -138,12 +144,6 @@
                             <label class="col-md-3 control-label">划线价格：</label>
                             <div class="col-md-9">
                                 <input type="text" id="linePrice" class="form-control" name="linePrice" value="${goods.linePrice}" placeholder="划线价格，长度1-100" rangelength="1, 100" required>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-3 control-label">初始销量：</label>
-                            <div class="col-md-9">
-                                <input type="text" id="initSale" class="form-control" name="initSale" value="${goods.initSale}" placeholder="初始销量，正整数" rangelength="1, 100" required>
                             </div>
                         </div>
                         <div class="form-group">
@@ -220,13 +220,14 @@
 <script src="<@sp.static/>/assets/plugins/ueditor/ueditor.all.js?v=1.2.5" type="text/javascript" charset="UTF-8"></script>
 <script src="<@sp.static/>/assets/plugins/ueditor/lang/zh-cn/zh-cn.js?v=1.2.5" type="text/javascript" charset="UTF-8"></script>
 <script src="<@sp.static/>/assets/plugins/skuTable/layui/layui.js?v=1.2.6" charset="UTF-8"></script>
-<script src="<@sp.static/>/assets/plugins/skuTable/skuTable.js?v=1.2.5" charset="UTF-8"></script>
-<link rel="stylesheet" type="text/css" href="<@sp.static/>/assets/plugins/skuTable/layui/css/layui.css?v=1.1.0" charset="UTF-8"/>
+<script src="<@sp.static/>/assets/plugins/skuTable/skuTable.js?v=1.8.10" charset="UTF-8"></script>
+<link rel="stylesheet" type="text/css" href="<@sp.static/>/assets/plugins/skuTable/layui/css/layui.css?v=1.8.8" charset="UTF-8"/>
 <script>
     layui.config({
         base: './'
     }).use(['form', 'skuTable'], function () {
-        var form = layui.form, skuTable = layui.skuTable;
+        var form = layui.form;
+        var skuTable = layui.skuTable;
 
         //示例中的json文件仅做格式返回参考，若多次执行添加规格后再为新增后的规格添加规格值，会发现所有新增的规格都增加了该规格值。注意！此处并非是bug，原因是因为示例中返回的新增规格值id是重复的，而在正常接口请求每次返回的新增规则id是不一样的
         var obj = skuTable.render({

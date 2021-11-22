@@ -87,10 +87,13 @@ public class CartController extends BaseController {
     /**
      * 获取购物车列表
      */
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    @RequestMapping(value = "/list")
     @CrossOrigin
-    public ResponseObject list(HttpServletRequest request) throws BusinessCheckException {
+    public ResponseObject list(HttpServletRequest request, @RequestBody Map<String, Object> params) throws BusinessCheckException {
         String token = request.getHeader("Access-Token");
+        Integer goodsId = params.get("goodsId") == null ? 0 : Integer.parseInt(params.get("goodsId").toString());
+        Integer skuId = params.get("skuId") == null ? 0 : Integer.parseInt(params.get("skuId").toString());
+        Integer buyNum = params.get("buyNum") == null ? 1 : Integer.parseInt(params.get("buyNum").toString());
 
         Map<String, Object> result = new HashMap<>();
         result.put("list", new ArrayList<>());
@@ -101,13 +104,31 @@ public class CartController extends BaseController {
 
         MtUser mtUser = tokenService.getUserInfoByToken(token);
         if (null == mtUser) {
-            return getSuccessResult(result);
+            if (goodsId < 1) {
+                return getSuccessResult(result);
+            }
         } else {
             param.put("EQ_userId", mtUser.getId().toString());
         }
 
         param.put("EQ_status", StatusEnum.ENABLED.getKey());
-        List<MtCart> cartList = cartService.queryCartListByParams(param);
+        List<MtCart> cartList = new ArrayList<>();
+        if (goodsId < 1) {
+            cartList = cartService.queryCartListByParams(param);
+        } else {
+            // 直接购买
+            MtCart mtCart = new MtCart();
+            mtCart.setGoodsId(goodsId);
+            mtCart.setSkuId(skuId);
+            mtCart.setNum(buyNum);
+            mtCart.setId(0);
+            if (mtUser != null) {
+                mtCart.setUserId(mtUser.getId());
+            }
+            mtCart.setStatus(StatusEnum.ENABLED.getKey());
+            cartList.add(mtCart);
+        }
+
         List<MtGoods> goodsList = goodsService.queryGoodsListByParams(param);
 
         String baseImage = env.getProperty("images.upload.url");

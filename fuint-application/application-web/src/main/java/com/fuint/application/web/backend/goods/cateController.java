@@ -6,6 +6,7 @@ import com.fuint.base.shiro.util.ShiroUserHelper;
 import com.fuint.application.dao.entities.*;
 import com.fuint.application.dto.*;
 import com.fuint.application.service.goods.CateService;
+import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.*;
@@ -110,7 +111,7 @@ public class cateController {
         String name = CommonUtil.replaceXSS(request.getParameter("name"));
         String description = CommonUtil.replaceXSS(request.getParameter("description"));
         String logo = CommonUtil.replaceXSS(request.getParameter("image"));
-        String sort = CommonUtil.replaceXSS(request.getParameter("sort"));
+        String sort = StringUtils.isNotEmpty(request.getParameter("sort")) ? request.getParameter("sort") : "1";
 
         MtGoodsCate info = new MtGoodsCate();
 

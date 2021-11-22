@@ -202,7 +202,20 @@ public class OrderServiceImpl extends BaseService implements OrderService {
         if (orderDto.getType().equals(OrderTypeEnum.GOOGS.getKey())) {
             Map<String, Object> param = new HashMap<>();
             param.put("EQ_status", StatusEnum.ENABLED.getKey());
-            cartList = cartService.queryCartListByParams(param);
+            if (orderDto.getGoodsId() < 1) {
+                cartList = cartService.queryCartListByParams(param);
+            } else {
+                // 直接购买
+                MtCart mtCart = new MtCart();
+                mtCart.setGoodsId(orderDto.getGoodsId());
+                mtCart.setSkuId(orderDto.getSkuId());
+                mtCart.setNum(orderDto.getBuyNum());
+                mtCart.setId(0);
+                mtCart.setUserId(orderDto.getUserId());
+                mtCart.setStatus(StatusEnum.ENABLED.getKey());
+                cartList.add(mtCart);
+            }
+
             goodsList = goodsService.queryGoodsListByParams(param);
             BigDecimal totalAmount = new BigDecimal("0");
             for (MtCart cart : cartList) {
@@ -241,7 +254,9 @@ public class OrderServiceImpl extends BaseService implements OrderService {
                             MtGoods goodsInfo = goodsRepository.findOne(goods.getId());
                             goodsInfo.setStock(goodsInfo.getStock() - cart.getNum());
                             goodsRepository.save(goodsInfo);
-                            cartRepository.delete(cart.getId());
+                            if (cart.getId() > 0) {
+                                cartRepository.delete(cart.getId());
+                            }
                         }
                     }
                  }

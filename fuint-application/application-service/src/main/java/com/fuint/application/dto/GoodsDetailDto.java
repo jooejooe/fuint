@@ -42,7 +42,7 @@ public class GoodsDetailDto implements Serializable {
 	/**
 	 * 图片地址
 	 */
-	private String images;
+	private List<String> images;
 
 	/**
 	 * 价格
@@ -160,10 +160,10 @@ public class GoodsDetailDto implements Serializable {
 	public void setLogo(String logo){
 		this.logo=logo;
 	}
-	public String getImages(){
+	public List<String> getImages(){
 		return images;
 	}
-	public void setImages(String images){
+	public void setImages(List<String> images){
 		this.images=images;
 	}
 	public BigDecimal getPrice(){

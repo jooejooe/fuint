@@ -236,6 +236,9 @@ public class goodsController {
             }
         }
 
+        BigDecimal minPrice = new BigDecimal("0");
+        BigDecimal minLinePrice = new BigDecimal("0");
+
         for (String key : item) {
             Map<String, Object> param = new HashMap<>();
             param.put("EQ_goodsId", goodsId);
@@ -268,9 +271,16 @@ public class goodsController {
                    } else if (ss[1].equals("price")) {
                        String skuPrice = ss.length > 2 ? ss[2] : "0";
                        sku.setPrice(new BigDecimal(skuPrice));
+                       // 商品价格取sku中最低价
+                       if ((new BigDecimal("0").equals(minPrice)) && (minPrice.compareTo(new BigDecimal(skuPrice)) < 0)) {
+                           minPrice = new BigDecimal(skuPrice);
+                       }
                    } else if (ss[1].equals("linePrice")) {
                        String skuLinePrice = ss.length > 2 ? ss[2] : "0";
                        sku.setLinePrice(new BigDecimal(skuLinePrice));
+                       if ((new BigDecimal("0").equals(minLinePrice)) && (minPrice.compareTo(new BigDecimal(skuLinePrice)) < 0)) {
+                           minLinePrice = new BigDecimal(skuLinePrice);
+                       }
                    } else if (ss[1].equals("weight")) {
                        String skuWeight = ss.length > 2 ? ss[2] : "0";
                        sku.setWeight(new BigDecimal(skuWeight));
@@ -296,11 +306,17 @@ public class goodsController {
             info.setSort(Integer.parseInt(sort));
         }
         info.setStatus(status);
-        if (StringUtils.isNotEmpty(price)) {
+        if (new BigDecimal(price).compareTo(new BigDecimal("0")) > 0) {
             info.setPrice(new BigDecimal(price));
         }
-        if (StringUtils.isNotEmpty(linePrice)) {
+        if(minPrice.compareTo(new BigDecimal("0")) > 0) {
+            info.setPrice(minPrice);
+        }
+        if (new BigDecimal(linePrice).compareTo(new BigDecimal("0")) > 0) {
             info.setLinePrice(new BigDecimal(linePrice));
+        }
+        if(minLinePrice.compareTo(new BigDecimal("0")) > 0) {
+            info.setLinePrice(minLinePrice);
         }
         if (StringUtils.isNotEmpty(weight)) {
             info.setWeight(new BigDecimal(weight));

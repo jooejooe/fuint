@@ -64,7 +64,8 @@ public class FileController {
         Map<String, String> resultMap = new HashMap<>();
         String originalFilename = file.getOriginalFilename();
         if (StringUtils.isEmpty(originalFilename)) {
-            resultMap.put("status", "invalid");
+            resultMap.put("status", "error");
+            resultMap.put("message", "上传出错啦");
             return JSONUtil.toJSonString(resultMap);
         }
 

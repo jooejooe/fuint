@@ -1,5 +1,6 @@
 package com.fuint.application.service.goods;
 
+import com.fuint.application.dao.entities.MtBanner;
 import com.fuint.application.dao.entities.MtGoods;
 import com.fuint.application.dao.entities.MtGoodsSku;
 import com.fuint.application.dao.entities.MtGoodsSpec;

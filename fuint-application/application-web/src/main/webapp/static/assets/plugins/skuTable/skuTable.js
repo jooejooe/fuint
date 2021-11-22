@@ -187,7 +187,7 @@ layui.define(['jquery', 'form', 'upload', 'layer'], function (exports) {
             /**
              * 监听所选规格值的变化
              */
-            $(document).on('change', '.fairy-spec-filter', function (data) {
+            $(document).off("change",'.fairy-spec-filter').on("change",'.fairy-spec-filter',function() {
                 var specData = [];
                 $.each($(`#${that.options.specTableElemId} tbody tr`), function () {
                     var child = [];
@@ -209,7 +209,7 @@ layui.define(['jquery', 'form', 'upload', 'layer'], function (exports) {
             /**
              * 监听批量赋值
              */
-            $(document).on('click', `#${this.options.skuTableElemId} thead tr th i`, function () {
+            $(document).off("click",`#${this.options.skuTableElemId} thead tr th i`).on("click",`#${this.options.skuTableElemId} thead tr th i`,function(){
                 var thisI = this;
                 Util.msg.prompt({title: $(thisI).parent().text().trim() + '批量赋值'}, function (value, index, elem) {
                     $.each($(`#${that.options.skuTableElemId} tbody tr`), function () {
@@ -225,8 +225,8 @@ layui.define(['jquery', 'form', 'upload', 'layer'], function (exports) {
             /**
              * 监听添加规格
              */
-            $(document).on('click', `#${this.options.specTableElemId} .fairy-spec-create`, function () {
-                layer.prompt({title: '规格'}, function (value, index, elem) {
+            $(document).off("click",`#${this.options.specTableElemId} .fairy-spec-create`).on("click",`#${this.options.specTableElemId} .fairy-spec-create`,function() {
+                layer.prompt({title: '添加规格'}, function (value, index, elem) {
                     Util.request.post(
                         {url: that.options.specCreateUrl, data: {goodsId: $(":input[name='goodsId']").val(), name: value}},
                         function (res) {
@@ -240,7 +240,7 @@ layui.define(['jquery', 'form', 'upload', 'layer'], function (exports) {
             /**
              * 监听添加规格值
              */
-            $(document).on('click', `#${this.options.specTableElemId} .fairy-spec-value-create`, function () {
+            $(document).off("click",`#${this.options.specTableElemId} .fairy-spec-value-create`).on("click",`#${this.options.specTableElemId} .fairy-spec-value-create`,function(){
                 var specId = $(this).parent('td').prev().data('id');
                 layer.prompt({title: '规格值'}, function (value, index, elem) {
                     Util.request.post(

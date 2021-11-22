@@ -1,5 +1,6 @@
 package com.fuint.application.web.rest;
 
+import com.alibaba.fastjson.JSONObject;
 import com.fuint.application.dao.entities.MtGoodsCate;
 import com.fuint.application.dao.entities.MtGoods;
 import com.fuint.application.dao.entities.MtGoodsSku;
@@ -121,7 +122,15 @@ public class GoodsApiController extends BaseController {
         goodsDetailDto.setSort(goodsDto.getSort());
         goodsDetailDto.setCanUsePoint(goodsDto.getCanUsePoint());
         goodsDetailDto.setIsMemberDiscount(goodsDto.getIsMemberDiscount());
-        goodsDetailDto.setImages(goodsDto.getImages());
+
+        List<String> images = JSONObject.parseArray(goodsDto.getImages(), String.class);
+        List<String> imageList = new ArrayList<>();
+        String baseImage = env.getProperty("images.upload.url");
+        for (String image : images) {
+            imageList.add((baseImage + image));
+        }
+        goodsDetailDto.setImages(imageList);
+
         goodsDetailDto.setIsSingleSpec(goodsDto.getIsSingleSpec());
         goodsDetailDto.setLogo(goodsDto.getLogo());
         goodsDetailDto.setStock(goodsDto.getStock());

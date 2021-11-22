@@ -26,6 +26,21 @@ public class OrderDto implements Serializable {
 	private Integer couponId;
 
 	/**
+	 * 商品ID
+	 * */
+	private Integer goodsId;
+
+	/**
+	 * skuID
+	 * */
+	private Integer skuId;
+
+	/**
+	 * 购买数量
+	 * */
+	private Integer buyNum;
+
+	/**
 	 * 用户ID
 	 */
 	private Integer userId;
@@ -118,6 +133,24 @@ public class OrderDto implements Serializable {
 	}
 	public void setCouponId(Integer couponId){
 		this.couponId=couponId;
+	}
+	public Integer getGoodsId(){
+		return goodsId;
+	}
+	public void setGoodsId(Integer goodsId){
+		this.goodsId=goodsId;
+	}
+	public Integer getSkuId(){
+		return skuId;
+	}
+	public void setSkuId(Integer skuId){
+		this.skuId=skuId;
+	}
+	public Integer getBuyNum(){
+		return buyNum;
+	}
+	public void setBuyNum(Integer buyNum){
+		this.buyNum=buyNum;
 	}
 	public Integer getUserId(){
 		return userId;

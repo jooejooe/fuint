@@ -316,6 +316,7 @@ function getDataByParams(actionUrl, resultArea, params, isParent) {
         return;
     }
     try {
+        $.load();
         if (actionUrl.indexOf("?") >= 0) {
             actionUrl = actionUrl + "&s=" + Math.random();
         } else {
@@ -329,15 +330,16 @@ function getDataByParams(actionUrl, resultArea, params, isParent) {
                 if (true === isParent) {
                     parent.$('#' + resultArea).html("");
                     parent.$('#' + resultArea).html(data);
+                    $.close();
                     parent.layer.closeAll();
                 } else {
                     $('#' + resultArea).html("");
                     $('#' + resultArea).html(data);
-                    //$.close();
+                    $.close();
                 }
             },
             error: function (msg) {
-                //$.close();
+                $.close();
                 if (msg.status == '555') {
                     $.error(msg.responseText + "(" + msg.statusText + ")");
                 } else if (msg.status == '501') {
@@ -350,6 +352,7 @@ function getDataByParams(actionUrl, resultArea, params, isParent) {
         });
     } catch (e) {
         $.error('错误:' + e);
+        $.close();
     }
 }
 /**
