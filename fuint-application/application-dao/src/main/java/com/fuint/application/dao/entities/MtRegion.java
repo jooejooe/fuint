@@ -46,7 +46,7 @@ public class MtRegion implements Serializable{
     * 层级(1省级 2市级 3区/县级) 
     */ 
 	@Column(name = "LEVEL", nullable = false, length = 3)
-	private Byte level;
+	private String level;
 
 	public Integer getId(){
 		return id;
@@ -72,10 +72,10 @@ public class MtRegion implements Serializable{
 	public void setCode(String code){
 	this.code=code;
 	}
-	public Byte getLevel(){
+	public String getLevel(){
 		return level;
 	}
-	public void setLevel(Byte level){
+	public void setLevel(String level){
 	this.level=level;
 	}
 }

@@ -16,6 +16,11 @@ public class OrderDto implements Serializable {
 	private String type;
 
 	/**
+	 * 订单类型名称
+	 * */
+	private String orderMode;
+
+	/**
 	 * 订单号
 	 */
 	private String orderSn;
@@ -121,6 +126,12 @@ public class OrderDto implements Serializable {
 	}
 	public void setType(String type){
 		this.type=type;
+	}
+	public String getOrderMode() {
+		return orderMode;
+	}
+	public void setOrderMode(String orderMode) {
+		this.orderMode=orderMode;
 	}
 	public String getOrderSn(){
 		return orderSn;

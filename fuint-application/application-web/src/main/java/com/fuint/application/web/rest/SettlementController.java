@@ -87,6 +87,9 @@ public class SettlementController extends BaseController {
         Integer skuId = param.get("skuId") == null ? 0 : Integer.parseInt(param.get("skuId").toString());
         Integer buyNum = param.get("buyNum") == null ? 1 : Integer.parseInt(param.get("buyNum").toString());
 
+        // 订单模式
+        String orderMode = param.get("orderMode") == null ? "" : param.get("orderMode").toString();
+
         // 生成订单数据
         OrderDto orderDto = new OrderDto();
         orderDto.setRemark(remark);
@@ -96,6 +99,7 @@ public class SettlementController extends BaseController {
         orderDto.setGoodsId(goodsId);
         orderDto.setSkuId(skuId);
         orderDto.setBuyNum(buyNum);
+        orderDto.setOrderMode(orderMode);
 
         // 预存卡的订单
         if (orderDto.getType().equals(OrderTypeEnum.PRESTORE.getKey())) {

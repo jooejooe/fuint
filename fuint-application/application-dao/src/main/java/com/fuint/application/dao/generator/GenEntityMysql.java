@@ -28,7 +28,7 @@ public class GenEntityMysql {
     private String repositoryPackage = "com.fuint.application.dao.repositories";//指定实体仓库接口生成所在包的路径
     private String authorName = "FSQ";//作者名字
     private String contact = "fsq_better"; //作者微信
-    private String tableName = "mt_region";//表名
+    private String tableName = "mt_order_address";//表名
 
     private List<String> colNames = new ArrayList<>(); // 列名数组
     private List<String> colTypes = new ArrayList<>(); //列名类型数组

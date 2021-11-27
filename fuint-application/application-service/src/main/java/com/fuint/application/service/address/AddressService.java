@@ -13,12 +13,12 @@ import java.util.Map;
 public interface AddressService {
 
     /**
-     * 添加收货地址
+     * 保存收货地址
      *
      * @param mtAddress
      * @throws BusinessCheckException
      */
-    MtAddress addAddress(MtAddress mtAddress) throws BusinessCheckException;
+    MtAddress saveAddress(MtAddress mtAddress) throws BusinessCheckException;
 
     /**
      * 根据ID获取Banner信息
@@ -27,22 +27,6 @@ public interface AddressService {
      * @throws BusinessCheckException
      */
     MtAddress detail(Integer id) throws BusinessCheckException;
-
-    /**
-     * 根据ID删除信息
-     *
-     * @param id       ID
-     * @param operator 操作人
-     * @throws BusinessCheckException
-     */
-    void deleteAddress(Integer id, String operator) throws BusinessCheckException;
-
-    /**
-     * 更新收货地址
-     * @param mtAddress
-     * @throws BusinessCheckException
-     * */
-    MtAddress updateAddress(MtAddress mtAddress) throws BusinessCheckException;
 
     /**
      * 根据条件搜索

@@ -169,7 +169,6 @@ public class GoodsApiController extends BaseController {
             dto.setValueList(valueList);
             specDtoList.add(dto);
         }
-        goodsDetailDto.setSpecList(specDtoList);
 
         // sku列表
         List<MtGoodsSku> goodsSkuList = goodsDto.getSkuList();
@@ -187,6 +186,22 @@ public class GoodsApiController extends BaseController {
              dto.setSpecIds(sku.getSpecIds());
              skuDtoList.add(dto);
         }
+
+        if (goodsDetailDto.getIsSingleSpec().equals("Y") && skuDtoList.size() < 1) {
+            GoodsSkuDto dto = new GoodsSkuDto();
+            dto.setId(goodsDetailDto.getGoodsId());
+            dto.setLogo(goodsDetailDto.getLogo());
+            dto.setGoodsId(goodsDetailDto.getGoodsId());
+            dto.setSkuNo(goodsDetailDto.getGoodsId()+"");
+            dto.setPrice(goodsDetailDto.getPrice());
+            dto.setLinePrice(goodsDetailDto.getLinePrice());
+            dto.setStock(goodsDetailDto.getStock());
+            dto.setWeight(goodsDetailDto.getWeight());
+            dto.setSpecIds("");
+            skuDtoList.add(dto);
+        }
+
+        goodsDetailDto.setSpecList(specDtoList);
         goodsDetailDto.setSkuList(skuDtoList);
 
         return getSuccessResult(goodsDetailDto);

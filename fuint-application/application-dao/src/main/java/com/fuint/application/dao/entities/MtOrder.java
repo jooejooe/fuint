@@ -38,6 +38,12 @@ public class MtOrder implements Serializable{
 	@Column(name = "TYPE_NAME", length = 30)
 	private String typeName;
 
+	/**
+	 * 订单模式
+	 * */
+	@Column(name = "ORDER_MODE", length = 30)
+	private String orderMode;
+
    /**
     * 订单号 
     */ 
@@ -157,6 +163,12 @@ public class MtOrder implements Serializable{
 	}
 	public void setTypeName(String typeName) {
 		this.typeName=typeName;
+	}
+	public String getOrderMode() {
+		return orderMode;
+	}
+	public void setOrderMode(String orderMode) {
+		this.orderMode=orderMode;
 	}
 	public String getOrderSn(){
 		return orderSn;

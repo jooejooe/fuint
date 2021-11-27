@@ -4,8 +4,8 @@ import com.fuint.application.dao.entities.MtAddress;
 import com.fuint.application.dao.repositories.MtAddressRepository;
 import com.fuint.base.annoation.OperationServiceLog;
 import com.fuint.exception.BusinessCheckException;
-import com.fuint.exception.BusinessRuntimeException;
 import com.fuint.application.enums.StatusEnum;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +13,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Date;
 import java.util.Map;
@@ -34,30 +32,53 @@ public class AddressServiceImpl implements AddressService {
     private MtAddressRepository addressRepository;
 
     /**
-     * 添加收货地址
+     * 保存收货地址
      *
      * @param mtAddress
      * @throws BusinessCheckException
      */
     @Override
-    @OperationServiceLog(description = "添加收货地址")
-    public MtAddress addAddress(MtAddress mtAddress) throws BusinessCheckException {
-        if (null != mtAddress.getId()) {
-            mtAddress.setId(mtAddress.getId());
-        }
-        mtAddress.setName(mtAddress.getName());
+    @OperationServiceLog(description = "保存收货地址")
+    @Transactional
+    public MtAddress saveAddress(MtAddress mtAddress) throws BusinessCheckException {
+        if (mtAddress.getId() > 0) {
+            MtAddress address = addressRepository.findOne(mtAddress.getId());
+            if (StringUtils.isNotEmpty(mtAddress.getName())) {
+                address.setName(mtAddress.getName());
+            }
+            if (StringUtils.isNotEmpty(mtAddress.getMobile())) {
+                address.setMobile(mtAddress.getMobile());
+            }
+            if (StringUtils.isNotEmpty(mtAddress.getDetail())) {
+                address.setDetail(mtAddress.getDetail());
+            }
+            if (StringUtils.isNotEmpty(mtAddress.getIsDefault())) {
+                if (mtAddress.getIsDefault().equals("Y")) {
+                    addressRepository.setDefault(mtAddress.getUserId(), mtAddress.getId());
+                }
+                address.setIsDefault(mtAddress.getIsDefault());
+            }
+            if (StringUtils.isNotEmpty(mtAddress.getStatus())) {
+                address.setStatus(mtAddress.getStatus());
+            }
+            if (mtAddress.getProvinceId() > 0) {
+                address.setProvinceId(mtAddress.getProvinceId());
+            }
+            if (mtAddress.getCityId() > 0) {
+                address.setCityId(mtAddress.getCityId());
+            }
+            if (mtAddress.getRegionId() > 0) {
+                address.setRegionId(mtAddress.getRegionId());
+            }
 
-        try {
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            String dt = format.format(new Date());
-            Date addTime = format.parse(dt);
-            mtAddress.setUpdateTime(addTime);
-            mtAddress.setCreateTime(addTime);
-        } catch (ParseException e) {
-            throw new BusinessRuntimeException("日期转换异常 " + e.getMessage());
-        }
+            return addressRepository.save(address);
+        } else {
+            mtAddress.setCreateTime(new Date());
+            mtAddress.setUpdateTime(new Date());
+            mtAddress.setIsDefault("Y");
 
-        return addressRepository.save(mtAddress);
+            return addressRepository.save(mtAddress);
+        }
     }
 
     /**
@@ -71,46 +92,19 @@ public class AddressServiceImpl implements AddressService {
         return addressRepository.findOne(id);
     }
 
-    /**
-     * 根据ID删除收货地址
-     *
-     * @param id
-     * @param operator 操作人
-     * @throws BusinessCheckException
-     */
-    @Override
-    @OperationServiceLog(description = "删除收货地址")
-    public void deleteAddress(Integer id, String operator) throws BusinessCheckException {
-        MtAddress MtAddress = this.detail(id);
-        if (null == MtAddress) {
-            return;
-        }
-
-        MtAddress.setStatus(StatusEnum.DISABLE.getKey());
-        MtAddress.setUpdateTime(new Date());
-
-        addressRepository.save(MtAddress);
-    }
-
-    /**
-     * 修改Banner
-     *
-     * @param mtAddress
-     * @throws BusinessCheckException
-     */
-    @Override
-    @Transactional
-    @OperationServiceLog(description = "修改收货地址")
-    public MtAddress updateAddress(MtAddress mtAddress) throws BusinessCheckException {
-        return addressRepository.save(mtAddress);
-    }
-
     @Override
     public List<MtAddress> queryListByParams(Map<String, Object> params) {
         Map<String, Object> param = new HashMap<>();
 
         String status =  params.get("status") == null ? StatusEnum.ENABLED.getKey(): params.get("status").toString();
         param.put("EQ_status", status);
+
+        if (params.get("userId") != null) {
+            param.put("EQ_userId", params.get("userId").toString());
+        }
+        if (params.get("isDefault") != null) {
+            param.put("EQ_isDefault", "Y");
+        }
 
         Specification<MtAddress> specification = addressRepository.buildSpecification(param);
         Sort sort = new Sort(Sort.Direction.DESC, "createTime");

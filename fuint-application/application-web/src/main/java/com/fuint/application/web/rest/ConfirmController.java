@@ -66,7 +66,7 @@ public class ConfirmController extends BaseController {
         String remark = param.get("remark") == null ? "" : param.get("remark").toString();
 
         if (StringUtils.isEmpty(token)) {
-            return getFailureResult(401);
+            return getFailureResult(1001);
         }
 
         MtUser mtUser = tokenService.getUserInfoByToken(token);

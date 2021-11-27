@@ -1,5 +1,7 @@
 package com.fuint.application.dto;
 
+import com.fuint.application.dao.entities.MtOrderAddress;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
@@ -29,6 +31,11 @@ public class UserOrderDto implements Serializable {
 	 * 类型名称
 	 * */
 	private String typeName;
+
+	/**
+	 * 订单模式
+	 * */
+	private String orderMode;
 
 	/**
 	 * 卡券ID
@@ -110,6 +117,11 @@ public class UserOrderDto implements Serializable {
 	 * */
 	private OrderUserDto userInfo;
 
+	/**
+	 * 配送地址
+	 * */
+	private AddressDto address;
+
 	public Integer getId(){
 		return id;
 	}
@@ -133,6 +145,12 @@ public class UserOrderDto implements Serializable {
 	}
 	public void setTypeName(String typeName) {
 		this.typeName=typeName;
+	}
+	public String getOrderMode() {
+		return orderMode;
+	}
+	public void setOrderMode(String orderMode) {
+		this.orderMode=orderMode;
 	}
 	public Integer getCouponId(){
 		return couponId;
@@ -229,6 +247,12 @@ public class UserOrderDto implements Serializable {
 	}
 	public void setUserInfo(OrderUserDto userInfo){
 		this.userInfo=userInfo;
+	}
+	public AddressDto getAddress(){
+		return address;
+	}
+	public void setAddress(AddressDto address){
+		this.address=address;
 	}
 }
 
