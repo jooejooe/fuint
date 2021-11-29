@@ -2,6 +2,7 @@ package com.fuint.application.service.goods;
 
 import com.fuint.application.dao.entities.MtGoods;
 import com.fuint.application.dto.GoodsDto;
+import com.fuint.application.dto.GoodsSpecValueDto;
 import com.fuint.base.dao.pagination.PaginationRequest;
 import com.fuint.base.dao.pagination.PaginationResponse;
 import com.fuint.exception.BusinessCheckException;
@@ -60,4 +61,9 @@ public interface GoodsService {
      * 根据条件搜索分类
      * */
     List<MtGoods> queryGoodsListByParams(Map<String, Object> params) throws BusinessCheckException;
+
+    /**
+     * 根据skuId获取规格列表
+     * */
+    List<GoodsSpecValueDto> getSpecListBySkuId(Integer skuId) throws BusinessCheckException;
 }

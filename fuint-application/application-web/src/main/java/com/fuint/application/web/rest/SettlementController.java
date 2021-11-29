@@ -70,7 +70,7 @@ public class SettlementController extends BaseController {
     public ResponseObject submit(HttpServletRequest request, @RequestBody Map<String, Object> param) throws BusinessCheckException {
         String token = request.getHeader("Access-Token");
         MtUser userInfo = tokenService.getUserInfoByToken(token);
-        if (null == userInfo) {
+        if (null == userInfo || StringUtils.isEmpty(token)) {
             return getFailureResult(1001);
         }
         param.put("userId", userInfo.getId());

@@ -9,8 +9,13 @@ public class GoodsSpecValueDto implements Serializable {
 	* */
 	private Integer specValueId;
 
+	/**
+	 * 规格名
+	 * */
+	private String specName;
+
    /**
-    * 规格名称 
+    * 规格值
     */
 	private String specValue;
 
@@ -25,6 +30,12 @@ public class GoodsSpecValueDto implements Serializable {
 	}
 	public void setSpecValue(String specValue){
 	this.specValue=specValue;
+	}
+	public String getSpecName(){
+		return specName;
+	}
+	public void setSpecName(String specName){
+		this.specName=specName;
 	}
 }
 

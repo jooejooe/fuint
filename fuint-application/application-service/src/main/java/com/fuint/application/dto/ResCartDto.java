@@ -2,6 +2,7 @@ package com.fuint.application.dto;
 
 import com.fuint.application.dao.entities.MtGoods;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 购物车返回DTO
@@ -34,6 +35,11 @@ public class ResCartDto implements Serializable {
      * 数量
      */
     private Integer num;
+
+    /**
+     * 商品规格
+     * */
+    private List<GoodsSpecValueDto> specList;
 
     /**
      * 商品数据
@@ -85,5 +91,13 @@ public class ResCartDto implements Serializable {
 
     public void setGoodsInfo(MtGoods goodsInfo) {
         this.goodsInfo = goodsInfo;
+    }
+
+    public List<GoodsSpecValueDto> getSpecList() {
+        return specList;
+    }
+
+    public void setSpecList(List<GoodsSpecValueDto> specList) {
+        this.specList = specList;
     }
 }

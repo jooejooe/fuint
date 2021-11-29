@@ -3,7 +3,6 @@ package com.fuint.application.web.rest;
 import com.fuint.application.dao.entities.MtOrder;
 import com.fuint.application.dto.OrderDto;
 import com.fuint.application.dto.UserOrderDto;
-import com.fuint.application.enums.OrderModeEnum;
 import com.fuint.application.enums.OrderStatusEnum;
 import com.fuint.application.service.order.OrderService;
 import com.fuint.exception.BusinessCheckException;

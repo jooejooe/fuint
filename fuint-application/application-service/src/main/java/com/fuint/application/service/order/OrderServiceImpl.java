@@ -497,8 +497,13 @@ public class OrderServiceImpl extends BaseService implements OrderService {
                 o.setImage(baseImage + goodsInfo.getLogo());
                 o.setType(OrderTypeEnum.GOOGS.getKey());
                 o.setNum(orderGoods.getNum());
+                o.setSkuId(orderGoods.getSkuId());
                 o.setPrice(orderGoods.getPrice().toString());
                 o.setDiscount("0");
+                if (orderGoods.getSkuId() > 0) {
+                    List<GoodsSpecValueDto> specList = goodsService.getSpecListBySkuId(orderGoods.getSkuId());
+                    o.setSpecList(specList);
+                }
                 goodsList.add(o);
             }
         }

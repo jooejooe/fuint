@@ -1,6 +1,5 @@
 package com.fuint.application.service.goods;
 
-import com.fuint.application.dao.entities.MtBanner;
 import com.fuint.application.dao.entities.MtGoods;
 import com.fuint.application.dao.entities.MtGoodsSku;
 import com.fuint.application.dao.entities.MtGoodsSpec;
@@ -8,6 +7,7 @@ import com.fuint.application.dao.repositories.MtGoodsRepository;
 import com.fuint.application.dao.repositories.MtGoodsSkuRepository;
 import com.fuint.application.dao.repositories.MtGoodsSpecRepository;
 import com.fuint.application.dto.GoodsDto;
+import com.fuint.application.dto.GoodsSpecValueDto;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.core.env.Environment;
@@ -216,6 +216,29 @@ public class GoodsServiceImpl implements GoodsService {
         Specification<MtGoods> specification = goodsRepository.buildSpecification(param);
         Sort sort = new Sort(Sort.Direction.DESC, "createTime");
         List<MtGoods> result = goodsRepository.findAll(specification, sort);
+
+        return result;
+    }
+
+    @Override
+    public List<GoodsSpecValueDto> getSpecListBySkuId(Integer skuId) {
+        if (skuId < 0 || skuId == null) {
+           return new ArrayList<>();
+        }
+        List<GoodsSpecValueDto> result = new ArrayList<>();
+
+        MtGoodsSku goodsSku = goodsSkuRepository.findOne(skuId);
+
+        String specIds = goodsSku.getSpecIds();
+        String specIdArr[] = specIds.split("-");
+        for (String specId : specIdArr) {
+            MtGoodsSpec mtGoodsSpec = goodsSpecRepository.findOne(Integer.parseInt(specId));
+            GoodsSpecValueDto dto = new GoodsSpecValueDto();
+            dto.setSpecValueId(mtGoodsSpec.getId());
+            dto.setSpecName(mtGoodsSpec.getName());
+            dto.setSpecValue(mtGoodsSpec.getValue());
+            result.add(dto);
+        }
 
         return result;
     }
