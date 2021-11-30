@@ -1,8 +1,10 @@
 package com.fuint.application.web.rest;
 
 import com.fuint.application.ResponseObject;
+import com.fuint.application.dao.entities.MtOrder;
 import com.fuint.application.dao.entities.MtSetting;
 import com.fuint.application.dao.entities.MtUser;
+import com.fuint.application.dao.repositories.MtOrderRepository;
 import com.fuint.application.dto.UserOrderDto;
 import com.fuint.application.enums.OrderStatusEnum;
 import com.fuint.application.enums.SettingTypeEnum;
@@ -10,8 +12,10 @@ import com.fuint.application.service.order.OrderService;
 import com.fuint.application.service.setting.SettingService;
 import com.fuint.application.service.token.TokenService;
 import com.fuint.application.service.weixin.WeixinService;
+import com.fuint.application.util.CommonUtil;
 import com.fuint.exception.BusinessCheckException;
 import com.fuint.application.BaseController;
+import jodd.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.util.CollectionUtils;
@@ -55,6 +59,9 @@ public class PayController extends BaseController {
     @Autowired
     private SettingService settingService;
 
+    @Autowired
+    private MtOrderRepository orderRepository;
+
     /**
      * 支付前查询
      * */
@@ -87,6 +94,38 @@ public class PayController extends BaseController {
         outParams.put("canUsePointAmount", userPoint);
 
         return getSuccessResult(outParams);
+    }
+
+    /**
+     * 去支付
+     * */
+    @RequestMapping(value = "/doPay", method = RequestMethod.GET)
+    @CrossOrigin
+    public ResponseObject doPay(HttpServletRequest request) throws BusinessCheckException{
+        String userToken = request.getHeader("Access-Token");
+        MtUser userInfo = tokenService.getUserInfoByToken(userToken);
+
+        String orderId = request.getParameter("orderId");
+        if (StringUtil.isEmpty(orderId)) {
+            return getFailureResult(2000, "订单不能为空");
+        }
+
+        MtOrder orderInfo = orderRepository.findOne(Integer.parseInt(orderId));
+        String ip = CommonUtil.getIPFromHttpRequest(request);
+        BigDecimal realPayAmount = orderInfo.getAmount();
+        BigDecimal pay = realPayAmount.multiply(new BigDecimal("100"));
+        ResponseObject paymentInfo = weixinService.createPrepayOrder(userInfo, orderInfo, (pay.intValue()), 0, ip);
+
+        Map<String, Object> outParams = new HashMap();
+
+        outParams.put("isCreated", true);
+        outParams.put("payType", "wechat");
+        outParams.put("orderInfo", orderInfo);
+        outParams.put("payment", paymentInfo.getData());
+
+        ResponseObject responseObject = getSuccessResult(outParams);
+
+        return getSuccessResult(responseObject.getData());
     }
 
     /**

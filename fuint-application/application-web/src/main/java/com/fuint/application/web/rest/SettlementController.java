@@ -70,7 +70,7 @@ public class SettlementController extends BaseController {
     public ResponseObject submit(HttpServletRequest request, @RequestBody Map<String, Object> param) throws BusinessCheckException {
         String token = request.getHeader("Access-Token");
         MtUser userInfo = tokenService.getUserInfoByToken(token);
-        if (null == userInfo) {
+        if (null == userInfo || StringUtils.isEmpty(token)) {
             return getFailureResult(1001);
         }
         param.put("userId", userInfo.getId());
@@ -82,12 +82,24 @@ public class SettlementController extends BaseController {
         String payAmount = param.get("payAmount") == null ? "" : param.get("payAmount").toString();
         Integer usePoint = param.get("usePoint") == null ? 0 : Integer.parseInt(param.get("usePoint").toString());
 
+        // 立即购买商品
+        Integer goodsId = param.get("goodsId") == null ? 0 : Integer.parseInt(param.get("goodsId").toString());
+        Integer skuId = param.get("skuId") == null ? 0 : Integer.parseInt(param.get("skuId").toString());
+        Integer buyNum = param.get("buyNum") == null ? 1 : Integer.parseInt(param.get("buyNum").toString());
+
+        // 订单模式
+        String orderMode = param.get("orderMode") == null ? "" : param.get("orderMode").toString();
+
         // 生成订单数据
         OrderDto orderDto = new OrderDto();
         orderDto.setRemark(remark);
         orderDto.setUserId(userInfo.getId());
         orderDto.setType(type);
         orderDto.setUsePoint(usePoint);
+        orderDto.setGoodsId(goodsId);
+        orderDto.setSkuId(skuId);
+        orderDto.setBuyNum(buyNum);
+        orderDto.setOrderMode(orderMode);
 
         // 预存卡的订单
         if (orderDto.getType().equals(OrderTypeEnum.PRESTORE.getKey())) {

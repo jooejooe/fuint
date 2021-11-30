@@ -112,14 +112,14 @@ public class MtUserCoupon implements Serializable{
    /**
     * UUID
     */
-   @Column(name = "UUID", length = 50)
-   private String uuid;
+    @Column(name = "UUID", length = 50)
+    private String uuid;
 
    /**
     * operator
     */
-   @Column(name = "OPERATOR", length = 30)
-   private String operator;
+    @Column(name = "OPERATOR", length = 30)
+    private String operator;
 
    /**
     * 订单ID
@@ -131,109 +131,109 @@ public class MtUserCoupon implements Serializable{
         return id;
     }
     public void setId(Integer id){
-    this.id=id;
+        this.id=id;
     }
     public String getCode(){
-           return code;
-       }
+        return code;
+    }
     public void setCode(String code){
-           this.code=code;
-       }
+        this.code=code;
+    }
     public String getType(){
-           return type;
-       }
+        return type;
+    }
     public void setType(String type){
-           this.type=type;
-       }
+        this.type=type;
+    }
     public String getImage(){
-           return image;
-       }
+        return image;
+    }
     public void setImage(String image){
-           this.image=image;
-       }
+        this.image=image;
+    }
     public Integer getGroupId(){
         return groupId;
     }
     public void setGroupId(Integer groupId){
-    this.groupId=groupId;
+        this.groupId=groupId;
     }
     public Integer getCouponId(){
         return couponId;
     }
     public void setCouponId(Integer couponId){
-    this.couponId=couponId;
+        this.couponId=couponId;
     }
     public String getMobile(){
         return mobile;
     }
     public void setMobile(String mobile){
-    this.mobile=mobile;
+        this.mobile=mobile;
     }
     public Integer getUserId(){
         return userId;
     }
     public void setUserId(Integer userId){
-    this.userId=userId;
+        this.userId=userId;
     }
     public Integer getStoreId(){
         return storeId;
     }
     public void setStoreId(Integer storeId){
-    this.storeId=storeId;
+        this.storeId=storeId;
     }
     public BigDecimal getAmount(){
            return amount;
        }
     public void setAmount(BigDecimal amount){
-           this.amount=amount;
-       }
+        this.amount=amount;
+    }
     public BigDecimal getBalance() {
-           return balance;
-       }
+        return balance;
+    }
     public void setBalance(BigDecimal balance) {
-           this.balance = balance;
-       }
+        this.balance = balance;
+    }
     public String getStatus(){
         return status;
     }
     public void setStatus(String status){
-    this.status=status;
+        this.status=status;
     }
     public Date getUsedTime(){
         return usedTime;
     }
     public void setUsedTime(Date usedTime){
-    this.usedTime=usedTime;
+        this.usedTime=usedTime;
     }
     public Date getCreateTime(){
         return createTime;
     }
     public void setCreateTime(Date createTime){
-    this.createTime=createTime;
+        this.createTime=createTime;
     }
     public Date getUpdateTime(){
         return updateTime;
     }
     public void setUpdateTime(Date updateTime){
-    this.updateTime=updateTime;
+        this.updateTime=updateTime;
     }
     public String getUuid(){
-       return uuid;
-   }
+        return uuid;
+    }
     public void setUuid(String uuid){
-       this.uuid=uuid;
+        this.uuid=uuid;
     }
     public String getOperator(){
-           return operator;
-       }
+        return operator;
+    }
     public void setOperator(String operator){
-           this.operator=operator;
-       }
+        this.operator=operator;
+    }
     public Integer getOrderId(){
-           return orderId;
-       }
+        return orderId;
+    }
     public void setOrderId(Integer orderId){
-           this.orderId=orderId;
-       }
+        this.orderId=orderId;
+    }
 }
 

@@ -11,6 +11,9 @@ import com.fuint.application.enums.StatusEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import java.lang.String;
 import java.util.*;
@@ -35,10 +38,20 @@ public class SendLogServiceImpl implements SendLogService {
      * @return
      */
     @Override
-    public PaginationResponse<MtSendLog> querySendLogListByPagination(PaginationRequest paginationRequest) throws BusinessCheckException {
-        paginationRequest.setSortColumn(new String[]{"status asc", "id desc"});
+    public PaginationResponse<MtSendLog> querySendLogListByPagination(PaginationRequest paginationRequest) {
+        paginationRequest.setSortColumn(new String[]{"createTime desc", "status asc"});
 
-        PaginationResponse<MtSendLog> paginationResponse = sendLogRepository.findResultsByPagination(paginationRequest);
+        PageRequest pageRequest = new PageRequest(paginationRequest.getCurrentPage(), paginationRequest.getPageSize());
+        Page page = new PageImpl(new ArrayList(), pageRequest, 0);
+        PaginationResponse<MtSendLog> paginationResponse = new PaginationResponse(page, MtSendLog.class);
+        paginationResponse.setContent(new ArrayList());
+
+        try {
+            paginationResponse = sendLogRepository.findResultsByPagination(paginationRequest);
+        } catch (RuntimeException e) {
+            return paginationResponse;
+        }
+
         return paginationResponse;
     }
 
@@ -50,31 +63,22 @@ public class SendLogServiceImpl implements SendLogService {
      */
     @Override
     @OperationServiceLog(description = "添加发券记录")
-    public MtSendLog addSendLog(ReqSendLogDto reqSendLogDto) throws BusinessCheckException {
+    public MtSendLog addSendLog(ReqSendLogDto reqSendLogDto) {
         MtSendLog log = new MtSendLog();
 
         log.setType(reqSendLogDto.getType().byteValue());
         log.setUserId(reqSendLogDto.getUserId());
-
         log.setFileName(reqSendLogDto.getFileName());
         log.setFilePath(reqSendLogDto.getFilePath());
-
         log.setMobile(reqSendLogDto.getMobile());
-
         log.setGroupId(reqSendLogDto.getGroupId());
         log.setGroupName(reqSendLogDto.getGroupName());
-
         log.setSendNum(reqSendLogDto.getSendNum());
         log.setRemoveSuccessNum(0);
         log.setRemoveFailNum(0);
-
-        log.setStatus("A");
-        //创建时间
+        log.setStatus(StatusEnum.ENABLED.getKey());
         log.setCreateTime(new Date());
-
-        //操作人
         log.setOperator(reqSendLogDto.getOperator());
-
         log.setUuid(reqSendLogDto.getUuid());
 
         sendLogRepository.save(log);
@@ -89,7 +93,7 @@ public class SendLogServiceImpl implements SendLogService {
      * @throws BusinessCheckException
      */
     @Override
-    public MtSendLog querySendLogById(Long id) throws BusinessCheckException {
+    public MtSendLog querySendLogById(Long id) {
         return sendLogRepository.findOne(id.intValue());
     }
 
@@ -104,13 +108,14 @@ public class SendLogServiceImpl implements SendLogService {
     @OperationServiceLog(description = "删除发券记录")
     public void deleteSendLog(Long id, String operator) throws BusinessCheckException {
         MtSendLog couponGroup = this.querySendLogById(id);
+
         if (null == couponGroup) {
             return;
         }
 
         couponGroup.setStatus(StatusEnum.DISABLE.getKey());
 
-        //操作人
+        // 操作人
         couponGroup.setOperator(operator);
 
         sendLogRepository.save(couponGroup);

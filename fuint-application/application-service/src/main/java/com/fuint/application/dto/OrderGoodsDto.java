@@ -1,8 +1,7 @@
 package com.fuint.application.dto;
 
-import javax.persistence.Column;
 import java.io.Serializable;
-import java.math.BigDecimal;
+import java.util.List;
 
 public class OrderGoodsDto implements Serializable {
 	private Integer id;
@@ -18,6 +17,10 @@ public class OrderGoodsDto implements Serializable {
 	private Integer num;
 
 	private String image;
+
+	private Integer skuId;
+
+	private List<GoodsSpecValueDto> specList;
 
 	public Integer getId(){
 		return id;
@@ -66,6 +69,20 @@ public class OrderGoodsDto implements Serializable {
 	}
 	public void setImage(String image) {
 		this.image = image;
+	}
+
+	public Integer getSkuId(){
+		return skuId;
+	}
+	public void setSkuId(Integer skuId){
+		this.skuId=skuId;
+	}
+
+	public List<GoodsSpecValueDto> getSpecList() {
+		return specList;
+	}
+	public void setSpecList(List<GoodsSpecValueDto> specList) {
+		this.specList = specList;
 	}
 }
 

@@ -1,7 +1,6 @@
 package com.fuint.application.dto;
 
 import java.io.Serializable;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -12,17 +11,17 @@ import java.util.Map;
  */
 public class ReqResult implements Serializable {
 
-    private String resultCode;
+    private String code;
     private String msg;
     private boolean result;
     private Map<String, Object> data;
 
-    public String getResultCode() {
-        return resultCode;
+    public String getCode() {
+        return code;
     }
 
-    public void setResultCode(String resultCode) {
-        this.resultCode = resultCode;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getMsg() {

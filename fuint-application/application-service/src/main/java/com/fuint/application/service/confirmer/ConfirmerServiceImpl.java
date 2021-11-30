@@ -1,5 +1,6 @@
 package com.fuint.application.service.confirmer;
 
+import com.fuint.application.dao.entities.MtSendLog;
 import com.fuint.base.annoation.OperationServiceLog;
 import com.fuint.base.dao.pagination.PaginationRequest;
 import com.fuint.base.dao.pagination.PaginationResponse;
@@ -17,6 +18,9 @@ import org.apache.commons.collections.MapUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -61,8 +65,18 @@ public class ConfirmerServiceImpl implements ConfirmerService {
      * @return
      */
     @Override
-    public PaginationResponse<MtConfirmer> queryConfirmerListByPagination(PaginationRequest paginationRequest) throws BusinessCheckException{
-        PaginationResponse<MtConfirmer> paginationResponse = confirmerRepository.findResultsByPagination(paginationRequest);
+    public PaginationResponse<MtConfirmer> queryConfirmerListByPagination(PaginationRequest paginationRequest) {
+        PageRequest pageRequest = new PageRequest(paginationRequest.getCurrentPage(), paginationRequest.getPageSize());
+        Page page = new PageImpl(new ArrayList(), pageRequest, 0);
+        PaginationResponse<MtConfirmer> paginationResponse = new PaginationResponse(page, MtSendLog.class);
+        paginationResponse.setContent(new ArrayList());
+
+        try {
+            paginationResponse = confirmerRepository.findResultsByPagination(paginationRequest);
+        } catch (RuntimeException e) {
+            return paginationResponse;
+        }
+
         return paginationResponse;
     }
 
@@ -84,7 +98,7 @@ public class ConfirmerServiceImpl implements ConfirmerService {
             Date addtime = sdf.parse(dt);
             reqConfirmerDto.setUpdateTime(addtime);
 
-            //编辑不需要重新写创建时间
+            // 编辑不需要重新写创建时间
             if(null==reqConfirmerDto.getId()) {
                 reqConfirmerDto.setCreateTime(addtime);
                 reqConfirmerDto.setAuditedStatus(StatusEnum.UnAudited.getKey());
@@ -157,7 +171,7 @@ public class ConfirmerServiceImpl implements ConfirmerService {
      * @throws BusinessCheckException
      */
     @Override
-    public MtConfirmer queryConfirmerById(Integer id) throws BusinessCheckException {
+    public MtConfirmer queryConfirmerById(Integer id) {
         MtConfirmer mtConfirmer = confirmerRepository.findOne(id);
         return  mtConfirmer;
     }
@@ -188,7 +202,7 @@ public class ConfirmerServiceImpl implements ConfirmerService {
                 flag = true;
                 i = confirmerRepository.updateStatus(ids,statusEnum,currentDT);
                 if (StatusEnum.ENABLED.getKey().equals(statusEnum)) {
-                    // 审核通过,转移到普通会员表
+                    // 审核通过，转移到普通会员表
                     for(Integer id : ids)
                     {
                         MtConfirmer mtConfirmer=confirmerRepository.findOne(id);
@@ -196,9 +210,9 @@ public class ConfirmerServiceImpl implements ConfirmerService {
                             MtUser tmemberInfo = new MtUser();
                             tmemberInfo.setMobile(mtConfirmer.getMobile());
                             tmemberInfo.setName(mtConfirmer.getRealName());
-                            MtUser mtUser_1=memberService.queryMemberByMobile(mtConfirmer.getMobile());
+                            MtUser mtUser_1 = memberService.queryMemberByMobile(mtConfirmer.getMobile());
                             if (mtUser_1 == null) {
-                                mtUser_1=memberService.addMember(tmemberInfo);
+                                mtUser_1 = memberService.addMember(tmemberInfo);
                             }
 
                             // 关联核销人员账户id
@@ -240,7 +254,7 @@ public class ConfirmerServiceImpl implements ConfirmerService {
      * 根据条件搜索核销人员
      * */
     @Override
-    public List<MtConfirmer> queryConfirmerByParams(Map<String, Object> params) throws BusinessCheckException {
+    public List<MtConfirmer> queryConfirmerByParams(Map<String, Object> params) {
         if (MapUtils.isEmpty(params)) {
             params = new HashMap<>();
         }
@@ -258,7 +272,7 @@ public class ConfirmerServiceImpl implements ConfirmerService {
      * @throws BusinessCheckException
      */
     @Override
-    public MtConfirmer queryConfirmerByMobile(String mobile) throws BusinessCheckException {
+    public MtConfirmer queryConfirmerByMobile(String mobile) {
         MtConfirmer mtConfirmer = confirmerRepository.queryConfirmerByMobile(mobile);
         return mtConfirmer;
     }
@@ -270,7 +284,7 @@ public class ConfirmerServiceImpl implements ConfirmerService {
      * @throws BusinessCheckException
      */
     @Override
-    public MtConfirmer queryConfirmerByUserId(Integer userId) throws BusinessCheckException {
+    public MtConfirmer queryConfirmerByUserId(Integer userId) {
         MtConfirmer mtConfirmer = confirmerRepository.queryConfirmerByUserId(userId);
         return mtConfirmer;
     }

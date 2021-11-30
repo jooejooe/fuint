@@ -113,7 +113,7 @@ public class CateServiceImpl implements CateService {
     @OperationServiceLog(description = "修改商品分类")
     public MtGoodsCate updateCate(MtGoodsCate reqDto) throws BusinessCheckException {
         MtGoodsCate mtCate = this.queryCateById(reqDto.getId());
-        if (null == mtCate || StatusEnum.DISABLE.getKey().equals(mtCate.getStatus())) {
+        if (null == mtCate) {
             log.error("该分类状态异常");
             throw new BusinessCheckException("该分类状态异常");
         }

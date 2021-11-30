@@ -116,11 +116,7 @@ public class doConfirmController extends BaseController {
     public ReqResult doConfirm(HttpServletRequest request, HttpServletResponse response, Model model) {
         Integer userCouponId = request.getParameter("userCouponId") == null ? 0 : Integer.parseInt(request.getParameter("userCouponId"));
         String amount = request.getParameter("amount") == null ? "0" : request.getParameter("amount");
-        String remark = request.getParameter("remark") == null ? "" : request.getParameter("remark");
-
-        if (StringUtils.isEmpty(remark)) {
-            remark = "后台管理员核销";
-        }
+        String remark = request.getParameter("remark") == null ? "后台核销" : request.getParameter("remark");
 
         ShiroUser user = ShiroUserHelper.getCurrentShiroUser();
         TAccount account = htAccountServiceImpl.findAccountById(user.getId());
@@ -130,7 +126,7 @@ public class doConfirmController extends BaseController {
             couponService.useCoupon(userCouponId, user.getId().intValue(), storeId, new BigDecimal(amount), remark);
         } catch (BusinessCheckException e) {
             ReqResult reqResult = new ReqResult();
-            reqResult.setResultCode("0");
+            reqResult.setCode("0");
             reqResult.setResult(false);
             reqResult.setMsg("核销失败：" + e.getMessage());
             return reqResult;

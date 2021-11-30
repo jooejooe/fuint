@@ -4,13 +4,10 @@ import com.fuint.application.BaseService;
 import com.fuint.application.ResponseObject;
 import com.fuint.application.config.Constants;
 import com.fuint.application.dao.entities.*;
-import com.fuint.application.dao.repositories.MtCartRepository;
-import com.fuint.application.dao.repositories.MtOrderRepository;
-import com.fuint.application.dao.repositories.MtGoodsRepository;
-import com.fuint.application.dao.repositories.MtOrderGoodsRepository;
+import com.fuint.application.dao.repositories.*;
 import com.fuint.application.dto.*;
-import com.fuint.application.enums.OrderTypeEnum;
-import com.fuint.application.enums.PayStatusEnum;
+import com.fuint.application.enums.*;
+import com.fuint.application.service.address.AddressService;
 import com.fuint.application.service.cart.CartService;
 import com.fuint.application.service.coupon.CouponService;
 import com.fuint.application.service.goods.GoodsService;
@@ -22,8 +19,6 @@ import com.fuint.base.annoation.OperationServiceLog;
 import com.fuint.base.dao.pagination.PaginationRequest;
 import com.fuint.base.dao.pagination.PaginationResponse;
 import com.fuint.exception.BusinessCheckException;
-import com.fuint.application.enums.StatusEnum;
-import com.fuint.application.enums.OrderStatusEnum;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -63,7 +58,16 @@ public class OrderServiceImpl extends BaseService implements OrderService {
     private MtCartRepository cartRepository;
 
     @Autowired
+    private MtOrderAddressRepository orderAddressRepository;
+
+    @Autowired
+    private MtRegionRepository regionRepository;
+
+    @Autowired
     private CouponService couponService;
+
+    @Autowired
+    private AddressService addressService;
 
     @Autowired
     private MemberService memberService;
@@ -139,7 +143,7 @@ public class OrderServiceImpl extends BaseService implements OrderService {
         List<UserOrderDto> dataList = new ArrayList<>();
         if (paginationResponse.getContent().size() > 0) {
             for (MtOrder order : paginationResponse.getContent()) {
-                UserOrderDto dto = this._dealOrderDetail(order);
+                UserOrderDto dto = this._dealOrderDetail(order, false);
                 dataList.add(dto);
             }
         }
@@ -182,6 +186,7 @@ public class OrderServiceImpl extends BaseService implements OrderService {
         MtOrder.setPayStatus(PayStatusEnum.WAIT.getKey());
         MtOrder.setPointAmount(orderDto.getPointAmount());
         MtOrder.setUsePoint(orderDto.getUsePoint());
+        MtOrder.setOrderMode(orderDto.getOrderMode());
 
         // 扣减积分
         if (orderDto.getUsePoint() > 0) {
@@ -202,7 +207,20 @@ public class OrderServiceImpl extends BaseService implements OrderService {
         if (orderDto.getType().equals(OrderTypeEnum.GOOGS.getKey())) {
             Map<String, Object> param = new HashMap<>();
             param.put("EQ_status", StatusEnum.ENABLED.getKey());
-            cartList = cartService.queryCartListByParams(param);
+            if (orderDto.getGoodsId() < 1) {
+                cartList = cartService.queryCartListByParams(param);
+            } else {
+                // 直接购买
+                MtCart mtCart = new MtCart();
+                mtCart.setGoodsId(orderDto.getGoodsId());
+                mtCart.setSkuId(orderDto.getSkuId());
+                mtCart.setNum(orderDto.getBuyNum());
+                mtCart.setId(0);
+                mtCart.setUserId(orderDto.getUserId());
+                mtCart.setStatus(StatusEnum.ENABLED.getKey());
+                cartList.add(mtCart);
+            }
+
             goodsList = goodsService.queryGoodsListByParams(param);
             BigDecimal totalAmount = new BigDecimal("0");
             for (MtCart cart : cartList) {
@@ -216,6 +234,9 @@ public class OrderServiceImpl extends BaseService implements OrderService {
         }
 
         MtOrder orderInfo = orderRepository.save(MtOrder);
+        if (orderInfo == null) {
+            throw new BusinessCheckException("生成订单失败，请稍后重试");
+        }
 
         // 如果是商品订单，生成订单商品
         if (orderDto.getType().equals(OrderTypeEnum.GOOGS.getKey()) && cartList.size() > 0) {
@@ -224,6 +245,7 @@ public class OrderServiceImpl extends BaseService implements OrderService {
                  MtOrderGoods orderGoods = new MtOrderGoods();
                  orderGoods.setOrderId(orderInfo.getId());
                  orderGoods.setGoodsId(cart.getGoodsId());
+                 orderGoods.setSkuId(cart.getSkuId());
                  orderGoods.setNum(cart.getNum());
                  orderGoods.setPrice(mtGoods.getPrice());
                  orderGoods.setDiscount(new BigDecimal("0"));
@@ -240,10 +262,37 @@ public class OrderServiceImpl extends BaseService implements OrderService {
                             MtGoods goodsInfo = goodsRepository.findOne(goods.getId());
                             goodsInfo.setStock(goodsInfo.getStock() - cart.getNum());
                             goodsRepository.save(goodsInfo);
-                            cartRepository.delete(cart.getId());
+                            if (cart.getId() > 0) {
+                                cartRepository.delete(cart.getId());
+                            }
                         }
                     }
                  }
+            }
+
+            // 需要配送的订单，生成配送地址
+            if (orderDto.getOrderMode().equals(OrderModeEnum.EXPRESS.getKey())) {
+                Map<String, Object> params = new HashMap<>();
+                params.put("userId", orderDto.getUserId().toString());
+                params.put("isDefault", "Y");
+                List<MtAddress> addressList = addressService.queryListByParams(params);
+                MtAddress mtAddress;
+                if (addressList.size() > 0) {
+                    mtAddress = addressList.get(0);
+                } else {
+                    throw new BusinessCheckException("配送地址出错了，请重新选择配送地址");
+                }
+                MtOrderAddress orderAddress = new MtOrderAddress();
+                orderAddress.setOrderId(orderInfo.getId());
+                orderAddress.setUserId(orderDto.getUserId());
+                orderAddress.setName(mtAddress.getName());
+                orderAddress.setMobile(mtAddress.getMobile());
+                orderAddress.setCityId(mtAddress.getCityId());
+                orderAddress.setProvinceId(mtAddress.getProvinceId());
+                orderAddress.setRegionId(mtAddress.getRegionId());
+                orderAddress.setDetail(mtAddress.getDetail());
+                orderAddress.setCreateTime(new Date());
+                orderAddressRepository.save(orderAddress);
             }
         }
 
@@ -259,7 +308,7 @@ public class OrderServiceImpl extends BaseService implements OrderService {
     @Override
     public UserOrderDto getOrderById(Integer id) throws BusinessCheckException {
         MtOrder orderInfo = orderRepository.findOne(id);
-        return this._dealOrderDetail(orderInfo);
+        return this._dealOrderDetail(orderInfo, true);
     }
 
     /**
@@ -271,7 +320,7 @@ public class OrderServiceImpl extends BaseService implements OrderService {
     @Override
     public UserOrderDto getOrderByOrderSn(String orderSn) throws BusinessCheckException {
         MtOrder orderInfo = orderRepository.findByOrderSn(orderSn);
-        return this._dealOrderDetail(orderInfo);
+        return this._dealOrderDetail(orderInfo, true);
     }
 
     /**
@@ -350,7 +399,7 @@ public class OrderServiceImpl extends BaseService implements OrderService {
      * @param orderInfo
      * @return UserOrderDto
      * */
-    private UserOrderDto _dealOrderDetail(MtOrder orderInfo) throws BusinessCheckException {
+    private UserOrderDto _dealOrderDetail(MtOrder orderInfo, boolean needAddress) throws BusinessCheckException {
         UserOrderDto dto = new UserOrderDto();
 
         dto.setId(orderInfo.getId());
@@ -359,6 +408,7 @@ public class OrderServiceImpl extends BaseService implements OrderService {
         dto.setOrderSn(orderInfo.getOrderSn());
         dto.setRemark(orderInfo.getRemark());
         dto.setType(orderInfo.getType());
+        dto.setOrderMode(orderInfo.getOrderMode());
         dto.setCreateTime(DateUtil.formatDate(orderInfo.getCreateTime(), "yyyy.MM.dd HH:mm"));
         dto.setUpdateTime(DateUtil.formatDate(orderInfo.getUpdateTime(), "yyyy.MM.dd HH:mm"));
         dto.setAmount(orderInfo.getAmount());
@@ -389,6 +439,14 @@ public class OrderServiceImpl extends BaseService implements OrderService {
             dto.setStatusText(OrderStatusEnum.CANCEL.getValue());
         } else if(dto.getStatus().equals(OrderStatusEnum.PAID.getKey())) {
             dto.setStatusText(OrderStatusEnum.PAID.getValue());
+        } else if(dto.getStatus().equals(OrderStatusEnum.DELIVERY.getKey())) {
+            dto.setStatusText(OrderStatusEnum.DELIVERY.getValue());
+        } else if(dto.getStatus().equals(OrderStatusEnum.DELIVERED.getKey())) {
+            dto.setStatusText(OrderStatusEnum.DELIVERED.getValue());
+        } else if(dto.getStatus().equals(OrderStatusEnum.RECEIVED.getKey())) {
+            dto.setStatusText(OrderStatusEnum.RECEIVED.getValue());
+        } else if(dto.getStatus().equals(OrderStatusEnum.DELETED.getKey())) {
+            dto.setStatusText(OrderStatusEnum.DELETED.getValue());
         }
 
         // 下单用户信息暂时直接取会员个人信息
@@ -439,9 +497,50 @@ public class OrderServiceImpl extends BaseService implements OrderService {
                 o.setImage(baseImage + goodsInfo.getLogo());
                 o.setType(OrderTypeEnum.GOOGS.getKey());
                 o.setNum(orderGoods.getNum());
+                o.setSkuId(orderGoods.getSkuId());
                 o.setPrice(orderGoods.getPrice().toString());
                 o.setDiscount("0");
+                if (orderGoods.getSkuId() > 0) {
+                    List<GoodsSpecValueDto> specList = goodsService.getSpecListBySkuId(orderGoods.getSkuId());
+                    o.setSpecList(specList);
+                }
                 goodsList.add(o);
+            }
+        }
+
+        // 配送地址
+        if (orderInfo.getOrderMode().equals(OrderModeEnum.EXPRESS.getKey()) && needAddress) {
+            MtOrderAddress orderAddress = orderAddressRepository.getOrderAddress(orderInfo.getId());
+            if (orderAddress != null) {
+                AddressDto address = new AddressDto();
+                address.setId(orderAddress.getId());
+                address.setName(orderAddress.getName());
+                address.setMobile(orderAddress.getMobile());
+                address.setDetail(orderAddress.getDetail());
+                address.setProvinceId(orderAddress.getProvinceId());
+                address.setCityId(orderAddress.getCityId());
+                address.setRegionId(orderAddress.getRegionId());
+
+                if (orderAddress.getProvinceId() > 0) {
+                    MtRegion mtProvince = regionRepository.findOne(orderAddress.getProvinceId());
+                    if (mtProvince != null) {
+                        address.setProvinceName(mtProvince.getName());
+                    }
+                }
+                if (orderAddress.getCityId() > 0) {
+                    MtRegion mtCity = regionRepository.findOne(orderAddress.getCityId());
+                    if (mtCity != null) {
+                        address.setCityName(mtCity.getName());
+                    }
+                }
+                if (orderAddress.getRegionId() > 0) {
+                    MtRegion mtRegion = regionRepository.findOne(orderAddress.getRegionId());
+                    if (mtRegion != null) {
+                        address.setRegionName(mtRegion.getName());
+                    }
+                }
+
+                dto.setAddress(address);
             }
         }
 

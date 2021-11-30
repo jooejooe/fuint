@@ -4,7 +4,6 @@ import com.fuint.exception.BusinessCheckException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.BufferedReader;
 import java.io.Closeable;
 import java.io.DataInputStream;
@@ -21,7 +20,7 @@ import java.util.Map;
 
 /**
  * Http协议上传图片工具类
- * Created by liuguofang on 2016/9/13.
+ * Created by FSQ on 2021/11/15.
  */
 public class HttpPostUploadUtil {
 

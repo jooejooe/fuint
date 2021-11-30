@@ -1,8 +1,11 @@
 package com.fuint.application.web.rest;
 
 import com.fuint.application.dao.entities.MtBanner;
+import com.fuint.application.dao.entities.MtGoods;
 import com.fuint.application.dao.entities.MtUser;
+import com.fuint.application.enums.StatusEnum;
 import com.fuint.application.service.coupon.CouponService;
+import com.fuint.application.service.goods.GoodsService;
 import com.fuint.application.service.token.TokenService;
 import com.fuint.exception.BusinessCheckException;
 import com.fuint.application.ResponseObject;
@@ -11,6 +14,7 @@ import com.fuint.application.service.banner.BannerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -27,6 +31,12 @@ import java.util.Map;
 public class PageController extends BaseController {
 
     private static final Logger logger = LoggerFactory.getLogger(PageController.class);
+
+    /**
+     * 商品服务接口
+     * */
+    @Autowired
+    private GoodsService goodsService;
 
     /**
      * 卡券服务接口
@@ -46,6 +56,9 @@ public class PageController extends BaseController {
     @Autowired
     private TokenService tokenService;
 
+    @Autowired
+    private Environment env;
+
     /**
      * 获取页面数据
      */
@@ -64,8 +77,19 @@ public class PageController extends BaseController {
 
         List<MtBanner> bannerData = bannerService.queryBannerListByParams(param);
 
+        Map<String, Object> goodsParam = new HashMap<>();
+        param.put("EQ_status", StatusEnum.ENABLED.getKey());
+        List<MtGoods> goodsData = goodsService.queryGoodsListByParams(goodsParam);
+        String baseImage = env.getProperty("images.upload.url");
+        if (goodsData.size() > 0) {
+            for (MtGoods goods : goodsData) {
+                goods.setLogo(baseImage + goods.getLogo());
+            }
+        }
+
         outParams.put("banner", bannerData);
         outParams.put("coupon", couponData.getData());
+        outParams.put("goods", goodsData);
 
         ResponseObject responseObject = getSuccessResult(outParams);
 

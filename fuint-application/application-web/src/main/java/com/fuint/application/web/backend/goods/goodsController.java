@@ -2,11 +2,13 @@ package com.fuint.application.web.backend.goods;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSONArray;
-import com.fuint.application.enums.OrderStatusEnum;
+import com.fuint.application.dao.repositories.MtGoodsSpecRepository;
+import com.fuint.application.dao.repositories.MtGoodsSkuRepository;
 import com.fuint.application.enums.StatusEnum;
 import com.fuint.application.service.goods.CateService;
 import com.fuint.application.util.CommonUtil;
 import com.fuint.exception.BusinessCheckException;
+import java.lang.reflect.InvocationTargetException;
 import com.fuint.base.shiro.util.ShiroUserHelper;
 import com.fuint.application.dao.entities.*;
 import com.fuint.application.dto.*;
@@ -14,6 +16,8 @@ import com.fuint.application.service.goods.GoodsService;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.core.env.Environment;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -48,6 +52,12 @@ public class goodsController {
     private CateService cateService;
 
     @Autowired
+    private MtGoodsSpecRepository specRepository;
+
+    @Autowired
+    private MtGoodsSkuRepository goodskuRepository;
+
+    @Autowired
     private Environment env;
 
     /**
@@ -74,7 +84,7 @@ public class goodsController {
     }
 
     /**
-     * 删除分类
+     * 删除商品
      *
      * @param request
      * @param response
@@ -106,10 +116,10 @@ public class goodsController {
      */
     @RequiresPermissions("backend/goods/goods/add")
     @RequestMapping(value = "/add")
-    public String add(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException {
+    public String add(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException,InvocationTargetException,IllegalAccessException {
         Integer goodsId = request.getParameter("goodsId") == null ? 0 : Integer.parseInt(request.getParameter("goodsId"));
 
-        MtGoods goods = goodsService.queryGoodsById(goodsId);
+        GoodsDto goods = goodsService.getGoodsDetail(goodsId);
         model.addAttribute("goods", goods);
 
         List<String> images = new ArrayList<>();
@@ -118,6 +128,35 @@ public class goodsController {
         }
         model.addAttribute("images", images);
 
+        // 商品规格列表
+        List<String> specKeyArr = new ArrayList<>();
+        List<GoodsSpecItemDto> specArr = new ArrayList<>();
+        for (MtGoodsSpec mtGoodsSpec : goods.getSpecList()) {
+            if (!specKeyArr.contains(mtGoodsSpec.getName())) {
+                specKeyArr.add(mtGoodsSpec.getName());
+            }
+        }
+
+        int id = 1;
+        for (String name : specKeyArr) {
+            GoodsSpecItemDto item = new GoodsSpecItemDto();
+            List<GoodsSpecChildDto> child = new ArrayList<>();
+            for (MtGoodsSpec mtGoodsSpec : goods.getSpecList()) {
+                if (mtGoodsSpec.getName().equals(name)) {
+                    GoodsSpecChildDto e = new GoodsSpecChildDto();
+                    e.setId(mtGoodsSpec.getId());
+                    e.setName(mtGoodsSpec.getValue());
+                    e.setChecked(true);
+                    child.add(e);
+                }
+            }
+            item.setId(id);
+            item.setName(name);
+            item.setChild(child);
+            specArr.add(item);
+            id++;
+        }
+
         Map<String, Object> param = new HashMap<>();
         param.put("EQ_status", StatusEnum.ENABLED.getKey());
         List<MtGoodsCate> cateList = cateService.queryCateListByParams(param);
@@ -125,6 +164,21 @@ public class goodsController {
 
         String imagePath = env.getProperty("images.upload.url");
         model.addAttribute("imagePath", imagePath);
+
+        String specData = JSONObject.toJSONString(specArr);
+        model.addAttribute("specData", specData);
+
+        Map<String, Object> skuData = new HashMap<>();
+        for (MtGoodsSku sku : goods.getSkuList()) {
+            skuData.put("skus["+sku.getSpecIds()+"][skuNo]", sku.getSkuNo());
+            skuData.put("skus["+sku.getSpecIds()+"][logo]", (sku.getLogo().length() > 1 ? (imagePath + sku.getLogo()) : ""));
+            skuData.put("skus["+sku.getSpecIds()+"][goodsId]", sku.getGoodsId());
+            skuData.put("skus["+sku.getSpecIds()+"][stock]", sku.getStock());
+            skuData.put("skus["+sku.getSpecIds()+"][price]", sku.getPrice());
+            skuData.put("skus["+sku.getSpecIds()+"][linePrice]", sku.getLinePrice());
+            skuData.put("skus["+sku.getSpecIds()+"][weight]", sku.getWeight());
+        }
+        model.addAttribute("skuData", JSONObject.toJSONString(skuData));
 
         return "goods/goods/add";
     }
@@ -159,14 +213,90 @@ public class goodsController {
         String salePoint = CommonUtil.replaceXSS(request.getParameter("salePoint"));
         String canUsePoint = CommonUtil.replaceXSS(request.getParameter("canUsePoint"));
         String isMemberDiscount = CommonUtil.replaceXSS(request.getParameter("isMemberDiscount"));
+        String isSingleSpec = CommonUtil.replaceXSS(request.getParameter("isSingleSpec"));
         Integer cateId = request.getParameter("cateId") == null ? 0 : Integer.parseInt(request.getParameter("cateId"));
 
-        MtGoods info = new MtGoods();
+        Enumeration skuMap = request.getParameterNames();
+        List<String> dataArr = new ArrayList<>();
+        List<String> item = new ArrayList<>();
 
+        String imagePath = env.getProperty("images.upload.url");
+
+        while (skuMap.hasMoreElements()) {
+            String paramName = (String)skuMap.nextElement();
+            if (paramName.contains("skus")) {
+                String paramValue = request.getParameter(paramName);
+                paramName = paramName.replace("[", "_");
+                paramName = paramName.replace("]", "");
+                String[] s1 = paramName.split("_"); // skus[5-7][image]  skus_5-7_image
+                dataArr.add(s1[1] + '_' + s1[2] + '_' + paramValue);
+                if (!item.contains(s1[1])) {
+                    item.add(s1[1]);
+                }
+            }
+        }
+
+        BigDecimal minPrice = new BigDecimal("0");
+        BigDecimal minLinePrice = new BigDecimal("0");
+
+        for (String key : item) {
+            Map<String, Object> param = new HashMap<>();
+            param.put("EQ_goodsId", goodsId);
+            param.put("EQ_specIds", key);
+
+            // 是否已存在
+            Specification<MtGoodsSku> specification2 = goodskuRepository.buildSpecification(param);
+            Sort sort2 = new Sort(Sort.Direction.ASC, "id");
+            List<MtGoodsSku> goodsSkuList = goodskuRepository.findAll(specification2, sort2);
+            MtGoodsSku sku = new MtGoodsSku();
+            if (goodsSkuList.size() > 0) {
+                sku = goodsSkuList.get(0);
+            }
+
+            sku.setGoodsId(Integer.parseInt(goodsId));
+            sku.setSpecIds(key);
+            for (String str :dataArr) {
+                String[] ss = str.split("_");
+                if (ss[0].equals(key)) {
+                   if (ss[1].equals("skuNo")) {
+                       String skuNo = ss.length > 2 ? ss[2] : "";
+                       sku.setSkuNo(skuNo);
+                   } else if (ss[1].equals("logo")) {
+                       String logo = ss.length > 2 ? ss[2] : "";
+                       logo = logo.replace(imagePath, "");
+                       sku.setLogo(logo);
+                   } else if (ss[1].equals("stock")) {
+                       String skuStock = ss.length > 2 ? ss[2] : "0";
+                       sku.setStock(Integer.parseInt(skuStock));
+                   } else if (ss[1].equals("price")) {
+                       String skuPrice = ss.length > 2 ? ss[2] : "0";
+                       sku.setPrice(new BigDecimal(skuPrice));
+                       // 商品价格取sku中最低价
+                       if ((new BigDecimal("0").equals(minPrice)) && (minPrice.compareTo(new BigDecimal(skuPrice)) < 0)) {
+                           minPrice = new BigDecimal(skuPrice);
+                       }
+                   } else if (ss[1].equals("linePrice")) {
+                       String skuLinePrice = ss.length > 2 ? ss[2] : "0";
+                       sku.setLinePrice(new BigDecimal(skuLinePrice));
+                       if ((new BigDecimal("0").equals(minLinePrice)) && (minPrice.compareTo(new BigDecimal(skuLinePrice)) < 0)) {
+                           minLinePrice = new BigDecimal(skuLinePrice);
+                       }
+                   } else if (ss[1].equals("weight")) {
+                       String skuWeight = ss.length > 2 ? ss[2] : "0";
+                       sku.setWeight(new BigDecimal(skuWeight));
+                   }
+                }
+            }
+
+            goodskuRepository.save(sku);
+        }
+
+        MtGoods info = new MtGoods();
         info.setId(Integer.parseInt(goodsId));
         info.setCateId(cateId);
         info.setName(name);
         info.setGoodsNo(goodsNo);
+        info.setIsSingleSpec(isSingleSpec);
         info.setStock(Integer.parseInt(stock));
         info.setDescription(description);
         if (images != null) {
@@ -176,11 +306,17 @@ public class goodsController {
             info.setSort(Integer.parseInt(sort));
         }
         info.setStatus(status);
-        if (StringUtils.isNotEmpty(price)) {
+        if (new BigDecimal(price).compareTo(new BigDecimal("0")) > 0) {
             info.setPrice(new BigDecimal(price));
         }
-        if (StringUtils.isNotEmpty(linePrice)) {
+        if(minPrice.compareTo(new BigDecimal("0")) > 0) {
+            info.setPrice(minPrice);
+        }
+        if (new BigDecimal(linePrice).compareTo(new BigDecimal("0")) > 0) {
             info.setLinePrice(new BigDecimal(linePrice));
+        }
+        if(minLinePrice.compareTo(new BigDecimal("0")) > 0) {
+            info.setLinePrice(minLinePrice);
         }
         if (StringUtils.isNotEmpty(weight)) {
             info.setWeight(new BigDecimal(weight));
@@ -205,6 +341,102 @@ public class goodsController {
 
         Map<String, Object> outParams = new HashMap();
         outParams.put("goods", goods);
+
+        reqResult.setData(outParams);
+
+        return reqResult;
+    }
+
+    /**
+     * 保存商品规格
+     *
+     * @param request  HttpServletRequest对象
+     * @param response HttpServletResponse对象
+     * @param model    SpringFramework Model对象
+     */
+    @RequiresPermissions("backend/goods/goods/saveSpecName")
+    @RequestMapping(value = "/saveSpecName", method = RequestMethod.POST)
+    @ResponseBody
+    public ReqResult saveSpecName(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException {
+        String goodsId = request.getParameter("goodsId") == null ? "0" : request.getParameter("goodsId");
+        String name = request.getParameter("name") == null ? "" : request.getParameter("name");
+
+        if (StringUtils.isEmpty(goodsId)) {
+            return null;
+        }
+
+        Map<String, Object> param = new HashMap<>();
+
+        param.put("EQ_goodsId", goodsId);
+        param.put("EQ_name", name);
+
+        Specification<MtGoodsSpec> specification = specRepository.buildSpecification(param);
+        Sort sort = new Sort(Sort.Direction.DESC, "id");
+        List<MtGoodsSpec> dataList = specRepository.findAll(specification, sort);
+        Integer targetId = 0;
+        if (dataList.size() < 1) {
+            MtGoodsSpec mtGoodsSpec = new MtGoodsSpec();
+            mtGoodsSpec.setGoodsId(Integer.parseInt(goodsId));
+            mtGoodsSpec.setName(name);
+            mtGoodsSpec.setValue("");
+            MtGoodsSpec data = specRepository.save(mtGoodsSpec);
+            targetId = data.getId();
+        } else {
+            targetId = dataList.get(0).getId();
+        }
+
+        ReqResult reqResult = new ReqResult();
+        reqResult.setResult(true);
+        reqResult.setCode("200");
+        reqResult.setMsg("请求成功");
+
+        Map<String, Object> outParams = new HashMap();
+        outParams.put("id", targetId);
+
+        reqResult.setData(outParams);
+
+        return reqResult;
+    }
+
+    /**
+     * 保存商品规格
+     *
+     * @param request  HttpServletRequest对象
+     * @param response HttpServletResponse对象
+     * @param model    SpringFramework Model对象
+     */
+    @RequiresPermissions("backend/goods/goods/saveSpecValue")
+    @RequestMapping(value = "/saveSpecValue", method = RequestMethod.POST)
+    @ResponseBody
+    public ReqResult saveSpecValue(HttpServletRequest request, HttpServletResponse response, Model model) {
+        String specId = request.getParameter("specId") == null ? "0" : request.getParameter("specId");
+        String value = request.getParameter("value") == null ? "" : request.getParameter("value");
+
+        if (StringUtils.isEmpty(specId)) {
+            return null;
+        }
+
+        MtGoodsSpec goodsSpec = specRepository.findOne(Integer.parseInt(specId));
+        Integer targetId = goodsSpec.getId();
+        if (goodsSpec.getValue().equals("")) {
+            goodsSpec.setValue(value);
+            specRepository.save(goodsSpec);
+        } else {
+            MtGoodsSpec mtGoodsSpec = new MtGoodsSpec();
+            mtGoodsSpec.setGoodsId(goodsSpec.getGoodsId());
+            mtGoodsSpec.setName(goodsSpec.getName());
+            mtGoodsSpec.setValue(value);
+            MtGoodsSpec data = specRepository.save(mtGoodsSpec);
+            targetId = data.getId();
+        }
+
+        ReqResult reqResult = new ReqResult();
+        reqResult.setResult(true);
+        reqResult.setCode("200");
+        reqResult.setMsg("请求成功");
+
+        Map<String, Object> outParams = new HashMap();
+        outParams.put("id", targetId);
 
         reqResult.setData(outParams);
 

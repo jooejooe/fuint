@@ -81,14 +81,14 @@ public class ConfirmerController extends BaseController{
         try {
             mtConfirmer.setStoreId(Integer.parseInt(storeID));
             MtStore mtStore=storeService.queryStoreById(Integer.parseInt(storeID));
-            if (mtStore==null) {
+            if (mtStore == null) {
                 return getFailureResult(1002, "店铺ID不正确");
             }
         } catch (Exception e) {
             return getFailureResult(1002, "店铺ID不正确");
         }
 
-        MtConfirmer mtConfirmer2=confirmerService.queryConfirmerByMobile(mobile);
+        MtConfirmer mtConfirmer2 = confirmerService.queryConfirmerByMobile(mobile);
         if (mtConfirmer2 != null) {
             if (mtConfirmer2.getAuditedStatus().equals(StatusEnum.ENABLED.getKey())||mtConfirmer2.getAuditedStatus().equals(StatusEnum.FORBIDDEN.getKey())) {
                 return getFailureResult(1002, "手机号不能重复提交！");

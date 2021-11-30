@@ -16,6 +16,11 @@ public class OrderDto implements Serializable {
 	private String type;
 
 	/**
+	 * 订单类型名称
+	 * */
+	private String orderMode;
+
+	/**
 	 * 订单号
 	 */
 	private String orderSn;
@@ -24,6 +29,21 @@ public class OrderDto implements Serializable {
 	 * 卡券ID
 	 */
 	private Integer couponId;
+
+	/**
+	 * 商品ID
+	 * */
+	private Integer goodsId;
+
+	/**
+	 * skuID
+	 * */
+	private Integer skuId;
+
+	/**
+	 * 购买数量
+	 * */
+	private Integer buyNum;
 
 	/**
 	 * 用户ID
@@ -107,6 +127,12 @@ public class OrderDto implements Serializable {
 	public void setType(String type){
 		this.type=type;
 	}
+	public String getOrderMode() {
+		return orderMode;
+	}
+	public void setOrderMode(String orderMode) {
+		this.orderMode=orderMode;
+	}
 	public String getOrderSn(){
 		return orderSn;
 	}
@@ -118,6 +144,24 @@ public class OrderDto implements Serializable {
 	}
 	public void setCouponId(Integer couponId){
 		this.couponId=couponId;
+	}
+	public Integer getGoodsId(){
+		return goodsId;
+	}
+	public void setGoodsId(Integer goodsId){
+		this.goodsId=goodsId;
+	}
+	public Integer getSkuId(){
+		return skuId;
+	}
+	public void setSkuId(Integer skuId){
+		this.skuId=skuId;
+	}
+	public Integer getBuyNum(){
+		return buyNum;
+	}
+	public void setBuyNum(Integer buyNum){
+		this.buyNum=buyNum;
 	}
 	public Integer getUserId(){
 		return userId;

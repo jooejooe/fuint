@@ -115,6 +115,37 @@ public class OrderController extends BaseController {
     }
 
     /**
+     * 确认收货
+     */
+    @RequestMapping(value = "/receipt", method = RequestMethod.GET)
+    @CrossOrigin
+    public ResponseObject receipt(HttpServletRequest request) throws BusinessCheckException{
+        String userToken = request.getHeader("Access-Token");
+        MtUser mtUser = tokenService.getUserInfoByToken(userToken);
+
+        if (mtUser == null) {
+            return getFailureResult(1001, "用户未登录");
+        }
+
+        String orderId = request.getParameter("orderId");
+        if (StringUtil.isEmpty(orderId)) {
+            return getFailureResult(2000, "订单不能为空");
+        }
+
+        UserOrderDto order = orderService.getOrderById(Integer.parseInt(orderId));
+        if (!order.getUserId().equals(mtUser.getId())) {
+            return getFailureResult(2000, "订单信息有误");
+        }
+
+        OrderDto reqDto = new OrderDto();
+        reqDto.setId(Integer.parseInt(orderId));
+        reqDto.setStatus(OrderStatusEnum.RECEIVED.getKey());
+        MtOrder orderInfo = orderService.updateOrder(reqDto);
+
+        return getSuccessResult(orderInfo);
+    }
+
+    /**
      * 获取待办订单
      */
     @RequestMapping(value = "/todoCounts", method = RequestMethod.GET)

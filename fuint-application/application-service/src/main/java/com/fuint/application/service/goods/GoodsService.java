@@ -1,9 +1,12 @@
 package com.fuint.application.service.goods;
 
 import com.fuint.application.dao.entities.MtGoods;
+import com.fuint.application.dto.GoodsDto;
+import com.fuint.application.dto.GoodsSpecValueDto;
 import com.fuint.base.dao.pagination.PaginationRequest;
 import com.fuint.base.dao.pagination.PaginationResponse;
 import com.fuint.exception.BusinessCheckException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
 
@@ -38,6 +41,14 @@ public interface GoodsService {
     MtGoods queryGoodsById(Integer id) throws BusinessCheckException;
 
     /**
+     * 根据ID获取商品详情
+     *
+     * @param id ID
+     * @throws BusinessCheckException
+     */
+    GoodsDto getGoodsDetail(Integer id) throws InvocationTargetException, IllegalAccessException;
+
+    /**
      * 根据ID 删除
      *
      * @param id       ID
@@ -50,4 +61,9 @@ public interface GoodsService {
      * 根据条件搜索分类
      * */
     List<MtGoods> queryGoodsListByParams(Map<String, Object> params) throws BusinessCheckException;
+
+    /**
+     * 根据skuId获取规格列表
+     * */
+    List<GoodsSpecValueDto> getSpecListBySkuId(Integer skuId) throws BusinessCheckException;
 }

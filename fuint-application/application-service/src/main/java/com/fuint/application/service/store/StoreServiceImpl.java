@@ -119,7 +119,7 @@ public class StoreServiceImpl implements StoreService {
      * @throws BusinessCheckException
      */
     @Override
-    public MtStoreDto queryStoreByName(String storeName) throws BusinessCheckException,InvocationTargetException,IllegalAccessException  {
+    public MtStoreDto queryStoreByName(String storeName) throws InvocationTargetException,IllegalAccessException {
         MtStore mtStore = storeRepository.queryStoreByName(storeName);
         MtStoreDto mtStoreDto = null;
 

@@ -202,6 +202,7 @@ public class BannerController {
         }
 
         bannerService.addBanner(info);
+
         return "redirect:/backend/banner/queryList";
     }
 

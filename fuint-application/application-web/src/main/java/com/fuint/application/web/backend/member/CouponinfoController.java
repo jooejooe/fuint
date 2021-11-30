@@ -1,5 +1,7 @@
 package com.fuint.application.web.backend.member;
 
+import com.fuint.application.dao.entities.MtCoupon;
+import com.fuint.application.dao.repositories.MtUserCouponRepository;
 import com.fuint.base.dao.pagination.PaginationRequest;
 import com.fuint.base.dao.pagination.PaginationResponse;
 import com.fuint.base.service.account.TAccountService;
@@ -22,24 +24,18 @@ import com.fuint.application.web.backend.util.ExcelUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
-
 import static com.fuint.application.util.XlsUtil.objectConvertToString;
 
 /**
@@ -50,8 +46,6 @@ import static com.fuint.application.util.XlsUtil.objectConvertToString;
 @Controller
 @RequestMapping(value = "/backend/member")
 public class CouponinfoController {
-
-    private static final Logger logger = LoggerFactory.getLogger(CouponinfoController.class);
 
     /**
      * 卡券信息服务接口
@@ -75,6 +69,9 @@ public class CouponinfoController {
      */
     @Autowired
     private CouponService couponService;
+
+    @Autowired
+    private MtUserCouponRepository userCouponRepository;
 
     /**
      * 会员卡券消费记录
@@ -444,20 +441,24 @@ public class CouponinfoController {
      * */
     @RequiresPermissions("backend/member/confirmerUserCouponPage/{id}")
     @RequestMapping(value = "/confirmerUserCouponPage/{id}")
-    public String confirmerUserCouponPage(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable("id") Long id) throws BusinessCheckException {
+    public String confirmerUserCouponPage(HttpServletRequest request, HttpServletResponse response, Model model, @PathVariable("id") Integer id) throws BusinessCheckException {
 
-        UvCouponInfo uvCounponInfo=uvCouponInfoService.queryUvCouponInfoById(id.intValue());
-        if (uvCounponInfo==null) {
+        MtUserCoupon mtUserCoupon = userCouponRepository.findOne(id);
+        if (mtUserCoupon == null) {
             throw new BusinessCheckException("用户卡券不存在.");
         }
 
-        String StringIds=uvCounponInfo.getSuitStoreIds();
+        MtCoupon mtCoupon = couponService.queryCouponById(mtUserCoupon.getCouponId());
+
+        String StringIds = mtCoupon.getStoreIds();
         if (StringUtils.isEmpty(StringIds)) {
             StringIds = "";
         }
-        String[] arrayIds=StringIds.split(",");
-        List<Integer> storeIds=new ArrayList<Integer>();
-        List<MtStore> storeList=null;
+
+        String[] arrayIds = StringIds.split(",");
+        List<Integer> storeIds = new ArrayList<Integer>();
+        List<MtStore> storeList;
+
         try {
             for (String s : arrayIds) {
                 if(s.length()>0) {
@@ -465,30 +466,31 @@ public class CouponinfoController {
                 }
             }
         } catch (Exception e) {
-
             storeIds = null;
         }
 
-        if (storeIds==null || storeIds.size() == 0) {
+        if (storeIds == null || storeIds.size() == 0) {
             storeList = storeService.queryStoresByParams(new HashMap<>());
         } else {
             storeList = storeService.queryStoresByIds(storeIds);
         }
 
-        model.addAttribute("uvCounponInfo", uvCounponInfo);
+        model.addAttribute("userCoupon", mtUserCoupon);
+        model.addAttribute("coupon", mtCoupon);
+
         model.addAttribute("storeList", storeList);
 
         return "components/confirmerCouponQuickPage";
     }
 
     /**
-     * 核销用户卡券,刷新页面
+     * 核销用户卡券
      * */
-    @RequiresPermissions("backend/member/stringconfirmerUserCoupon")
-    @RequestMapping(value = "/stringconfirmerUserCoupon")
-    public String stringconfirmerUserCoupon(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException {
+    @RequiresPermissions("backend/member/doConfirm")
+    @RequestMapping(value = "/doConfirm")
+    public String doConfirm(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException {
         String id = request.getParameter("id");
-        String storeId = request.getParameter("storeId");
+        String storeId = StringUtils.isNotEmpty(request.getParameter("storeId")) ? request.getParameter("storeId") : "0";
         MtUserCoupon mtUserCoupon = couponService.queryUserCouponById(Integer.parseInt(id));
 
         if (mtUserCoupon == null) {
@@ -497,7 +499,7 @@ public class CouponinfoController {
 
         MtStore store = storeService.queryStoreById(Integer.parseInt(storeId));
 
-        if ( store == null) {
+        if (store == null) {
             throw new BusinessCheckException("店铺不存在.");
         }
 
@@ -506,7 +508,7 @@ public class CouponinfoController {
             return "redirect:/login";
         }
 
-        couponService.useCoupon(Integer.parseInt(id), shiroUser.getId().intValue(),Integer.parseInt(storeId), new BigDecimal(mtUserCoupon.getBalance()+""), "");
+        couponService.useCoupon(Integer.parseInt(id), shiroUser.getId().intValue(), Integer.parseInt(storeId), new BigDecimal(mtUserCoupon.getAmount()+""), "后台核销");
 
         return "redirect:/backend/member/CouponinfoList";
     }

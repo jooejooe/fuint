@@ -2,7 +2,6 @@ package com.fuint.application.service.cart;
 
 import com.fuint.application.dao.entities.MtCart;
 import com.fuint.application.dao.repositories.MtCartRepository;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
 import com.fuint.exception.BusinessCheckException;
 import com.fuint.application.enums.StatusEnum;
@@ -49,10 +48,12 @@ public class CartServiceImpl implements CartService {
 
         mtCart.setStatus(StatusEnum.ENABLED.getKey());
         mtCart.setUpdateTime(new Date());
+        mtCart.setSkuId(reqDto.getSkuId());
 
         Map<String, Object> params = new HashMap<>();
         params.put("EQ_userId", mtCart.getUserId().toString());
         params.put("EQ_goodsId", mtCart.getGoodsId().toString());
+        params.put("EQ_skuId", mtCart.getSkuId().toString());
 
         List<MtCart> cartList = this.queryCartListByParams(params);
 
@@ -107,7 +108,6 @@ public class CartServiceImpl implements CartService {
     @Override
     public List<MtCart> queryCartListByParams(Map<String, Object> params) {
         String status =  params.get("status") == null ? StatusEnum.ENABLED.getKey(): params.get("status").toString();
-        String userId =  params.get("userId") == null ? "0" : params.get("userId").toString();
         params.put("EQ_status", status);
 
         Specification<MtCart> specification = cartRepository.buildSpecification(params);

@@ -3,15 +3,11 @@ package com.fuint.application.service.sendlog;
 import com.fuint.base.dao.pagination.PaginationRequest;
 import com.fuint.base.dao.pagination.PaginationResponse;
 import com.fuint.exception.BusinessCheckException;
-import com.fuint.application.dao.entities.MtCouponGroup;
 import com.fuint.application.dao.entities.MtSendLog;
 import com.fuint.application.dto.ReqSendLogDto;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.math.BigDecimal;
 
 /**
- * 发送记录业务接口
+ * 发券记录业务接口
  * Created by FSQ
  * Contact wx fsq_better
  */
