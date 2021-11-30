@@ -17,7 +17,10 @@ Fuint侧重于线下实体店的私域流量的运营，帮助商户降低获客
 <p><img src="screenshots/miniapp.png" alt="小程序演示"></p>
 <br>
 <b>后台管理演示地址：</b><br>
-<p><a target="_blank" href="https://www.fuint.cn/fuint-application/">https://www.fuint.cn/fuint-application/</a></p>
+<p>
+   <a target="_blank" href="https://www.fuint.cn/fuint-application/">https://www.fuint.cn/fuint-application/</a>
+   账号:fuint / 123456
+</p>
 
 #### 软件架构
 后端：JAVA（springMvc + mybatis） + MYSQL + Redis
