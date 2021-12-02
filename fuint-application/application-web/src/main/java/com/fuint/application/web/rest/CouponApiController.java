@@ -3,6 +3,7 @@ package com.fuint.application.web.rest;
 import com.fuint.application.dao.entities.MtCoupon;
 import com.fuint.application.dao.entities.MtUser;
 import com.fuint.application.dao.entities.MtUserCoupon;
+import com.fuint.application.dao.repositories.MtUserCouponRepository;
 import com.fuint.application.dto.CouponDto;
 import com.fuint.application.service.coupon.CouponService;
 import com.fuint.application.service.token.TokenService;
@@ -12,6 +13,7 @@ import com.fuint.exception.BusinessCheckException;
 import com.fuint.application.ResponseObject;
 import com.fuint.application.BaseController;
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.*;
@@ -41,6 +43,9 @@ public class CouponApiController extends BaseController {
      * */
     @Autowired
     private UserCouponService userCouponService;
+
+    @Autowired
+    private MtUserCouponRepository userCouponRepository;
 
     /**
      * Token服务接口
@@ -113,8 +118,17 @@ public class CouponApiController extends BaseController {
         MtUser mtUser = tokenService.getUserInfoByToken(token);
 
         Integer couponId = param.get("couponId") == null ? 0 : Integer.parseInt(param.get("couponId").toString());
+        String userCouponCode = param.get("userCouponCode") == null ? "" : param.get("userCouponCode").toString();
 
-        MtCoupon couponInfo = couponService.queryCouponById(couponId);
+        MtCoupon couponInfo = new MtCoupon();
+        if (StringUtils.isNotEmpty(userCouponCode)) {
+            MtUserCoupon userCouponInfo = userCouponRepository.findByCode(userCouponCode);
+            if (userCouponInfo != null) {
+                couponInfo = couponService.queryCouponById(userCouponInfo.getCouponId());
+            }
+        } else {
+            couponInfo = couponService.queryCouponById(couponId);
+        }
 
         CouponDto dto = new CouponDto();
         BeanUtils.copyProperties(dto, couponInfo);

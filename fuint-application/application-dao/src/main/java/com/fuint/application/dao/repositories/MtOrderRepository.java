@@ -6,6 +6,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import com.fuint.application.dao.entities.MtOrder;
 
+import java.math.BigDecimal;
+
 /**
  * mt_order Repository
  * Created by FSQ
@@ -28,5 +30,13 @@ public interface MtOrderRepository extends BaseRepository<MtOrder, Integer> {
     * */
    @Query("select t from MtOrder t where t.orderSn = :orderSn")
    MtOrder findByOrderSn(@Param("orderSn") String orderSn);
+
+   /**
+    * 获取订单支付总金额
+    *
+    * @return
+    */
+   @Query("SELECT sum(t.amount) as num FROM MtOrder t where t.payStatus='B'")
+   BigDecimal getPayMoney();
 }
 

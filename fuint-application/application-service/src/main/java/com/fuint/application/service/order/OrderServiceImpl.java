@@ -23,6 +23,7 @@ import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
@@ -59,6 +60,9 @@ public class OrderServiceImpl extends BaseService implements OrderService {
 
     @Autowired
     private MtOrderAddressRepository orderAddressRepository;
+
+    @Autowired
+    private MtGoodsSkuRepository goodsSkuRepository;
 
     @Autowired
     private MtRegionRepository regionRepository;
@@ -204,6 +208,7 @@ public class OrderServiceImpl extends BaseService implements OrderService {
         // 计算订单总金额
         List<MtCart> cartList = new ArrayList<>();
         List<MtGoods> goodsList = new ArrayList<>();
+        Map<String, Object> cartData = new HashMap<>();
         if (orderDto.getType().equals(OrderTypeEnum.GOOGS.getKey())) {
             Map<String, Object> param = new HashMap<>();
             param.put("EQ_status", StatusEnum.ENABLED.getKey());
@@ -221,16 +226,8 @@ public class OrderServiceImpl extends BaseService implements OrderService {
                 cartList.add(mtCart);
             }
 
-            goodsList = goodsService.queryGoodsListByParams(param);
-            BigDecimal totalAmount = new BigDecimal("0");
-            for (MtCart cart : cartList) {
-                for (MtGoods goods : goodsList) {
-                    if (goods.getStatus().equals(StatusEnum.ENABLED.getKey()) && cart.getGoodsId() == goods.getId()) {
-                        totalAmount = totalAmount.add(goods.getPrice().multiply(new BigDecimal(cart.getNum())));
-                    }
-                }
-            }
-            MtOrder.setAmount(totalAmount);
+            cartData = this.calculateCartGoods(cartList);
+            MtOrder.setAmount(new BigDecimal(cartData.get("totalPrice").toString()));
         }
 
         MtOrder orderInfo = orderRepository.save(MtOrder);
@@ -240,33 +237,34 @@ public class OrderServiceImpl extends BaseService implements OrderService {
 
         // 如果是商品订单，生成订单商品
         if (orderDto.getType().equals(OrderTypeEnum.GOOGS.getKey()) && cartList.size() > 0) {
-            for (MtCart cart : cartList) {
-                 MtGoods mtGoods = goodsRepository.findOne(cart.getGoodsId());
+            Object listObject = cartData.get("list");
+            List<ResCartDto> lists =(ArrayList<ResCartDto>)listObject;
+            for (ResCartDto cart : lists) {
                  MtOrderGoods orderGoods = new MtOrderGoods();
                  orderGoods.setOrderId(orderInfo.getId());
                  orderGoods.setGoodsId(cart.getGoodsId());
                  orderGoods.setSkuId(cart.getSkuId());
                  orderGoods.setNum(cart.getNum());
-                 orderGoods.setPrice(mtGoods.getPrice());
+                 orderGoods.setPrice(cart.getGoodsInfo().getPrice());
                  orderGoods.setDiscount(new BigDecimal("0"));
                  orderGoods.setStatus(StatusEnum.ENABLED.getKey());
                  orderGoods.setCreateTime(new Date());
                  orderGoods.setUpdateTime(new Date());
                  orderGoodsRepository.save(orderGoods);
                  // 扣减库存
-                 for (MtGoods goods : goodsList) {
-                    if (cart.getGoodsId() == goods.getId()) {
-                        if (!goods.getStatus().equals(StatusEnum.ENABLED.getKey()) || goods.getStock() < cart.getNum()) {
-                            throw new BusinessCheckException("商品已下架或库存不足，请重新调整购物车");
-                        } else {
-                            MtGoods goodsInfo = goodsRepository.findOne(goods.getId());
-                            goodsInfo.setStock(goodsInfo.getStock() - cart.getNum());
-                            goodsRepository.save(goodsInfo);
-                            if (cart.getId() > 0) {
-                                cartRepository.delete(cart.getId());
-                            }
-                        }
-                    }
+                 MtGoods goodsInfo = goodsRepository.findOne(cart.getGoodsId());
+                 if (goodsInfo.getIsSingleSpec().equals("Y")) {
+                     // 单规格
+                     goodsInfo.setStock(goodsInfo.getStock() - cart.getNum());
+                     goodsRepository.save(goodsInfo);
+                 } else {
+                     // 多规格
+                     MtGoodsSku mtGoodsSku = goodsSkuRepository.findOne(cart.getSkuId());
+                     goodsInfo.setStock(mtGoodsSku.getStock() - cart.getNum());
+                     goodsSkuRepository.save(mtGoodsSku);
+                 }
+                 if (cart.getId() > 0) {
+                    cartRepository.delete(cart.getId());
                  }
             }
 
@@ -314,7 +312,7 @@ public class OrderServiceImpl extends BaseService implements OrderService {
     /**
      * 根据订单号获取订单详情
      *
-     * @param orderSn 订单号
+     * @param  orderSn 订单号
      * @throws BusinessCheckException
      */
     @Override
@@ -324,10 +322,10 @@ public class OrderServiceImpl extends BaseService implements OrderService {
     }
 
     /**
-     * 根据ID删除数据
+     * 根据ID删除订单
      *
-     * @param id       订单ID
-     * @param operator 操作人
+     * @param  id       订单ID
+     * @param  operator 操作人
      * @throws BusinessCheckException
      */
     @Override
@@ -477,7 +475,9 @@ public class OrderServiceImpl extends BaseService implements OrderService {
                 o.setNum(Integer.parseInt(item[2]));
                 o.setPrice(item[0]);
                 o.setDiscount("0");
-                o.setImage(baseImage + coupon.getImage());
+                if (coupon.getImage().indexOf(baseImage) == -1) {
+                    o.setImage(baseImage + coupon.getImage());
+                }
                 goodsList.add(o);
             }
         }
@@ -494,7 +494,9 @@ public class OrderServiceImpl extends BaseService implements OrderService {
                 OrderGoodsDto o = new OrderGoodsDto();
                 o.setId(orderGoods.getId());
                 o.setName(goodsInfo.getName());
-                o.setImage(baseImage + goodsInfo.getLogo());
+                if (goodsInfo.getLogo().indexOf(baseImage) == -1) {
+                    o.setImage(baseImage + goodsInfo.getLogo());
+                }
                 o.setType(OrderTypeEnum.GOOGS.getKey());
                 o.setNum(orderGoods.getNum());
                 o.setSkuId(orderGoods.getSkuId());
@@ -555,5 +557,83 @@ public class OrderServiceImpl extends BaseService implements OrderService {
     @Override
     public Long getOrderCount() throws BusinessCheckException {
         return orderRepository.getOrderCount();
+    }
+
+    /**
+     * 获取支付总金额
+     * */
+    @Override
+    public BigDecimal getPayMoney() {
+        return orderRepository.getPayMoney();
+    }
+
+    /**
+     * 计算商品总价
+     * @param cartList
+     * @return
+     * */
+    @Override
+    public Map<String, Object> calculateCartGoods(List<MtCart> cartList) throws BusinessCheckException {
+        List<ResCartDto> cartDtoList = new ArrayList<>();
+        String basePath = env.getProperty("images.upload.url");
+        Integer totalNum = 0;
+        BigDecimal totalPrice = new BigDecimal("0");
+
+        if (cartList.size() > 0) {
+            for (MtCart cart : cartList) {
+                totalNum = totalNum + cart.getNum();
+                ResCartDto cartDto = new ResCartDto();
+                cartDto.setId(cart.getId());
+                cartDto.setGoodsId(cart.getGoodsId());
+                cartDto.setNum(cart.getNum());
+                cartDto.setSkuId(cart.getSkuId());
+                cartDto.setUserId(cart.getUserId());
+
+                if (cart.getSkuId() > 0) {
+                    List<GoodsSpecValueDto> specList = goodsService.getSpecListBySkuId(cart.getSkuId());
+                    cartDto.setSpecList(specList);
+                }
+
+                // 购物车商品信息
+                MtGoods mtGoodsInfo = goodsService.queryGoodsById(cart.getGoodsId());
+                if (StringUtils.isNotEmpty(mtGoodsInfo.getLogo()) && (mtGoodsInfo.getLogo().indexOf(basePath) == -1)) {
+                    mtGoodsInfo.setLogo(basePath + mtGoodsInfo.getLogo());
+                }
+
+                // 读取sku的数据
+                if (cart.getSkuId() > 0) {
+                    MtGoods mtGoods = new MtGoods();
+                    BeanUtils.copyProperties(mtGoodsInfo, mtGoods);
+                    MtGoodsSku mtGoodsSku = goodsSkuRepository.findOne(cart.getSkuId());
+                    if (mtGoodsSku != null) {
+                        if (StringUtils.isNotEmpty(mtGoodsSku.getLogo()) && (mtGoodsSku.getLogo().indexOf(basePath) == -1)) {
+                            mtGoods.setLogo(basePath + mtGoodsSku.getLogo());
+                        }
+                        if (mtGoodsSku.getWeight().compareTo(new BigDecimal("0")) > 0) {
+                            mtGoods.setWeight(mtGoodsSku.getWeight());
+                        }
+                        mtGoods.setPrice(mtGoodsSku.getPrice());
+                        mtGoods.setLinePrice(mtGoodsSku.getLinePrice());
+                        mtGoods.setStock(mtGoodsSku.getStock());
+                    }
+                    cartDto.setGoodsInfo(mtGoods);
+                } else {
+                    cartDto.setGoodsInfo(mtGoodsInfo);
+                }
+
+                // 计算总价
+                totalPrice = totalPrice.add(cartDto.getGoodsInfo().getPrice().multiply(new BigDecimal(cart.getNum())));
+
+                cartDtoList.add(cartDto);
+            }
+        }
+
+        Map<String, Object> result = new HashMap<>();
+
+        result.put("list", cartDtoList);
+        result.put("totalNum", totalNum);
+        result.put("totalPrice", totalPrice);
+
+        return result;
     }
 }

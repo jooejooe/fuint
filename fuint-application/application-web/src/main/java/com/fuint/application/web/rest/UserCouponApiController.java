@@ -72,12 +72,14 @@ public class UserCouponApiController extends BaseController {
     public ResponseObject detail(HttpServletRequest request, @RequestParam Map<String, Object> param) throws BusinessCheckException, InvocationTargetException, IllegalAccessException{
         String token = request.getHeader("Access-Token");
         Integer userCouponId = param.get("userCouponId") == null ? 0 : Integer.parseInt(param.get("userCouponId").toString());
+        String userCouponCode = param.get("userCouponCode") == null ? "" : param.get("userCouponCode").toString();
+
         int width = param.get("width") == null ? 800 : Integer.parseInt(param.get("width").toString());
         int height = param.get("height") == null ? 800 : Integer.parseInt(param.get("height").toString());
 
         // 参数有误
-        if (userCouponId <= 0) {
-            return getFailureResult(1001);
+        if (userCouponId <= 0 && StringUtils.isEmpty(userCouponCode)) {
+            return getFailureResult(1004);
         }
 
         if (StringUtils.isEmpty(token)) {
@@ -89,7 +91,13 @@ public class UserCouponApiController extends BaseController {
             return getFailureResult(1001);
         }
 
-        MtUserCoupon userCoupon = userCouponRepository.findOne(userCouponId);
+        MtUserCoupon userCoupon;
+        if (userCouponId > 0) {
+            userCoupon = userCouponRepository.findOne(userCouponId);
+        } else {
+            userCoupon = userCouponRepository.findByCode(userCouponCode);
+        }
+
         if (!mtUser.getId().equals(userCoupon.getUserId())) {
             MtConfirmer confirmInfo = confirmerService.queryConfirmerByUserId(mtUser.getId());
             if (null == confirmInfo) {

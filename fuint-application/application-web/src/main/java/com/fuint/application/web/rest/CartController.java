@@ -1,15 +1,10 @@
 package com.fuint.application.web.rest;
 
-import com.fuint.application.dao.entities.MtGoods;
 import com.fuint.application.dao.entities.MtCart;
-import com.fuint.application.dao.entities.MtGoodsSku;
 import com.fuint.application.dao.entities.MtUser;
-import com.fuint.application.dao.repositories.MtGoodsSkuRepository;
-import com.fuint.application.dto.GoodsSpecValueDto;
-import com.fuint.application.dto.ResCartDto;
 import com.fuint.application.enums.StatusEnum;
-import com.fuint.application.service.goods.GoodsService;
 import com.fuint.application.service.cart.CartService;
+import com.fuint.application.service.order.OrderService;
 import com.fuint.application.service.token.TokenService;
 import com.fuint.exception.BusinessCheckException;
 import com.fuint.application.ResponseObject;
@@ -17,12 +12,9 @@ import com.fuint.application.BaseController;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -50,16 +42,10 @@ public class CartController extends BaseController {
     private CartService cartService;
 
     /**
-     * 商品服务接口
+     * 订单服务接口
      * */
     @Autowired
-    private GoodsService goodsService;
-
-    @Autowired
-    private MtGoodsSkuRepository goodsSkuRepository;
-
-    @Autowired
-    private Environment env;
+    private OrderService orderService;
 
     private static final Logger logger = LoggerFactory.getLogger(CartController.class);
 
@@ -140,61 +126,7 @@ public class CartController extends BaseController {
             cartList.add(mtCart);
         }
 
-        List<ResCartDto> cartDtoList = new ArrayList<>();
-        String basePath = env.getProperty("images.upload.url");
-
-        Integer totalNum = 0;
-        BigDecimal totalPrice = new BigDecimal("0");
-        for (MtCart cart : cartList) {
-            totalNum = totalNum + cart.getNum();
-            ResCartDto cartDto = new ResCartDto();
-            cartDto.setId(cart.getId());
-            cartDto.setGoodsId(cart.getGoodsId());
-            cartDto.setNum(cart.getNum());
-            cartDto.setSkuId(cart.getSkuId());
-            cartDto.setUserId(cart.getUserId());
-
-            if (cart.getSkuId() > 0) {
-                List<GoodsSpecValueDto> specList = goodsService.getSpecListBySkuId(cart.getSkuId());
-                cartDto.setSpecList(specList);
-            }
-
-            // 购物车商品信息
-            MtGoods goodsInfo = goodsService.queryGoodsById(cart.getGoodsId());
-            if (StringUtils.isNotEmpty(goodsInfo.getLogo()) && (goodsInfo.getLogo().indexOf(basePath) == -1)) {
-                goodsInfo.setLogo(basePath + goodsInfo.getLogo());
-            }
-
-            // 读取sku的数据
-            if (cart.getSkuId() > 0) {
-                MtGoods mtGoods = new MtGoods();
-                BeanUtils.copyProperties(goodsInfo, mtGoods);
-                MtGoodsSku mtGoodsSku = goodsSkuRepository.findOne(cart.getSkuId());
-                if (mtGoodsSku != null) {
-                    if (StringUtils.isNotEmpty(mtGoodsSku.getLogo())) {
-                        mtGoods.setLogo(basePath + mtGoodsSku.getLogo());
-                    }
-                    if (mtGoodsSku.getWeight().compareTo(new BigDecimal("0")) > 0) {
-                        mtGoods.setWeight(mtGoodsSku.getWeight());
-                    }
-                    mtGoods.setPrice(mtGoodsSku.getPrice());
-                    mtGoods.setLinePrice(mtGoodsSku.getLinePrice());
-                    mtGoods.setStock(mtGoodsSku.getStock());
-                }
-                cartDto.setGoodsInfo(mtGoods);
-            } else {
-                cartDto.setGoodsInfo(goodsInfo);
-            }
-
-            // 计算总价
-            totalPrice = totalPrice.add(cartDto.getGoodsInfo().getPrice().multiply(new BigDecimal(cart.getNum())));
-
-            cartDtoList.add(cartDto);
-        }
-
-        result.put("list", cartDtoList);
-        result.put("totalNum", totalNum);
-        result.put("totalPrice", totalPrice);
+        result = orderService.calculateCartGoods(cartList);
 
         return getSuccessResult(result);
     }

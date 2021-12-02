@@ -1,10 +1,8 @@
 package com.fuint.application.web.backend.confirmer;
 
-import com.fuint.base.dao.entities.TAccount;
 import com.fuint.base.dao.pagination.PaginationRequest;
 import com.fuint.base.dao.pagination.PaginationResponse;
 import com.fuint.base.service.account.TAccountService;
-import com.fuint.base.shiro.util.ShiroUserHelper;
 import com.fuint.base.util.RequestHandler;
 import com.fuint.exception.BusinessCheckException;
 import com.fuint.exception.BusinessRuntimeException;
@@ -50,13 +48,7 @@ public class confirmerManagerController {
     private StoreService storeService;
 
     /**
-     * 后台员工账户服务接口
-     */
-    @Autowired
-    private TAccountService tAccountService;
-
-    /**
-     * 会员列表查询
+     * 员工列表查询
      *
      * @param request  HttpServletRequest对象
      * @param response HttpServletResponse对象
@@ -68,41 +60,35 @@ public class confirmerManagerController {
     public String queryList(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException {
         PaginationRequest paginationRequest = RequestHandler.buildPaginationRequest(request, model);
         String mobile = request.getParameter("LIKE_mobile");
-        String EQ_auditedStatus = request.getParameter("EQ_auditedStatus");
+        String auditedStatus = request.getParameter("EQ_auditedStatus");
+        String storeId = request.getParameter("EQ_storeId");
 
         Map<String, Object> params = paginationRequest.getSearchParams();
-        Map<String, Object> params_store = new HashMap<>();
-        params_store.put("EQ_mobile", mobile);
-
-        if (StringUtils.isNotEmpty(EQ_auditedStatus)) {
-            params.put("EQ_auditedStatus", EQ_auditedStatus);
+        Map<String, Object> paramsStore = new HashMap<>();
+        if (StringUtils.isNotEmpty(mobile)) {
+            paramsStore.put("EQ_mobile", mobile);
         }
-
-        // 登录员工所属店铺处理
-        Long accID = ShiroUserHelper.getCurrentShiroUser().getId();
-        TAccount tAccount = tAccountService.findAccountById(accID);
-        if (tAccount.getStoreId() == null || tAccount.getStoreId().equals(-1)) {
-            // 没有选择店铺的情况
-            if (tAccount.getStoreId() == null) {
-                params_store.put("EQ_id", "0");
-            }
-        } else {
-            params_store.put("EQ_id", tAccount.getStoreId().toString());
-            params.put("EQ_storeId", tAccount.getStoreId().toString());
+        if (StringUtils.isNotEmpty(auditedStatus)) {
+            params.put("EQ_auditedStatus", auditedStatus);
+        }
+        if (StringUtils.isNotEmpty(storeId)) {
+            paramsStore.put("EQ_storeId", storeId);
         }
 
         paginationRequest.setSearchParams(params);
         PaginationResponse<MtConfirmer> paginationResponse = confirmerService.queryConfirmerListByPagination(paginationRequest);
-        for (MtConfirmer m:paginationResponse.getContent()) {
-            MtStore tempStore = storeService.queryStoreById(m.getStoreId());
-            m.setStoreName(tempStore.getName());
+        for (MtConfirmer m : paginationResponse.getContent()) {
+            MtStore mtStore = storeService.queryStoreById(m.getStoreId());
+            if (mtStore != null) {
+                m.setStoreName(mtStore.getName());
+            }
         }
 
-        List<MtStore> storeList = storeService.queryStoresByParams(params_store);
+        List<MtStore> storeList = storeService.queryStoresByParams(paramsStore);
         model.addAttribute("paginationResponse", paginationResponse);
         model.addAttribute("params", params);
-
         model.addAttribute("storeList", storeList);
+
         return "confirmer/confirmer_list";
     }
 
@@ -192,13 +178,11 @@ public class confirmerManagerController {
      * 审核通过
      *
      * @param request
-     * @param response
-     * @param model
      * @return
      */
     @RequiresPermissions("backend/confirmer/doEdit")
     @RequestMapping(value = "/doEdit")
-    public String doEdit(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException {
+    public String doEdit(HttpServletRequest request) throws BusinessCheckException {
         String id_str = request.getParameter("id");
         Integer id = 0;
         if (StringUtils.isNotEmpty(id_str)) {
@@ -213,7 +197,6 @@ public class confirmerManagerController {
 
         String mobile = CommonUtil.replaceXSS(request.getParameter("mobile"));
         String realName = CommonUtil.replaceXSS(request.getParameter("realName"));
-        String auditedStatus = request.getParameter("auditedStatus");
 
         MtConfirmer mtConfirmer = confirmerService.queryConfirmerById(id);
         if (mtConfirmer == null && id > 0) {
@@ -222,22 +205,18 @@ public class confirmerManagerController {
 
         if (null == mtConfirmer) {
             mtConfirmer = new MtConfirmer();
+            mtConfirmer.setAuditedStatus(StatusEnum.UnAudited.getKey());
         }
 
         mtConfirmer.setStoreId(storeId);
         mtConfirmer.setRealName(realName);
         mtConfirmer.setMobile(mobile);
 
-        if (auditedStatus.equals(StatusEnum.ENABLED.getKey()) && !mtConfirmer.getAuditedStatus().equals(StatusEnum.ENABLED.getKey())) {
-            mtConfirmer.setAuditedTime(new Date());
-        }
-        mtConfirmer.setAuditedStatus(auditedStatus);
-
         if (StringUtils.isEmpty(mtConfirmer.getMobile())) {
             throw new BusinessRuntimeException("手机号码不能为空");
         } else {
             MtConfirmer tempUser = confirmerService.queryConfirmerByMobile(mtConfirmer.getMobile());
-            if (null != tempUser && tempUser.getId()!=mtConfirmer.getId()) {
+            if (null != tempUser && tempUser.getId() != mtConfirmer.getId()) {
                 throw new BusinessCheckException("该会员手机号码已经存在!");
             }
         }
