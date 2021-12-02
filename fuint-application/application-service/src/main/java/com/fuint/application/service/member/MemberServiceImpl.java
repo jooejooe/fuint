@@ -4,15 +4,12 @@ import com.fuint.application.dao.entities.MtUserGrade;
 import com.fuint.application.dao.repositories.MtUserGradeRepository;
 import com.fuint.application.service.opengift.OpenGiftService;
 import com.fuint.application.service.usergrade.UserGradeService;
-import com.fuint.application.util.DateUtil;
 import com.fuint.base.annoation.OperationServiceLog;
 import com.fuint.base.dao.pagination.PaginationRequest;
 import com.fuint.base.dao.pagination.PaginationResponse;
 import com.fuint.exception.BusinessCheckException;
 import com.fuint.exception.BusinessRuntimeException;
 import com.fuint.application.dao.entities.MtUser;
-import com.fuint.application.dao.entities.MtUserCoupon;
-import com.fuint.application.dao.repositories.MtUserCouponRepository;
 import com.fuint.application.dao.repositories.MtUserRepository;
 import com.fuint.application.enums.StatusEnum;
 import com.fuint.application.service.sms.SendSmsInterface;
@@ -50,9 +47,6 @@ public class MemberServiceImpl implements MemberService {
 
     @Autowired
     private TokenService tokenService;
-
-    @Autowired
-    private  MtUserCouponRepository mtUserCouponRepository;
 
     /**
      * 短信发送接口
@@ -94,26 +88,22 @@ public class MemberServiceImpl implements MemberService {
     @Override
     @OperationServiceLog(description = "添加会员")
     public MtUser addMember(MtUser mtUser) throws BusinessCheckException {
-        Boolean newFlag = Boolean.FALSE;
-        try {
-            // 创建时间
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            String dt = sdf.format(new Date());
-            Date addtime = sdf.parse(dt);
-            mtUser.setUpdateTime(addtime);
-            // 添加的时候需要加入插入时间
-            if (null == mtUser.getId()) {
-                newFlag = Boolean.TRUE;
-                mtUser.setCreateTime(addtime);
-                mtUser.setStatus(StatusEnum.ENABLED.getKey());
-                MtUser mtUser_1 = userRepository.queryMemberByMobile(mtUser.getMobile());
-                if (mtUser_1 != null) {
-                    throw new BusinessCheckException("手机号码已经存在");
-                }
-            }
-        } catch (ParseException e) {
-            throw new BusinessRuntimeException("日期转换异常" + e.getMessage());
+        MtUser userInfo = this.queryMemberByMobile(mtUser.getMobile());
+        if (userInfo != null) {
+            return userInfo;
         }
+
+        MtUserGrade grade = userGradeService.getInitUserGrade();
+        mtUser.setGradeId(grade.getId()+"");
+        mtUser.setDescription("");
+        mtUser.setAddress("");
+        mtUser.setBalance(new BigDecimal("0.00"));
+        mtUser.setPoint(0);
+        mtUser.setIdcard("");
+        mtUser.setSex(0);
+        mtUser.setStatus(StatusEnum.ENABLED.getKey());
+        mtUser.setCreateTime(new Date());
+        mtUser.setUpdateTime(new Date());
 
         userRepository.save(mtUser);
 
@@ -126,10 +116,9 @@ public class MemberServiceImpl implements MemberService {
         tokenService.removeTokenLikeMobile(mtUser.getMobile());
 
         // 新增用户发短信通知
-        if (newFlag.equals(Boolean.TRUE) && mtUser.getStatus().equals(StatusEnum.ENABLED.getKey())) {
+        if (mtUser.getId() > 0 && mtUser.getStatus().equals(StatusEnum.ENABLED.getKey())) {
             // 发送短信
             List<String> mobileList = new ArrayList<String>();
-
             mobileList.add(mtUser.getMobile());
             // 短信模板
             try {

@@ -145,7 +145,10 @@ public class GoodsServiceImpl implements GoodsService {
      */
     @Override
     public MtGoods queryGoodsById(Integer id) {
-        return goodsRepository.findOne(id);
+       MtGoods mtGoods = goodsRepository.findOne(id);
+       MtGoods goodsInfo = new MtGoods();
+       org.springframework.beans.BeanUtils.copyProperties(mtGoods, goodsInfo);
+       return goodsInfo;
     }
 
     /**

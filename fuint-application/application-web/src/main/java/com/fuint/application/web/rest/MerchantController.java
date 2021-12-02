@@ -17,6 +17,7 @@ import com.fuint.application.ResponseObject;
 import com.fuint.application.dao.entities.MtUser;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -73,7 +74,8 @@ public class MerchantController extends BaseController {
         outParams.put("confirmInfo", confirmInfo);
 
         // 收款额
-        outParams.put("payMoney", 0);
+        BigDecimal payMoney = orderService.getPayMoney();
+        outParams.put("payMoney", payMoney);
 
         // 会员数
         Long userCount = memberService.getUserCount();

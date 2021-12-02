@@ -25,10 +25,10 @@ public interface ConfirmerService {
     /**
      * 添加核销人员记录
      *
-     * @param reqConfirmerDto
+     * @param reqConfirmer
      * @throws BusinessCheckException
      */
-    MtConfirmer addConfirmer(MtConfirmer reqConfirmerDto) throws BusinessCheckException;
+    MtConfirmer addConfirmer(MtConfirmer reqConfirmer) throws BusinessCheckException;
 
     /**
      * 修改核销人员信息

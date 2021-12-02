@@ -94,38 +94,38 @@ public class ConfirmerServiceImpl implements ConfirmerService {
         try {
             // 格式可以自己根据需要修改
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            String dt=sdf.format(new Date());
+            String dt = sdf.format(new Date());
             Date addtime = sdf.parse(dt);
             reqConfirmerDto.setUpdateTime(addtime);
 
             // 编辑不需要重新写创建时间
-            if(null==reqConfirmerDto.getId()) {
+            if(null == reqConfirmerDto.getId()) {
                 reqConfirmerDto.setCreateTime(addtime);
                 reqConfirmerDto.setAuditedStatus(StatusEnum.UnAudited.getKey());
             } else if(reqConfirmerDto.getAuditedStatus().equals(StatusEnum.ENABLED.getKey()) ) {
                 Integer id = reqConfirmerDto.getId();
-                MtConfirmer mtConfirmer_temp;
-                mtConfirmer_temp = confirmerRepository.findOne(id);
+                MtConfirmer mtConfirmerTemp;
+                mtConfirmerTemp = confirmerRepository.findOne(id);
 
-                if (null == mtConfirmer_temp) {
+                if (null == mtConfirmerTemp) {
                     throw new BusinessCheckException("核销人员信息异常.");
                 }
 
                 // 关联userid
-                MtUser tmemberInfo = new MtUser();
-                tmemberInfo.setMobile(reqConfirmerDto.getMobile());
-                tmemberInfo.setName(reqConfirmerDto.getRealName());
-                MtUser mtUser_1 = memberService.queryMemberByMobile(reqConfirmerDto.getMobile());
+                MtUser mtUser = new MtUser();
+                mtUser.setMobile(reqConfirmerDto.getMobile());
+                mtUser.setName(reqConfirmerDto.getRealName());
+                MtUser mtUser1 = memberService.queryMemberByMobile(reqConfirmerDto.getMobile());
 
-                if (mtUser_1 == null) {
-                    mtUser_1 = memberService.addMember(tmemberInfo);
+                if (mtUser1 == null) {
+                    mtUser1 = memberService.addMember(mtUser);
                     smsFlag = Boolean.TRUE;
                 }
 
                 // 关联核销人员账户id
-                reqConfirmerDto.setUserId(mtUser_1.getId());
+                reqConfirmerDto.setUserId(mtUser1.getId());
                 reqConfirmerDto.setUpdateTime(new Date());
-                if (!mtConfirmer_temp.getAuditedStatus().equals(StatusEnum.ENABLED.getKey())) {
+                if (!mtConfirmerTemp.getAuditedStatus().equals(StatusEnum.ENABLED.getKey())) {
                     reqConfirmerDto.setAuditedTime(new Date());
                 }
 
@@ -159,7 +159,7 @@ public class ConfirmerServiceImpl implements ConfirmerService {
      * @throws BusinessCheckException
      */
     @Override
-    public MtConfirmer updateStore(MtConfirmer reqConfirmerDto) throws BusinessCheckException{
+    public MtConfirmer updateStore(MtConfirmer reqConfirmerDto) throws BusinessCheckException {
         MtConfirmer mtConfirmer = addConfirmer(reqConfirmerDto);
         return  mtConfirmer;
     }
@@ -203,28 +203,30 @@ public class ConfirmerServiceImpl implements ConfirmerService {
                 i = confirmerRepository.updateStatus(ids,statusEnum,currentDT);
                 if (StatusEnum.ENABLED.getKey().equals(statusEnum)) {
                     // 审核通过，转移到普通会员表
-                    for(Integer id : ids)
-                    {
-                        MtConfirmer mtConfirmer=confirmerRepository.findOne(id);
+                    for(Integer id : ids) {
+                        MtConfirmer mtConfirmer = confirmerRepository.findOne(id);
                         if(mtConfirmer != null) {
                             MtUser tmemberInfo = new MtUser();
                             tmemberInfo.setMobile(mtConfirmer.getMobile());
                             tmemberInfo.setName(mtConfirmer.getRealName());
-                            MtUser mtUser_1 = memberService.queryMemberByMobile(mtConfirmer.getMobile());
-                            if (mtUser_1 == null) {
-                                mtUser_1 = memberService.addMember(tmemberInfo);
+                            MtUser mtUser1 = memberService.queryMemberByMobile(mtConfirmer.getMobile());
+                            if (mtUser1 == null) {
+                                mtUser1 = memberService.addMember(tmemberInfo);
                             }
 
                             // 关联核销人员账户id
-                            mtConfirmer.setUserId(mtUser_1.getId());
+                            mtConfirmer.setUserId(mtUser1.getId());
                             mtConfirmer.setUpdateTime(currentDT);
                             mtConfirmer.setAuditedTime(currentDT);
                             confirmerRepository.save(mtConfirmer);
 
                             // 发送短信通知
-                            MtStore mtStore=storeService.queryStoreById(mtConfirmer.getStoreId());
+                            MtStore mtStore = storeService.queryStoreById(mtConfirmer.getStoreId());
+                            if (mtStore == null) {
+                                mtStore = new MtStore();
+                                mtStore.setName("全部店铺");
+                            }
                             mtConfirmer.setStoreName(mtStore.getName());
-                            Map<Boolean,List<String>> result = new HashMap<>();
                             List<String> mobileList = new ArrayList<String>();
                             mobileList.add(mtConfirmer.getMobile());
 
