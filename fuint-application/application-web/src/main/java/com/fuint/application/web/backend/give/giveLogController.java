@@ -25,7 +25,6 @@ import com.fuint.base.dao.pagination.PaginationResponse;
 import com.fuint.base.util.RequestHandler;
 import com.fuint.application.web.backend.base.BaseController;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.OutputStream;
@@ -35,7 +34,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
-
 import static com.fuint.application.util.XlsUtil.objectConvertToString;
 
 /**
