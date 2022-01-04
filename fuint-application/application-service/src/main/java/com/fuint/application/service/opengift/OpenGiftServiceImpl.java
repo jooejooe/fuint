@@ -112,6 +112,7 @@ public class OpenGiftServiceImpl extends BaseService implements OpenGiftService 
         PaginationResponse<OpenGiftDto> pageResponse = new PaginationResponse(page, OpenGiftDto.class);
         pageResponse.setContent(page.getContent());
         pageResponse.setCurrentPage(pageResponse.getCurrentPage() + 1);
+        pageResponse.setTotalPages(paginationResponse.getTotalPages());
 
         return getSuccessResult(pageResponse);
     }

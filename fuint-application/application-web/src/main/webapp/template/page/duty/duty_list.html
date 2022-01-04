@@ -49,9 +49,9 @@
                         <td>${ct.name}</td>
                         <td>
                             <#if ct.status == 'A'>
-                                有效
-                                <#elseif ct.status == 'D'>
-                                    无效
+                                <span class="status-active">有效</span>
+                            <#elseif ct.status == 'D'>
+                                <span class="status-disabled">无效</span>
                             </#if>
                         </td>
                         <td>${ct.describe}</td>

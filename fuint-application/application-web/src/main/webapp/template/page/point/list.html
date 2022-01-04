@@ -50,9 +50,9 @@
                         <td>${ct.createTime}</td>
                         <td>
                         <#if ct.status == "A">
-                            有效
+                            <span class="status-active">有效</span>
                         <#else>
-                            无效
+                            <span class="status-disabled">无效</span>
                         </#if>
                         </td>
                     </tr>

@@ -70,9 +70,9 @@
                         </td>
                         <td>
                             <#if ct.status == 'A'>
-                                有效
-                                <#else>
-                                    无效
+                            <span class="status-active">激活</span>
+                            <#else>
+                            <span class="status-disabled">禁用</span>
                             </#if>
                         </td>
                         <td>${ct.description}</td>

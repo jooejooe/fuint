@@ -502,6 +502,7 @@ public class CouponServiceImpl extends BaseService implements CouponService {
         Page page = new PageImpl(content, pageRequest, paginationResponse.getTotalElements());
         PaginationResponse<CouponDto> result = new PaginationResponse(page, CouponDto.class);
         result.setContent(content);
+        result.setTotalPages(paginationResponse.getTotalPages());
 
         return getSuccessResult(result);
     }

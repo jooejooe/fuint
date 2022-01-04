@@ -55,9 +55,9 @@
                         <td>${ct.description}</td>
                         <td>
                             <#if ct.status == "A">
-                               已激活
+                            <span class="status-active">激活</span>
                             <#else>
-                               已禁用
+                            <span class="status-disabled">禁用</span>
                            </#if>
                         </td>
                         <td>${ct.createTime}</td>

@@ -93,6 +93,7 @@ public class GiveServiceImpl extends BaseService implements GiveService {
         PaginationResponse pageResponse = new PaginationResponse(page, MtGive.class);
         pageResponse.setContent(page.getContent());
         pageResponse.setCurrentPage(pageResponse.getCurrentPage() + 1);
+        pageResponse.setTotalPages(pageResponse.getTotalPages());
 
         return pageResponse;
     }

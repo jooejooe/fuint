@@ -1,14 +1,12 @@
 package com.fuint.application.service.confirmer;
 
-import com.fuint.application.dao.entities.MtSendLog;
+import com.fuint.application.dao.entities.*;
+import com.fuint.application.dto.ConfirmLogDto;
 import com.fuint.base.annoation.OperationServiceLog;
 import com.fuint.base.dao.pagination.PaginationRequest;
 import com.fuint.base.dao.pagination.PaginationResponse;
 import com.fuint.exception.BusinessCheckException;
 import com.fuint.exception.BusinessRuntimeException;
-import com.fuint.application.dao.entities.MtStore;
-import com.fuint.application.dao.entities.MtUser;
-import com.fuint.application.dao.entities.MtConfirmer;
 import com.fuint.application.dao.repositories.MtConfirmerRepository;
 import com.fuint.application.enums.StatusEnum;
 import com.fuint.application.service.store.StoreService;
@@ -66,17 +64,7 @@ public class ConfirmerServiceImpl implements ConfirmerService {
      */
     @Override
     public PaginationResponse<MtConfirmer> queryConfirmerListByPagination(PaginationRequest paginationRequest) {
-        PageRequest pageRequest = new PageRequest(paginationRequest.getCurrentPage(), paginationRequest.getPageSize());
-        Page page = new PageImpl(new ArrayList(), pageRequest, 0);
-        PaginationResponse<MtConfirmer> paginationResponse = new PaginationResponse(page, MtSendLog.class);
-        paginationResponse.setContent(new ArrayList());
-
-        try {
-            paginationResponse = confirmerRepository.findResultsByPagination(paginationRequest);
-        } catch (RuntimeException e) {
-            return paginationResponse;
-        }
-
+        PaginationResponse<MtConfirmer> paginationResponse = confirmerRepository.findResultsByPagination(paginationRequest);
         return paginationResponse;
     }
 

@@ -23,7 +23,7 @@
                     <td> ${ct.name}</td>
                     <td> ${ct.code}</td>
                     <td> ${ct.content}</td>
-                    <td> <#if (ct.status == "A")>激活<#else>禁用</#if></td>
+                    <td> <#if (ct.status == "A")><span class="status-active">正常</span><#else><span class="status-disabled">禁用</span></#if></td>
                     <td> ${ct.createTime}</td>
                     <td>
                         <a class="label label-success small-btn" href="javascript:getData('${rc.contextPath}/backend/smsTemplate/editInit/${ct.id}','displayArea')" title="编辑"><i class="fa fa-edit"></i>编辑</a>

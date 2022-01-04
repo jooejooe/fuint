@@ -10,6 +10,7 @@
                 <th style="width: 10%">分组名称</th>
                 <th style="width: 10%">卡券数</th>
                 <th style="width: 10%">创建时间</th>
+                <th style="width: 10%">状态</th>
                 <th style="width: 10%">操作</th>
             </tr>
             </thead>
@@ -21,6 +22,13 @@
                     <td> ${ct.name}</td>
                     <td> <#if (ct.num > 0)>${ct.num} <#else> 0 </#if></td>
                     <td> ${ct.createTime}</td>
+                    <td>
+                        <#if ct.status == "A">
+                        <span class="status-active">有效</span>
+                        <#else>
+                        <span class="status-disabled">无效</span>
+                        </#if>
+                    </td>
                     <td>
                         <a class="label label-success small-btn" href="javascript:getData('${rc.contextPath}/backend/coupon/index?EQ_groupId=${ct.id}','displayArea');" title="卡券"><i class="fa fa-file-text"></i>卡券</a>
                         <a class="label label-success small-btn" href="javascript:getData('${rc.contextPath}/backend/couponGroup/couponGroupEditInit/${ct.id}','displayArea')" title="编辑"><i class="fa fa-edit"></i>编辑</a>

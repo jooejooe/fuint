@@ -58,7 +58,6 @@ public class ConfirmLogServiceImpl implements ConfirmLogService {
             MtUser userInfo = memberService.queryMemberById(log.getUserId());
             MtStore storeInfo = storeService.queryStoreById(log.getStoreId());
             MtCoupon couponInfo = couponService.queryCouponById(log.getCouponId());
-
             ConfirmLogDto item = new ConfirmLogDto();
             item.setId(log.getId());
             item.setCode(log.getCode());
@@ -72,13 +71,13 @@ public class ConfirmLogServiceImpl implements ConfirmLogService {
             item.setStatus(log.getStatus());
             item.setRemark(log.getRemark());
             item.setOperator(log.getOperator());
-
             content.add(item);
         }
 
-        PageRequest pageRequest = new PageRequest(paginationRequest.getCurrentPage(), paginationRequest.getPageSize());
+        PageRequest pageRequest = new PageRequest((paginationRequest.getCurrentPage() +1), paginationRequest.getPageSize());
         Page page = new PageImpl(content, pageRequest, paginationResponse.getTotalElements());
         PaginationResponse<ConfirmLogDto> result = new PaginationResponse(page, ConfirmLogDto.class);
+        result.setTotalPages(paginationResponse.getTotalPages());
         result.setContent(content);
 
         return result;

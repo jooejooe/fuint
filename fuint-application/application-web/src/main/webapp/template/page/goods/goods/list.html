@@ -56,9 +56,9 @@
                         <td>${ct.price}</td>
                         <td>
                             <#if ct.status == "A">
-                               上架
+                            <span class="status-active">上架</span>
                             <#else>
-                               下架
+                            <span class="status-disabled">下架</span>
                            </#if>
                         </td>
                         <td>${ct.createTime}</td>

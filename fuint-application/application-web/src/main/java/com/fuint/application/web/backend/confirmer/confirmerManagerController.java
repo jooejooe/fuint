@@ -2,7 +2,6 @@ package com.fuint.application.web.backend.confirmer;
 
 import com.fuint.base.dao.pagination.PaginationRequest;
 import com.fuint.base.dao.pagination.PaginationResponse;
-import com.fuint.base.service.account.TAccountService;
 import com.fuint.base.util.RequestHandler;
 import com.fuint.exception.BusinessCheckException;
 import com.fuint.exception.BusinessRuntimeException;
@@ -53,7 +52,7 @@ public class confirmerManagerController {
      * @param request  HttpServletRequest对象
      * @param response HttpServletResponse对象
      * @param model    SpringFramework Model对象
-     * @return 会员列表展现页面
+     * @return 员工列表展现页面
      */
     @RequiresPermissions("backend/confirmer/queryList")
     @RequestMapping(value = "/queryList")

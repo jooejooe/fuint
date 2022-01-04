@@ -37,9 +37,9 @@
                     <td> ${ct.createTime}</td>
                     <td>
                         <#if ct.status == "D">
-                        全部作废
+                        <span class="disabled-active" style="width: 60px;">全部作废</span>
                         <#elseif ct.status == "B">
-                        部分作废
+                        <span class="disabled-active" style="width: 60px;">部分作废</span>
                         <ul class="" style="list-style-type:none;padding-left: 0px;">
                             <li class="dropdown" >
                                 <a href="javascript:;" data-toggle="dropdown">
@@ -56,7 +56,7 @@
                             </li>
                         </ul>
                         <#else>
-                        正常
+                        <span class="status-active">正常</span>
                         </#if>
                     </td>
                     <td>
@@ -65,7 +65,7 @@
                         <#elseif ct.status == "B">
                         -
                         <#else>
-                        <a class="label label-danger small-btn" href="javascript:removeUserCoupon('${ct.id}')" title="作废所有券"><i class="fa fa-trash" ></i>全部作废</a></br>
+                        <a class="label label-danger small-btn" href="javascript:removeUserCoupon('${ct.id}')" title="作废所有券"><i class="fa fa-trash" ></i>作废</a></br>
                         </#if>
                     </td>
                 </tr>

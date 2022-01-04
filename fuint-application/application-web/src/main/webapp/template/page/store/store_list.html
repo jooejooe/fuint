@@ -57,8 +57,11 @@
                         <td>${ct.name}</td>
                         <td>${ct.contact}</td>
                         <td>${ct.phone}</td>
-                        <td> <#if ct.status == "A">已激活
-                            <#else>已禁用
+                        <td>
+                            <#if ct.status == "A">
+                            <span class="status-active">已激活</span>
+                            <#else>
+                            <span class="status-disabled">已禁用</span>
                            </#if>
                         </td>
                         <td>${ct.createTime}</td>

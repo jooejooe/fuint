@@ -58,16 +58,16 @@
 
                         <td>
                             <#if ct.accountStatus == 0>
-                                无效
-                                <#else>
-                                    有效
+                            <span class="status-disabled">无效</span>
+                            <#else>
+                            <span class="status-active">有效</span>
                             </#if>
                         </td>
                         <td>
                             <#if ct.isActive == 0>
-                                未激活
-                                <#else>
-                                    已激活
+                            <span class="status-disabled">未激活</span>
+                            <#else>
+                            <span class="status-active">已激活</span>
                             </#if>
                         </td>
                         <td>${ct.realName}</td>

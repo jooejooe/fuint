@@ -277,6 +277,36 @@ p, h1, h2, h3, h4, input {
 .do-confirm-form .remark {
     border: #00acac 1px solid;;
 }
+.status-active {
+    color: #52c41a;
+    background: #f6ffed;
+    border: #b7eb8f solid 1px;
+    padding: 2px;
+    border-radius: 10px;
+    display: block;
+    text-align: center;
+    width: 45px;
+}
+.status-disabled {
+    color: #f5222d;
+    background: #fff1f0;
+    border: #ffa39e solid 1px;
+    padding: 2px;
+    border-radius: 10px;
+    display: block;
+    text-align: center;
+    width: 45px;
+}
+.status-normal {
+    color: #666666;
+    background: #ffffff;
+    border: #666666 solid 1px;
+    padding: 2px;
+    border-radius: 10px;
+    display: block;
+    text-align: center;
+    width: 45px;
+}
 .avatar {
     width: 45px;
     height: 45px;

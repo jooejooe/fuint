@@ -51,7 +51,7 @@
                         <td>${ct.point}</td>
                         <td>${ct.createTime}</td>
                         <td>${ct.updateTime}</td>
-                        <td><#if ct.status == "A">启用<#else>禁用</#if></td>
+                        <td><#if ct.status == "A"><span class="status-active">启用</span><#else><span class="status-disabled">禁用</span></#if></td>
                         <td>${ct.operator}</td>
                         <td>
                             <a class="label label-success small-btn" href="javascript:getData('${rc.contextPath}/backend/openGift/edit/${ct.id}','displayArea');" title="编辑"><i class="fa fa-edit"></i>编辑</a>

@@ -158,6 +158,7 @@ public class OrderServiceImpl extends BaseService implements OrderService {
         PaginationResponse<UserOrderDto> pageResponse = new PaginationResponse(page, UserOrderDto.class);
         pageResponse.setContent(page.getContent());
         pageResponse.setCurrentPage(pageResponse.getCurrentPage() + 1);
+        pageResponse.setTotalPages(paginationResponse.getTotalPages());
 
         return getSuccessResult(pageResponse);
     }

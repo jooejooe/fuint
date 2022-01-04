@@ -69,9 +69,9 @@
                         <td>${ct.operator}</td>
                         <td>
                             <#if ct.status == "A">
-                            已使用
+                            <span class="status-active">已使用</span>
                             <#else>
-                            已撤销
+                            <span class="status-disabled">已撤销</span>
                             </#if>
                         </td>
                         <td>

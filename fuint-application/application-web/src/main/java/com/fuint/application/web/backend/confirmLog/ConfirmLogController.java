@@ -72,15 +72,15 @@ public class ConfirmLogController {
         // 登录员工所属店铺处理
         Long accID = ShiroUserHelper.getCurrentShiroUser().getId();
         TAccount tAccount = tAccountService.findAccountById(accID);
-        HashMap<String, Object> params_store = new HashMap<String, Object>();
+        HashMap<String, Object> paramsStore = new HashMap<String, Object>();
         if (tAccount.getStoreId() == null || tAccount.getStoreId().equals(-1)) {
             if (tAccount.getStoreId() == null) {
-                params_store.put("EQ_id", "0");
+                paramsStore.put("EQ_id", "0");
                 params.put("EQ_storeId", "0");
             }
-            storeList = storeService.queryStoresByParams(params_store);
+            storeList = storeService.queryStoresByParams(paramsStore);
         } else {
-            params_store.put("EQ_id",tAccount.getStoreId().toString());
+            paramsStore.put("EQ_id",tAccount.getStoreId().toString());
             params.put("EQ_storeId",tAccount.getStoreId().toString());
             List<Integer> ids = new ArrayList<Integer>();
             ids.add(tAccount.getStoreId().intValue());
