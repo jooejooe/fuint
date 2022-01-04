@@ -10,12 +10,13 @@
         <div class="confirm-form">
             <form id="confirmForm" name="confirmForm" method="post" onSubmit="return false;" class="form-horizontal">
                 <div class="form-group">
+                    <label class="col-md-2 control-label"><span class="requiredstar">*</span>核销码：</label>
                     <div class="col-md-6">
                         <input type="text" id="code" class="form-control qr-code" name="code" placeholder="使用扫码枪扫描卡券二维码，或手工输入核销码" rangelength="1,1000" required/>
                     </div>
                     <div class="col-md-3 do-confirm">
-                        <button type="button" class="btn confirm-btn btn-danger" onclick="toConfirm()">核销</button>
-                        <button type="button" class="btn btn-sm btn-default back-btn" onclick="getData('${rc.contextPath}/backend/home/index','displayArea')">返回</button>
+                        <button type="button" class="btn confirm-btn btn-danger" onclick="toConfirm()">确定核销</button>
+                        <button type="button" class="btn btn-sm btn-success back-btn" onclick="getData('${rc.contextPath}/backend/home/index','displayArea')">返回主页</button>
                     </div>
                 </div>
             </form>

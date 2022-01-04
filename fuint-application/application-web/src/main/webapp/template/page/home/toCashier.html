@@ -10,13 +10,13 @@
         <div class="cashier-form">
             <form id="cashierForm" name="cashierForm" method="post" onSubmit="return false;" class="form-horizontal">
                 <div class="form-group">
-                    <label class="col-md-3 control-label">手机号：</label>
+                    <label class="col-md-3 control-label"><span class="requiredstar">*</span>手机号：</label>
                     <div class="col-md-5">
                         <input type="text" id="mobile" class="form-control mobile" name="mobile" placeholder="请输入会员手机号，或使用扫码枪扫描会员二维码" rangelength="1,1000" required/>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-3 control-label">收款金额：</label>
+                    <label class="col-md-3 control-label"><span class="requiredstar">*</span>收款金额：</label>
                     <div class="col-md-5">
                         <input type="text" id="amount" class="form-control amount" name="amount" placeholder="请输入收款金额" rangelength="1,10" required/>
                     </div>
@@ -30,7 +30,7 @@
                 <div class="form-group">
                     <label class="col-md-3 control-label"></label>
                     <div class="col-md-9">
-                        <button type="button" class="btn btn-sm btn-default" onclick="getData('${rc.contextPath}/backend/home/index','displayArea')">返回</button>
+                        <button type="button" class="btn btn-sm btn-success" onclick="getData('${rc.contextPath}/backend/home/index','displayArea')">返回主页</button>
                         <button type="button" id="submitButton" class="btn btn-sm btn-danger" onclick="toCashier()">发起收款</button>
                     </div>
                 </div>
