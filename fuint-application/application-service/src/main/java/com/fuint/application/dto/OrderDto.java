@@ -16,6 +16,11 @@ public class OrderDto implements Serializable {
 	private String type;
 
 	/**
+	 * 支付类型
+	 * */
+	private String payType;
+
+	/**
 	 * 订单类型名称
 	 * */
 	private String orderMode;
@@ -126,6 +131,12 @@ public class OrderDto implements Serializable {
 	}
 	public void setType(String type){
 		this.type=type;
+	}
+	public String getPayType(){
+		return payType;
+	}
+	public void setPayType(String payType){
+		this.payType=payType;
 	}
 	public String getOrderMode() {
 		return orderMode;

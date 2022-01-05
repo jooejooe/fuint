@@ -1,7 +1,5 @@
 package com.fuint.application.dto;
 
-import com.fuint.application.dao.entities.MtOrderAddress;
-
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;

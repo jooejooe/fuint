@@ -16,7 +16,7 @@ import java.util.Map;
  * Contact wx fsq_better
  */
 public interface WeixinService {
-    ResponseObject createPrepayOrder(MtUser userInfo, MtOrder orderInfo, Integer payAmount, Integer giveAmount, String ip) throws BusinessCheckException;
+    ResponseObject createPrepayOrder(MtUser userInfo, MtOrder orderInfo, Integer payAmount, String authCode, Integer giveAmount, String ip) throws BusinessCheckException;
     boolean paymentCallback(UserOrderDto orderInfo) throws BusinessCheckException;;
     Map<String,String> processResXml(HttpServletRequest request);
     void processRespXml(HttpServletResponse response, boolean flag);

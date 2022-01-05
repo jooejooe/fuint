@@ -5,6 +5,7 @@ import com.fuint.application.ResponseObject;
 import com.fuint.application.service.confirmlog.ConfirmLogService;
 import com.fuint.application.service.member.MemberService;
 import com.fuint.application.service.order.OrderService;
+import com.fuint.application.dto.UserOrderDto;
 import com.fuint.exception.BusinessCheckException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -125,5 +126,23 @@ public class homeController {
     @RequestMapping(value = "/toCashier")
     public String toCashier(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException {
         return "home/toCashier";
+    }
+
+    /**
+     * 收款结果页面
+     *
+     * @param request
+     * @param response
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/cashierResult")
+    public String cashierResult(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException {
+        Integer orderId = request.getParameter("orderId") == null ? 0 : Integer.parseInt(request.getParameter("orderId"));
+
+        UserOrderDto orderInfo = orderService.getOrderById(orderId);
+        model.addAttribute("orderInfo", orderInfo);
+
+        return "home/cashierResult";
     }
 }

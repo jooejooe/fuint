@@ -33,10 +33,10 @@ public class MtOrder implements Serializable{
 	private String type;
 
 	/**
-	 * 订单类型名称
+	 * 支付类型
 	 * */
-	@Column(name = "TYPE_NAME", length = 30)
-	private String typeName;
+	@Column(name = "PAY_TYPE", length = 30)
+	private String payType;
 
 	/**
 	 * 订单模式
@@ -158,11 +158,11 @@ public class MtOrder implements Serializable{
 	public void setType(String type){
 	this.type=type;
 	}
-	public String getTypeName() {
-		return typeName;
+	public String getPayType() {
+		return payType;
 	}
-	public void setTypeName(String typeName) {
-		this.typeName=typeName;
+	public void setPayType(String payType) {
+		this.payType=payType;
 	}
 	public String getOrderMode() {
 		return orderMode;

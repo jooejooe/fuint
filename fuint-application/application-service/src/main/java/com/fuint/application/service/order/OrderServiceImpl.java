@@ -192,6 +192,8 @@ public class OrderServiceImpl extends BaseService implements OrderService {
         MtOrder.setPointAmount(orderDto.getPointAmount());
         MtOrder.setUsePoint(orderDto.getUsePoint());
         MtOrder.setOrderMode(orderDto.getOrderMode());
+        MtOrder.setPayType(orderDto.getPayType());
+        MtOrder.setOperator(orderDto.getOperator());
 
         // 扣减积分
         if (orderDto.getUsePoint() > 0) {
@@ -208,7 +210,6 @@ public class OrderServiceImpl extends BaseService implements OrderService {
 
         // 计算订单总金额
         List<MtCart> cartList = new ArrayList<>();
-        List<MtGoods> goodsList = new ArrayList<>();
         Map<String, Object> cartData = new HashMap<>();
         if (orderDto.getType().equals(OrderTypeEnum.GOOGS.getKey())) {
             Map<String, Object> param = new HashMap<>();

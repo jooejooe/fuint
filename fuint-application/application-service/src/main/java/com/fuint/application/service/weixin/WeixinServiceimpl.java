@@ -82,7 +82,7 @@ public class WeixinServiceimpl extends BaseService implements WeixinService {
     private Environment env;
 
     @Override
-    public ResponseObject createPrepayOrder(MtUser userInfo, MtOrder orderInfo, Integer payAmount, Integer giveAmount, String ip) throws BusinessCheckException {
+    public ResponseObject createPrepayOrder(MtUser userInfo, MtOrder orderInfo, Integer payAmount, String authCode, Integer giveAmount, String ip) throws BusinessCheckException {
         logger.debug("WeixinService createPrepayOrder inParams userInfo={} payAmount={} giveAmount={} goodsInfo={}", userInfo, payAmount, giveAmount, orderInfo);
 
         String goodsInfo = orderInfo.getOrderSn();
@@ -102,9 +102,22 @@ public class WeixinServiceimpl extends BaseService implements WeixinService {
             reqData.put("total_fee", payAmount.toString());
         }
         reqData.put("spbill_create_ip", ip);
-        reqData.put("notify_url", wxPayConfigImpl.getCallbackUrl());
-        reqData.put("trade_type", "JSAPI");
-        reqData.put("openid", userInfo.getOpenId());
+
+        if (orderInfo.getPayType().equals("JSAPI")) {
+            reqData.put("trade_type", orderInfo.getPayType() == null ? "JSAPI" : orderInfo.getPayType());
+            reqData.put("notify_url", wxPayConfigImpl.getCallbackUrl());
+        }
+        reqData.put("openid", userInfo.getOpenId() == null ? "" : userInfo.getOpenId());
+        if (StringUtils.isNotEmpty(authCode)) {
+            reqData.put("auth_code", authCode);
+        }
+
+        // 更新支付金额
+        BigDecimal payAmount1 = new BigDecimal(payAmount).divide(new BigDecimal("100"));
+        OrderDto reqDto = new OrderDto();
+        reqDto.setId(orderInfo.getId());
+        reqDto.setPayAmount(payAmount1);
+        orderService.updateOrder(reqDto);
 
         Map<String, String> respData = this.unifiedOrder(reqData);
         if (respData == null) {
@@ -117,6 +130,9 @@ public class WeixinServiceimpl extends BaseService implements WeixinService {
 
         //3.更新预支付订单号
         if (respData.get("return_code").equals("SUCCESS")) {
+            if (respData.get("result_code").equals("FAIL")) {
+                return getFailureResult(3000, respData.get("err_code_des"));
+            }
             String prepayId = respData.get("prepay_id");
 
             //组织返回参数
@@ -141,15 +157,8 @@ public class WeixinServiceimpl extends BaseService implements WeixinService {
             return getFailureResult(3000, "微信支付接口返回状态失败");
         }
 
-        // 更新支付金额
-        BigDecimal payAmount1 = new BigDecimal(payAmount).divide(new BigDecimal("100"));
-        OrderDto reqDto = new OrderDto();
-        reqDto.setId(orderInfo.getId());
-        reqDto.setPayAmount(payAmount1);
-        orderService.updateOrder(reqDto);
-
         ResponseObject responseObject = getSuccessResult(outParmas);
-        logger.debug("WXService createPrepayOrder outParams {} payAmount{}", responseObject.toString(), payAmount1);
+        logger.debug("WXService createPrepayOrder outParams {}", responseObject.toString());
 
         return responseObject;
     }
@@ -356,7 +365,24 @@ public class WeixinServiceimpl extends BaseService implements WeixinService {
             logger.info("调用微信支付下单接口入参{}", JsonUtil.toJSONString(reqData));
 
             WXPay wxPay = new WXPay(wxPayConfigImpl);
-            Map<String, String> respMap = wxPay.unifiedOrder(reqData);
+            Map<String, String> respMap;
+            String authCode = reqData.get("auth_code");
+            if (StringUtils.isNotEmpty(authCode)) {
+                respMap = wxPay.microPay(reqData);
+                // 支付结果
+                String orderSn = respMap.get("out_trade_no");
+                String resultCode = respMap.get("result_code");
+                if (StringUtils.isNotEmpty(orderSn) && resultCode.equals("SUCCESS")) {
+                    UserOrderDto orderInfo = orderService.getOrderByOrderSn(orderSn);
+                    if (orderInfo != null) {
+                        if (orderInfo.getStatus().equals(OrderStatusEnum.CREATED.getKey())) {
+                            this.paymentCallback(orderInfo);
+                        }
+                    }
+                }
+            } else {
+                respMap = wxPay.unifiedOrder(reqData);
+            }
 
             logger.info("调用微信支付下单接口返回{}", JsonUtil.toJSONString(respMap));
             return respMap;

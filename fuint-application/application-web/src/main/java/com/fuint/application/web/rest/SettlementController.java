@@ -5,10 +5,12 @@ import com.fuint.application.dto.OrderDto;
 import com.fuint.application.enums.OrderTypeEnum;
 import com.fuint.application.service.coupon.CouponService;
 import com.fuint.application.service.order.OrderService;
+import com.fuint.application.service.member.MemberService;
 import com.fuint.application.service.token.TokenService;
 import com.fuint.application.service.weixin.WeixinService;
 import com.fuint.application.service.usergrade.UserGradeService;
 import com.fuint.application.util.CommonUtil;
+import com.fuint.base.shiro.util.ShiroUserHelper;
 import com.fuint.exception.BusinessCheckException;
 import com.fuint.application.ResponseObject;
 import com.fuint.application.BaseController;
@@ -38,6 +40,12 @@ public class SettlementController extends BaseController {
      */
     @Autowired
     private TokenService tokenService;
+
+    /**
+     * 会员服务接口
+     * */
+    @Autowired
+    private MemberService memberService;
 
     /**
      * 订单服务接口
@@ -70,9 +78,24 @@ public class SettlementController extends BaseController {
     public ResponseObject submit(HttpServletRequest request, @RequestBody Map<String, Object> param) throws BusinessCheckException {
         String token = request.getHeader("Access-Token");
         MtUser userInfo = tokenService.getUserInfoByToken(token);
-        if (null == userInfo || StringUtils.isEmpty(token)) {
-            return getFailureResult(1001);
+
+        String operator = ShiroUserHelper.getCurrentShiroUser().getAcctName();
+        if ((null == userInfo || StringUtils.isEmpty(token))) {
+            String mobile = param.get("mobile") == null ? "" : param.get("mobile").toString();
+            if (StringUtils.isNotEmpty(operator) && StringUtils.isNotEmpty(mobile)) {
+                userInfo = memberService.queryMemberByMobile(mobile);
+                // 自动注册会员
+                if (null == userInfo) {
+                    userInfo = memberService.addMemberByMobile(mobile);
+                }
+                if (null == userInfo) {
+                    return getFailureResult(2001);
+                }
+            } else {
+                return getFailureResult(1001);
+            }
         }
+
         param.put("userId", userInfo.getId());
 
         Integer targetId = param.get("targetId") == null ? 0 : Integer.parseInt(param.get("targetId").toString()); // 预存卡、升级等级必填
@@ -81,13 +104,15 @@ public class SettlementController extends BaseController {
         String type = param.get("type") == null ? "" : param.get("type").toString();
         String payAmount = param.get("payAmount") == null ? "" : param.get("payAmount").toString();
         Integer usePoint = param.get("usePoint") == null ? 0 : Integer.parseInt(param.get("usePoint").toString());
+        String payType = param.get("payType") == null ? "JSAPI" : param.get("payType").toString();
+        String authCode = param.get("authCode") == null ? "" : param.get("authCode").toString();
 
         // 立即购买商品
         Integer goodsId = param.get("goodsId") == null ? 0 : Integer.parseInt(param.get("goodsId").toString());
         Integer skuId = param.get("skuId") == null ? 0 : Integer.parseInt(param.get("skuId").toString());
         Integer buyNum = param.get("buyNum") == null ? 1 : Integer.parseInt(param.get("buyNum").toString());
 
-        // 订单模式
+        // 订单模式(配送or自取)
         String orderMode = param.get("orderMode") == null ? "" : param.get("orderMode").toString();
 
         // 生成订单数据
@@ -100,6 +125,8 @@ public class SettlementController extends BaseController {
         orderDto.setSkuId(skuId);
         orderDto.setBuyNum(buyNum);
         orderDto.setOrderMode(orderMode);
+        orderDto.setOperator(operator);
+        orderDto.setPayType(payType);
 
         // 预存卡的订单
         if (orderDto.getType().equals(OrderTypeEnum.PRESTORE.getKey())) {
@@ -161,11 +188,13 @@ public class SettlementController extends BaseController {
         // 生成支付订单
         String ip = CommonUtil.getIPFromHttpRequest(request);
         BigDecimal realPayAmount = new BigDecimal(payAmount);
-        BigDecimal pay = realPayAmount.multiply(new BigDecimal("100"));
-        ResponseObject paymentInfo = weixinService.createPrepayOrder(userInfo, orderInfo, (pay.intValue()), 0, ip);
+        BigDecimal wxPayAmount = realPayAmount.multiply(new BigDecimal("100"));
+        ResponseObject paymentInfo = weixinService.createPrepayOrder(userInfo, orderInfo, (wxPayAmount.intValue()), authCode, 0, ip);
+        if (paymentInfo.getData() == null) {
+            return getFailureResult(3000);
+        }
 
         Map<String, Object> outParams = new HashMap();
-
         outParams.put("isCreated", true);
         outParams.put("payType", "wechat");
         outParams.put("orderInfo", orderInfo);

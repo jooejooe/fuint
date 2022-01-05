@@ -153,11 +153,12 @@ public class MemberServiceImpl implements MemberService {
      * @throws BusinessCheckException
      */
     @Override
-    @OperationServiceLog(description = "添加会员信息")
+    @OperationServiceLog(description = "自动注册会员信息")
     @Transactional
     public MtUser addMemberByMobile(String mobile) throws BusinessCheckException {
         MtUser mtUser = new MtUser();
-        mtUser.setName(mobile);
+        String nickName = mobile.replaceAll("(\\d{3})\\d{4}(\\d{4})","$1****$2");
+        mtUser.setName(nickName);
         mtUser.setMobile(mobile);
         MtUserGrade grade = userGradeService.getInitUserGrade();
         mtUser.setGradeId(grade.getId()+"");
@@ -165,7 +166,7 @@ public class MemberServiceImpl implements MemberService {
         mtUser.setUpdateTime(new Date());
         mtUser.setBalance(new BigDecimal("0.00"));
         mtUser.setPoint(0);
-        mtUser.setDescription("验证码登录自动注册");
+        mtUser.setDescription("手机号登录自动注册");
         mtUser.setIdcard("");
         mtUser.setStatus(StatusEnum.ENABLED.getKey());
 

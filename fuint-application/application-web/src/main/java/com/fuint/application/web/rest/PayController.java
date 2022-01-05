@@ -114,7 +114,7 @@ public class PayController extends BaseController {
         String ip = CommonUtil.getIPFromHttpRequest(request);
         BigDecimal realPayAmount = orderInfo.getAmount();
         BigDecimal pay = realPayAmount.multiply(new BigDecimal("100"));
-        ResponseObject paymentInfo = weixinService.createPrepayOrder(userInfo, orderInfo, (pay.intValue()), 0, ip);
+        ResponseObject paymentInfo = weixinService.createPrepayOrder(userInfo, orderInfo, (pay.intValue()), "", 0, ip);
 
         Map<String, Object> outParams = new HashMap();
 
