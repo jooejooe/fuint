@@ -5,6 +5,7 @@ import com.fuint.application.service.confirmer.ConfirmerService;
 import com.fuint.application.service.confirmlog.ConfirmLogService;
 import com.fuint.application.service.member.MemberService;
 import com.fuint.application.service.order.OrderService;
+import com.fuint.application.util.DateUtil;
 import com.fuint.exception.BusinessCheckException;
 import com.fuint.application.service.token.TokenService;
 import org.slf4j.Logger;
@@ -18,6 +19,7 @@ import com.fuint.application.dao.entities.MtUser;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -74,7 +76,9 @@ public class MerchantController extends BaseController {
         outParams.put("confirmInfo", confirmInfo);
 
         // 收款额
-        BigDecimal payMoney = orderService.getPayMoney();
+        Date beginTime = DateUtil.getDayBegin();
+        Date endTime = DateUtil.getDayEnd();
+        BigDecimal payMoney = orderService.getPayMoney(beginTime, endTime);
         outParams.put("payMoney", payMoney);
 
         // 会员数

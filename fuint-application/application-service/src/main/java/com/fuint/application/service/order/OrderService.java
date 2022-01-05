@@ -6,8 +6,8 @@ import com.fuint.application.dao.entities.MtOrder;
 import com.fuint.application.dto.OrderDto;
 import com.fuint.application.dto.UserOrderDto;
 import com.fuint.exception.BusinessCheckException;
-
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -83,5 +83,5 @@ public interface OrderService {
     /**
      * 获取支付金额
      * */
-    BigDecimal getPayMoney() throws BusinessCheckException;
+    BigDecimal getPayMoney(Date beginTime, Date endTime) throws BusinessCheckException;
 }

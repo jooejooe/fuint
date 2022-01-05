@@ -6,6 +6,7 @@ import com.fuint.application.service.confirmlog.ConfirmLogService;
 import com.fuint.application.service.member.MemberService;
 import com.fuint.application.service.order.OrderService;
 import com.fuint.application.dto.UserOrderDto;
+import com.fuint.application.util.DateUtil;
 import com.fuint.exception.BusinessCheckException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -49,7 +52,6 @@ public class homeController {
      */
     @RequestMapping(value = "/index")
     public String index(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException {
-
         // 会员数
         Long userCount = memberService.getUserCount();
 
@@ -57,7 +59,9 @@ public class homeController {
         Long orderCount = orderService.getOrderCount();
 
         // 收款额
-        Long totalPay = 0L;
+        Date beginTime = DateUtil.getDayBegin();
+        Date endTime = DateUtil.getDayEnd();
+        BigDecimal totalPay = orderService.getPayMoney(beginTime, endTime);
 
         // 核销券数
         Long confirmCount = confirmLogService.getConfirmCount();

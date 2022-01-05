@@ -565,8 +565,8 @@ public class OrderServiceImpl extends BaseService implements OrderService {
      * 获取支付总金额
      * */
     @Override
-    public BigDecimal getPayMoney() {
-        return orderRepository.getPayMoney();
+    public BigDecimal getPayMoney(Date beginTime, Date endTime) {
+        return orderRepository.getPayMoney(beginTime, endTime);
     }
 
     /**

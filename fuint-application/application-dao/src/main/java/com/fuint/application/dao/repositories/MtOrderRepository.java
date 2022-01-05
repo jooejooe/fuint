@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import com.fuint.application.dao.entities.MtOrder;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * mt_order Repository
@@ -36,7 +37,7 @@ public interface MtOrderRepository extends BaseRepository<MtOrder, Integer> {
     *
     * @return
     */
-   @Query("SELECT sum(t.amount) as num FROM MtOrder t where t.payStatus='B'")
-   BigDecimal getPayMoney();
+   @Query("SELECT sum(t.amount) as num FROM MtOrder t where t.payStatus='B' and t.payTime <= :endTime and t.payTime >= :beginTime")
+   BigDecimal getPayMoney( @Param("beginTime") Date beginTime, @Param("endTime") Date endTime);
 }
 

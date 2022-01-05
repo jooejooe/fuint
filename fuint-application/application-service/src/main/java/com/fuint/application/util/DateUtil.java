@@ -3,7 +3,7 @@ package com.fuint.application.util;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.apache.commons.lang.time.DateUtils;
-
+import java.util.GregorianCalendar;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -131,9 +131,7 @@ public class DateUtil {
     /**
      * 比较日期（年月日时分秒） 1 date1在date2之后（1 date1大于date2），-1 date1在date2之前（1 date1小于date2），0 date1=date2。
      */
-
     public static int dateCompare(Date date1, Date date2) {
-
         SimpleDateFormat dateFormat = new SimpleDateFormat(PATTERN_ISO_DATETIME);
         Date dateFirst = null;
         try {
@@ -151,4 +149,26 @@ public class DateUtil {
         }
     }
 
+    /**
+     * 当天开始时间
+     * */
+    public static Date getDayBegin() {
+       Calendar cal = new GregorianCalendar();
+       cal.set(Calendar.HOUR_OF_DAY, 0);
+       cal.set(Calendar.MINUTE, 0);
+       cal.set(Calendar.SECOND, 0);
+       cal.set(Calendar.MILLISECOND, 0);
+       return cal.getTime();
+    }
+
+    /**
+     * 当天结束时间
+     * */
+    public static Date getDayEnd() {
+       Calendar cal = new GregorianCalendar();
+       cal.set(Calendar.HOUR_OF_DAY, 23);
+       cal.set(Calendar.MINUTE, 59);
+       cal.set(Calendar.SECOND, 59);
+       return cal.getTime();
+    }
 }
