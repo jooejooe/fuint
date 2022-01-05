@@ -159,7 +159,7 @@ public class RefundServiceImpl extends BaseService implements RefundService {
      * 获取售后订单数量
      * */
     @Override
-    public Long getRefundCount() {
-        return refundRepository.getRefundCount();
+    public Long getRefundCount(Date beginTime, Date endTime) {
+        return refundRepository.getRefundCount(beginTime, endTime);
     }
 }

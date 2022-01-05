@@ -5,6 +5,8 @@ import com.fuint.base.dao.pagination.PaginationResponse;
 import com.fuint.exception.BusinessCheckException;
 import com.fuint.application.dto.ConfirmLogDto;
 
+import java.util.Date;
+
 /**
  * 核销记录业务接口
  * Created by FSQ
@@ -30,5 +32,5 @@ public interface ConfirmLogService {
     /**
      * 获取核销总数
      * */
-    Long getConfirmCount() throws BusinessCheckException;
+    Long getConfirmCount(Date beginTime, Date endTime) throws BusinessCheckException;
 }

@@ -99,7 +99,7 @@ public class ConfirmLogServiceImpl implements ConfirmLogService {
      * 获取核销数量
      * */
     @Override
-    public Long getConfirmCount() {
-        return confirmLogRepository.getConfirmLogCount();
+    public Long getConfirmCount(Date beginTime, Date endTime) {
+        return confirmLogRepository.getConfirmLogCount(beginTime, endTime);
     }
 }

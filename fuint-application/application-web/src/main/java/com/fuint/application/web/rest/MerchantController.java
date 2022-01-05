@@ -90,7 +90,7 @@ public class MerchantController extends BaseController {
         outParams.put("orderCount", orderCount);
 
         // 核销券数
-        Long confirmCount = confirmLogService.getConfirmCount();
+        Long confirmCount = confirmLogService.getConfirmCount(beginTime, endTime);
         outParams.put("couponCount", confirmCount);
 
         // 售后订单

@@ -6,6 +6,8 @@ import com.fuint.application.dto.RefundDto;
 import com.fuint.base.dao.pagination.PaginationRequest;
 import com.fuint.base.dao.pagination.PaginationResponse;
 import com.fuint.exception.BusinessCheckException;
+
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -56,5 +58,5 @@ public interface RefundService {
     /**
      * 获取订单总数
      * */
-    Long getRefundCount() throws BusinessCheckException;
+    Long getRefundCount(Date beginTime, Date endTime) throws BusinessCheckException;
 }

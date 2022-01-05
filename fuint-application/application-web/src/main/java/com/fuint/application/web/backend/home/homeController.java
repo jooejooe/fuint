@@ -6,6 +6,7 @@ import com.fuint.application.service.confirmlog.ConfirmLogService;
 import com.fuint.application.service.member.MemberService;
 import com.fuint.application.service.order.OrderService;
 import com.fuint.application.dto.UserOrderDto;
+import com.fuint.application.service.refund.RefundService;
 import com.fuint.application.util.DateUtil;
 import com.fuint.exception.BusinessCheckException;
 import org.slf4j.Logger;
@@ -40,6 +41,9 @@ public class homeController {
     private OrderService orderService;
 
     @Autowired
+    private RefundService refundService;
+
+    @Autowired
     private ConfirmLogService confirmLogService;
 
     /**
@@ -63,11 +67,11 @@ public class homeController {
         Date endTime = DateUtil.getDayEnd();
         BigDecimal totalPay = orderService.getPayMoney(beginTime, endTime);
 
-        // 核销券数
-        Long confirmCount = confirmLogService.getConfirmCount();
+        // 总核销券数
+        Long confirmCount = confirmLogService.getConfirmCount(beginTime, endTime);
 
         // 售后订单
-        Long refundCount = 0L;
+        Long refundCount = refundService.getRefundCount(beginTime, endTime);
 
         model.addAttribute("totalPay", totalPay);
         model.addAttribute("totalOrder", orderCount);

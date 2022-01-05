@@ -38,6 +38,6 @@ public interface MtOrderRepository extends BaseRepository<MtOrder, Integer> {
     * @return
     */
    @Query("SELECT sum(t.amount) as num FROM MtOrder t where t.payStatus='B' and t.payTime <= :endTime and t.payTime >= :beginTime")
-   BigDecimal getPayMoney( @Param("beginTime") Date beginTime, @Param("endTime") Date endTime);
+   BigDecimal getPayMoney(@Param("beginTime") Date beginTime, @Param("endTime") Date endTime);
 }
 
