@@ -61,6 +61,11 @@ public class UserOrderDto implements Serializable {
 	private BigDecimal discount;
 
 	/**
+	 * 积分金额
+	 * */
+	private BigDecimal pointAmount;
+
+	/**
 	 * 订单参数
 	 */
 	private String param;
@@ -179,6 +184,12 @@ public class UserOrderDto implements Serializable {
 	}
 	public void setDiscount(BigDecimal discount){
 		this.discount=discount;
+	}
+	public BigDecimal getPointAmount(){
+		return pointAmount;
+	}
+	public void setPointAmount(BigDecimal pointAmount){
+		this.pointAmount=pointAmount;
 	}
 	public String getParam(){
 		return param;

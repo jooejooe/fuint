@@ -56,10 +56,10 @@
                 url: "${rc.contextPath}/backend/member/saveSetting",
                 success: function (data) {
                     if (data.result) {
-                        layer.alert("保存成功");
+                        layer.alert("保存成功！");
                         return;
                     } else {
-                        layer.alert("保存失败");
+                        layer.alert("抱歉，保存失败！");
                         return;
                     }
                 }

@@ -25,7 +25,7 @@ public class GoodsDetailDto implements Serializable {
 	private Integer cateId;
 
 	/**
-	 * 商品编码
+	 * 商品条码
 	 */
 	private String goodsNo;
 

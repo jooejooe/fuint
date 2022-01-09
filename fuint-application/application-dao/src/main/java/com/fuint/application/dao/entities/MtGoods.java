@@ -40,7 +40,7 @@ public class MtGoods implements Serializable{
 	private Integer cateId;
 
    /**
-    * 商品编码 
+    * 商品条码
     */ 
 	@Column(name = "GOODS_NO", length = 100)
 	private String goodsNo;

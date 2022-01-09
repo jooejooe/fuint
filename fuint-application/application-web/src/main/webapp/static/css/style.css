@@ -350,7 +350,16 @@ p, h1, h2, h3, h4, input {
     padding: 10px 0px 0px 10px;
     border: solid 1px #cccccc;
     background: #F5F5F5;
+    font-size: 16px;
     border-radius: 3px;
+}
+.order-detail-info .item {
+    border: solid 1px #f0f0f0;
+    margin: 2px 0px 2px 0px;
+    height: 36px;
+}
+.order-detail-info .head {
+    font-weight: bold;
 }
 .order-detail-info .goods-logo {
     height: 45px;

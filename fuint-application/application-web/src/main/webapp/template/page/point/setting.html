@@ -15,7 +15,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-md-3 control-label">是否可当作现金使用：</label>
+                <label class="col-md-3 control-label">积分是否可当作现金使用：</label>
                 <div class="col-md-9">
                     <select class="form-control" name="canUsedAsMoney" id="canUsedAsMoney">
                         <option <#if (canUsedAsMoney == 'true')>selected</#if> value="true">是</option>
@@ -62,10 +62,10 @@
                 url: "${rc.contextPath}/backend/point/save",
                 success: function (data) {
                     if (data.result) {
-                        layer.alert("保存成功");
+                        layer.alert("保存成功！");
                         return;
                     } else {
-                        layer.alert("保存失败");
+                        layer.alert("抱歉，保存失败！");
                         return;
                     }
                 }

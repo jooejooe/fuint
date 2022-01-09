@@ -1,5 +1,9 @@
 package com.fuint.application.service.sms;
 
+import com.fuint.application.dao.entities.MtSmsSendedLog;
+import com.fuint.base.dao.pagination.PaginationRequest;
+import com.fuint.base.dao.pagination.PaginationResponse;
+import com.fuint.exception.BusinessCheckException;
 import java.util.List;
 import java.util.Map;
 
@@ -19,4 +23,12 @@ public interface SendSmsInterface {
      * @throws Exception
      */
     Map<Boolean,List<String>> sendSms(String template_uname, List<String> phones, Map<String, String> contentParams) throws Exception;
+
+    /**
+     * 分页已发短信列表
+     *
+     * @param paginationRequest
+     * @return
+     */
+    PaginationResponse<MtSmsSendedLog> querySmsListByPagination(PaginationRequest paginationRequest) throws BusinessCheckException;
 }

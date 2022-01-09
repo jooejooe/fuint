@@ -1,16 +1,18 @@
 package com.fuint.application.service.goods;
 
-import com.fuint.application.dao.entities.MtGoods;
-import com.fuint.application.dao.entities.MtGoodsSku;
-import com.fuint.application.dao.entities.MtGoodsSpec;
+import com.fuint.application.dao.entities.*;
 import com.fuint.application.dao.repositories.MtGoodsRepository;
 import com.fuint.application.dao.repositories.MtGoodsSkuRepository;
 import com.fuint.application.dao.repositories.MtGoodsSpecRepository;
+import com.fuint.application.dto.ConfirmLogDto;
 import com.fuint.application.dto.GoodsDto;
 import com.fuint.application.dto.GoodsSpecValueDto;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.core.env.Environment;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import com.fuint.base.annoation.OperationServiceLog;
 import com.fuint.base.dao.pagination.PaginationRequest;
@@ -48,6 +50,9 @@ public class GoodsServiceImpl implements GoodsService {
     @Autowired
     private Environment env;
 
+    @Autowired
+    private CateService cateService;
+
     /**
      * 分页查询商品列表
      *
@@ -55,9 +60,37 @@ public class GoodsServiceImpl implements GoodsService {
      * @return
      */
     @Override
-    public PaginationResponse<MtGoods> queryGoodsListByPagination(PaginationRequest paginationRequest) {
+    public PaginationResponse<GoodsDto> queryGoodsListByPagination(PaginationRequest paginationRequest) throws BusinessCheckException {
         PaginationResponse<MtGoods> paginationResponse = goodsRepository.findResultsByPagination(paginationRequest);
-        return paginationResponse;
+
+        List<GoodsDto> content = new ArrayList<>();
+        List<MtGoods> dataList = paginationResponse.getContent();
+        for (MtGoods mtGoods : dataList) {
+            MtGoodsCate cateInfo = cateService.queryCateById(mtGoods.getId());
+            GoodsDto item = new GoodsDto();
+            item.setId(mtGoods.getId());
+            item.setLogo(mtGoods.getLogo());
+            item.setName(mtGoods.getName());
+            item.setGoodsNo(mtGoods.getGoodsNo());
+            item.setCateId(mtGoods.getCateId());
+            item.setCateInfo(cateInfo);
+            item.setPrice(mtGoods.getPrice());
+            item.setLinePrice(mtGoods.getLinePrice());
+            item.setDescription(mtGoods.getDescription());
+            item.setCreateTime(mtGoods.getCreateTime());
+            item.setUpdateTime(mtGoods.getUpdateTime());
+            item.setStatus(mtGoods.getStatus());
+            item.setOperator(mtGoods.getOperator());
+            content.add(item);
+        }
+
+        PageRequest pageRequest = new PageRequest((paginationRequest.getCurrentPage() +1), paginationRequest.getPageSize());
+        Page page = new PageImpl(content, pageRequest, paginationResponse.getTotalElements());
+        PaginationResponse<GoodsDto> result = new PaginationResponse(page, ConfirmLogDto.class);
+        result.setTotalPages(paginationResponse.getTotalPages());
+        result.setContent(content);
+
+        return result;
     }
 
     /**

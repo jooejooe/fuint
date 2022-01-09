@@ -22,7 +22,7 @@ public interface GoodsService {
      * @param paginationRequest
      * @return
      */
-    PaginationResponse<MtGoods> queryGoodsListByPagination(PaginationRequest paginationRequest) throws BusinessCheckException;
+    PaginationResponse<GoodsDto> queryGoodsListByPagination(PaginationRequest paginationRequest) throws BusinessCheckException;
 
     /**
      * 保存商品

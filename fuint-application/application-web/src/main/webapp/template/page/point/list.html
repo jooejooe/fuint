@@ -32,7 +32,8 @@
             <thead>
             <tr>
                 <th>ID</th>
-                <th>会员信息</th>
+                <th>会员ID</th>
+                <th>会员名称</th>
                 <th>变动数量</th>
                 <th>备注说明</th>
                 <th>时间</th>
@@ -45,7 +46,8 @@
                     <tr>
                         <td>${ct.id}</td>
                         <td>${ct.userId}</td>
-                        <td>${ct.amount}</td>
+                        <td>${ct.userInfo.name}</td>
+                        <td><#if ct.amount gt 0><span style="color:#52c41a;">+${ct.amount}</span><#else><span style="color:#f5222d;">${ct.amount}</span></#if></td>
                         <td>${ct.description}</td>
                         <td>${ct.createTime}</td>
                         <td>

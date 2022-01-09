@@ -112,7 +112,8 @@ public class PayController extends BaseController {
 
         MtOrder orderInfo = orderRepository.findOne(Integer.parseInt(orderId));
         String ip = CommonUtil.getIPFromHttpRequest(request);
-        BigDecimal realPayAmount = orderInfo.getAmount();
+        // 实付金额 = 总金额 - 优惠金额 - 积分金额
+        BigDecimal realPayAmount = orderInfo.getAmount().subtract(new BigDecimal(orderInfo.getDiscount().toString())).subtract(new BigDecimal(orderInfo.getPointAmount().toString()));
         BigDecimal pay = realPayAmount.multiply(new BigDecimal("100"));
         ResponseObject paymentInfo = weixinService.createPrepayOrder(userInfo, orderInfo, (pay.intValue()), "", 0, ip);
 

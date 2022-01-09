@@ -1,8 +1,8 @@
 package com.fuint.application.dto;
 
+import com.fuint.application.dao.entities.MtGoodsCate;
 import com.fuint.application.dao.entities.MtGoodsSku;
 import com.fuint.application.dao.entities.MtGoodsSpec;
-
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -25,7 +25,12 @@ public class GoodsDto implements Serializable {
 	private Integer cateId;
 
 	/**
-	 * 商品编码
+	 * 分类信息
+	 * */
+	private MtGoodsCate cateInfo;
+
+	/**
+	 * 商品条码
 	 */
 	private String goodsNo;
 
@@ -141,6 +146,12 @@ public class GoodsDto implements Serializable {
 	}
 	public void setCateId(Integer cateId){
 		this.cateId=cateId;
+	}
+	public MtGoodsCate getCateInfo(){
+		return cateInfo;
+	}
+	public void setCateInfo(MtGoodsCate cateInfo){
+		this.cateInfo=cateInfo;
 	}
 	public String getGoodsNo(){
 		return goodsNo;

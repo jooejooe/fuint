@@ -17,7 +17,7 @@ import java.util.Map;
 public interface SmsTemplateService {
 
     /**
-     * 分页查询店铺列表
+     * 分页查询模板列表
      *
      * @param paginationRequest
      * @return

@@ -6,7 +6,7 @@
         <table class="table table-striped table-bordered">
             <thead>
             <tr>
-                <th style="width: 5%">ID</th>
+                <th style="width: 5%">模板ID</th>
                 <th style="width: 15%">名称</th>
                 <th style="width: 10%">代码</th>
                 <th style="width: 45%">内容</th>
@@ -40,6 +40,6 @@
         <!-- 分页组件 -->
         <!-- recordBean 分页查询结果Bean  action 分页请求URL formName 分页需要的查询参数的表单名称 -->
     <@sp.pagination recordBean=paginationResponse action="${rc.contextPath}/backend/smsTemplate/queryList"
-    area="activityGroupList" formName="activityGroupForm"/>
+    area="smsTemplateList" formName="smsTemplateForm"/>
     </div>
 </div>

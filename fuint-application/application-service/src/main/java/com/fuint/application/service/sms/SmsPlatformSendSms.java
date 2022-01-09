@@ -1,5 +1,10 @@
 package com.fuint.application.service.sms;
 
+import com.fuint.application.dao.entities.MtSmsSendedLog;
+import com.fuint.application.dao.entities.MtSmsTemplate;
+import com.fuint.application.dao.repositories.MtSmsSendedLogRepository;
+import com.fuint.base.dao.pagination.PaginationRequest;
+import com.fuint.base.dao.pagination.PaginationResponse;
 import com.fuint.exception.BusinessCheckException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +29,9 @@ public class SmsPlatformSendSms implements SendSmsInterface {
     private static final Logger logger = LoggerFactory.getLogger(SmsPlatformSendSms.class);
     @Resource
     private SmsPlatformService smsPlatformService;
+
+    @Autowired
+    private MtSmsSendedLogRepository smsSendedLogRepository;
 
     @Autowired
     private Environment env;
@@ -53,5 +61,18 @@ public class SmsPlatformSendSms implements SendSmsInterface {
         } else {
             throw new BusinessCheckException("推送短信平台,短信内容或者手机号码为空，请确认!");
         }
+    }
+
+    /**
+     * 分页查询已发短信列表
+     *
+     * @param paginationRequest
+     * @return
+     */
+    @Override
+    public PaginationResponse<MtSmsSendedLog> querySmsListByPagination(PaginationRequest paginationRequest) throws BusinessCheckException {
+        paginationRequest.setSortColumn(new String[]{"logId desc", "createTime desc"});
+        PaginationResponse<MtSmsSendedLog> paginationResponse = smsSendedLogRepository.findResultsByPagination(paginationRequest);
+        return paginationResponse;
     }
 }

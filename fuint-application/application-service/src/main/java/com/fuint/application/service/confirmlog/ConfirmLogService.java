@@ -4,7 +4,6 @@ import com.fuint.base.dao.pagination.PaginationRequest;
 import com.fuint.base.dao.pagination.PaginationResponse;
 import com.fuint.exception.BusinessCheckException;
 import com.fuint.application.dto.ConfirmLogDto;
-
 import java.util.Date;
 
 /**

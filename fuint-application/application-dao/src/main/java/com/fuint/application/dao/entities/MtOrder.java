@@ -19,8 +19,8 @@ import java.math.BigDecimal;
 @Table(name = "mt_order")
 public class MtOrder implements Serializable{
    /**
-    * 自增ID 
-    */ 
+    * 自增ID
+    */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID", nullable = false, length = 10)
@@ -61,6 +61,12 @@ public class MtOrder implements Serializable{
     */ 
 	@Column(name = "USER_ID", nullable = false, length = 10)
 	private Integer userId;
+
+	/**
+	 * 店铺ID
+	 */
+	@Column(name = "STORE_ID", nullable = false, length = 10)
+	private Integer storeId;
 
    /**
     * 订单金额 
@@ -187,6 +193,12 @@ public class MtOrder implements Serializable{
 	}
 	public void setUserId(Integer userId){
 	this.userId=userId;
+	}
+	public Integer getStoreId(){
+		return storeId;
+	}
+	public void setStoreId(Integer storeId){
+		this.storeId=storeId;
 	}
 	public BigDecimal getAmount(){
 		return amount;

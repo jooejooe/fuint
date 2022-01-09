@@ -1,5 +1,6 @@
 package com.fuint.application.web.backend.smsManager;
 
+import com.fuint.application.service.sms.SendSmsInterface;
 import com.fuint.exception.BusinessCheckException;
 import com.fuint.application.dao.entities.*;
 import com.fuint.application.service.smstemplate.SmsTemplateService;
@@ -34,7 +35,13 @@ public class smsManagerController {
     private SmsTemplateService smsTemplateService;
 
     /**
-     * 优惠分组列表查询
+     * 短信发送接口
+     */
+    @Autowired
+    private SendSmsInterface sendSmsService;
+
+    /**
+     * 已发短信列表查询
      *
      * @param request  HttpServletRequest对象
      * @param response HttpServletResponse对象
@@ -51,7 +58,7 @@ public class smsManagerController {
     }
 
     /**
-     * 查询优惠分组列表
+     * 查询已发短信列表
      *
      * @param request
      * @param response
@@ -63,7 +70,7 @@ public class smsManagerController {
     @RequiresPermissions("/backend/smsManager/queryList")
     public String queryList(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException {
         PaginationRequest paginationRequest = RequestHandler.buildPaginationRequest(request, model);
-        PaginationResponse<MtSmsTemplate> paginationResponse = smsTemplateService.querySmsTemplateListByPagination(paginationRequest);
+        PaginationResponse<MtSmsSendedLog> paginationResponse = sendSmsService.querySmsListByPagination(paginationRequest);
 
         model.addAttribute("paginationResponse", paginationResponse);
 

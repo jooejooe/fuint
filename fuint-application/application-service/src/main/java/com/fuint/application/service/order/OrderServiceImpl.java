@@ -147,7 +147,7 @@ public class OrderServiceImpl extends BaseService implements OrderService {
         List<UserOrderDto> dataList = new ArrayList<>();
         if (paginationResponse.getContent().size() > 0) {
             for (MtOrder order : paginationResponse.getContent()) {
-                UserOrderDto dto = this._dealOrderDetail(order, false);
+                UserOrderDto dto = this.getOrderDetail(order, false);
                 dataList.add(dto);
             }
         }
@@ -181,6 +181,7 @@ public class OrderServiceImpl extends BaseService implements OrderService {
         String orderSn = CommonUtil.createOrderSN(orderDto.getUserId()+"");
         MtOrder.setOrderSn(orderSn);
         MtOrder.setUserId(orderDto.getUserId());
+        MtOrder.setStoreId(orderDto.getStoreId());
         MtOrder.setCouponId(orderDto.getCouponId());
         MtOrder.setParam(orderDto.getParam());
         MtOrder.setRemark(orderDto.getRemark());
@@ -308,7 +309,7 @@ public class OrderServiceImpl extends BaseService implements OrderService {
     @Override
     public UserOrderDto getOrderById(Integer id) throws BusinessCheckException {
         MtOrder orderInfo = orderRepository.findOne(id);
-        return this._dealOrderDetail(orderInfo, true);
+        return this.getOrderDetail(orderInfo, true);
     }
 
     /**
@@ -320,7 +321,7 @@ public class OrderServiceImpl extends BaseService implements OrderService {
     @Override
     public UserOrderDto getOrderByOrderSn(String orderSn) throws BusinessCheckException {
         MtOrder orderInfo = orderRepository.findByOrderSn(orderSn);
-        return this._dealOrderDetail(orderInfo, true);
+        return this.getOrderDetail(orderInfo, true);
     }
 
     /**
@@ -399,7 +400,7 @@ public class OrderServiceImpl extends BaseService implements OrderService {
      * @param orderInfo
      * @return UserOrderDto
      * */
-    private UserOrderDto _dealOrderDetail(MtOrder orderInfo, boolean needAddress) throws BusinessCheckException {
+    private UserOrderDto getOrderDetail(MtOrder orderInfo, boolean needAddress) throws BusinessCheckException {
         UserOrderDto dto = new UserOrderDto();
 
         dto.setId(orderInfo.getId());
@@ -414,6 +415,7 @@ public class OrderServiceImpl extends BaseService implements OrderService {
         dto.setAmount(orderInfo.getAmount());
         dto.setPayAmount(orderInfo.getPayAmount());
         dto.setDiscount(orderInfo.getDiscount());
+        dto.setPointAmount(orderInfo.getPointAmount());
         dto.setStatus(orderInfo.getStatus());
         dto.setParam(orderInfo.getParam());
         dto.setPayStatus(orderInfo.getPayStatus());

@@ -56,6 +56,11 @@ public class OrderDto implements Serializable {
 	private Integer userId;
 
 	/**
+	 * 店铺ID
+	 * */
+	private Integer storeId;
+
+	/**
 	 * 订单金额
 	 */
 	private BigDecimal amount;
@@ -179,6 +184,12 @@ public class OrderDto implements Serializable {
 	}
 	public void setUserId(Integer userId){
 		this.userId=userId;
+	}
+	public Integer getStoreId(){
+		return storeId;
+	}
+	public void setStoreId(Integer storeId){
+		this.storeId=storeId;
 	}
 	public BigDecimal getAmount(){
 		return amount;

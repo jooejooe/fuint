@@ -8,10 +8,10 @@ import com.fuint.application.enums.StatusEnum;
 import com.fuint.application.service.goods.CateService;
 import com.fuint.application.util.CommonUtil;
 import com.fuint.exception.BusinessCheckException;
-import java.lang.reflect.InvocationTargetException;
 import com.fuint.base.shiro.util.ShiroUserHelper;
 import com.fuint.application.dao.entities.*;
 import com.fuint.application.dto.*;
+import com.fuint.application.dto.GoodsSpecItemDto;
 import com.fuint.application.service.goods.GoodsService;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -27,6 +27,7 @@ import com.fuint.base.dao.pagination.PaginationResponse;
 import com.fuint.base.util.RequestHandler;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.util.*;
 
@@ -73,7 +74,7 @@ public class goodsController {
     @RequiresPermissions("/backend/goods/goods/list")
     public String queryList(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException {
         PaginationRequest paginationRequest = RequestHandler.buildPaginationRequest(request, model);
-        PaginationResponse<MtGoods> paginationResponse = goodsService.queryGoodsListByPagination(paginationRequest);
+        PaginationResponse<GoodsDto> paginationResponse = goodsService.queryGoodsListByPagination(paginationRequest);
 
         String imagePath = env.getProperty("images.upload.url");
 

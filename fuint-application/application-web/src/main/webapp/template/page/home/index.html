@@ -20,7 +20,7 @@
                         </tr>
                         <tr>
                             <td>今日支付金额</td>
-                            <td>${totalPay}元</td>
+                            <td><#if totalPay gt 0>${totalPay}<#else>0.00</#if>元</td>
                         </tr>
                         <tr>
                             <td>核销券数</td>

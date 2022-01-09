@@ -1,6 +1,6 @@
 package com.fuint.application.web.rest;
 
-import com.fuint.application.dao.entities.MtPoint;
+import com.fuint.application.dto.PointDto;
 import com.fuint.application.enums.StatusEnum;
 import com.fuint.base.dao.pagination.PaginationRequest;
 import com.fuint.base.dao.pagination.PaginationResponse;
@@ -71,7 +71,7 @@ public class PointsController extends BaseController {
 
         PaginationRequest paginationRequest = RequestHandler.buildPaginationRequest(request, model);
         paginationRequest.setSearchParams(param);
-        PaginationResponse<MtPoint> paginationResponse = pointService.queryPointListByPagination(paginationRequest);
+        PaginationResponse<PointDto> paginationResponse = pointService.queryPointListByPagination(paginationRequest);
 
         return getSuccessResult(paginationResponse);
     }

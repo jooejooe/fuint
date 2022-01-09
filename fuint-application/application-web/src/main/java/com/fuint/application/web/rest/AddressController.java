@@ -105,10 +105,10 @@ public class AddressController extends BaseController {
         if (null == mtUser) {
             return getFailureResult(1001);
         } else {
-            param.put("EQ_userId", mtUser.getId().toString());
+            param.put("userId", mtUser.getId().toString());
         }
 
-        param.put("EQ_status", StatusEnum.ENABLED.getKey());
+        param.put("status", StatusEnum.ENABLED.getKey());
 
         List<MtAddress> addressList = addressService.queryListByParams(param);
 

@@ -67,7 +67,7 @@ public class MtUserGrade implements Serializable{
 	private Integer validDay;
 
    /**
-    * 享受折扣 
+    * 支付折扣
     */ 
 	@Column(name = "DISCOUNT")
 	private Float discount;

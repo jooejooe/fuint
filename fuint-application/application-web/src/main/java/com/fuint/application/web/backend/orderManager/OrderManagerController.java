@@ -1,7 +1,6 @@
 package com.fuint.application.web.backend.orderManager;
 
 import com.fuint.application.ResponseObject;
-import com.fuint.application.dao.entities.MtOrder;
 import com.fuint.application.dto.OrderDto;
 import com.fuint.application.dto.UserOrderDto;
 import com.fuint.application.enums.OrderStatusEnum;

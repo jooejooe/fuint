@@ -3,9 +3,11 @@ package com.fuint.application.web.rest;
 import com.fuint.application.dao.entities.*;
 import com.fuint.application.dto.OrderDto;
 import com.fuint.application.enums.OrderTypeEnum;
+import com.fuint.application.enums.SettingTypeEnum;
 import com.fuint.application.service.coupon.CouponService;
 import com.fuint.application.service.order.OrderService;
 import com.fuint.application.service.member.MemberService;
+import com.fuint.application.service.setting.SettingService;
 import com.fuint.application.service.token.TokenService;
 import com.fuint.application.service.weixin.WeixinService;
 import com.fuint.application.service.usergrade.UserGradeService;
@@ -14,6 +16,7 @@ import com.fuint.base.shiro.util.ShiroUserHelper;
 import com.fuint.exception.BusinessCheckException;
 import com.fuint.application.ResponseObject;
 import com.fuint.application.BaseController;
+import com.fuint.base.shiro.ShiroUser;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -71,6 +75,12 @@ public class SettlementController extends BaseController {
     @Autowired UserGradeService userGradeService;
 
     /**
+     * 配置服务接口
+     * */
+    @Autowired
+    private SettingService settingService;
+
+    /**
      * 结算提交
      */
     @RequestMapping(value = "/submit", method = RequestMethod.POST)
@@ -79,7 +89,12 @@ public class SettlementController extends BaseController {
         String token = request.getHeader("Access-Token");
         MtUser userInfo = tokenService.getUserInfoByToken(token);
 
-        String operator = ShiroUserHelper.getCurrentShiroUser().getAcctName();
+        String operator = null;
+        ShiroUser ShiroUser = ShiroUserHelper.getCurrentShiroUser();
+        if (ShiroUser != null) {
+            operator = ShiroUserHelper.getCurrentShiroUser().getAcctName();
+        }
+
         if ((null == userInfo || StringUtils.isEmpty(token))) {
             String mobile = param.get("mobile") == null ? "" : param.get("mobile").toString();
             if (StringUtils.isNotEmpty(operator) && StringUtils.isNotEmpty(mobile)) {
@@ -106,6 +121,7 @@ public class SettlementController extends BaseController {
         Integer usePoint = param.get("usePoint") == null ? 0 : Integer.parseInt(param.get("usePoint").toString());
         String payType = param.get("payType") == null ? "JSAPI" : param.get("payType").toString();
         String authCode = param.get("authCode") == null ? "" : param.get("authCode").toString();
+        Integer storeId = param.get("storeId") == null ? 0 : Integer.parseInt(param.get("storeId").toString());
 
         // 立即购买商品
         Integer goodsId = param.get("goodsId") == null ? 0 : Integer.parseInt(param.get("goodsId").toString());
@@ -119,8 +135,8 @@ public class SettlementController extends BaseController {
         OrderDto orderDto = new OrderDto();
         orderDto.setRemark(remark);
         orderDto.setUserId(userInfo.getId());
+        orderDto.setStoreId(storeId);
         orderDto.setType(type);
-        orderDto.setUsePoint(usePoint);
         orderDto.setGoodsId(goodsId);
         orderDto.setSkuId(skuId);
         orderDto.setBuyNum(buyNum);
@@ -152,7 +168,6 @@ public class SettlementController extends BaseController {
 
             orderDto.setParam(orderParam);
             orderDto.setAmount(totalAmount);
-
             payAmount = totalAmount.toString();
         }
 
@@ -163,13 +178,32 @@ public class SettlementController extends BaseController {
             if (userGrade.getDiscount() > 0) {
                 BigDecimal percent = new BigDecimal(userGrade.getDiscount()).divide(new BigDecimal("10"));
                 BigDecimal payAmountDiscount = new BigDecimal(payAmount).multiply(percent);
-                orderDto.setAmount(payAmountDiscount);
+                orderDto.setAmount(new BigDecimal(payAmount));
                 orderDto.setDiscount(new BigDecimal(payAmount).subtract(payAmountDiscount));
             } else {
                 orderDto.setAmount(new BigDecimal(payAmount));
                 orderDto.setDiscount(new BigDecimal("0"));
             }
-            orderDto.setPointAmount(new BigDecimal(usePoint));
+        }
+
+        // 使用积分抵扣
+        if (usePoint > 0) {
+            List<MtSetting> settingList = settingService.getSettingList(SettingTypeEnum.POINT.getKey());
+            String canUsedAsMoney = "false";
+            String exchangeNeedPoint = "0";
+            for (MtSetting setting : settingList) {
+                if (setting.getName().equals("canUsedAsMoney")) {
+                    canUsedAsMoney = setting.getValue();
+                } else if (setting.getName().equals("exchangeNeedPoint")) {
+                    exchangeNeedPoint = setting.getValue();
+                }
+            }
+            // 是否可以使用积分，并且积分数量足够
+            if (canUsedAsMoney.equals("true") && Float.parseFloat(exchangeNeedPoint) > 0 && (userInfo.getPoint() >= usePoint)) {
+                orderDto.setUsePoint(usePoint);
+                orderDto.setPointAmount(new BigDecimal(usePoint).divide(new BigDecimal(exchangeNeedPoint)));
+                orderDto.setAmount(new BigDecimal(payAmount).add(orderDto.getPointAmount()));
+            }
         }
 
         // 升级订单
@@ -178,7 +212,6 @@ public class SettlementController extends BaseController {
             MtUserGrade userGrade = userGradeService.queryUserGradeById(targetId);
             orderDto.setRemark("付费升级" + userGrade.getName());
             orderDto.setAmount(new BigDecimal(userGrade.getCatchValue().toString()));
-            payAmount = userGrade.getCatchValue().toString();
         }
 
         // 生成订单
@@ -187,7 +220,7 @@ public class SettlementController extends BaseController {
 
         // 生成支付订单
         String ip = CommonUtil.getIPFromHttpRequest(request);
-        BigDecimal realPayAmount = new BigDecimal(payAmount);
+        BigDecimal realPayAmount = orderInfo.getAmount().subtract(new BigDecimal(orderInfo.getDiscount().toString())).subtract(new BigDecimal(orderInfo.getPointAmount().toString()));
         BigDecimal wxPayAmount = realPayAmount.multiply(new BigDecimal("100"));
         ResponseObject paymentInfo = weixinService.createPrepayOrder(userInfo, orderInfo, (wxPayAmount.intValue()), authCode, 0, ip);
         if (paymentInfo.getData() == null) {

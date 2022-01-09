@@ -1,7 +1,7 @@
 package com.fuint.application.web.backend.point;
 
-import com.fuint.application.dao.entities.MtPoint;
 import com.fuint.application.dao.entities.MtSetting;
+import com.fuint.application.dto.PointDto;
 import com.fuint.application.dto.ReqResult;
 import com.fuint.application.enums.PointSettingEnum;
 import com.fuint.application.enums.SettingTypeEnum;
@@ -60,7 +60,7 @@ public class PointController {
     public String index(HttpServletRequest request, Model model) throws BusinessCheckException {
         PaginationRequest paginationRequest = RequestHandler.buildPaginationRequest(request, model);
 
-        PaginationResponse<MtPoint> paginationResponse = pointService.queryPointListByPagination(paginationRequest);
+        PaginationResponse<PointDto> paginationResponse = pointService.queryPointListByPagination(paginationRequest);
 
         model.addAttribute("paginationResponse", paginationResponse);
 

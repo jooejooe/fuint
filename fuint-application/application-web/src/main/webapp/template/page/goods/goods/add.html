@@ -22,13 +22,13 @@
                 <form class="form-horizontal" id="baseForm" name="baseForm" action="" method="post">
                     <input type="hidden" class="form-control" name="goodsId" value="${goods.id}"/>
                     <div class="form-group">
-                        <label class="col-md-3 control-label">商品名称：</label>
+                        <label class="col-md-3 control-label"><span class="requiredstar">* </span>商品名称：</label>
                         <div class="col-md-9">
                             <input type="text" id="name" class="form-control" name="name" value="${goods.name}" placeholder="商品名称，长度1-100" rangelength="1, 100" required>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-md-3 control-label">商品分类：</label>
+                        <label class="col-md-3 control-label"><span class="requiredstar">* </span>商品分类：</label>
                         <div class="col-md-2">
                             <select class="form-control" name="cateId" id="cateId">
                                <#list cateList as cate><option value="${cate.id}" <#if (cate.id == goods.cateId)>selected</#if>>${cate.name}</option></#list>
@@ -36,13 +36,13 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-md-3 control-label">商品编码：</label>
+                        <label class="col-md-3 control-label"><span class="requiredstar">* </span>商品条码：</label>
                         <div class="col-md-9">
-                            <input type="text" id="goodsNo" class="form-control" value="${goods.goodsNo}" name="goodsNo" placeholder="商品编码，长度1-100" rangelength="1, 100" required>
+                            <input type="text" id="goodsNo" class="form-control" value="${goods.goodsNo}" name="goodsNo" placeholder="商品条码，长度1-100" rangelength="1, 100" required>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-md-3 control-label">商品图片：</label>
+                        <label class="col-md-3 control-label"><span class="requiredstar">* </span>商品图片：</label>
                         <div class="col-md-9">
                             <div class="upload-list">
                                 <#if images?size gt 0>
@@ -67,7 +67,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-md-3 control-label">排序：</label>
+                        <label class="col-md-3 control-label"><span class="requiredstar">* </span>排序：</label>
                         <div class="col-md-9">
                             <input type="text" id="sort" class="form-control" value="${goods.sort}" name="sort" placeholder="排序，正整数" rangelength="1, 10" required/>
                         </div>
@@ -96,11 +96,11 @@
                     <div class="form-group">
                         <label class="col-md-3 control-label">商品卖点：</label>
                         <div class="col-md-9">
-                            <input type="text" id="salePoint" class="form-control" name="salePoint" value="${goods.salePoint}" placeholder="商品卖点" rangelength="1, 100" required>
+                            <input type="text" id="salePoint" class="form-control" name="salePoint" value="${goods.salePoint}" placeholder="商品卖点" rangelength="1, 100">
                         </div>
                     </div>
                     <div class="form-group clearfix">
-                        <label class="col-md-3 control-label">积分抵扣：</label>
+                        <label class="col-md-3 control-label"><span class="requiredstar">* </span>积分抵扣：</label>
                         <div class="col-md-9">
                             <div class="goods-spec-type">
                                 <label class="spec-type"><input type="radio" <#if (goods.canUsePoint=='Y')>checked</#if> value="Y" name="canUsePoint">开启</label>
@@ -109,22 +109,22 @@
                         </div>
                     </div>
                     <div class="form-group clearfix">
-                        <label class="col-md-3 control-label">会员折扣：</label>
+                        <label class="col-md-3 control-label"><span class="requiredstar">* </span>会员折扣：</label>
                         <div class="col-md-9">
                             <div class="goods-spec-type">
-                                <label class="spec-type"><input type="radio" value="Y" <#if (goods.isMemberDiscount=='Y')>checked</#if> name="isMemberDiscount">开启</label>
-                                <label class="spec-type"><input type="radio" value="N" <#if (goods.isMemberDiscount=='N')>checked</#if> name="isMemberDiscount">关闭</label>
+                                <label class="spec-type"><input type="radio" value="Y" <#if (goods.isMemberDiscount=='Y')>checked</#if> name="isMemberDiscount">有折扣</label>
+                                <label class="spec-type"><input type="radio" value="N" <#if (goods.isMemberDiscount=='N')>checked</#if> name="isMemberDiscount">无折扣</label>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-3 control-label">初始销量：</label>
                         <div class="col-md-9">
-                            <input type="text" id="initSale" class="form-control" name="initSale" value="${goods.initSale}" placeholder="初始销量，正整数" rangelength="1, 10" required>
+                            <input type="text" id="initSale" class="form-control" name="initSale" value="${goods.initSale}" placeholder="初始销量，正整数" rangelength="1, 10">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-md-3 control-label">规格类型：</label>
+                        <label class="col-md-3 control-label"><span class="requiredstar">* </span>规格类型：</label>
                         <div class="col-md-9">
                             <div class="goods-spec-type">
                                 <label class="spec-type"><input type="radio" <#if (goods.isSingleSpec=='Y')>checked</#if> value="Y" name="isSingleSpec">单规格</label>
@@ -135,27 +135,27 @@
                     <!--单规格 start-->
                     <div class="single-spec" <#if (goods.isSingleSpec=='N')>style="display:none;"</#if>>
                         <div class="form-group">
-                            <label class="col-md-3 control-label">商品价格：</label>
+                            <label class="col-md-3 control-label"><span class="requiredstar">* </span>商品价格：</label>
                             <div class="col-md-9">
-                                <input type="text" id="price" class="form-control" name="price" value="${goods.price}" placeholder="商品价格" rangelength="1, 100" required>
+                                <input type="text" id="price" class="form-control" name="price" value="${goods.price}" placeholder="商品价格" rangelength="1,100">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-3 control-label">划线价格：</label>
                             <div class="col-md-9">
-                                <input type="text" id="linePrice" class="form-control" name="linePrice" value="${goods.linePrice}" placeholder="划线价格，长度1-100" rangelength="1, 100" required>
+                                <input type="text" id="linePrice" class="form-control" name="linePrice" value="${goods.linePrice}" placeholder="划线价格，长度1-100" rangelength="1, 100">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-3 control-label">库存数量：</label>
                             <div class="col-md-9">
-                                <input type="text" id="stock" class="form-control" name="stock" value="${goods.stock}" placeholder="正整数" rangelength="1, 10" required>
+                                <input type="text" id="stock" class="form-control" name="stock" value="${goods.stock}" placeholder="正整数" rangelength="1, 10">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-3 control-label">商品重量：</label>
                             <div class="col-md-9">
-                                <input type="text" id="weight" class="form-control" name="weight" value="${goods.weight}" placeholder="正整数" rangelength="1, 10" required>
+                                <input type="text" id="weight" class="form-control" name="weight" value="${goods.weight}" placeholder="正整数" rangelength="1, 10">
                             </div>
                         </div>
                     </div>
@@ -197,7 +197,7 @@
             </div>
             <div class="tab-pane fade" id="detail-info-tab">
                 <form class="form-horizontal" id="detailForm" name="detailForm" action="" method="post">
-                    <input type="hidden" class="form-control" name="goodsId" value="${goods.id}" required/>
+                    <input type="hidden" class="form-control" name="goodsId" value="${goods.id}"/>
                     <div class="form-group">
                         <label class="col-md-3 control-label"></label>
                         <div class="col-md-9">
