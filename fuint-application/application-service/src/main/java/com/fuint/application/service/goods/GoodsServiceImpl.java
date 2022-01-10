@@ -134,13 +134,13 @@ public class GoodsServiceImpl implements GoodsService {
         if (reqDto.getSort() > 0) {
             mtGoods.setSort(reqDto.getSort());
         }
-        if (reqDto.getPrice().compareTo(new BigDecimal("0")) > 0) {
+        if (reqDto.getPrice() != null) {
             mtGoods.setPrice(reqDto.getPrice());
         }
-        if (reqDto.getLinePrice().compareTo(new BigDecimal("0")) > 0) {
+        if (reqDto.getLinePrice() != null) {
             mtGoods.setLinePrice(reqDto.getLinePrice());
         }
-        if (reqDto.getWeight().compareTo(new BigDecimal("0")) > 0) {
+        if (reqDto.getWeight() != null) {
             mtGoods.setWeight(reqDto.getWeight());
         }
         if (reqDto.getInitSale() > 0) {
