@@ -9,12 +9,16 @@ import com.fuint.application.dto.*;
 import com.fuint.application.enums.StatusEnum;
 import com.fuint.application.service.goods.GoodsService;
 import com.fuint.application.service.goods.CateService;
+import com.fuint.base.dao.pagination.PaginationRequest;
+import com.fuint.base.dao.pagination.PaginationResponse;
+import com.fuint.base.util.RequestHandler;
 import com.fuint.exception.BusinessCheckException;
 import com.fuint.application.ResponseObject;
 import com.fuint.application.BaseController;
 import jodd.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.InvocationTargetException;
@@ -96,6 +100,18 @@ public class GoodsApiController extends BaseController {
         List<MtGoods> goodsList = goodsService.queryGoodsListByParams(param);
 
         return getSuccessResult(goodsList);
+    }
+
+    /**
+     * 搜索商品
+     * */
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    @CrossOrigin
+    public ResponseObject search(HttpServletRequest request, Model model) throws BusinessCheckException {
+        PaginationRequest paginationRequest = RequestHandler.buildPaginationRequest(request, model);
+        PaginationResponse<GoodsDto> paginationResponse = goodsService.queryGoodsListByPagination(paginationRequest);
+
+        return getSuccessResult(paginationResponse);
     }
 
     /**

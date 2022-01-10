@@ -85,7 +85,7 @@ public class PointController {
                 model.addAttribute("pointNeedConsume", setting.getValue());
             } else if (setting.getName().equals("canUsedAsMoney")) {
                 model.addAttribute("canUsedAsMoney", setting.getValue());
-            }else if (setting.getName().equals("exchangeNeedPoint")) {
+            } else if (setting.getName().equals("exchangeNeedPoint")) {
                 model.addAttribute("exchangeNeedPoint", setting.getValue());
             } else if (setting.getName().equals("rechargePointSpeed")) {
                 model.addAttribute("rechargePointSpeed", setting.getValue());

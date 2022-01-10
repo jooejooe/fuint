@@ -65,17 +65,24 @@ public class GoodsServiceImpl implements GoodsService {
 
         List<GoodsDto> content = new ArrayList<>();
         List<MtGoods> dataList = paginationResponse.getContent();
+
+        String basePath = env.getProperty("images.upload.url");
+
         for (MtGoods mtGoods : dataList) {
             MtGoodsCate cateInfo = cateService.queryCateById(mtGoods.getId());
             GoodsDto item = new GoodsDto();
             item.setId(mtGoods.getId());
-            item.setLogo(mtGoods.getLogo());
+            item.setInitSale(mtGoods.getInitSale());
+            if (StringUtils.isNotEmpty(mtGoods.getLogo())) {
+                item.setLogo(basePath + mtGoods.getLogo());
+            }
             item.setName(mtGoods.getName());
             item.setGoodsNo(mtGoods.getGoodsNo());
             item.setCateId(mtGoods.getCateId());
             item.setCateInfo(cateInfo);
             item.setPrice(mtGoods.getPrice());
             item.setLinePrice(mtGoods.getLinePrice());
+            item.setSalePoint(mtGoods.getSalePoint());
             item.setDescription(mtGoods.getDescription());
             item.setCreateTime(mtGoods.getCreateTime());
             item.setUpdateTime(mtGoods.getUpdateTime());
