@@ -1,6 +1,7 @@
 package com.fuint.application.web.rest;
 
 import com.alibaba.fastjson.JSONObject;
+import com.fuint.application.config.Constants;
 import com.fuint.application.dao.entities.MtGoodsCate;
 import com.fuint.application.dao.entities.MtGoods;
 import com.fuint.application.dao.entities.MtGoodsSku;
@@ -11,14 +12,14 @@ import com.fuint.application.service.goods.GoodsService;
 import com.fuint.application.service.goods.CateService;
 import com.fuint.base.dao.pagination.PaginationRequest;
 import com.fuint.base.dao.pagination.PaginationResponse;
-import com.fuint.base.util.RequestHandler;
 import com.fuint.exception.BusinessCheckException;
 import com.fuint.application.ResponseObject;
 import com.fuint.application.BaseController;
 import jodd.util.StringUtil;
+import org.apache.commons.collections.map.HashedMap;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.InvocationTargetException;
@@ -105,10 +106,30 @@ public class GoodsApiController extends BaseController {
     /**
      * 搜索商品
      * */
-    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    @RequestMapping(value = "/search", method = RequestMethod.POST)
     @CrossOrigin
-    public ResponseObject search(HttpServletRequest request, Model model) throws BusinessCheckException {
-        PaginationRequest paginationRequest = RequestHandler.buildPaginationRequest(request, model);
+    public ResponseObject search(HttpServletRequest request, @RequestBody Map<String, Object> params) throws BusinessCheckException {
+        Integer page = params.get("page") == null ? 1 : Integer.parseInt(params.get("page").toString());
+        Integer pageSize = params.get("pageSize") == null ? Constants.PAGE_SIZE : Integer.parseInt(params.get("pageSize").toString());
+        String name = params.get("name") == null ? "" : params.get("name").toString();
+        Integer cateId = params.get("cateId") == null ? 0 : Integer.parseInt(params.get("cateId").toString());
+
+        PaginationRequest paginationRequest = new PaginationRequest();
+
+        paginationRequest.setCurrentPage(page);
+        paginationRequest.setPageSize(pageSize);
+
+        Map<String, Object> searchParams = new HashedMap();
+        searchParams.put("EQ_status", StatusEnum.ENABLED.getKey());
+        if (cateId > 0) {
+            searchParams.put("EQ_cateId", cateId);
+        }
+        if (StringUtils.isNotEmpty(name)) {
+            searchParams.put("LIKE_name", name);
+        }
+
+        paginationRequest.setSearchParams(searchParams);
+        paginationRequest.setSortColumn(new String[]{"sort asc", "id desc"});
         PaginationResponse<GoodsDto> paginationResponse = goodsService.queryGoodsListByPagination(paginationRequest);
 
         return getSuccessResult(paginationResponse);
