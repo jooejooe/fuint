@@ -43,11 +43,11 @@ public class MtSendLog implements Serializable{
     @Column(name = "FILE_NAME", length = 100)
     private String fileName;
 
-       /**
-        * 导入excel文件路径
-        */
-       @Column(name = "FILE_PATH", length = 200)
-       private String filePath;
+    /**
+     * 导入excel文件路径
+     */
+    @Column(name = "FILE_PATH", length = 200)
+    private String filePath;
 
    /**
     * 用户手机 

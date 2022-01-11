@@ -143,6 +143,9 @@ public class SettlementController extends BaseController {
         orderDto.setOrderMode(orderMode);
         orderDto.setOperator(operator);
         orderDto.setPayType(payType);
+        orderDto.setUsePoint(usePoint);
+        orderDto.setPointAmount(new BigDecimal("0"));
+        orderDto.setDiscount(new BigDecimal("0"));
 
         // 预存卡的订单
         if (orderDto.getType().equals(OrderTypeEnum.PRESTORE.getKey())) {
