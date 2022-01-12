@@ -52,7 +52,7 @@ public class CartController extends BaseController {
     /**
      * 保存购物车
      */
-    @RequestMapping(value = "/save")
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
     @CrossOrigin
     public ResponseObject save(HttpServletRequest request, @RequestBody Map<String, Object> param) throws BusinessCheckException {
         String token = request.getHeader("Access-Token");
@@ -84,7 +84,7 @@ public class CartController extends BaseController {
     /**
      * 获取购物车列表
      */
-    @RequestMapping(value = "/list")
+    @RequestMapping(value = "/list", method = RequestMethod.POST)
     @CrossOrigin
     public ResponseObject list(HttpServletRequest request, @RequestBody Map<String, Object> params) throws BusinessCheckException {
         String token = request.getHeader("Access-Token");

@@ -6,6 +6,8 @@ import com.fuint.base.dao.pagination.PaginationResponse;
 import com.fuint.exception.BusinessCheckException;
 import com.fuint.application.dao.entities.MtUser;
 import com.alibaba.fastjson.JSONObject;
+
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -119,4 +121,9 @@ public interface MemberService {
      * 获取会员数量
      * */
     Long getUserCount() throws BusinessCheckException;
+
+    /**
+     * 获取会员数量
+     * */
+    Long getUserCount(Date beginTime, Date endTime) throws BusinessCheckException;
 }

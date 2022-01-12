@@ -8,6 +8,7 @@ import com.fuint.application.dao.entities.MtOrder;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 /**
  * mt_order Repository
@@ -22,7 +23,15 @@ public interface MtOrderRepository extends BaseRepository<MtOrder, Integer> {
     * @return
     */
    @Query("SELECT count(t.id) as num FROM MtOrder t")
-   Long getOrderCount();
+   BigDecimal getOrderCount();
+
+   /**
+    * 获取订单数量
+    *
+    * @return
+    */
+   @Query("SELECT count(t.id) as num FROM MtOrder t WHERE t.createTime <= :endTime and t.createTime >= :beginTime")
+   BigDecimal getOrderCount(@Param("beginTime") Date beginTime, @Param("endTime") Date endTime);
 
    /**
     * 根据订单号查询订单
@@ -33,11 +42,27 @@ public interface MtOrderRepository extends BaseRepository<MtOrder, Integer> {
    MtOrder findByOrderSn(@Param("orderSn") String orderSn);
 
    /**
-    * 获取订单支付总金额
+    * 获取订单支付金额
     *
     * @return
     */
    @Query("SELECT sum(t.amount) as num FROM MtOrder t where t.payStatus='B' and t.payTime <= :endTime and t.payTime >= :beginTime")
    BigDecimal getPayMoney(@Param("beginTime") Date beginTime, @Param("endTime") Date endTime);
+
+   /**
+    * 获取订单支付总金额
+    *
+    * @return
+    */
+   @Query("SELECT sum(t.amount) as num FROM MtOrder t where t.payStatus='B'")
+   BigDecimal getPayMoney();
+
+   /**
+    * 获取订单支付人数
+    *
+    * @return
+    */
+   @Query("SELECT COUNT(DISTINCT t.userId) as num FROM MtOrder t where t.payStatus='B'")
+   Integer getPayUserCount();
 }
 

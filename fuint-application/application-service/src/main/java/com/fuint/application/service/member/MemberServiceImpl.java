@@ -8,7 +8,6 @@ import com.fuint.base.annoation.OperationServiceLog;
 import com.fuint.base.dao.pagination.PaginationRequest;
 import com.fuint.base.dao.pagination.PaginationResponse;
 import com.fuint.exception.BusinessCheckException;
-import com.fuint.exception.BusinessRuntimeException;
 import com.fuint.application.dao.entities.MtUser;
 import com.fuint.application.dao.repositories.MtUserRepository;
 import com.fuint.application.enums.StatusEnum;
@@ -25,8 +24,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.alibaba.fastjson.JSONObject;
 import java.math.BigDecimal;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -430,5 +427,13 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public Long getUserCount() {
         return userRepository.getUserCount();
+    }
+
+    /**
+     * 获取会员数量
+     * */
+    @Override
+    public Long getUserCount(Date beginTime, Date endTime) {
+        return userRepository.getUserCount(beginTime, endTime);
     }
 }

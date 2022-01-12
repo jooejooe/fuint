@@ -6,8 +6,8 @@ import com.fuint.application.service.confirmlog.ConfirmLogService;
 import com.fuint.application.service.member.MemberService;
 import com.fuint.application.service.order.OrderService;
 import com.fuint.application.dto.UserOrderDto;
-import com.fuint.application.service.refund.RefundService;
 import com.fuint.application.util.DateUtil;
+import com.fuint.application.util.TimeUtils;
 import com.fuint.exception.BusinessCheckException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -41,9 +42,6 @@ public class homeController {
     private OrderService orderService;
 
     @Autowired
-    private RefundService refundService;
-
-    @Autowired
     private ConfirmLogService confirmLogService;
 
     /**
@@ -56,28 +54,38 @@ public class homeController {
      */
     @RequestMapping(value = "/index")
     public String index(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException {
-        // 会员数
-        Long userCount = memberService.getUserCount();
-
-        // 订单数
-        Long orderCount = orderService.getOrderCount();
-
-        // 收款额
         Date beginTime = DateUtil.getDayBegin();
         Date endTime = DateUtil.getDayEnd();
-        BigDecimal totalPay = orderService.getPayMoney(beginTime, endTime);
 
-        // 总核销券数
-        Long confirmCount = confirmLogService.getConfirmCount(beginTime, endTime);
+        // 总会员数
+        Long totalUser = memberService.getUserCount();
+        // 今日新增会员数量
+        Long todayUser = memberService.getUserCount(beginTime, endTime);
 
-        // 售后订单
-        Long refundCount = refundService.getRefundCount(beginTime, endTime);
+        // 总订单数
+        BigDecimal totalOrder = orderService.getOrderCount();
+        // 今日订单数
+        BigDecimal todayOrder = orderService.getOrderCount(beginTime, endTime);
 
+        // 今日交易金额
+        BigDecimal todayPay = orderService.getPayMoney(beginTime, endTime);
+        // 总交易金额
+        BigDecimal totalPay = orderService.getPayMoney();
+
+        // 今日核销券数
+        Long todayConfirm = confirmLogService.getConfirmCount(beginTime, endTime);
+
+        // 总支付人数
+        Integer totalPayUser = orderService.getPayUserCount();
+
+        model.addAttribute("todayUser", todayUser);
+        model.addAttribute("totalUser", totalUser);
+        model.addAttribute("todayOrder", todayOrder);
+        model.addAttribute("totalOrder", totalOrder);
+        model.addAttribute("todayPay", todayPay);
         model.addAttribute("totalPay", totalPay);
-        model.addAttribute("totalOrder", orderCount);
-        model.addAttribute("totalMember", userCount);
-        model.addAttribute("confirmCount", confirmCount);
-        model.addAttribute("refundCount", refundCount);
+        model.addAttribute("todayConfirm", todayConfirm);
+        model.addAttribute("totalPayUser", totalPayUser);
 
         return "home/index";
     }
@@ -93,19 +101,26 @@ public class homeController {
     @RequestMapping(value = "/statistic")
     @ResponseBody
     public ResponseObject statistic(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException {
-        String tag = request.getParameter("tag");
+        ArrayList<String> days = TimeUtils.getDays(5);
+        days.add("昨天");
+        days.add("今天");
 
-        Map<String, Object> resultMap = new HashMap<>();
-        if (tag.equals("new_user,user_active")) {
-            int data[][] = {{100, 290, 300, 401, 680, 790, 902}, {10, 300, 420, 710, 880, 700, 500}};
-            resultMap.put("data", data);
-        } else {
-            int data[][] = {{52, 40, 30, 40, 68, 79, 72}, {10, 30, 40, 10, 88, 70, 80}};
-            resultMap.put("data", data);
+        BigDecimal[] orderCountData = {new BigDecimal("0"), new BigDecimal("0"), new BigDecimal("0"), new BigDecimal("0"), new BigDecimal("0"), new BigDecimal("0"), new BigDecimal("0")};
+        BigDecimal[] orderPayData = {new BigDecimal("0"), new BigDecimal("0"), new BigDecimal("0"), new BigDecimal("0"), new BigDecimal("0"), new BigDecimal("0"), new BigDecimal("0")};
+
+        for (int i = 0; i < 7; i++) {
+            Date beginTime = DateUtil.getDayBegin(i);
+            Date endTime = DateUtil.getDayEnd(i);
+            orderCountData[i] = orderService.getOrderCount(beginTime, endTime);
+             BigDecimal payMoney = orderService.getPayMoney(beginTime, endTime);
+            orderPayData[i] = payMoney == null ? new BigDecimal("0") : payMoney;
         }
 
-        String label[] = {"4月6日", "4月7日", "4月8日", "4月9日", "4月10日", "昨天", "今天"};
-        resultMap.put("labels", label);
+        Map<String, Object> resultMap = new HashMap<>();
+        BigDecimal data[][] = {orderCountData, orderPayData};
+
+        resultMap.put("data", data);
+        resultMap.put("labels", days);
 
         return new ResponseObject(FrameworkConstants.HTTP_RESPONSE_CODE_SUCCESS, "请求成功", resultMap);
     }
@@ -119,7 +134,7 @@ public class homeController {
      * @return
      */
     @RequestMapping(value = "/confirmCoupon")
-    public String confirmCoupon(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException {
+    public String confirmCoupon(HttpServletRequest request, HttpServletResponse response, Model model) {
         return "home/confirmCoupon";
     }
 

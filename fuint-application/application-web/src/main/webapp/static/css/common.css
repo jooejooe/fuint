@@ -111,16 +111,14 @@ ul,ol{padding:0;list-style:none;}
 /*数据内容区域 start*/
 .aw-content-wrap{margin:auto;padding:0 15px 20px;min-height:100%;height:auto;}
 .aw-content-wrap.active{margin-left: 0;}
-.aw-content-wrap .echart-date{margin-top:20px;padding-left:5px;}
+.aw-content-wrap .echart-date{margin-top:0px;padding-left:15px;clear: both;display: block;color:#333;height: 60px;}
 .aw-content-wrap .echart-date .nopadding{padding:0;line-height:36px;}
 .aw-content-wrap .mod-echat-info{margin-top:20px;padding: 0;}
 .aw-content-wrap .mod-echat-info .icon{background-color: #fff;color: #080808;line-height: 18px;}
 .aw-content-wrap .mod-double{margin-bottom:10px;}
 .aw-content-wrap .mod-double .icon-date{left: 20px;}
 .aw-content-wrap .date-seach{padding: 3px 10px}
-#main,#main2,#main3{height: 180px;border: 2px solid #fff; background: #fff!important;}
-#main:hover,#main2:hover,#main3:hover{border: 2px solid #00acac;}
-#main3{margin-top: 20px;height: 300px;}
+#main{min-height: 320px;border: 2px solid #fff; background: #fff!important;border: 1px solid #cccccc;}
 #sorttable thead td:first-child{cursor: inherit;}
 #sorttable thead td{cursor: pointer;}
 #sorttable .fa {width:inherit; height: inherit;border-radius: inherit;background: transparent; color: #000;text-align: inherit;line-height: inherit; }
@@ -156,7 +154,7 @@ textarea{resize:none;}
 .mod-content table thead th,.mod-content table tbody td{text-align:left;}
 #search{margin-top:25px;}
 .aw-content-wrap .icon-date{position:absolute;top:5px;left:20px;background:#00acac!important;}
-.aw-content-wrap .mod-data{padding:3px 0 0 20px;text-align: center;}
+.aw-content-wrap .mod-data{padding:3px 0 0 20px;text-align: center;font-weight: bold;}
 .aw-content-wrap input[type=radio],.aw-content-wrap input[type=checkbox]{margin-right:5px;}
 .aw-content-wrap .tab-content th{border:none;color:#000;font-weight:400;}
 .aw-content-wrap table > tfoot > tr > td{padding-top:18px;padding-bottom:0;}
@@ -352,7 +350,6 @@ label,.aw-content-wrap .mod-title,.aw-article-list b,.aw-question-list b{font-we
     .mod-user{top:36px}
     #integral_form .btn-primary{margin: 20px 0 0 15px}
     .aw-content-wrap{margin:70px 5px 0 5px;padding:0;}
-    #main2 {clear: both;}
     .aw-content-wrap .col-xs-offset-1{margin-left: 0;}
     .aw-side ul li a{padding-left:0;}
     .aw-content-wrap .mod-double{margin-bottom:10px;}
@@ -434,4 +431,28 @@ label,.aw-content-wrap .mod-title,.aw-article-list b,.aw-question-list b{font-we
     padding-left:5px;
     border: solid 1px #ccc;
     overflow: hidden;
+}
+.general tr{
+    height: 100px;
+    cursor: pointer;
+}
+.general .txt {
+    margin-top: 15px;
+    text-indent: 10px;
+}
+.general .number {
+    font-weight: bold;
+    text-indent: 10px;
+    font-size: 18px;
+    color: #ff5b57;
+}
+.general .e-icon{
+    margin-top: 15px;
+    height: 40px;
+    width: 40px;
+    display: block;
+    padding: 5px;
+    float: left;
+    border: solid #8a8a8a 1px;
+    border-radius: 30px;
 }

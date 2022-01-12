@@ -559,16 +559,40 @@ public class OrderServiceImpl extends BaseService implements OrderService {
      * 获取订单数量
      * */
     @Override
-    public Long getOrderCount() throws BusinessCheckException {
+    public BigDecimal getOrderCount() throws BusinessCheckException {
         return orderRepository.getOrderCount();
+    }
+
+    /**
+     * 获取订单数量
+     * */
+    @Override
+    public BigDecimal getOrderCount(Date beginTime, Date endTime) throws BusinessCheckException {
+        return orderRepository.getOrderCount(beginTime, endTime);
+    }
+
+    /**
+     * 获取支付金额
+     * */
+    @Override
+    public BigDecimal getPayMoney(Date beginTime, Date endTime) {
+        return orderRepository.getPayMoney(beginTime, endTime);
+    }
+
+    /**
+     * 获取支付人数
+     * */
+    @Override
+    public Integer getPayUserCount() {
+        return orderRepository.getPayUserCount();
     }
 
     /**
      * 获取支付总金额
      * */
     @Override
-    public BigDecimal getPayMoney(Date beginTime, Date endTime) {
-        return orderRepository.getPayMoney(beginTime, endTime);
+    public BigDecimal getPayMoney() {
+        return orderRepository.getPayMoney();
     }
 
     /**

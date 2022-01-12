@@ -73,7 +73,12 @@ public interface OrderService {
     /**
      * 获取订单总数
      * */
-    Long getOrderCount() throws BusinessCheckException;
+    BigDecimal getOrderCount() throws BusinessCheckException;
+
+    /**
+     * 获取订单数量
+     * */
+    BigDecimal getOrderCount(Date beginTime, Date endTime) throws BusinessCheckException;
 
     /**
      * 计算商品购物车
@@ -84,4 +89,14 @@ public interface OrderService {
      * 获取支付金额
      * */
     BigDecimal getPayMoney(Date beginTime, Date endTime) throws BusinessCheckException;
+
+    /**
+     * 获取支付人数
+     * */
+    Integer getPayUserCount() throws BusinessCheckException;
+
+    /**
+     * 获取支付金额
+     * */
+    BigDecimal getPayMoney() throws BusinessCheckException;
 }

@@ -3,6 +3,8 @@ package com.fuint.application.util;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * 时间相关的工具类
@@ -77,5 +79,31 @@ public class TimeUtils {
     public static String formatDate(Date date, String format){
         SimpleDateFormat sdf = new SimpleDateFormat(format);
         return sdf.format(date);
+    }
+
+    /**
+     * 获取过去几天内的日期数组
+     * @param intervals      intervals天内
+     * @return              日期数组
+     */
+    public static ArrayList<String> getDays(int intervals) {
+        ArrayList<String> pastDaysList = new ArrayList<>();
+        for (int i = intervals -1; i >= 0; i--) {
+            pastDaysList.add(getPastDate((i + 2)));
+        }
+        return pastDaysList;
+    }
+    /**
+     * 获取过去第几天的日期
+     * @param past
+     * @return
+     */
+    public static String getPastDate(int past) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DAY_OF_YEAR, calendar.get(Calendar.DAY_OF_YEAR) - past);
+        Date today = calendar.getTime();
+        SimpleDateFormat format = new SimpleDateFormat("MM月dd日");
+        String result = format.format(today);
+        return result;
     }
 }

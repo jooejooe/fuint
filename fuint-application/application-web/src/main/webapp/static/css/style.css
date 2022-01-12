@@ -190,23 +190,24 @@ p, h1, h2, h3, h4, input {
     color:orange;
 }
 .home-tools {
-    min-height: 205px;
+    min-height: 90px;
 }
 .home-tools .item{
     height: 80px;
-    padding: 12px 10px 10px 50px;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
     cursor: pointer;
     font-weight: bold;
     color: #666666;
-    border: #00acac solid 2px;
     border-radius: 6px;
-}
-.home-tools .payment{
+    float: left;
+    width: 33.33%;
     background: #ffffff;
 }
-.home-tools .coupon{
-    background: #ffffff;
+.home-tools .item .do{
+    border: #cccccc solid 1px;
+    padding: 12px 10px 10px 20px;
+    margin: 10px;
+    border-radius: 5px;
 }
 .home-tools .t-icon{
     width: 50px;

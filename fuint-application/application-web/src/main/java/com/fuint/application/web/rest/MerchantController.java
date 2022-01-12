@@ -86,7 +86,7 @@ public class MerchantController extends BaseController {
         outParams.put("userCount", userCount);
 
         // 订单数
-        Long orderCount = orderService.getOrderCount();
+        BigDecimal orderCount = orderService.getOrderCount();
         outParams.put("orderCount", orderCount);
 
         // 核销券数
