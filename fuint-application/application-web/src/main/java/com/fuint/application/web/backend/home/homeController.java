@@ -72,8 +72,8 @@ public class homeController {
         // 总交易金额
         BigDecimal totalPay = orderService.getPayMoney();
 
-        // 今日核销券数
-        Long todayConfirm = confirmLogService.getConfirmCount(beginTime, endTime);
+        // 今日活跃会员数
+        Long todayActiveUser = memberService.getActiveUserCount(beginTime, endTime);
 
         // 总支付人数
         Integer totalPayUser = orderService.getPayUserCount();
@@ -84,7 +84,7 @@ public class homeController {
         model.addAttribute("totalOrder", totalOrder);
         model.addAttribute("todayPay", todayPay);
         model.addAttribute("totalPay", totalPay);
-        model.addAttribute("todayConfirm", todayConfirm);
+        model.addAttribute("todayActiveUser", todayActiveUser);
         model.addAttribute("totalPayUser", totalPayUser);
 
         return "home/index";

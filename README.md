@@ -26,7 +26,7 @@ Fuint侧重于线下实体店的私域流量的运营，帮助商户降低获客
 后端：JAVA（springMvc + mybatis） + MYSQL + Redis
 前端：采用基于Vue的uni-app，前后端分离，支持微信小程序、支付宝小程、h5等
 <p><img src="screenshots/login.png" alt="卡券登录界面"></p>
-<p><img src="screenshots/homeV1.png" alt="首页"></p>
+<p><img src="screenshots/homeV2.png" alt="首页"></p>
 
 前端使用技术<br>
 2.1 Vue<br>

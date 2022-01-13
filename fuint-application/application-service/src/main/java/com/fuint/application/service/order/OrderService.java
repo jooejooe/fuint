@@ -20,7 +20,7 @@ public interface OrderService {
 
     /**
      * 获取用户的订单
-     * @param paramMap 查询参数
+     * @param paramMap
      * @throws BusinessCheckException
      * */
     ResponseObject getUserOrderList(Map<String, Object> paramMap) throws BusinessCheckException;
