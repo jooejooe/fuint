@@ -83,7 +83,15 @@ public interface MtUserRepository extends BaseRepository<MtUser, Integer> {
     *
     * @return
     */
-   @Query("SELECT sum(t.id) as num FROM MtUser t where t.status='A' and t.createTime <= :endTime and t.createTime >= :beginTime")
+   @Query("SELECT count(t.id) as num FROM MtUser t where t.status='A' and t.createTime <= :endTime and t.createTime >= :beginTime")
    Long getUserCount(@Param("beginTime") Date beginTime, @Param("endTime") Date endTime);
+
+   /**
+    * 获取活跃会员总数
+    *
+    * @return
+    */
+   @Query("SELECT count(t.id) as num FROM MtUser t where t.status='A' and t.updateTime <= :endTime and t.updateTime >= :beginTime")
+   Long getActiveUserCount(@Param("beginTime") Date beginTime, @Param("endTime") Date endTime);
 }
 

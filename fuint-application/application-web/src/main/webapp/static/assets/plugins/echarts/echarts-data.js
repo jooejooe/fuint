@@ -5,38 +5,39 @@ $(function () {
     /**
      * 禁止日历框输入
      */
+
     $('.date-end,.date-start').bind("keydown",function(){
         return false
     })
-    
+
     $('.aw-content-wrap').find('.date-start').val(dateArr[1]);
     $('.aw-content-wrap').find('.date-end').val(dateArr[0]);
 
     // 图表数据接入
-    var echart = new Echarts('#main', 'line', '/fuint-application/backend/home/statistic?tag=order,payment&start_date=' + dateArr[3] + '&end_date=' + dateArr[2]);
-
+    var echart = new Echarts('#main', 'line', '/fuint-application/backend/home/statistic?tag=order,user_active&start_date=' + dateArr[3] + '&end_date=' + dateArr[2]);
+    var echart2 = new Echarts('#main1', 'line', '/fuint-application/backend/home/statistic?tag=payment&start_date=' + dateArr[3] + '&end_date=' + dateArr[2]);
 
     // 左侧菜单收缩重新渲染图表
-    $('.aw-header .mod-head-btn').click(function()
-    {       
-        echart.render();
-    });
-
-
-    window.addEventListener("orientationchange", function()
+    $('.aw-header .mod-head-btn').click(function ()
     {
         echart.render();
+        echart2.render();
+    });
+
+    window.addEventListener("orientationchange", function ()
+    {
+        echart.render();
+        echart2.render();
     }, false);
 
     var oEchart = $('.echart-date');
 
-    for (var i = 0, j = oEchart.length; i < j; i++) 
+    for (var i = 0, j = oEchart.length; i < j; i++)
     {
         (function (i) {
             oEchart[i].onclick = function (ev) {
                 var ev = ev || window.event;
                 var target = ev.targe || ev.srcElement;
-
                 if (ev.target.nodeName.toLocaleLowerCase() == "a") {
                     var start_date = $(this).find('.date-start').val(),
                         end_date = $(this).find('.date-end').val(),
@@ -106,7 +107,6 @@ function getDate() {
 
 
 function Echarts(element, type, url, options) {
-
     this.element = element;
     this.type = type;
     this.url = url;
@@ -128,11 +128,9 @@ function Echarts(element, type, url, options) {
             splitLine: {
                 show: false,
             },
-
             axisLine: {
                 show: false
             },
-
             splitLine: {
                 show: true,
                 lineStyle: {
@@ -146,13 +144,11 @@ function Echarts(element, type, url, options) {
     };
 
     this.options = $.extend(this.options, options);
-
     this.initChart(url);
 }
 
 Echarts.prototype = {
     // 图表初始化
-
     initChart: function (url) {
         this.getData(url);
     },
@@ -165,7 +161,6 @@ Echarts.prototype = {
                 splitLine: {
                     show: false,
                 },
-
                 axisLine: {
                     show: false
                 },
@@ -242,11 +237,14 @@ Echarts.prototype = {
 
         for (var i = 0; i < param.length; i++) {
             switch (param[i]) {
-            case 'order':
-                arr.push('订单数');
-                break;
-            case 'payment':
-                    arr.push('成交金额');
+                case 'user_active':
+                    arr.push('活跃会员数');
+                    break;
+                case 'order':
+                    arr.push('订单数');
+                    break;
+                case 'payment':
+                    arr.push('交易金额');
                     break;
             }
         }

@@ -118,7 +118,11 @@ ul,ol{padding:0;list-style:none;}
 .aw-content-wrap .mod-double{margin-bottom:10px;}
 .aw-content-wrap .mod-double .icon-date{left: 20px;}
 .aw-content-wrap .date-seach{padding: 3px 10px}
-#main{min-height: 320px;border: 2px solid #fff; background: #fff!important;border: 1px solid #cccccc;}
+.chart-mod {
+    min-height: 400px;
+}
+#main{height: 350px;border: 2px solid #fff;padding: 20px; background: #fff!important;border: 1px solid #cccccc;}
+#main1{height: 350px;border: 2px solid #fff;padding: 20px; background: #fff!important;border: 1px solid #cccccc;}
 #sorttable thead td:first-child{cursor: inherit;}
 #sorttable thead td{cursor: pointer;}
 #sorttable .fa {width:inherit; height: inherit;border-radius: inherit;background: transparent; color: #000;text-align: inherit;line-height: inherit; }

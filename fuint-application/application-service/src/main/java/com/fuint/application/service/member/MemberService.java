@@ -126,4 +126,9 @@ public interface MemberService {
      * 获取会员数量
      * */
     Long getUserCount(Date beginTime, Date endTime) throws BusinessCheckException;
+
+    /**
+     * 获取活跃会员数量
+     * */
+    Long getActiveUserCount(Date beginTime, Date endTime) throws BusinessCheckException;
 }

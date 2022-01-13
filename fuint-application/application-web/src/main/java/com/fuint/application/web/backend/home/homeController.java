@@ -101,25 +101,38 @@ public class homeController {
     @RequestMapping(value = "/statistic")
     @ResponseBody
     public ResponseObject statistic(HttpServletRequest request, HttpServletResponse response, Model model) throws BusinessCheckException {
+        String tag = request.getParameter("tag") == null ? "order,user_active" : request.getParameter("tag");
+
         ArrayList<String> days = TimeUtils.getDays(5);
         days.add("昨天");
         days.add("今天");
 
-        BigDecimal[] orderCountData = {new BigDecimal("0"), new BigDecimal("0"), new BigDecimal("0"), new BigDecimal("0"), new BigDecimal("0"), new BigDecimal("0"), new BigDecimal("0")};
-        BigDecimal[] orderPayData = {new BigDecimal("0"), new BigDecimal("0"), new BigDecimal("0"), new BigDecimal("0"), new BigDecimal("0"), new BigDecimal("0"), new BigDecimal("0")};
+        Map<String, Object> resultMap = new HashMap<>();
+        if (tag.equals("payment")) {
+            BigDecimal[] orderPayData = {new BigDecimal("0"), new BigDecimal("0"), new BigDecimal("0"), new BigDecimal("0"), new BigDecimal("0"), new BigDecimal("0"), new BigDecimal("0")};
+            for (int i = 0; i < 7; i++) {
+                Date beginTime = DateUtil.getDayBegin((7 - i));
+                Date endTime = DateUtil.getDayEnd((7 - i));
+                BigDecimal payMoney = orderService.getPayMoney(beginTime, endTime);
+                orderPayData[i] = payMoney == null ? new BigDecimal("0") : payMoney;
+            }
+            BigDecimal data[][] = { orderPayData };
+            resultMap.put("data", data);
+        } else {
+            BigDecimal[] orderCountData = {new BigDecimal("0"), new BigDecimal("0"), new BigDecimal("0"), new BigDecimal("0"), new BigDecimal("0"), new BigDecimal("0"), new BigDecimal("0")};
+            BigDecimal[] userCountData = {new BigDecimal("0"), new BigDecimal("0"), new BigDecimal("0"), new BigDecimal("0"), new BigDecimal("0"), new BigDecimal("0"), new BigDecimal("0")};
 
-        for (int i = 0; i < 7; i++) {
-            Date beginTime = DateUtil.getDayBegin(i);
-            Date endTime = DateUtil.getDayEnd(i);
-            orderCountData[i] = orderService.getOrderCount(beginTime, endTime);
-             BigDecimal payMoney = orderService.getPayMoney(beginTime, endTime);
-            orderPayData[i] = payMoney == null ? new BigDecimal("0") : payMoney;
+            for (int i = 0; i < 7; i++) {
+                Date beginTime = DateUtil.getDayBegin((6 - i));
+                Date endTime = DateUtil.getDayEnd((6 - i));
+                orderCountData[i] = orderService.getOrderCount(beginTime, endTime);
+                Long userCount = memberService.getActiveUserCount(beginTime, endTime);
+                userCountData[i] = new BigDecimal(userCount);
+            }
+            BigDecimal data[][] = { orderCountData, userCountData };
+            resultMap.put("data", data);
         }
 
-        Map<String, Object> resultMap = new HashMap<>();
-        BigDecimal data[][] = {orderCountData, orderPayData};
-
-        resultMap.put("data", data);
         resultMap.put("labels", days);
 
         return new ResponseObject(FrameworkConstants.HTTP_RESPONSE_CODE_SUCCESS, "请求成功", resultMap);

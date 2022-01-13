@@ -436,4 +436,12 @@ public class MemberServiceImpl implements MemberService {
     public Long getUserCount(Date beginTime, Date endTime) {
         return userRepository.getUserCount(beginTime, endTime);
     }
+
+    /**
+     * 获取会员数量
+     * */
+    @Override
+    public Long getActiveUserCount(Date beginTime, Date endTime) {
+        return userRepository.getActiveUserCount(beginTime, endTime);
+    }
 }
